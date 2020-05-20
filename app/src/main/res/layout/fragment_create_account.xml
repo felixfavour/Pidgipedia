@@ -210,7 +210,7 @@
 
             <ImageButton
                 android:id="@+id/backButton"
-                style="@android:style/Widget.Material.Light.ImageButton"
+                style="@android:style/Widget.Material.ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
