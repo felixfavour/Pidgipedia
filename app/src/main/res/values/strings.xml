@@ -17,4 +17,16 @@
     <string name="onboarding_quiz_desc">Test your knowledge by attempting various questions.</string>
     <string name="onboarding_rewards_desc">Challenge yourself with numerous badges unclaimed.</string>
     <string name="start">Start</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="retrieve_a_forgotten_password">Retrieve a forgotten password</string>
+    <string name="enter_email_first">Enter email first,</string>
+    <string name="create_an_account_instead">Create an Account Instead</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="log_in">Log In</string>
+    <string name="proceed">Proceed</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="location">Location</string>
+    <string name="date_of_birth">Date of Birth</string>
 </resources>

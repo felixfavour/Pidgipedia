@@ -23,4 +23,9 @@
         <item name="android:textSize">@dimen/large_text</item>
     </style>
 
+    <style name="whiteButtonLogin" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@color/primaryWhiteColor</item>
+        <item name="strokeColor">@color/primaryColorLight</item>
+    </style>
+
 </resources>

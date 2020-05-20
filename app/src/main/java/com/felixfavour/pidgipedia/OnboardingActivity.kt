@@ -32,8 +32,8 @@ class OnboardingActivity : AppCompatActivity() {
                 0 -> onboardingViewpager.setCurrentItem(1, true)
                 1 -> onboardingViewpager.setCurrentItem(2, true)
                 2 -> {
-                    val mainActivityIntent = Intent(this, MainActivity::class.java)
-                    startActivity(mainActivityIntent)
+                    val activityIntent = Intent(this, AuthenticationActivity::class.java)
+                    startActivity(activityIntent)
                 }
             }
         }
