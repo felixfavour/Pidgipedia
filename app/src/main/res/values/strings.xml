@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Pidgipedia</string>
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_quiz">Quiz</string>
+    <string name="word_of_the_day_channel">Word Of The Day</string>
+    <string name="rank_promotion_channel">Rank Promotion</string>
+    <string name="comments_channel">Comments</string>
+    <string name="words_approved_channel">Words Approved</string>
+    <string name="pidgipedia_news_channel">Miscellaneous News</string>
+    <string name="pidgipedia_news_channel_desc">Get Notifications about offers, promotions and tips.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="more_tori">More Tori</string>
+    <string name="onboarding_contribution_desc">Contributing to a global vocabulary for you and with you.</string>
+    <string name="onboarding_quiz_desc">Test your knowledge by attempting various questions.</string>
+    <string name="onboarding_rewards_desc">Challenge yourself with numerous badges unclaimed.</string>
+    <string name="start">Start</string>
+</resources>

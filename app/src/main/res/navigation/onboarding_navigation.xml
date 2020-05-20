@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_navigation.xml"
+    app:startDestination="@id/onboardContributingFragment">
+
+    <fragment
+        android:id="@+id/onboardContributingFragment"
+        android:name="com.felixfavour.pidgipedia.ui.onboarding.OnboardContributingFragment"
+        android:label="fragment_onboard_contributing"
+        tools:layout="@layout/fragment_onboard_contributing" >
+        <action
+            android:id="@+id/action_onboardContributingFragment_to_onboardQuizFragment"
+            app:destination="@id/onboardQuizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onboardQuizFragment"
+        android:name="com.felixfavour.pidgipedia.OnboardQuizFragment"
+        android:label="fragment_onboard_quiz"
+        tools:layout="@layout/fragment_onboard_quiz" >
+        <action
+            android:id="@+id/action_onboardQuizFragment_to_onboardRewardsFragment"
+            app:destination="@id/onboardRewardsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onboardRewardsFragment"
+        android:name="com.felixfavour.pidgipedia.OnboardRewardsFragment"
+        android:label="fragment_onboard_rewards"
+        tools:layout="@layout/fragment_onboard_rewards" />
+</navigation>
