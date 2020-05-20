@@ -5,22 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.felixfavour.pidgipedia.R
+import com.felixfavour.pidgipedia.databinding.FragmentQuizBinding
 
 class QuizFragment : Fragment() {
 
     private lateinit var quizViewModel: QuizViewModel
+    private lateinit var binding: FragmentQuizBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        quizViewModel = ViewModelProviders.of(this).get(QuizViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_quiz, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        quizViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_quiz, container, false)
+        return binding.root
     }
 }

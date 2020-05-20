@@ -3,23 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_dictionary">
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.felixfavour.pidgipedia.ui.dictionary.DictionaryFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_search" />
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
         android:name="com.felixfavour.pidgipedia.ui.home.HomeFragment"
-        android:label="@string/title_search"
-        tools:layout="@layout/fragment_home" />
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_dictionary" >
+        <action
+            android:id="@+id/action_navigation_home_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_navigation_home_to_profileActivity"
+            app:destination="@id/profileActivity" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_dictionary"
+        android:name="com.felixfavour.pidgipedia.ui.dictionary.DictionaryFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_dictionary_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_navigation_dictionary_to_profileActivity"
+            app:destination="@id/profileActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_quiz"
         android:name="com.felixfavour.pidgipedia.ui.quiz.QuizFragment"
         android:label="@string/title_quiz"
-        tools:layout="@layout/fragment_quiz" />
+        tools:layout="@layout/fragment_quiz" >
+        <action
+            android:id="@+id/action_navigation_quiz_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_navigation_quiz_to_profileActivity"
+            app:destination="@id/profileActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/profileActivity"
+        android:name="com.felixfavour.pidgipedia.ProfileActivity"
+        android:label="activity_profile"
+        tools:layout="@layout/activity_profile" />
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.felixfavour.pidgipedia.SettingsActivity"
+        android:label="activity_settings"
+        tools:layout="@layout/activity_settings" />
 </navigation>
