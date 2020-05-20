@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.felixfavour.pidgipedia.databinding.FragmentLoginBinding
 
 /**
@@ -20,6 +21,15 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater, R.layout.fragment_login, container ,false)
+
+        //Navigations
+        binding.createAccount.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCreateAccountFragment())
+        }
+
+        binding.login.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToMainActivity())
+        }
 
         return binding.root
     }

@@ -36,7 +36,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/language" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+                android:id="@+id/textInputLayout_email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout2"
+                android:id="@+id/textInputLayout_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 app:passwordToggleEnabled="true"
                 android:layout_width="0dp"
@@ -72,7 +72,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_email">
 
                 <EditText
                     android:id="@+id/editText2"
@@ -87,7 +87,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/forgot_password"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/login" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/google_auth"
                 style="@style/whiteButtonLogin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
 
             <Button
                 android:id="@+id/create_account"
@@ -129,7 +129,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/divider"
                 android:layout_width="0dp"
                 android:layout_height="10dp"
                 android:layout_marginStart="16dp"
@@ -139,7 +139,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button" />
+                app:layout_constraintTop_toBottomOf="@+id/forgot_password" />
 
             <Button
                 android:id="@+id/login"
@@ -150,12 +150,14 @@
                 android:layout_marginEnd="16dp"
                 android:drawableEnd="@drawable/chevron_right"
                 android:drawableTint="@color/primaryWhiteColor"
+                android:paddingTop="8dp"
+                android:gravity="start"
                 android:text="@string/log_in"
                 android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout_password" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
