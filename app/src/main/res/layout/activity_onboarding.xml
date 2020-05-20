@@ -18,21 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/onboardingButton"
-        style="@style/OnboardingButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/onboarding_margin_horizontal_vertical"
-        android:layout_marginEnd="@dimen/onboarding_margin_horizontal_vertical"
-        android:paddingVertical="8dp"
-        android:text="@string/more_tori"
-        android:textColor="@color/primaryColorLight"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ProgressBar
         android:id="@+id/onboardingProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
@@ -43,6 +28,23 @@
         android:layout_marginBottom="24dp"
         android:progressTint="@color/primaryWhiteColor"
         app:layout_constraintBottom_toTopOf="@+id/onboardingButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/onboardingButton"
+        style="@style/OnboardingButton"
+        android:gravity="start"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/primaryWhiteColor"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/onboarding_margin_horizontal_vertical"
+        android:layout_marginEnd="@dimen/onboarding_margin_horizontal_vertical"
+        android:paddingVertical="8dp"
+        android:text="@string/more_tori"
+        android:textColor="@color/primaryColorLight"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />

@@ -11,6 +11,7 @@
     </style>
 
     <style name="OnboardingButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primaryWhiteColor</item>
         <item name="android:layout_marginStart">@dimen/onboarding_margin_horizontal_vertical</item>
         <item name="android:layout_marginEnd">@dimen/onboarding_margin_horizontal_vertical</item>
         <item name="android:layout_marginBottom">32dp</item>
