@@ -20,7 +20,11 @@ class DictionaryFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_dictionary, container, false)
         setHasOptionsMenu(true)
 
+        // Hide SearchView by default
         binding.wordSearchView.visibility = View.GONE
+
+        // RecyclerView
+        binding.recentSearchesList
 
         return binding.root
     }

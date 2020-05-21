@@ -9,5 +9,6 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_profile)
+        setSupportActionBar(findViewById(R.id.profile_toolbar))
     }
 }

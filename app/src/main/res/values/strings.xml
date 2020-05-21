@@ -45,4 +45,6 @@
     <string name="high_score">High Score</string>
     <string name="recent_searches">Recent Searches</string>
     <string name="clear_all">Clear All</string>
+    <string name="badges">Badges</string>
+    <string name="approved_words">Approved Words</string>
 </resources>
