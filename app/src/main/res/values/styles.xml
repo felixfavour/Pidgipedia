@@ -33,6 +33,19 @@
         <item name="android:textSize">@dimen/large_text</item>
     </style>
 
+    <style name="QuizButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primaryColorDark</item>
+        <item name="android:layout_marginStart">@dimen/onboarding_margin_horizontal_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/onboarding_margin_horizontal_vertical</item>
+        <item name="android:layout_marginBottom">32dp</item>
+        <item name="android:background">@drawable/onboarding_button</item>
+        <item name="drawableTint">@color/primaryColorLight</item>
+        <item name="fontFamily">@font/poppinsbold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">@dimen/large_text</item>
+    </style>
+
     <style name="whiteButtonLogin" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="backgroundTint">@color/primaryWhiteColor</item>
         <item name="strokeColor">@color/primaryColorLight</item>

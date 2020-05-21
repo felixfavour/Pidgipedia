@@ -39,4 +39,8 @@
     <string name="dismiss">Dismiss</string>
     <string name="suggest">Suggest</string>
     <string name="learn">Learn</string>
+    <string name="current">Current</string>
+    <string name="play">Play</string>
+    <string name="rank">Rank</string>
+    <string name="high_score">High Score</string>
 </resources>
