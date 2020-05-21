@@ -16,6 +16,12 @@ class OnboardingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
+
+
+        val intents = Intent(this, MainActivity::class.java)
+        startActivity(intents)
+
+
         setContentView(R.layout.activity_onboarding)
 
         // The color code matches the primaryLightColor resource

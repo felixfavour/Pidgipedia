@@ -38,25 +38,4 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
         return super.onCreateView(name, context, attrs)
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.basic_menu, menu)
-        menu?.forEach { item: MenuItem ->
-            item.setOnMenuItemClickListener {
-                when (item.itemId) {
-                    R.id.profile -> {
-                        val activityIntent = Intent(this, ProfileActivity::class.java)
-                        startActivity(activityIntent)
-                    }
-                    R.id.settings -> {
-                        val activityIntent = Intent(this, SettingsActivity::class.java)
-                        startActivity(activityIntent)
-                    }
-                }
-                false
-            }
-        }
-
-        return super.onCreateOptionsMenu(menu)
-    }
 }
