@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.felixfavour.pidgipedia.ProfileFragment"
-        android:label="fragment_profile"
+        android:name="com.felixfavour.pidgipedia.ui.profile.ProfileFragment"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_badgesFragment"
@@ -23,12 +23,12 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.felixfavour.pidgipedia.EditProfileFragment"
-        android:label="fragment_edit_profile"
+        android:name="com.felixfavour.pidgipedia.ui.profile.EditProfileFragment"
+        android:label="@string/edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/badgesFragment"
-        android:name="com.felixfavour.pidgipedia.BadgesFragment"
-        android:label="fragment_badges"
+        android:name="com.felixfavour.pidgipedia.ui.profile.BadgesFragment"
+        android:label="@string/badges"
         tools:layout="@layout/fragment_badges" />
 </navigation>

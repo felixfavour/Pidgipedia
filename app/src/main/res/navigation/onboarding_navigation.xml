@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/onboardQuizFragment"
-        android:name="com.felixfavour.pidgipedia.OnboardQuizFragment"
+        android:name="com.felixfavour.pidgipedia.ui.onboarding.OnboardQuizFragment"
         android:label="fragment_onboard_quiz"
         tools:layout="@layout/fragment_onboard_quiz" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/onboardRewardsFragment"
-        android:name="com.felixfavour.pidgipedia.OnboardRewardsFragment"
+        android:name="com.felixfavour.pidgipedia.ui.onboarding.OnboardRewardsFragment"
         android:label="fragment_onboard_rewards"
         tools:layout="@layout/fragment_onboard_rewards" />
 </navigation>

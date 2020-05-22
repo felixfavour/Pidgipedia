@@ -7,14 +7,24 @@
         android:layout_height="match_parent"
         tools:context=".ProfileActivity">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/profile_activity_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <fragment
-            android:id="@+id/nav_host_fragment"
+            android:id="@+id/profile_nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_activity_toolbar"
             app:navGraph="@navigation/profile_navigation"
-            tools:layout_editor_absoluteX="37dp" />
+            tools:layout_editor_absoluteX="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

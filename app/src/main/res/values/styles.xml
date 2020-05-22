@@ -20,6 +20,16 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
+    <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryColorDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/primaryColorDark</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
     <style name="OnboardingButton" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/primaryWhiteColor</item>
         <item name="android:layout_marginStart">@dimen/onboarding_margin_horizontal_vertical</item>
@@ -50,5 +60,14 @@
         <item name="backgroundTint">@color/primaryWhiteColor</item>
         <item name="strokeColor">@color/primaryColorLight</item>
     </style>
+
+    <style name="boldPoppins" parent="">
+        <item name="fontFamily">@font/poppinsbold</item>
+    </style>
+
+    <style name="mediumPoppins" parent="">
+        <item name="fontFamily">@font/poppinsmedium</item>
+    </style>
+
 
 </resources>

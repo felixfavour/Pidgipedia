@@ -47,4 +47,13 @@
     <string name="clear_all">Clear All</string>
     <string name="badges">Badges</string>
     <string name="approved_words">Approved Words</string>
+    <string name="dummy_bio">Student, Part-time Writer. The quick brown fox has never jumped over the lazy dog.</string>
+    <string name="full_name">Full Name</string>
+    <string name="bio">Bio</string>
+    <string name="activate_date_picker">Touch to activate Date Picker</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="dummy_person_text">Greta Thunberg</string>
+    <string name="delete_picture">Delete Picture</string>
+    <string name="add_picture_from_files">Add picture from Files</string>
+    <string name="add_picture_with_camera">Add picture with camera</string>
 </resources>

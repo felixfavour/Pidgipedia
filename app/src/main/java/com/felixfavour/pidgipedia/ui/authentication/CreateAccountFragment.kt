@@ -1,18 +1,19 @@
-package com.felixfavour.pidgipedia
+package com.felixfavour.pidgipedia.ui.authentication
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
-import androidx.collection.arrayMapOf
+import android.widget.DatePicker
 import androidx.core.view.children
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
+import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentCreateAccountBinding
-import com.google.android.material.textfield.TextInputLayout
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -24,7 +25,8 @@ class CreateAccountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_account, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_create_account, container, false)
 
         // Navigations
         // Create Account begins with first section
@@ -64,6 +66,21 @@ class CreateAccountFragment : Fragment() {
                     updateUI()
                 }
             }
+        }
+
+        // Activate Date Picker
+        val calendar = Calendar.getInstance()
+        val datePicker = DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, year: Int, month: Int, day: Int ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, day)
+
+            binding.dateOfBirth.setText("${formatDate(day)}-${formatDate(month+1)}-${formatDate(year)}")
+        }
+
+        binding.dateOfBirth.setOnClickListener {
+            DatePickerDialog(requireContext(), datePicker, calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
 
         return binding.root
@@ -184,9 +201,17 @@ class CreateAccountFragment : Fragment() {
     }
 
     private fun startWelcomeAnimation() {
-        val welcomeAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.welcome_anim)
+        val welcomeAnim = AnimationUtils.loadAnimation(requireContext(),
+            R.anim.welcome_anim
+        )
         binding.welcomeNoteLayout.visibility = View.VISIBLE
         binding.welcomeNoteLayout.startAnimation(welcomeAnim)
+    }
+
+    private fun formatDate(num: Int) : String {
+        if (num < 10)
+            return "0$num"
+        return num.toString()
     }
 
 }

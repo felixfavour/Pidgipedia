@@ -41,8 +41,8 @@
 
                     <ImageView
                         android:id="@+id/badge_100"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         app:srcCompat="@drawable/ic_badge_100" />
 
                 </androidx.cardview.widget.CardView>
@@ -63,8 +63,8 @@
 
                     <ImageView
                         android:id="@+id/badge_75"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         app:srcCompat="@drawable/ic_badge_75" />
 
                 </androidx.cardview.widget.CardView>
@@ -83,8 +83,8 @@
 
                     <ImageView
                         android:id="@+id/badge_50"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         app:srcCompat="@drawable/ic_badge_50" />
 
                 </androidx.cardview.widget.CardView>
@@ -105,8 +105,8 @@
 
                     <ImageView
                         android:id="@+id/badge_25"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         app:srcCompat="@drawable/ic_badge_25" />
 
                 </androidx.cardview.widget.CardView>
@@ -129,8 +129,8 @@
 
                     <ImageView
                         android:id="@+id/badge_20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         app:srcCompat="@drawable/ic_badge_20" />
 
                 </androidx.cardview.widget.CardView>
@@ -151,8 +151,8 @@
 
                     <ImageView
                         android:id="@+id/badge_10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         app:srcCompat="@drawable/ic_badge_10" />
 
                 </androidx.cardview.widget.CardView>
@@ -171,8 +171,8 @@
 
                     <ImageView
                         android:id="@+id/badge_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         app:srcCompat="@drawable/ic_badge_5" />
 
                 </androidx.cardview.widget.CardView>
@@ -193,8 +193,8 @@
 
                     <ImageView
                         android:id="@+id/badge_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         app:srcCompat="@drawable/ic_badge_2" />
 
                 </androidx.cardview.widget.CardView>
@@ -213,8 +213,8 @@
 
                     <ImageView
                         android:id="@+id/badge_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         app:srcCompat="@drawable/ic_badge_1" />
 
                 </androidx.cardview.widget.CardView>

@@ -155,7 +155,8 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/date_of_birth"
-                        android:inputType="date"
+                        android:inputType="none"
+                        android:focusable="false"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
 

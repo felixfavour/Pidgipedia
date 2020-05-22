@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
+import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.felixfavour.pidgipedia.ui.onboarding.OnboardingViewpagerAdapter
 
@@ -16,11 +17,6 @@ class OnboardingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
-
-
-        val intents = Intent(this, MainActivity::class.java)
-        startActivity(intents)
-
 
         setContentView(R.layout.activity_onboarding)
 

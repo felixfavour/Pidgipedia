@@ -11,5 +11,6 @@
     <color name="primaryGreyColor">#7D7D7D</color>
     <color name="secondaryGreyColor">#E4E7E8</color>
     <color name="primaryGreen">#00B743</color>
+    <color name="primaryRed">#D50000</color>
 
 </resources>

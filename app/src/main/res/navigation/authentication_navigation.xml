@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.felixfavour.pidgipedia.LoginFragment"
+        android:name="com.felixfavour.pidgipedia.ui.authentication.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/createAccountFragment"
-        android:name="com.felixfavour.pidgipedia.CreateAccountFragment"
+        android:name="com.felixfavour.pidgipedia.ui.authentication.CreateAccountFragment"
         android:label="fragment_create_account"
         tools:layout="@layout/fragment_create_account" >
         <action
