@@ -1,5 +1,6 @@
 package com.felixfavour.pidgipedia
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -7,15 +8,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
-import androidx.annotation.RequiresApi
-import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.felixfavour.pidgipedia.ui.onboarding.OnboardingViewpagerAdapter
 
 class OnboardingActivity : AppCompatActivity() {
 
+    companion object {
+        const val PREFERENCES = "MobotithePreferences"
+        const val PREFERENCE_KEY = "hasActivityBeenOpenedBefore"
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isActivityOpenedBefore(applicationContext)
         setTheme(R.style.AppTheme)
 
         setContentView(R.layout.activity_onboarding)
@@ -75,11 +81,27 @@ class OnboardingActivity : AppCompatActivity() {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             onboardingProgressBar.setProgress(100, true)
                         }
+                        val sharedPref = applicationContext.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+                        sharedPref.edit().putBoolean(PREFERENCE_KEY, true).apply()
                         onboardingProgressBar.progress = 100
                         nextSlide.text = getString(R.string.start)
                     }
                 }
             }
         })
+    }
+
+    /*
+    * Function to implement the Onboarding function.
+    * It makes this Activity Show once - only after installation
+    */
+    private fun isActivityOpenedBefore(applicationContext: Context) {
+        val sharedPref = applicationContext.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+        if (sharedPref.getBoolean(PREFERENCE_KEY, false)) {
+            val intent = Intent(applicationContext, AuthenticationActivity::class.java)
+            startActivity(intent)
+        } else {
+            sharedPref.edit().putBoolean(PREFERENCE_KEY, true).apply()
+        }
     }
 }

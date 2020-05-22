@@ -17,8 +17,8 @@
             android:id="@+id/action_settingsFragment_to_languageFragment"
             app:destination="@id/languageFragment" />
         <action
-            android:id="@+id/action_settingsFragment_to_profileFragment_settings"
-            app:destination="@id/profileFragment_settings" />
+            android:id="@+id/action_settingsFragment_to_profileActivity"
+            app:destination="@id/profileActivity" />
     </fragment>
     <fragment
         android:id="@+id/informationFragment"
@@ -30,9 +30,8 @@
         android:name="com.felixfavour.pidgipedia.LanguageFragment"
         android:label="@string/language"
         tools:layout="@layout/fragment_language" />
-    <fragment
-        android:id="@+id/profileFragment_settings"
-        android:name="com.felixfavour.pidgipedia.ui.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile"
-        android:label="@string/profile" />
+    <activity
+        android:id="@+id/profileActivity"
+        android:name="com.felixfavour.pidgipedia.ProfileActivity"
+        android:label="ProfileActivity" />
 </navigation>

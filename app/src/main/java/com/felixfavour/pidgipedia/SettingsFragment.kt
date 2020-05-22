@@ -27,7 +27,7 @@ class SettingsFragment : Fragment() {
 
         // NAVIGATIONS
         binding.goToProfile.setOnClickListener {
-            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToProfileFragmentSettings())
+            findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToProfileActivity())
         }
         binding.changeLanguage.setOnClickListener {
             findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToLanguageFragment())
@@ -41,7 +41,7 @@ class SettingsFragment : Fragment() {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.delete_account))
                 .setMessage(getString(R.string.delete_acct_message))
-                .setPositiveButton(getString(R.string.delete)) { dialogInterface: DialogInterface, i: Int ->
+                .setPositiveButton(getString(R.string.delete)) { _: DialogInterface, _: Int ->
                     deleteAccount()
                 }.setNegativeButton(getString(R.string.just_kidding), null).show()
         }
@@ -49,7 +49,7 @@ class SettingsFragment : Fragment() {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.delete_all_history))
                 .setMessage(getString(R.string.delete_history_message))
-                .setPositiveButton(getString(R.string.delete)) { dialogInterface: DialogInterface, i: Int ->
+                .setPositiveButton(getString(R.string.delete)) { _: DialogInterface, _: Int ->
                     deleteSearchHistories()
                 }.setNegativeButton(getString(R.string.just_kidding), null).show()
         }
@@ -57,7 +57,7 @@ class SettingsFragment : Fragment() {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.delete_all_bookmarks))
                 .setMessage(getString(R.string.delete_bookmarks_message))
-                .setPositiveButton(getString(R.string.delete)) { dialogInterface: DialogInterface, i: Int ->
+                .setPositiveButton(getString(R.string.delete)) { _: DialogInterface, _: Int ->
                     deleteAllBookmarks()
                 }.setNegativeButton(getString(R.string.just_kidding), null).show()
         }

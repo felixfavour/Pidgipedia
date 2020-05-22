@@ -25,5 +25,11 @@ class ProfileActivity : AppCompatActivity() {
 
         val navController = Navigation.findNavController(findViewById(R.id.profile_nav_host_fragment))
         setupActionBarWithNavController(navController)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 }
