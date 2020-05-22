@@ -59,20 +59,19 @@ class ProfileFragment : Fragment() {
     private fun bottomSheetUIActions() {
 
         // Click listener to activate originally hidden bottom sheet
-
         binding.profileToolbar.setOnMenuItemClickListener {
             bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
             false
         }
 
-
+        // Click on the Bottom Sheet Content Scrim to clear the bottom Sheet
         binding.bottomSheetShade.setOnClickListener {
             bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
         bottomSheet.addBottomSheetCallback(object: BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                // nothing yet
+                // nothing here
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {

@@ -56,4 +56,6 @@
     <string name="delete_picture">Delete Picture</string>
     <string name="add_picture_from_files">Add picture from Files</string>
     <string name="add_picture_with_camera">Add picture with camera</string>
+    <string name="information">Information</string>
+    <string name="language">Language</string>
 </resources>
