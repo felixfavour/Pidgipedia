@@ -22,21 +22,8 @@ class ProfileActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.profile_activity_toolbar)
         setSupportActionBar(toolbar)
-        toolbar.setNavigationIcon(R.drawable.arrow_back)
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
 
         val navController = Navigation.findNavController(findViewById(R.id.profile_nav_host_fragment))
-        val appBarConfig = AppBarConfiguration(setOf(
-            R.id.profileFragment,
-            R.id.editProfileFragment,
-            R.id.badgesFragment
-        ))
-        setupActionBarWithNavController(navController, appBarConfig)
-    }
-
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        return super.onCreateView(name, context, attrs)
+        setupActionBarWithNavController(navController)
     }
 }

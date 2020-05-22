@@ -58,4 +58,12 @@
     <string name="add_picture_with_camera">Add picture with camera</string>
     <string name="information">Information</string>
     <string name="language">Language</string>
+    <string name="graphics_and_images_credit">All illustrations and animations were designed by <b>Favour Felix</b> with elements from <b>freepik</b> and <b>pikisuperstar</b>.\nImages were gotten from Google Searches</string>
+    <string name="data_population">Data Population</string>
+    <string name="contact">Contact</string>
+    <string name="contact_contents">- felixfavour0@gmail.com \n- felix.esther.c@gmail.com \n- GitHub.com/felixfavour \n- naijaliingo.com</string>
+    <string name="data_population_credits">Initial data was supplied by <b>naijalingo.com</b> and reconstructed by <b>Esther Felix</b> with joint effort from <b>Favour Felix</b>.</string>
+    <string name="graphics_and_images">Graphics and Images</string>
+    <string name="pidgipedia_app">Pidgipedia App</string>
+    <string name="app_version">Version 1.0.0</string>
 </resources>
