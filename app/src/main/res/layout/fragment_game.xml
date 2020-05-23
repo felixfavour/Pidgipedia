@@ -1,0 +1,173 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/quiz_bg"
+        tools:context=".ui.quiz.QuizFragment">
+
+        <Button
+            android:id="@+id/go_to_next_question"
+            style="@style/QuizButton"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:text="@string/next"
+            android:textColor="@color/primaryWhiteColor"
+            app:cornerRadius="24dp"
+            app:icon="@drawable/chevron_right"
+            app:iconGravity="end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/question_countdown"
+            style="@style/QuizButton"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:text="30"
+            android:textColor="@color/primaryWhiteColor"
+            app:cornerRadius="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:iconGravity="start" />
+
+        <TextView
+            android:id="@+id/question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppinsbold"
+            android:text="A public yellow bus for transit, mostly found in Lagos, Nigeria."
+            android:textColor="@color/primaryTextColor"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_bg" />
+
+        <RadioGroup
+            android:id="@+id/answers_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/question">
+
+            <RadioButton
+                android:id="@+id/answer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/stroked_rounded_corner"
+                android:button="@drawable/radio_button"
+                android:checked="false"
+                android:fontFamily="@font/poppinsmedium"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Danfo"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/answer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/stroked_rounded_corner"
+                android:button="@drawable/radio_button"
+                android:fontFamily="@font/poppinsmedium"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Molue"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/answer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/stroked_rounded_corner"
+                android:button="@drawable/radio_button"
+                android:fontFamily="@font/poppinsmedium"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Taxi"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/answer4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stroked_rounded_corner"
+                android:button="@drawable/radio_button"
+                android:fontFamily="@font/poppinsmedium"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="BRT"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="24sp" />
+        </RadioGroup>
+
+        <ProgressBar
+            android:id="@+id/question_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:progress="80"
+            android:scaleY="13"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_bg"
+            app:layout_constraintEnd_toEndOf="@+id/progress_bg"
+            app:layout_constraintStart_toStartOf="@+id/progress_bg"
+            app:layout_constraintTop_toTopOf="@+id/progress_bg" />
+
+        <ImageView
+            android:id="@+id/progress_bg"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/just_borders"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/question_progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/poppinsbold"
+            android:text="@string/question_progress_string"
+            android:textColor="#FFF"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_bg"
+            app:layout_constraintEnd_toEndOf="@+id/progress_bg"
+            app:layout_constraintTop_toTopOf="@+id/progress_bg" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

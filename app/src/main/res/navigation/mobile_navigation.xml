@@ -21,5 +21,13 @@
         android:id="@+id/navigation_quiz"
         android:name="com.felixfavour.pidgipedia.ui.quiz.QuizFragment"
         android:label="@string/title_quiz"
-        tools:layout="@layout/fragment_quiz" />
+        tools:layout="@layout/fragment_quiz" >
+        <action
+            android:id="@+id/action_navigation_quiz_to_gameActivity"
+            app:destination="@id/gameActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/gameActivity"
+        android:name="com.felixfavour.pidgipedia.GameActivity"
+        android:label="GameActivity" />
 </navigation>
