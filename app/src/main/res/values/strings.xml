@@ -92,4 +92,6 @@
     <string name="just_kidding">Just Kidding</string>
     <string name="delete_bookmarks_message">Are you sure you want to delete all of your Bookmarks. This action is irreversible!</string>
     <string name="delete_history_message">Are you sure you want to delete all of your saved Search Histories, This action is irreversible!</string>
+    <string name="add_account">Add account</string>
+    <string name="words_awaiting_approval">Words awaiting Approval</string>
 </resources>

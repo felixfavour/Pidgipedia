@@ -2,10 +2,8 @@ package com.felixfavour.pidgipedia
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.app.DialogCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
@@ -24,6 +22,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
+        setHasOptionsMenu(true)
 
         // NAVIGATIONS
         binding.goToProfile.setOnClickListener {
@@ -64,6 +63,22 @@ class SettingsFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.settings_menu, menu)
+
+        menu.findItem(R.id.menu_add_account).setOnMenuItemClickListener {
+            addAccount()
+            false
+        }
+    }
+
+    /*
+    * MEthod to add Authentication to the app if the user has not been authenticated*/
+    private fun addAccount() {
+        TODO("Not yet implemented")
     }
 
     /*

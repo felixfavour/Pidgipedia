@@ -13,7 +13,6 @@
             android:animateLayoutChanges="true"
             tools:context=".ui.home.HomeFragment">
 
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/wordCard"
                 android:layout_width="0dp"
@@ -41,7 +40,6 @@
                         android:layout_marginTop="32dp"
                         android:fontFamily="@font/poppinsbold"
                         android:text="Danfo"
-                        android:foreground="?selectableItemBackground"
                         android:textColor="@color/primaryWhiteColor"
                         android:textSize="@dimen/word_text"
                         app:layout_constraintStart_toStartOf="parent"
@@ -167,6 +165,61 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/unapproved_words_card_container"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/primaryColorDark"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/suggest_word_card">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/unapproved_words_static_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/poppinsbold"
+                        android:text="@string/words_awaiting_approval"
+                        android:textColor="@color/primaryColorLight"
+                        android:textSize="@dimen/header_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/unapproved_words_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/unapproved_words_static_text"
+                        tools:listitem="@layout/unnaproved_word_item" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
