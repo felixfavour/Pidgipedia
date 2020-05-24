@@ -138,7 +138,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:progress="80"
             android:scaleY="13"
             app:layout_constraintBottom_toBottomOf="@+id/progress_bg"
             app:layout_constraintEnd_toEndOf="@+id/progress_bg"

@@ -93,10 +93,12 @@
                 android:layout_height="70dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
+                android:minWidth="40dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="@color/primaryWhiteColor"
                 app:cornerRadius="24dp"
                 app:icon="@drawable/home"
-                app:iconGravity="end"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:iconGravity="start" />

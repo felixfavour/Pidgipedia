@@ -18,5 +18,13 @@
         tools:layout="@layout/fragment_score_screen"
         android:id="@+id/scoreScreen2"
         android:name="com.felixfavour.pidgipedia.ScoreScreen"
-        android:label="ScoreScreen" />
+        android:label="ScoreScreen" >
+        <action
+            android:id="@+id/action_scoreScreen2_to_mainActivity2"
+            app:destination="@id/mainActivity2" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity2"
+        android:name="com.felixfavour.pidgipedia.MainActivity"
+        android:label="MainActivity" />
 </navigation>

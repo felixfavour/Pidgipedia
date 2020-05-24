@@ -15,7 +15,11 @@
         android:id="@+id/navigation_home"
         android:name="com.felixfavour.pidgipedia.ui.home.HomeFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_wordSuggestionFragment"
+            app:destination="@id/wordSuggestionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_quiz"
@@ -28,6 +32,12 @@
     </fragment>
     <activity
         android:id="@+id/gameActivity"
+        tools:layout="@layout/activity_game"
         android:name="com.felixfavour.pidgipedia.GameActivity"
         android:label="GameActivity" />
+    <fragment
+        android:id="@+id/wordSuggestionFragment"
+        android:name="com.felixfavour.pidgipedia.WordSuggestionFragment"
+        android:label=""
+        tools:layout="@layout/fragment_word_suggestion" />
 </navigation>

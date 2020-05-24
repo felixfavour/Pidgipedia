@@ -20,11 +20,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/home_toolbar_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout_editor_absoluteX="16dp">
 
                 <ImageView
+                    android:id="@+id/toolbar_logo"
                     android:layout_width="155dp"
                     android:layout_height="0dp"
                     android:tint="@color/primaryColor"

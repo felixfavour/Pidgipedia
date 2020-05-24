@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.felixfavour.pidgipedia.ProfileActivity
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.SettingsActivity
@@ -22,6 +23,11 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         setHasOptionsMenu(true)
+
+        // NAVIGATIONS
+        binding.suggest.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordSuggestionFragment())
+        }
 
         return binding.root
     }
