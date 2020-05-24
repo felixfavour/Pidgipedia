@@ -46,6 +46,9 @@ class HomeFragment : Fragment() {
                         val activityIntent = Intent(requireContext(), SettingsActivity::class.java)
                         startActivity(activityIntent)
                     }
+                    R.id.menu_bookmarks -> {
+                        findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToBookmarksFragment())
+                    }
                 }
                 false
             }

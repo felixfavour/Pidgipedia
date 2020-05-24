@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/wordFragment">
 
     <fragment
         android:id="@+id/navigation_dictionary"
         android:name="com.felixfavour.pidgipedia.ui.dictionary.DictionaryFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_dictionary" />
+        tools:layout="@layout/fragment_dictionary" >
+        <action
+            android:id="@+id/action_navigation_dictionary_to_wordFragment"
+            app:destination="@id/wordFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_home"
@@ -19,6 +23,12 @@
         <action
             android:id="@+id/action_navigation_home_to_wordSuggestionFragment"
             app:destination="@id/wordSuggestionFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_bookmarksFragment"
+            app:destination="@id/bookmarksFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_wordFragment"
+            app:destination="@id/wordFragment" />
     </fragment>
 
     <fragment
@@ -29,6 +39,9 @@
         <action
             android:id="@+id/action_navigation_quiz_to_gameActivity"
             app:destination="@id/gameActivity" />
+        <action
+            android:id="@+id/action_navigation_quiz_to_bookmarksFragment"
+            app:destination="@id/bookmarksFragment" />
     </fragment>
     <activity
         android:id="@+id/gameActivity"
@@ -40,4 +53,18 @@
         android:name="com.felixfavour.pidgipedia.WordSuggestionFragment"
         android:label=""
         tools:layout="@layout/fragment_word_suggestion" />
+    <fragment
+        android:id="@+id/bookmarksFragment"
+        android:name="com.felixfavour.pidgipedia.BookmarksFragment"
+        android:label="fragment_bookmarks"
+        tools:layout="@layout/fragment_bookmarks" >
+        <action
+            android:id="@+id/action_bookmarksFragment_to_wordFragment"
+            app:destination="@id/wordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wordFragment"
+        android:name="com.felixfavour.pidgipedia.WordFragment"
+        android:label="@string/word"
+        tools:layout="@layout/fragment_word" />
 </navigation>
