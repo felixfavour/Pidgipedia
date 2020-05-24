@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.felixfavour.pidgipedia.ProfileActivity
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.SettingsActivity
+import com.felixfavour.pidgipedia.WordOfTheDayActivity
 import com.felixfavour.pidgipedia.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -27,6 +28,13 @@ class HomeFragment : Fragment() {
         // NAVIGATIONS
         binding.suggest.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordSuggestionFragment())
+        }
+        binding.learnMore.setOnClickListener {
+            val intent = Intent(requireContext(), WordOfTheDayActivity::class.java)
+            startActivity(intent)
+        }
+        binding.wordOfTheDayCard.setOnClickListener {
+            binding.learnMore.performClick()
         }
 
         return binding.root

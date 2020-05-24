@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wod_navigation.xml"
+    app:startDestination="@id/wordOfTheDayWordFragment">
+
+    <fragment
+        android:id="@+id/wordOfTheDayWordFragment"
+        android:name="com.felixfavour.pidgipedia.WordOfTheDayWordFragment"
+        android:label="fragment_word_of_the_day_word"
+        tools:layout="@layout/fragment_word_of_the_day_word" >
+        <action
+            android:id="@+id/action_wordOfTheDayWordFragment_to_wordOfTheDayMeaningFragment2"
+            app:destination="@id/wordOfTheDayMeaningFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/wordOfTheDayMeaningFragment2"
+        android:name="com.felixfavour.pidgipedia.WordOfTheDayMeaningFragment"
+        android:label="fragment_word_of_the_day_meaning"
+        tools:layout="@layout/fragment_word_of_the_day_meaning" >
+        <action
+            android:id="@+id/action_wordOfTheDayMeaningFragment2_to_wordOfTheDayImageFragment"
+            app:destination="@id/wordOfTheDayImageFragment" />
+        <action
+            android:id="@+id/action_wordOfTheDayMeaningFragment2_to_wordOfTheDayWordFragment"
+            app:destination="@id/wordOfTheDayWordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wordOfTheDayImageFragment"
+        android:name="com.felixfavour.pidgipedia.WordOfTheDayImageFragment"
+        android:label="fragment_word_of_the_day_image"
+        tools:layout="@layout/fragment_word_of_the_day_image" >
+        <action
+            android:id="@+id/action_wordOfTheDayImageFragment_to_wordOfTheDayMeaningFragment2"
+            app:destination="@id/wordOfTheDayMeaningFragment2" />
+    </fragment>
+</navigation>

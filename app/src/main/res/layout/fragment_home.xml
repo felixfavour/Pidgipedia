@@ -14,7 +14,7 @@
             tools:context=".ui.home.HomeFragment">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/wordCard"
+                android:id="@+id/word_of_the_day_Card"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:clickable="true"
@@ -111,7 +111,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wordCard">
+                app:layout_constraintTop_toBottomOf="@+id/word_of_the_day_Card">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

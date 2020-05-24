@@ -1,0 +1,84 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/wod_drawable"
+        tools:context=".WordOfTheDayImageFragment">
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="287dp"
+            android:layout_height="290dp"
+            android:layout_marginStart="150dp"
+            android:alpha="0.1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/word_image"
+            app:layout_constraintTop_toTopOf="@+id/word_image"
+            app:layout_constraintVertical_bias="0.86"
+            app:srcCompat="@drawable/circle_border" />
+
+        <ImageButton
+            android:id="@+id/share_word"
+            style="@android:style/Widget.Material.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="false"
+            android:minWidth="50dp"
+            android:src="?attr/actionModeShareDrawable"
+            android:tint="@color/primaryWhiteColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/word_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="32dp"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toTopOf="@+id/greeting_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/greta" />
+
+        <TextView
+            android:id="@+id/greeting_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="160dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="We hope you learnt a lot today, Have a lovely day and come back tomorrow for more knowledge"
+            android:textAlignment="center"
+            android:textColor="@color/primaryWhiteColor"
+            android:textSize="@dimen/line_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/word_image" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="287dp"
+            android:layout_height="290dp"
+            android:layout_marginEnd="151dp"
+            android:alpha="0.1"
+            app:layout_constraintBottom_toBottomOf="@+id/word_image"
+            app:layout_constraintEnd_toEndOf="@+id/word_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/circle_border" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

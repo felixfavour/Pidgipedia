@@ -1,0 +1,90 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/wod_drawable"
+        tools:context=".WordOfTheDayWordFragment">
+
+        <ImageButton
+            android:id="@+id/close"
+            style="@android:style/Widget.Material.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="false"
+            android:minWidth="50dp"
+            android:src="@drawable/close_primary"
+            android:tint="@color/primaryWhiteColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/share_word"
+            style="@android:style/Widget.Material.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="false"
+            android:minWidth="50dp"
+            android:src="?attr/actionModeShareDrawable"
+            android:tint="@color/primaryWhiteColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/wod_dummy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:text="@string/word_of_the_day_channel"
+            android:textAllCaps="true"
+            android:textColor="@color/primaryWhiteColor"
+            android:textSize="@dimen/header_text"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/word"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Danfo"
+            android:textColor="@color/primaryWhiteColor"
+            android:textSize="@dimen/word_text_stories_dictionary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wod_dummy" />
+
+        <TextView
+            android:id="@+id/part_of_speech"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:text="noun"
+            android:textColor="@color/primaryWhiteColor"
+            android:textSize="@dimen/header_text"
+            app:layout_constraintBottom_toTopOf="@+id/word_transcription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/word"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/word_transcription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/dænfɚu/"
+            android:textColor="@color/primaryWhiteColor"
+            android:textSize="@dimen/header_text"
+            app:layout_constraintStart_toStartOf="@+id/word"
+            app:layout_constraintTop_toBottomOf="@+id/word" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
