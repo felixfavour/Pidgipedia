@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
-    android:opacity="opaque">
-    <item android:drawable="@color/primaryColor" android:gravity="fill"/>
-    <item android:drawable="@drawable/pidgipedia_text" android:gravity="center" android:width="310dp" android:height="50dp"/>
-
-</layer-list>

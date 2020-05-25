@@ -13,17 +13,17 @@
         <action
             android:id="@+id/action_navigation_dictionary_to_wordFragment"
             app:destination="@id/wordFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_dictionary_to_allWordsFragment"
             app:destination="@id/allWordsFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_out_right"  />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -34,31 +34,31 @@
         <action
             android:id="@+id/action_navigation_home_to_wordSuggestionFragment"
             app:destination="@id/wordSuggestionFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
         <action
             android:id="@+id/action_navigation_home_to_bookmarksFragment"
             app:destination="@id/bookmarksFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_out_right"  />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_home_to_wordFragment"
             app:destination="@id/wordFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_home_to_eventstampFragment"
             app:destination="@id/eventstampFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -68,18 +68,14 @@
         tools:layout="@layout/fragment_quiz" >
         <action
             android:id="@+id/action_navigation_quiz_to_gameActivity"
-            app:destination="@id/gameActivity"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/gameActivity"/>
         <action
             android:id="@+id/action_navigation_quiz_to_bookmarksFragment"
             app:destination="@id/bookmarksFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_out_right"  />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <activity
         android:id="@+id/gameActivity"
@@ -88,35 +84,35 @@
         android:label="GameActivity" />
     <fragment
         android:id="@+id/wordSuggestionFragment"
-        android:name="com.felixfavour.pidgipedia.WordSuggestionFragment"
+        android:name="com.felixfavour.pidgipedia.ui.home.WordSuggestionFragment"
         android:label=""
         tools:layout="@layout/fragment_word_suggestion" />
     <fragment
         android:id="@+id/bookmarksFragment"
-        android:name="com.felixfavour.pidgipedia.BookmarksFragment"
+        android:name="com.felixfavour.pidgipedia.ui.home.BookmarksFragment"
         android:label="fragment_bookmarks"
         tools:layout="@layout/fragment_bookmarks" >
         <action
             android:id="@+id/action_bookmarksFragment_to_wordFragment"
             app:destination="@id/wordFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/wordFragment"
-        android:name="com.felixfavour.pidgipedia.WordFragment"
+        android:name="com.felixfavour.pidgipedia.ui.home.WordFragment"
         android:label="@string/word"
         tools:layout="@layout/fragment_word" />
     <fragment
         android:id="@+id/eventstampFragment"
-        android:name="com.felixfavour.pidgipedia.EventstampFragment"
+        android:name="com.felixfavour.pidgipedia.ui.home.EventstampFragment"
         android:label="@string/eventstamp"
         tools:layout="@layout/fragment_eventstamp" />
     <fragment
         android:id="@+id/allWordsFragment"
-        android:name="com.felixfavour.pidgipedia.AllWordsFragment"
+        android:name="com.felixfavour.pidgipedia.ui.home.AllWordsFragment"
         android:label="@string/index"
         tools:layout="@layout/fragment_all_words" />
 </navigation>

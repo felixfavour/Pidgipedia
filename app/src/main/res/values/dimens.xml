@@ -1,20 +1,13 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="horizontal_margin">16dp</dimen>
-    <dimen name="vertical_margin">16dp</dimen>
     <dimen name="word_text">32sp</dimen>
     <dimen name="word_text_stories_dictionary">40sp</dimen>
     <dimen name="small_text">12sp</dimen>
     <dimen name="sub_text">12sp</dimen>
     <dimen name="line_text">16sp</dimen>
     <dimen name="large_text">18sp</dimen>
-    <dimen name="button_text">14sp</dimen>
     <dimen name="paragraph_text">14sp</dimen>
-    <dimen name="comment_text">12sp</dimen>
-    <dimen name="quiz_button_text">20sp</dimen>
     <dimen name="header_text">20sp</dimen>
     <dimen name="onboarding_header_text">24sp</dimen>
-    <dimen name="quiz_button_padding">24dp</dimen>
-    <dimen name="onboarding_button_padding">32dp</dimen>
     <dimen name="onboarding_margin_horizontal_vertical">48dp</dimen>
 </resources>

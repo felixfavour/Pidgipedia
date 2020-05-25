@@ -4,14 +4,9 @@
     <string name="title_search">Search</string>
     <string name="title_quiz">Quiz</string>
     <string name="word_of_the_day_channel">Word Of The Day</string>
-    <string name="rank_promotion_channel">Rank Promotion</string>
-    <string name="comments_channel">Comments</string>
     <string name="words_approved_channel">Words Approved</string>
-    <string name="pidgipedia_news_channel">Miscellaneous News</string>
-    <string name="pidgipedia_news_channel_desc">Get Notifications about offers, promotions and tips.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="more_tori">More Tori</string>
     <string name="onboarding_contribution_desc">Contributing to a global vocabulary for you and with you.</string>
     <string name="onboarding_quiz_desc">Test your knowledge by attempting various questions.</string>
@@ -84,7 +79,6 @@
     <string name="rank_promotion">Rank Promotion</string>
     <string name="delete_all_history">Delete All History</string>
     <string name="delete_all_bookmarks">Delete All Bookmarks</string>
-    <string name="help">Help</string>
     <string name="share_this_app">Share this App</string>
     <string name="information">Information</string>
     <string name="delete_acct_message">Are you sure you want to delete this account? All of your data would be lost.</string>
@@ -98,7 +92,6 @@
     <string name="score_to_ace">%1%s more to ace!</string>
     <string name="next">Next</string>
     <string name="question_progress_string">%1$d out of %2$d</string>
-    <string name="favourites">Favourites</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="character_limit">Character Limit: 250</string>
     <string name="word">Word</string>
@@ -117,6 +110,14 @@
     <string name="sentences">Sentences</string>
     <string name="index">Index</string>
     <string name="eventstamp">Eventstamp</string>
+    <string name="syllabic_division_example"><b>For example: </b>"dan-fo"</string>
+    <string name="syllabic_division">Syllabic Division</string>
+    <string name="comment_response_placeholder"> <b>%1$s</b> replied your comment</string>
+    <string name="word_comment_placeholder"> <b>%1$s</b> commented on a word you suggested</string>
+    <string name="word_approval_placeholder"> <b>%1$s</b> approved the word you suggested</string>
+    <string name="word_suggestion_placeholder"> <b>%1$s</b> suggested a Word</string>
+    <string name="badge_reward_placeholder">You have earned Level <b>%1$s</b> Badge</string>
+    <string name="rank_reward_placeholder">You are now <b>%1$s</b></string>
     <string-array name="part_of_speech_list">
         <item>Phrase</item>
         <item>Noun</item>
@@ -127,17 +128,5 @@
         <item>Preposition</item>
         <item>Conjunction</item>
         <item>Exclamation</item>
-    </string-array>
-    <string-array name="number_of_syllables_list">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
     </string-array>
 </resources>

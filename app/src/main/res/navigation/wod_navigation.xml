@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/wordOfTheDayWordFragment"
-        android:name="com.felixfavour.pidgipedia.WordOfTheDayWordFragment"
+        android:name="com.felixfavour.pidgipedia.ui.wod.WordOfTheDayWordFragment"
         android:label="fragment_word_of_the_day_word"
         tools:layout="@layout/fragment_word_of_the_day_word" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/wordOfTheDayMeaningFragment2"
-        android:name="com.felixfavour.pidgipedia.WordOfTheDayMeaningFragment"
+        android:name="com.felixfavour.pidgipedia.ui.wod.WordOfTheDayMeaningFragment"
         android:label="fragment_word_of_the_day_meaning"
         tools:layout="@layout/fragment_word_of_the_day_meaning" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/wordOfTheDayImageFragment"
-        android:name="com.felixfavour.pidgipedia.WordOfTheDayImageFragment"
+        android:name="com.felixfavour.pidgipedia.ui.wod.WordOfTheDayImageFragment"
         android:label="fragment_word_of_the_day_image"
         tools:layout="@layout/fragment_word_of_the_day_image" >
         <action

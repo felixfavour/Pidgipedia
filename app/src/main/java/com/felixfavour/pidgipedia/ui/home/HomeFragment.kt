@@ -14,12 +14,19 @@ import com.felixfavour.pidgipedia.ProfileActivity
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.SettingsActivity
 import com.felixfavour.pidgipedia.WordOfTheDayActivity
-import com.felixfavour.pidgipedia.databinding.FragmentHomeBinding
+import com.felixfavour.pidgipedia.databinding.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
+
+    // Item Cards Binding Objects
+    private lateinit var wordSuggestionItemBinding: WordSuggestionItemBinding
+    private lateinit var wordApprovalItemBinding: WordApprovalItemBinding
+    private lateinit var commentResponseItemBinding: CommentResponseItemBinding
+    private lateinit var rankRewardItemBinding: RankRewardItemBinding
+    private lateinit var badgeRewardItemBinding: BadgeRewardItemBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
