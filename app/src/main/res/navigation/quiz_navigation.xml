@@ -12,7 +12,11 @@
         android:label="GameFragment" >
         <action
             android:id="@+id/action_gameFragment2_to_scoreScreen2"
-            app:destination="@id/scoreScreen2" />
+            app:destination="@id/scoreScreen2"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_score_screen"
@@ -21,7 +25,7 @@
         android:label="ScoreScreen" >
         <action
             android:id="@+id/action_scoreScreen2_to_mainActivity2"
-            app:destination="@id/mainActivity2" />
+            app:destination="@id/mainActivity2"/>
     </fragment>
     <activity
         android:id="@+id/mainActivity2"

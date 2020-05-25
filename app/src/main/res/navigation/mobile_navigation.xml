@@ -12,10 +12,18 @@
         tools:layout="@layout/fragment_dictionary" >
         <action
             android:id="@+id/action_navigation_dictionary_to_wordFragment"
-            app:destination="@id/wordFragment" />
+            app:destination="@id/wordFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_dictionary_to_allWordsFragment"
-            app:destination="@id/allWordsFragment" />
+            app:destination="@id/allWordsFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right"  />
     </fragment>
 
     <fragment
@@ -25,16 +33,32 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_wordSuggestionFragment"
-            app:destination="@id/wordSuggestionFragment" />
+            app:destination="@id/wordSuggestionFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_home_to_bookmarksFragment"
-            app:destination="@id/bookmarksFragment" />
+            app:destination="@id/bookmarksFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right"  />
         <action
             android:id="@+id/action_navigation_home_to_wordFragment"
-            app:destination="@id/wordFragment" />
+            app:destination="@id/wordFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_home_to_eventstampFragment"
-            app:destination="@id/eventstampFragment" />
+            app:destination="@id/eventstampFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -44,10 +68,18 @@
         tools:layout="@layout/fragment_quiz" >
         <action
             android:id="@+id/action_navigation_quiz_to_gameActivity"
-            app:destination="@id/gameActivity" />
+            app:destination="@id/gameActivity"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_quiz_to_bookmarksFragment"
-            app:destination="@id/bookmarksFragment" />
+            app:destination="@id/bookmarksFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right"  />
     </fragment>
     <activity
         android:id="@+id/gameActivity"
@@ -66,7 +98,11 @@
         tools:layout="@layout/fragment_bookmarks" >
         <action
             android:id="@+id/action_bookmarksFragment_to_wordFragment"
-            app:destination="@id/wordFragment" />
+            app:destination="@id/wordFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/wordFragment"
