@@ -24,7 +24,11 @@ class DictionaryFragment : Fragment() {
         binding.wordSearchView.visibility = View.GONE
 
         // RecyclerView
-        binding.recentSearchesList
+
+        // NAVIGATIONS
+        binding.viewAllWords.setOnClickListener {
+            DictionaryFragmentDirections.actionNavigationDictionaryToAllWordsFragment()
+        }
 
         return binding.root
     }

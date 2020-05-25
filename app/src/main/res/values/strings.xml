@@ -115,6 +115,8 @@
     <string name="duplicate_synonym_warning">%1$s has been added to Synonyms</string>
     <string name="word_image">Word image</string>
     <string name="sentences">Sentences</string>
+    <string name="index">Index</string>
+    <string name="eventstamp">Eventstamp</string>
     <string-array name="part_of_speech_list">
         <item>Phrase</item>
         <item>Noun</item>

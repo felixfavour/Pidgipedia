@@ -30,17 +30,16 @@
                 tools:inputType="textShortMessage" />
 
             <androidx.cardview.widget.CardView
-                android:animateLayoutChanges="true"
                 android:id="@+id/cardView2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:animateLayoutChanges="true"
                 app:cardBackgroundColor="@color/primaryColorLight"
                 app:cardCornerRadius="6dp"
-                app:layout_constraintBottom_toTopOf="@+id/go_to_badges"
+                app:layout_constraintBottom_toTopOf="@+id/view_all_words"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,17 +47,17 @@
                 tools:visibility="visible">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:animateLayoutChanges="true"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:animateLayoutChanges="true">
 
                     <androidx.cardview.widget.CardView
-                        android:animateLayoutChanges="true"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
+                        android:animateLayoutChanges="true"
                         app:cardBackgroundColor="@color/primaryWhiteColor"
                         app:cardCornerRadius="6dp"
                         app:contentPadding="8dp"
@@ -72,8 +71,8 @@
                             android:id="@+id/recent_searches_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            tools:listitem="@layout/search_history_item"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/search_history_item" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -113,7 +112,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/go_to_badges"
+                android:id="@+id/view_all_words"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

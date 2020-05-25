@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_dictionary_to_wordFragment"
             app:destination="@id/wordFragment" />
+        <action
+            android:id="@+id/action_navigation_dictionary_to_allWordsFragment"
+            app:destination="@id/allWordsFragment" />
     </fragment>
 
     <fragment
@@ -29,6 +32,9 @@
         <action
             android:id="@+id/action_navigation_home_to_wordFragment"
             app:destination="@id/wordFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_eventstampFragment"
+            app:destination="@id/eventstampFragment" />
     </fragment>
 
     <fragment
@@ -67,4 +73,14 @@
         android:name="com.felixfavour.pidgipedia.WordFragment"
         android:label="@string/word"
         tools:layout="@layout/fragment_word" />
+    <fragment
+        android:id="@+id/eventstampFragment"
+        android:name="com.felixfavour.pidgipedia.EventstampFragment"
+        android:label="@string/eventstamp"
+        tools:layout="@layout/fragment_eventstamp" />
+    <fragment
+        android:id="@+id/allWordsFragment"
+        android:name="com.felixfavour.pidgipedia.AllWordsFragment"
+        android:label="@string/index"
+        tools:layout="@layout/fragment_all_words" />
 </navigation>
