@@ -5,6 +5,8 @@ open class Eventstamp(
     val comment: Comment? = null,
     val badgeRewardType: Int? = null,
     val rankRewardType: Int? = null,
+    val isApproved: Boolean = false,
+    val isSuggested: Boolean = false,
     val eventTime: Long,
     val humanEntity: User? = null
 ) {

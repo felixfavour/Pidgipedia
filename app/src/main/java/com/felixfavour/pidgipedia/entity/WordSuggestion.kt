@@ -4,5 +4,5 @@ data class WordSuggestion(
     val wordSuggested: Word,
     val suggestedBy: User,
     val timeSuggested: Long
-): Eventstamp(word = wordSuggested, eventTime = timeSuggested, humanEntity = suggestedBy) {
+): Eventstamp(word = wordSuggested, eventTime = timeSuggested, humanEntity = suggestedBy, isSuggested = true) {
 }

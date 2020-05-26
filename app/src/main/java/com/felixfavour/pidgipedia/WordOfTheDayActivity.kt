@@ -35,8 +35,7 @@ class WordOfTheDayActivity : AppCompatActivity() {
                     * increasing order and not decreasing
                     *
                     * It is in abs() to get the absolute value because it returns a negative value*/
-                    if (second != 0)
-                        second = abs(second - SECONDS)
+                    second = abs(second - SECONDS)
 
                     val progressSecond = (second * 100)/SECONDS
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

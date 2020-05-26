@@ -15,8 +15,20 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.felixfavour.pidgipedia.R
+import com.felixfavour.pidgipedia.entity.Comment
+import com.felixfavour.pidgipedia.entity.Eventstamp
+import com.felixfavour.pidgipedia.entity.User
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        val mockUpdates = arrayListOf<Eventstamp>(
+            Eventstamp(comment = Comment("jjhjdhkd", null, 87893783798L, arrayListOf(null)), eventTime = 938908938903),
+            Eventstamp(eventTime = 100897777987, rankRewardType = 1),
+            Eventstamp(eventTime = 876876786787, badgeRewardType = 2),
+            Eventstamp(eventTime = 877379839873, isApproved = true)
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -8,7 +8,8 @@ import kotlinx.android.parcel.RawValue
 @Parcelize
 data class Comment (
     val commentContent: String,
-    val author: @RawValue User,
+    val author: @RawValue User? =null,
     val dateCreated: Long,
-    val commentResponses: @RawValue ArrayList<CommentResponse>) : Parcelable {
+    val commentResponses: @RawValue ArrayList<CommentResponse?> = arrayListOf(null)) : Parcelable {
 }
+
