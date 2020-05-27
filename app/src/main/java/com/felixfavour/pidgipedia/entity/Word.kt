@@ -12,6 +12,7 @@ data class Word(
     val meaning: String,
     val etymology: String,
     val plural: String?,
+    val partOfSpeech: String,
     val syllables: Int,
     val syllabicDivision: String,
     val englishEquivalent: String,

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.felixfavour.pidgipedia.*
 import com.felixfavour.pidgipedia.databinding.*
+import com.felixfavour.pidgipedia.ui.dictionary.WordListAdapter
 
 class HomeFragment : Fragment() {
 
@@ -43,6 +44,11 @@ class HomeFragment : Fragment() {
 
         // RECYCLER VIEW
         binding.appUpdatesList.layoutManager = CustomLayoutManager(requireContext())
+        binding.unapprovedWordsList.adapter = UnapprovedWordListAdapter(WordListAdapter.OnWordClickListener {word ->
+            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordFragment(word))
+        }).apply {
+            submitList(MockData.words)
+        }
 
         /*
         * RecyclerView item decoration to put a margin of 8dp above and below

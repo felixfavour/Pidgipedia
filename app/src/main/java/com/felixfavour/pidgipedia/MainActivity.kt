@@ -24,8 +24,12 @@ class MainActivity : AppCompatActivity() {
     companion object {
         val mockUpdates = arrayListOf<Eventstamp>(
             Eventstamp(comment = Comment("jjhjdhkd", null, 87893783798L, arrayListOf(null)), eventTime = 938908938903),
+            Eventstamp(comment = Comment("bvhkfkhf", null, 87893783798L, arrayListOf(null)), eventTime = 938908938903),
+            Eventstamp(eventTime = 877379839873, isApproved = true),
+            Eventstamp(eventTime = 6757668687, rankRewardType = 1),
             Eventstamp(eventTime = 100897777987, rankRewardType = 1),
             Eventstamp(eventTime = 876876786787, badgeRewardType = 2),
+            Eventstamp(eventTime = 876878, badgeRewardType = 2),
             Eventstamp(eventTime = 877379839873, isApproved = true)
         )
     }
