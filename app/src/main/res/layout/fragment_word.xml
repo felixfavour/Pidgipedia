@@ -3,25 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="word"
+            type="com.felixfavour.pidgipedia.entity.Word" />
+    </data>
+
     <ScrollView
         android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frameLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".ui.home.WordFragment">
 
 
             <TextView
-                android:id="@+id/word"
+                android:id="@+id/wordName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppinsbold"
-                android:text="Danfo"
+                android:text="@{word.name}"
+                tools:text="Danfo"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/word_text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,11 +39,12 @@
                 android:id="@+id/word_transcription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="/dænfɚu/"
+                tools:text="/dænfɚu/"
+                android:text="@{word.transcription}"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/header_text"
-                app:layout_constraintStart_toStartOf="@+id/word"
-                app:layout_constraintTop_toBottomOf="@+id/word" />
+                app:layout_constraintStart_toStartOf="@+id/wordName"
+                app:layout_constraintTop_toBottomOf="@+id/wordName" />
 
             <ImageButton
                 android:id="@+id/audio_button"
@@ -49,7 +58,7 @@
                 android:tint="@color/primaryColor"
                 app:layout_constraintBottom_toBottomOf="@+id/word_transcription"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/word"
+                app:layout_constraintTop_toTopOf="@+id/wordName"
                 app:layout_constraintVertical_bias="0.0" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,8 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:animateLayoutChanges="true"
-                android:background="@drawable/bottomsheet"
-                android:backgroundTint="@color/primaryGreyColor"
+                android:background="@drawable/bottomsheet_grey"
                 app:layout_constraintBottom_toBottomOf="@id/frameLayout2"
                 app:layout_constraintTop_toBottomOf="@+id/word_transcription"
                 tools:layout_editor_absoluteX="1dp">
@@ -165,7 +173,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="Originated from Lagosians"
+                    android:text="@{word.etymology}"
+                    tools:text="Originated from Lagosians"
                     android:visibility="gone"
                     tools:visibility="visible"
                     android:textColor="@color/primaryWhiteColor"
@@ -250,7 +259,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="Bus"
+                    android:text="@{word.englishEquivalent}"
+                    tools:text="Bus"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -332,7 +342,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="A privately owned bus mainly for transportation found in Lagos, NIgeria"
+                    android:text="@{word.meaning}"
+                    tools:text="A privately owned bus mainly for transportation found in Lagos, NIgeria"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
                     app:layout_constraintEnd_toEndOf="parent"

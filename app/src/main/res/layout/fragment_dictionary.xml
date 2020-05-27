@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="mockData"
+            type="com.felixfavour.pidgipedia.MockData" />
+    </data>
+
     <ScrollView
         android:animateLayoutChanges="true"
         tools:context=".ui.dictionary.DictionaryFragment"

@@ -16,7 +16,8 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:popExitAnim="@android:anim/slide_out_right" >
+        </action>
         <action
             android:id="@+id/action_navigation_dictionary_to_allWordsFragment"
             app:destination="@id/allWordsFragment"
@@ -37,7 +38,8 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right"/>
+            app:popExitAnim="@android:anim/slide_out_right">
+        </action>
         <action
             android:id="@+id/action_navigation_home_to_bookmarksFragment"
             app:destination="@id/bookmarksFragment"
@@ -104,7 +106,11 @@
         android:id="@+id/wordFragment"
         android:name="com.felixfavour.pidgipedia.ui.home.WordFragment"
         android:label="@string/word"
-        tools:layout="@layout/fragment_word" />
+        tools:layout="@layout/fragment_word" >
+        <argument
+            android:name="word"
+            app:argType="com.felixfavour.pidgipedia.entity.Word" />
+    </fragment>
     <fragment
         android:id="@+id/eventstampFragment"
         android:name="com.felixfavour.pidgipedia.ui.home.EventstampFragment"

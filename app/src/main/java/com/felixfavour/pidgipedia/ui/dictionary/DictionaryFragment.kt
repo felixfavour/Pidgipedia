@@ -1,13 +1,15 @@
 package com.felixfavour.pidgipedia.ui.dictionary
 
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import androidx.core.view.MenuItemCompat
-import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import com.felixfavour.pidgipedia.MockData
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentDictionaryBinding
 
@@ -24,10 +26,17 @@ class DictionaryFragment : Fragment() {
         binding.wordSearchView.visibility = View.GONE
 
         // RecyclerView
+        binding.recentSearchesList.adapter = WordListAdapter(WordListAdapter.OnWordClickListener {word ->
+            findNavController().navigate(DictionaryFragmentDirections.actionNavigationDictionaryToWordFragment(word))
+        }).apply {
+            submitList(MockData.words)
+        }
+        binding.recentSearchesList.addItemDecoration(DividerItemDecoration(requireContext(),
+            DividerItemDecoration.VERTICAL))
 
         // NAVIGATIONS
         binding.viewAllWords.setOnClickListener {
-            DictionaryFragmentDirections.actionNavigationDictionaryToAllWordsFragment()
+            findNavController().navigate(DictionaryFragmentDirections.actionNavigationDictionaryToAllWordsFragment())
         }
 
         return binding.root

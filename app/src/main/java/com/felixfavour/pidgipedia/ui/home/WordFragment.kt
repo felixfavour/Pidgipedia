@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -63,6 +64,12 @@ class WordFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // BINDING THE RECEIVED ARGUMENT TO LAYOUT
+        binding.word = WordFragmentArgs.fromBundle(requireArguments()).word
     }
 
     private fun toggleButtonIcon(button: ImageButton, icon1: Int, icon2: Int) {
