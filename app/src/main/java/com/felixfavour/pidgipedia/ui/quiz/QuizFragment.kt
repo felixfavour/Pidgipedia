@@ -3,7 +3,10 @@ package com.felixfavour.pidgipedia.ui.quiz
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -53,5 +56,16 @@ class QuizFragment : Fragment() {
                 false
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // REVEAL APP LOGO
+        val activity = requireActivity() as AppCompatActivity
+        val appLogoContainer = activity.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
+        appLogoContainer.visibility = View.VISIBLE
+
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        activity.supportActionBar?.setDisplayShowHomeEnabled(false)
     }
 }

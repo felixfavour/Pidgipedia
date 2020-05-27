@@ -100,6 +100,7 @@ class OnboardingActivity : AppCompatActivity() {
         if (sharedPref.getBoolean(PREFERENCE_KEY, false)) {
             val intent = Intent(applicationContext, AuthenticationActivity::class.java)
             startActivity(intent)
+            finishAffinity()
         } else {
             sharedPref.edit().putBoolean(PREFERENCE_KEY, true).apply()
         }

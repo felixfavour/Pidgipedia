@@ -1,5 +1,6 @@
 package com.felixfavour.pidgipedia
 
+import android.animation.ObjectAnimator
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,28 +22,23 @@ class WordOfTheDayActivity : AppCompatActivity() {
          * @return countDownTimer*/
         fun checkTime(progressBar: ProgressBar, action: () -> Unit) : CountDownTimer {
             val timeLimit: Long = SECONDS*1000L
+
+            /*
+            * Increase progress Bar max value to 10000 to have a smoother animation
+            * A large value of 10000 and an interval of 1 means a portion of the progress
+            * bar moves once every millisecond*/
+            progressBar.max = 10000
+            ObjectAnimator.ofInt(progressBar, "progress", 0, 10000).apply {
+                duration = SECONDS*1000L
+                start()
+            }
             val countDownTimer = object : CountDownTimer(timeLimit, 1000) {
                 override fun onFinish() {
                     action()
                 }
 
                 override fun onTick(p0: Long) {
-                    var second = p0.toInt()/1000
-                    /*
-                    * Expressing each second as a percentage of 100
-                    * PURPOSE OF RE-ASSINGING `second` to the difference between
-                    * it and the constant `SECOND` is to make the Countdown Timer to count in an
-                    * increasing order and not decreasing
-                    *
-                    * It is in abs() to get the absolute value because it returns a negative value*/
-                    second = abs(second - SECONDS)
-
-                    val progressSecond = (second * 100)/SECONDS
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        progressBar.setProgress(progressSecond, true)
-                    } else {
-                        progressBar.progress = progressSecond
-                    }
+                    // Do nothing
                 }
             }
             countDownTimer.start()
@@ -57,5 +53,10 @@ class WordOfTheDayActivity : AppCompatActivity() {
 
         // SET ACTIVITY TO FULL SCREEN
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        finishAffinity()
     }
 }

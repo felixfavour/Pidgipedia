@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        val toolbarLogo = findViewById<ImageView>(R.id.toolbar_logo)
         setSupportActionBar(toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -54,6 +53,12 @@ class MainActivity : AppCompatActivity() {
         ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {

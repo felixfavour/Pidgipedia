@@ -118,6 +118,8 @@
     <string name="word_suggestion_placeholder"> <b>%1$s</b> suggested a Word</string>
     <string name="badge_reward_placeholder">You have earned Level <b>%1$s</b> Badge</string>
     <string name="rank_reward_placeholder">You are now <b>%1$s</b></string>
+    <string name="word_suggestion">Word Suggestion</string>
+    <string name="title_dictionary">Dictionary</string>
     <string-array name="part_of_speech_list">
         <item>Phrase</item>
         <item>Noun</item>

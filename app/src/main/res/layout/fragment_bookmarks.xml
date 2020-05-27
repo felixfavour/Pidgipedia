@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:id="@+id/bookmarks_list"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/bookmarks_item"/>
+            tools:listitem="@layout/word_list_item"/>
 
         <LinearLayout
             android:id="@+id/no_bookmarks_layout"

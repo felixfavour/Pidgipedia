@@ -10,5 +10,8 @@ open class Eventstamp(
     val eventTime: Long,
     val humanEntity: User? = null
 ) {
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+    }
 
 }

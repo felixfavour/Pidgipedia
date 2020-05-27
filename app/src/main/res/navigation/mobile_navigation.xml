@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_dictionary"
         android:name="com.felixfavour.pidgipedia.ui.dictionary.DictionaryFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_dictionary"
         tools:layout="@layout/fragment_dictionary" >
         <action
             android:id="@+id/action_navigation_dictionary_to_wordFragment"
@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.felixfavour.pidgipedia.ui.home.HomeFragment"
-        android:label="@string/title_search"
+        android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_wordSuggestionFragment"
@@ -87,12 +87,12 @@
     <fragment
         android:id="@+id/wordSuggestionFragment"
         android:name="com.felixfavour.pidgipedia.ui.home.WordSuggestionFragment"
-        android:label=""
+        android:label="@string/word_suggestion"
         tools:layout="@layout/fragment_word_suggestion" />
     <fragment
         android:id="@+id/bookmarksFragment"
         android:name="com.felixfavour.pidgipedia.ui.home.BookmarksFragment"
-        android:label="fragment_bookmarks"
+        android:label="@string/bookmarks"
         tools:layout="@layout/fragment_bookmarks" >
         <action
             android:id="@+id/action_bookmarksFragment_to_wordFragment"
@@ -120,5 +120,13 @@
         android:id="@+id/allWordsFragment"
         android:name="com.felixfavour.pidgipedia.ui.home.AllWordsFragment"
         android:label="@string/index"
-        tools:layout="@layout/fragment_all_words" />
+        tools:layout="@layout/fragment_all_words" >
+        <action
+            android:id="@+id/action_allWordsFragment_to_wordFragment"
+            app:destination="@id/wordFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
 </navigation>

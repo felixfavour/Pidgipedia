@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
 import androidx.core.view.isVisible
 import androidx.core.view.iterator
@@ -16,7 +19,9 @@ import com.felixfavour.pidgipedia.MockData
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentBookmarksBinding
 import com.felixfavour.pidgipedia.toast
+import com.felixfavour.pidgipedia.ui.OnWordClickListener
 import com.felixfavour.pidgipedia.ui.dictionary.WordListAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * A simple [Fragment] subclass.
@@ -32,7 +37,7 @@ class BookmarksFragment : Fragment() {
             R.layout.fragment_bookmarks, container, false)
 
         // RECYCLER VIEW
-        binding.bookmarksList.adapter = WordListAdapter(WordListAdapter.OnWordClickListener {word ->
+        binding.bookmarksList.adapter = WordListAdapter(OnWordClickListener { word, it ->
             findNavController().navigate(BookmarksFragmentDirections.actionBookmarksFragmentToWordFragment(word))
         }).apply {
             submitList(MockData.words)
@@ -56,6 +61,14 @@ class BookmarksFragment : Fragment() {
         } else {
             binding.noBookmarksLayout.visibility = View.VISIBLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // HIDE APP LOGO
+        val activity = requireActivity() as AppCompatActivity
+        val appLogoContainer = activity.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
+        appLogoContainer.visibility = View.GONE
     }
 
 }

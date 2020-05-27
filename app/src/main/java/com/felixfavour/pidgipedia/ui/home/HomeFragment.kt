@@ -1,12 +1,16 @@
 package com.felixfavour.pidgipedia.ui.home
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -18,7 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.felixfavour.pidgipedia.*
 import com.felixfavour.pidgipedia.databinding.*
+import com.felixfavour.pidgipedia.ui.OnWordClickListener
 import com.felixfavour.pidgipedia.ui.dictionary.WordListAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class HomeFragment : Fragment() {
 
@@ -33,6 +39,11 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         setHasOptionsMenu(true)
 
+
+        //-------------------------------------------
+        // Testing Object Animator
+        //-------------------------------------------
+
         /*
         * Custom Layout manager to set make recyclerView unscrollable*/
         class CustomLayoutManager(context: Context) : LinearLayoutManager(context) {
@@ -44,7 +55,7 @@ class HomeFragment : Fragment() {
 
         // RECYCLER VIEW
         binding.appUpdatesList.layoutManager = CustomLayoutManager(requireContext())
-        binding.unapprovedWordsList.adapter = UnapprovedWordListAdapter(WordListAdapter.OnWordClickListener {word ->
+        binding.unapprovedWordsList.adapter = UnapprovedWordListAdapter(OnWordClickListener { word, it ->
             findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordFragment(word))
         }).apply {
             submitList(MockData.words)
@@ -108,6 +119,17 @@ class HomeFragment : Fragment() {
                 false
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // REVEAL APP LOGO
+        val activity = requireActivity() as AppCompatActivity
+        val appLogoContainer = activity.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
+        appLogoContainer.visibility = View.VISIBLE
+
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        activity.supportActionBar?.setDisplayShowHomeEnabled(false)
     }
 
 }

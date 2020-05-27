@@ -16,7 +16,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.children
 import androidx.core.view.get
@@ -251,6 +253,17 @@ class WordSuggestionFragment : Fragment() {
             }
         }
         return false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // HIDE APP LOGO
+        val activity = requireActivity() as AppCompatActivity
+        val appLogoContainer = activity.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
+        appLogoContainer.visibility = View.GONE
+
+        // SHOW HOME ENABLED ICON
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 }

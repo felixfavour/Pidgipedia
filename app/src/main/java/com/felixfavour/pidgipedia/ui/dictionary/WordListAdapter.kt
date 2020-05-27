@@ -3,15 +3,18 @@ package com.felixfavour.pidgipedia.ui.dictionary
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AlphabetIndexer
+import android.widget.SectionIndexer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.felixfavour.pidgipedia.databinding.WordListItemBinding
 import com.felixfavour.pidgipedia.entity.Word
+import com.felixfavour.pidgipedia.ui.OnWordClickListener
 
 class WordListAdapter(
     private val clickAction: OnWordClickListener
-): ListAdapter<Word, WordListAdapter.WordListViewHolder>(DiffCallback) {
+): ListAdapter<Word, WordListAdapter.WordListViewHolder>(DiffCallback), SectionIndexer {
     companion object DiffCallback : DiffUtil.ItemCallback<Word>() {
         override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {
             return oldItem == newItem
@@ -33,7 +36,7 @@ class WordListAdapter(
             val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             binding.root.layoutParams = layoutParams
             binding.root.setOnClickListener {
-                clickAction.onWordClick(word)
+                clickAction.onWordClick(word, it)
             }
             binding.word = word
             binding.executePendingBindings()
@@ -49,12 +52,16 @@ class WordListAdapter(
         holder.bind(word, clickAction)
     }
 
-    class OnWordClickListener(private val wordClickAction: (word: Word) -> Unit) {
+    override fun getSections(): Array<Any> {
+        TODO("Not yet implemented")
+    }
 
-        fun onWordClick(word: Word) {
-            wordClickAction(word)
-        }
+    override fun getSectionForPosition(p0: Int): Int {
+        TODO("Not yet implemented")
+    }
 
+    override fun getPositionForSection(p0: Int): Int {
+        TODO("Not yet implemented")
     }
 
 }

@@ -4,6 +4,9 @@ import android.graphics.Canvas
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.felixfavour.pidgipedia.MockData
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentDictionaryBinding
+import com.felixfavour.pidgipedia.ui.OnWordClickListener
 
 class DictionaryFragment : Fragment() {
 
@@ -26,7 +30,7 @@ class DictionaryFragment : Fragment() {
         binding.wordSearchView.visibility = View.GONE
 
         // RecyclerView
-        binding.recentSearchesList.adapter = WordListAdapter(WordListAdapter.OnWordClickListener {word ->
+        binding.recentSearchesList.adapter = WordListAdapter(OnWordClickListener { word, view ->
             findNavController().navigate(DictionaryFragmentDirections.actionNavigationDictionaryToWordFragment(word))
         }).apply {
             submitList(MockData.words)
@@ -41,8 +45,6 @@ class DictionaryFragment : Fragment() {
 
         return binding.root
     }
-
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -70,5 +72,16 @@ class DictionaryFragment : Fragment() {
             menuItem.icon = requireContext().getDrawable(R.drawable.ic_search_primary)
             binding.wordSearchView.startAnimation(animation)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // REVEAL APP LOGO
+        val activity = requireActivity() as AppCompatActivity
+        val appLogoContainer = activity.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
+        appLogoContainer.visibility = View.VISIBLE
+
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        activity.supportActionBar?.setDisplayShowHomeEnabled(false)
     }
 }

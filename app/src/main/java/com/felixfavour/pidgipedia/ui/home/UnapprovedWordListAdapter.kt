@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.felixfavour.pidgipedia.databinding.UnapprovedWordItemBinding
 import com.felixfavour.pidgipedia.entity.Word
+import com.felixfavour.pidgipedia.ui.OnWordClickListener
 import com.felixfavour.pidgipedia.ui.dictionary.WordListAdapter
 
 class UnapprovedWordListAdapter(
-    private val onWordClickListener: WordListAdapter.OnWordClickListener
+    private val onWordClickListener: OnWordClickListener
 ): ListAdapter<Word, UnapprovedWordListAdapter.UnapprovedWordViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<Word>() {
@@ -27,7 +28,7 @@ class UnapprovedWordListAdapter(
     class UnapprovedWordViewHolder(val binding: UnapprovedWordItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(
             word: Word,
-            onWordClickListener: WordListAdapter.OnWordClickListener
+            onWordClickListener: OnWordClickListener
         ) {
             // propert-access syntax not used here because of conflict in iD names in layout
             binding.setWord(word)
@@ -39,7 +40,7 @@ class UnapprovedWordListAdapter(
                 marginEnd = 24
             }
             binding.cardLayout.setOnClickListener {
-                onWordClickListener.onWordClick(word)
+                onWordClickListener.onWordClick(word, it)
             }
         }
     }
@@ -51,12 +52,6 @@ class UnapprovedWordListAdapter(
     override fun onBindViewHolder(holder: UnapprovedWordViewHolder, position: Int) {
         val word = getItem(position)
         holder.bind(word, onWordClickListener)
-    }
-
-    class OnWordClickListener(val onWordClickAction: (word: Word) -> Unit) {
-        fun onWordClick(word: Word) {
-            onWordClickAction(word)
-        }
     }
 
 }

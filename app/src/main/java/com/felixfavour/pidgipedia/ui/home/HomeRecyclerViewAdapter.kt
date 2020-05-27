@@ -1,5 +1,6 @@
 package com.felixfavour.pidgipedia.ui.home
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -49,6 +50,11 @@ class HomeRecyclerViewAdapter(): ListAdapter<Eventstamp, RecyclerView.ViewHolder
     class WordApprovalViewHolder(val binding: WordApprovalItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp) {
             binding.eventStamp = eventstamp
+            Glide.with(binding.root.context)
+                .load(R.drawable.greta)
+                .centerCrop()
+                .circleCrop()
+                .into(binding.authorImage)
             styleCard(binding.card)
             binding.executePendingBindings()
         }
@@ -56,6 +62,11 @@ class HomeRecyclerViewAdapter(): ListAdapter<Eventstamp, RecyclerView.ViewHolder
     class WordSuggestionViewHolder(val binding: WordSuggestionItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp) {
             binding.eventStamp = eventstamp
+            Glide.with(binding.root.context)
+                .load(R.drawable.greta)
+                .centerCrop()
+                .circleCrop()
+                .into(binding.authorImage)
             styleCard(binding.card)
             binding.executePendingBindings()
         }
@@ -77,6 +88,12 @@ class HomeRecyclerViewAdapter(): ListAdapter<Eventstamp, RecyclerView.ViewHolder
     class CommentResponseViewHolder(val binding: CommentResponseItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp) {
             binding.eventStamp = eventstamp
+            Glide.with(binding.root.context)
+                .load(R.drawable.greta)
+                .centerCrop()
+                .circleCrop()
+                .into(binding.authorImage)
+
             styleCard(binding.card)
             binding.executePendingBindings()
         }
