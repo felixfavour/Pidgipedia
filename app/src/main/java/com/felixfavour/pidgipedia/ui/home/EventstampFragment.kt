@@ -9,8 +9,13 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentEventstampBinding
+import com.felixfavour.pidgipedia.util.MockData
 
 /**
  * A simple [Fragment] subclass.
@@ -23,8 +28,26 @@ class EventstampFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_eventstamp, container, false)
-        val activity = requireActivity() as AppCompatActivity
 
+        // RECYCLER VIEW
+        binding.commentsList.addItemDecoration(DividerItemDecoration(
+            requireContext(),
+            DividerItemDecoration.VERTICAL
+        ))
+        binding.commentsList.adapter = EventstampCommentsAdapter().apply {
+            submitList(MockData.comments)
+        }
+
+        // CARD
+        Glide.with(requireContext())
+            .load(R.drawable.greta)
+            .centerCrop()
+            .circleCrop()
+            .into(binding.authorImage)
+
+        // EXTRACT SAFE ARG
+        val eventStampArgument = EventstampFragmentArgs.fromBundle(requireArguments()).eventstamp
+        binding.eventstamp = eventStampArgument
 
         return binding.root
     }

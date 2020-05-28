@@ -1,4 +1,4 @@
-package com.felixfavour.pidgipedia.ui
+package com.felixfavour.pidgipedia.util
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView

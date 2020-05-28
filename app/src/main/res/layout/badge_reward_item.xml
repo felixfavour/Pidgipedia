@@ -18,6 +18,7 @@
         app:cardElevation="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -26,7 +27,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/badge_reward_placeholder"
+                tools:text="@string/badge_reward_placeholder"
+                android:text="@{String.format(@string/rank_reward_placeholder(eventStamp.badgeRewardType.toString()))}"
                 android:textAlignment="center"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"

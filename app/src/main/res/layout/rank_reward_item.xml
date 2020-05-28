@@ -19,6 +19,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/primaryColorLight">
@@ -28,8 +29,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/rank_reward_placeholder"
+                tools:text="@string/rank_reward_placeholder"
+                android:text="@{String.format(@string/rank_reward_placeholder(eventStamp.rankRewardType.toString()))}"
                 android:textAlignment="center"
+                android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

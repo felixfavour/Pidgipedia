@@ -1,4 +1,4 @@
-package com.felixfavour.pidgipedia
+package com.felixfavour.pidgipedia.util
 
 import android.content.Context
 import android.view.View

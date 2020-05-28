@@ -1,6 +1,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="eventstamp"
+            type="com.felixfavour.pidgipedia.entity.Eventstamp" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,10 +24,163 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/cardContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/secondaryGreyColor"
+                    android:padding="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="8dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/primaryColorLight"
+                            android:foreground="?android:attr/selectableItemBackground">
+
+                            <ImageView
+                                android:id="@+id/author_image"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:background="@drawable/image_rounded_corner"
+                                android:padding="3dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/greta" />
+
+                            <TextView
+                                android:id="@+id/card_dummy_text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:text="@{String.format(@string/word_commented_on_placeholder(eventstamp.humanEntity.toString()))}"
+                                android:textColor="@color/primaryTextColor"
+                                app:layout_constraintBottom_toBottomOf="@+id/author_image"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/author_image"
+                                app:layout_constraintTop_toTopOf="@+id/author_image"
+                                app:layout_constraintVertical_bias="0.0"
+                                tools:text="Some sort of header text" />
+
+                            <ImageButton
+                                android:id="@+id/more"
+                                style="@android:style/Widget.Material.Button.Borderless"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:adjustViewBounds="true"
+                                android:minWidth="40dp"
+                                app:layout_constraintBottom_toBottomOf="@+id/time"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/time"
+                                app:srcCompat="@drawable/more" />
+
+                            <ImageView
+                                android:id="@+id/imageView22"
+                                android:layout_width="30dp"
+                                android:layout_height="40dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="32dp"
+                                android:tint="@color/primaryTextColor"
+                                app:layout_constraintBottom_toBottomOf="@+id/comment_response"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/comment_response"
+                                app:srcCompat="@drawable/quote" />
+
+                            <ImageView
+                                android:id="@+id/imageView23"
+                                android:layout_width="30dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="32dp"
+                                android:rotation="180"
+                                android:tint="@color/primaryTextColor"
+                                app:layout_constraintBottom_toBottomOf="@+id/comment_response"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/comment_response"
+                                app:srcCompat="@drawable/quote" />
+
+                            <TextView
+                                android:id="@+id/comment_response"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:fontFamily="@font/poppinsbold"
+                                android:gravity="center"
+                                android:text="@{eventstamp.word.name}"
+                                android:textColor="@color/primaryTextColor"
+                                android:textSize="@dimen/word_text"
+                                app:layout_constraintEnd_toStartOf="@+id/imageView22"
+                                app:layout_constraintStart_toEndOf="@+id/imageView23"
+                                app:layout_constraintTop_toBottomOf="@+id/author_image"
+                                tools:text="Danfo" />
+
+                            <TextView
+                                android:id="@+id/time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="16dp"
+                                android:text="a few minutes ago"
+                                android:textSize="@dimen/small_text"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/more"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/imageView23" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/view_more_comments"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:text="View more comments"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/comments_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@+id/view_more_comments"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardContainer"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/comment_line_item" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.core.widget.NestedScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,32 +201,32 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:backgroundTint="@color/primaryColor"
-                android:scaleType="centerCrop"
+                android:minWidth="50dp"
+                android:scaleType="centerInside"
                 android:tint="@color/primaryWhiteColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_send_black_24dp" />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputEditText
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/onboarding_button"
                 android:hint="Enter your comment"
+                android:inputType="textMultiLine"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="@dimen/line_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/onboarding_button"
-                    android:inputType="textMultiLine" />
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

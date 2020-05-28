@@ -22,11 +22,11 @@ data class Word(
     val synonyms: ArrayList<String>,
     val sentences: ArrayList<String>,
     val comments: @RawValue ArrayList<Comment>,
-    val author: @RawValue User,
+    val author: User,
     val authorsId: @RawValue ArrayList<User>,
     val dateCreated: Long,
     val lastUpdated: Long,
-    val isApproved: Boolean,
+    val isApproved: Boolean = false,
     val wordOfTheDay_date: Long
 ) : Parcelable {
 }

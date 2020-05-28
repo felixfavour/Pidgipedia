@@ -1,18 +1,15 @@
 package com.felixfavour.pidgipedia.ui.dictionary
 
-import android.graphics.Canvas
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
-import com.felixfavour.pidgipedia.MockData
+import com.felixfavour.pidgipedia.util.MockData
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentDictionaryBinding
 import com.felixfavour.pidgipedia.ui.OnWordClickListener

@@ -18,6 +18,7 @@
         app:cardElevation="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/primaryColorLight">
@@ -40,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/word_approval_placeholder"
+                tools:text="@string/word_approval_placeholder"
+                android:text="@{String.format(@string/word_approval_placeholder(eventStamp.humanEntity.toString()))}"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +95,8 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppinsbold"
                 android:gravity="center"
-                android:text="Danfo"
+                tools:text="Danfo"
+                android:text="@{eventStamp.word.name}"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/word_text"
                 app:layout_constraintEnd_toStartOf="@+id/imageView22"

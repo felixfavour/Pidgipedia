@@ -1,30 +1,22 @@
 package com.felixfavour.pidgipedia.ui.home
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.felixfavour.pidgipedia.*
 import com.felixfavour.pidgipedia.databinding.*
 import com.felixfavour.pidgipedia.ui.OnWordClickListener
-import com.felixfavour.pidgipedia.ui.dictionary.WordListAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.felixfavour.pidgipedia.util.MockData
 
 class HomeFragment : Fragment() {
 
@@ -39,13 +31,8 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         setHasOptionsMenu(true)
 
-
-        //-------------------------------------------
-        // Testing Object Animator
-        //-------------------------------------------
-
         /*
-        * Custom Layout manager to set make recyclerView unscrollable*/
+        * Custom Layout manager to set make recyclerView unscrollable */
         class CustomLayoutManager(context: Context) : LinearLayoutManager(context) {
             override fun canScrollVertically(): Boolean {
                 val isScrollEnabled = false
@@ -61,9 +48,17 @@ class HomeFragment : Fragment() {
             submitList(MockData.words)
         }
 
-        /*
-        * RecyclerView item decoration to put a margin of 8dp above and below
-        * every item*/
+        binding.appUpdatesList.adapter = HomeRecyclerViewAdapter(
+        HomeRecyclerViewAdapter.HomeCardClickListener() { view, eventstamp ->
+            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToEventstampFragment(eventstamp))
+        }).apply {
+            submitList(MockData.eventStamps)
+        }
+
+            /*
+            * RecyclerView item decoration to put a margin of 8dp above and below
+            * every item */
+
         binding.appUpdatesList.addItemDecoration(object: RecyclerView.ItemDecoration() {
             override fun getItemOffsets(
                 outRect: Rect,
@@ -78,10 +73,6 @@ class HomeFragment : Fragment() {
                 outRect.right = MARGIN
             }
         })
-
-        binding.appUpdatesList.adapter = HomeRecyclerViewAdapter().apply {
-            submitList(MainActivity.mockUpdates)
-        }
 
         // NAVIGATIONS
         binding.suggest.setOnClickListener {

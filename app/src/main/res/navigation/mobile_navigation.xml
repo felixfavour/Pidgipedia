@@ -115,7 +115,11 @@
         android:id="@+id/eventstampFragment"
         android:name="com.felixfavour.pidgipedia.ui.home.EventstampFragment"
         android:label="@string/eventstamp"
-        tools:layout="@layout/fragment_eventstamp" />
+        tools:layout="@layout/fragment_eventstamp" >
+        <argument
+            android:name="eventstamp"
+            app:argType="com.felixfavour.pidgipedia.entity.Eventstamp" />
+    </fragment>
     <fragment
         android:id="@+id/allWordsFragment"
         android:name="com.felixfavour.pidgipedia.ui.home.AllWordsFragment"

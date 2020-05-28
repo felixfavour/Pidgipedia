@@ -5,7 +5,7 @@
     <data>
         <variable
             name="mockData"
-            type="com.felixfavour.pidgipedia.MockData" />
+            type="com.felixfavour.pidgipedia.util.MockData" />
     </data>
 
     <ScrollView

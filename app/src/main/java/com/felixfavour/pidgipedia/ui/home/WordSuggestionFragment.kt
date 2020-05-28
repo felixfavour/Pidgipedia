@@ -16,7 +16,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -25,7 +24,7 @@ import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentWordSuggestionBinding
-import com.felixfavour.pidgipedia.snack
+import com.felixfavour.pidgipedia.util.snack
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import java.io.InputStream

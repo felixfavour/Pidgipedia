@@ -120,6 +120,7 @@
     <string name="rank_reward_placeholder">You are now <b>%1$s</b></string>
     <string name="word_suggestion">Word Suggestion</string>
     <string name="title_dictionary">Dictionary</string>
+    <string name="word_commented_on_placeholder">%1$s commented on the word you suggested.</string>
     <string-array name="part_of_speech_list">
         <item>Phrase</item>
         <item>Noun</item>
