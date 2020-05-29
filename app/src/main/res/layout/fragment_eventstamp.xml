@@ -1,5 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
@@ -71,7 +72,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginEnd="16dp"
-                                android:text="@{String.format(@string/word_commented_on_placeholder(eventstamp.humanEntity.toString()))}"
+                                bind:eventstampText="@{eventstamp}"
                                 android:textColor="@color/primaryTextColor"
                                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                                 app:layout_constraintEnd_toEndOf="parent"

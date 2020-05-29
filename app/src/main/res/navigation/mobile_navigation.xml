@@ -61,6 +61,30 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_home_to_badgesFragment2"
+            app:destination="@id/badgesFragment2"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_navigation_home_to_wordSuggestionFragment2"
+            app:destination="@id/wordSuggestionFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_home_to_profileFragment2"
+            app:destination="@id/profileFragment2"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_home_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
     </fragment>
 
     <fragment
@@ -133,4 +157,18 @@
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/badgesFragment2"
+        android:name="com.felixfavour.pidgipedia.ui.profile.BadgesFragment"
+        tools:layout="@layout/fragment_badges"
+        android:label="@string/badges" />
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.felixfavour.pidgipedia.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/bottomSheetFragment"
+        android:name="com.felixfavour.pidgipedia.BottomSheetFragment"
+        android:label="fragment_bottom_sheet"
+        tools:layout="@layout/fragment_bottom_sheet" />
 </navigation>

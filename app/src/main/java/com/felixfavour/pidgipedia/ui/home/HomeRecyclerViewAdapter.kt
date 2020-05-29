@@ -57,6 +57,12 @@ class HomeRecyclerViewAdapter(
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
+            binding.more.setOnClickListener {view ->
+                homeCardClickListener.onMoreButtonClick(view, eventstamp)
+            }
+            binding.authorImage.setOnClickListener {view ->
+                homeCardClickListener.onProfileImageClick(view, eventstamp)
+            }
             Glide.with(binding.root.context)
                 .load(R.drawable.greta)
                 .centerCrop()
@@ -71,6 +77,12 @@ class HomeRecyclerViewAdapter(
             binding.eventStamp = eventstamp
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
+            }
+            binding.more.setOnClickListener {view ->
+                homeCardClickListener.onMoreButtonClick(view, eventstamp)
+            }
+            binding.authorImage.setOnClickListener {view ->
+                homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
             Glide.with(binding.root.context)
                 .load(R.drawable.greta)
@@ -87,6 +99,12 @@ class HomeRecyclerViewAdapter(
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
+            binding.more.setOnClickListener {view ->
+                homeCardClickListener.onMoreButtonClick(view, eventstamp)
+            }
+            binding.authorImage.setOnClickListener {view ->
+                homeCardClickListener.onProfileImageClick(view, eventstamp)
+            }
             Glide.with(binding.root.context)
                 .load(R.drawable.greta)
                 .centerCrop()
@@ -102,6 +120,9 @@ class HomeRecyclerViewAdapter(
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
+            binding.more.setOnClickListener {view ->
+                homeCardClickListener.onMoreButtonClick(view, eventstamp)
+            }
             styleCard(binding.card)
             binding.executePendingBindings()
         }
@@ -112,6 +133,9 @@ class HomeRecyclerViewAdapter(
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
+            binding.more.setOnClickListener {view ->
+                homeCardClickListener.onMoreButtonClick(view, eventstamp)
+            }
             styleCard(binding.card)
             binding.executePendingBindings()
         }
@@ -121,6 +145,12 @@ class HomeRecyclerViewAdapter(
             binding.eventStamp = eventstamp
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
+            }
+            binding.more.setOnClickListener {view ->
+                homeCardClickListener.onMoreButtonClick(view, eventstamp)
+            }
+            binding.authorImage.setOnClickListener {view ->
+                homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
             Glide.with(binding.root.context)
                 .load(R.drawable.greta)
@@ -199,10 +229,16 @@ class HomeRecyclerViewAdapter(
         }
     }
 
-    class HomeCardClickListener(val clickAction: (view: View, eventstamp: Eventstamp) -> Unit) {
-        fun onHomeCardClick(view: View, eventstamp: Eventstamp) {
-            clickAction(view, eventstamp)
-        }
+    /**
+     * Custom Interface with signature methods to Handle Clicks on Card (Root of the View),
+     * more button and the profile image
+     */
+    interface HomeCardClickListener {
+        fun onHomeCardClick(view: View, eventstamp: Eventstamp)
+
+        fun onMoreButtonClick(view: View, eventstamp: Eventstamp)
+
+        fun onProfileImageClick(view: View, eventstamp: Eventstamp)
     }
 
 }

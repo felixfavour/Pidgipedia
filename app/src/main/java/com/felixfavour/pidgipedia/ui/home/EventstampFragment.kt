@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentEventstampBinding
+import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.util.MockData
 
 /**
@@ -28,6 +29,10 @@ class EventstampFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_eventstamp, container, false)
+
+        // EXTRACT SAFE ARG
+        val eventStampArgument = EventstampFragmentArgs.fromBundle(requireArguments()).eventstamp
+        binding.eventstamp = eventStampArgument
 
         // RECYCLER VIEW
         binding.commentsList.addItemDecoration(DividerItemDecoration(
@@ -44,10 +49,6 @@ class EventstampFragment : Fragment() {
             .centerCrop()
             .circleCrop()
             .into(binding.authorImage)
-
-        // EXTRACT SAFE ARG
-        val eventStampArgument = EventstampFragmentArgs.fromBundle(requireArguments()).eventstamp
-        binding.eventstamp = eventStampArgument
 
         return binding.root
     }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
@@ -15,8 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.felixfavour.pidgipedia.*
 import com.felixfavour.pidgipedia.databinding.*
+import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.ui.OnWordClickListener
 import com.felixfavour.pidgipedia.util.MockData
+import com.felixfavour.pidgipedia.util.toast
 
 class HomeFragment : Fragment() {
 
@@ -49,8 +52,29 @@ class HomeFragment : Fragment() {
         }
 
         binding.appUpdatesList.adapter = HomeRecyclerViewAdapter(
-        HomeRecyclerViewAdapter.HomeCardClickListener() { view, eventstamp ->
-            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToEventstampFragment(eventstamp))
+            object: HomeRecyclerViewAdapter.HomeCardClickListener {
+            override fun onHomeCardClick(view: View, eventstamp: Eventstamp) {
+                when {
+                    (eventstamp.badgeRewardType != null) -> {
+                        findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToBadgesFragment2())
+                    }
+                    (eventstamp.rankRewardType != null) -> {
+                        TODO()
+                    }
+                    else -> {
+                        findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToEventstampFragment(eventstamp))
+                    }
+                }
+            }
+
+            override fun onMoreButtonClick(view: View, eventstamp: Eventstamp) {
+                toast(requireContext(), "${eventstamp.isApproved}")
+            }
+
+            override fun onProfileImageClick(view: View, eventstamp: Eventstamp) {
+                findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToProfileFragment2())
+            }
+
         }).apply {
             submitList(MockData.eventStamps)
         }

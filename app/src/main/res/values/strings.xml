@@ -117,10 +117,22 @@
     <string name="word_approval_placeholder"> <b>%1$s</b> approved the word you suggested</string>
     <string name="word_suggestion_placeholder"> <b>%1$s</b> suggested a Word</string>
     <string name="badge_reward_placeholder">You have earned Level <b>%1$s</b> Badge</string>
-    <string name="rank_reward_placeholder">You are now <b>%1$s</b></string>
+    <string name="rank_reward_placeholder">Your rank has leveled up to <b>%1$s</b>!</string>
     <string name="word_suggestion">Word Suggestion</string>
     <string name="title_dictionary">Dictionary</string>
     <string name="word_commented_on_placeholder">%1$s commented on the word you suggested.</string>
+    <string name="a_year_ago">A year ago</string>
+    <string name="years_ago">%d years ago</string>
+    <string name="a_month_ago">A month ago</string>
+    <string name="months_ago">%d months ago</string>
+    <string name="a_day_ago">A day ago</string>
+    <string name="an_hour_ago">An hour ago</string>
+    <string name="a_few_seconds_ago">A few seconds ago</string>
+    <string name="a_week_ago">A week ago</string>
+    <string name="minutes_ago">%d minutes ago</string>
+    <string name="hours_ago">%d hours ago</string>
+    <string name="days_ago">%d days ago</string>
+    <string name="weeks_ago">%d weeks ago</string>
     <string-array name="part_of_speech_list">
         <item>Phrase</item>
         <item>Noun</item>
@@ -132,4 +144,7 @@
         <item>Conjunction</item>
         <item>Exclamation</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

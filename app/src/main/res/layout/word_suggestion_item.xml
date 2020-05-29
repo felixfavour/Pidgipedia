@@ -38,7 +38,7 @@
             <TextView
                 android:id="@+id/card_dummy_text"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 tools:text="@string/word_suggestion_placeholder"
@@ -110,7 +110,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="a few minutes ago"
+                tools:text="a few minutes ago"
+                app:eventTime="@{eventStamp.eventTime}"
                 android:textSize="@dimen/small_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/more"

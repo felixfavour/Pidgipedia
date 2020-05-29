@@ -14,7 +14,7 @@ import kotlin.math.abs
 class WordOfTheDayActivity : AppCompatActivity() {
 
     companion object {
-        const val SECONDS = 10
+        private const val SECONDS = 5
 
         /**
          * Method to countdown exit time for each WOD screen (15 secs)
@@ -55,8 +55,8 @@ class WordOfTheDayActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         finishAffinity()
     }
 }

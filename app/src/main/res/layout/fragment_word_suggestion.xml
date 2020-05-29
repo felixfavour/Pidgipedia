@@ -328,7 +328,6 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/text_border"
                 android:gravity="center_horizontal"
                 app:checkedButton="@id/default_theme_selection"
                 app:helperText="@string/syllabic_division_example"
