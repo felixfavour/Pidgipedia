@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
@@ -88,6 +89,13 @@ class ProfileFragment : Fragment() {
             }
         })
 
+    }
+    override fun onResume() {
+        super.onResume()
+        // HIDE APP LOGO
+        val activity = requireActivity() as AppCompatActivity
+        val appLogoContainer = activity.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
+        appLogoContainer?.visibility = View.GONE
     }
 
 }

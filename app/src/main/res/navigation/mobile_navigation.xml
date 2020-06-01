@@ -82,9 +82,6 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
-        <action
-            android:id="@+id/action_navigation_home_to_bottomSheetFragment"
-            app:destination="@id/bottomSheetFragment" />
     </fragment>
 
     <fragment
@@ -165,10 +162,23 @@
     <fragment
         android:id="@+id/profileFragment2"
         android:name="com.felixfavour.pidgipedia.ui.profile.ProfileFragment"
-        android:label="ProfileFragment" />
-    <fragment
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+        <argument
+            android:name="user"
+            app:argType="com.felixfavour.pidgipedia.entity.User"
+            app:nullable="true" />
+    </fragment>
+    <dialog
         android:id="@+id/bottomSheetFragment"
         android:name="com.felixfavour.pidgipedia.BottomSheetFragment"
         android:label="fragment_bottom_sheet"
-        tools:layout="@layout/fragment_bottom_sheet" />
+        tools:layout="@layout/fragment_bottom_sheet" >
+        <action
+            android:id="@+id/action_bottomSheetFragment_to_wordFragment"
+            app:destination="@id/wordFragment" />
+        <action
+            android:id="@+id/action_bottomSheetFragment_to_profileFragment2"
+            app:destination="@id/profileFragment2" />
+    </dialog>
 </navigation>

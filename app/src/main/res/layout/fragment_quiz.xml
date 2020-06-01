@@ -18,12 +18,13 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/cardView4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,15 +74,18 @@
 
                     <TextView
                         android:id="@+id/highScore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         android:fontFamily="@font/poppinsbold"
-                        android:gravity="top"
+                        android:gravity="center"
                         android:includeFontPadding="false"
                         android:text="7"
                         android:textColor="@color/primaryColorLight"
-                        android:textSize="130sp"
+                        android:textSize="100sp"
                         android:textStyle="bold"
+                        app:autoSizeTextType="uniform"
                         app:layout_constraintBottom_toTopOf="@+id/star_image"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -95,6 +99,7 @@
                 style="@style/QuizButton"
                 android:layout_width="169dp"
                 android:layout_height="70dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/play"
                 android:textColor="@color/primaryWhiteColor"
@@ -102,21 +107,22 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView4"
+                app:layout_constraintVertical_bias="1.0" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
                 app:cardBackgroundColor="@color/primaryColorLight"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/play"
+                app:layout_constraintEnd_toEndOf="@+id/cardView"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/cardView"
                 app:layout_constraintTop_toBottomOf="@+id/cardView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -151,6 +157,7 @@
                         app:srcCompat="@drawable/ic_rank_jjc" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

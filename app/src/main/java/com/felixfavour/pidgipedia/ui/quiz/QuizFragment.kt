@@ -1,7 +1,9 @@
 package com.felixfavour.pidgipedia.ui.quiz
 
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,6 +19,7 @@ import com.felixfavour.pidgipedia.ProfileActivity
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.SettingsActivity
 import com.felixfavour.pidgipedia.databinding.FragmentQuizBinding
+import com.felixfavour.pidgipedia.util.toast
 
 class QuizFragment : Fragment() {
 

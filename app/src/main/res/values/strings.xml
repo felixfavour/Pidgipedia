@@ -133,6 +133,7 @@
     <string name="hours_ago">%d hours ago</string>
     <string name="days_ago">%d days ago</string>
     <string name="weeks_ago">%d weeks ago</string>
+    <string name="approved_words_placeholder">%d words</string>
     <string-array name="part_of_speech_list">
         <item>Phrase</item>
         <item>Noun</item>
@@ -147,4 +148,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_words">search words</string>
 </resources>

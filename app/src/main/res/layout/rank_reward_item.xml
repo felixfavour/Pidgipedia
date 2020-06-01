@@ -19,63 +19,47 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint"
-            android:foreground="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/primaryColorLight">
+            android:backgroundTint="@color/primaryColorLight"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <TextView
                 android:id="@+id/card_dummy_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                tools:text="@string/rank_reward_placeholder"
-                app:rankText="@{eventStamp.rankRewardType}"
                 android:textAlignment="center"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/more"
-                style="@android:style/Widget.Material.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:adjustViewBounds="true"
-                android:minWidth="40dp"
-                app:layout_constraintBottom_toBottomOf="@+id/time"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/time"
-                app:srcCompat="@drawable/more" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:rankText="@{eventStamp.rankRewardType}"
+                tools:text="@string/rank_reward_placeholder" />
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                tools:text="a few minutes ago"
-                app:eventTime="@{eventStamp.eventTime}"
                 android:textSize="@dimen/small_text"
+                app:eventTime="@{eventStamp.eventTime}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/more"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rank_icon"
+                tools:text="a few minutes ago" />
 
             <ImageView
                 android:id="@+id/rank_icon"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/more"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_dummy_text"
-                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/ic_rank_jjc" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

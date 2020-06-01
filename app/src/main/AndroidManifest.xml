@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_pidgipedia_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WordOfTheDayActivity"></activity>
+        <activity android:name=".SearchableActivity"/>
+        <activity android:name=".WordOfTheDayActivity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SettingsActivity" />

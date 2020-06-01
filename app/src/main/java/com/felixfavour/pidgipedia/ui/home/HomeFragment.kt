@@ -19,6 +19,7 @@ import com.felixfavour.pidgipedia.databinding.*
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.ui.OnWordClickListener
 import com.felixfavour.pidgipedia.util.MockData
+import com.felixfavour.pidgipedia.util.Pidgipedia
 import com.felixfavour.pidgipedia.util.toast
 
 class HomeFragment : Fragment() {
@@ -68,11 +69,19 @@ class HomeFragment : Fragment() {
             }
 
             override fun onMoreButtonClick(view: View, eventstamp: Eventstamp) {
-                toast(requireContext(), "${eventstamp.isApproved}")
+                val bundle = Bundle().apply {
+                    putParcelable(Pidgipedia.HOME_MODAL, eventstamp)
+                }
+                BottomSheetFragment().apply {
+                    arguments = bundle
+                    show(this@HomeFragment.parentFragmentManager, Pidgipedia.EVENTSTAMP)
+                }
             }
 
             override fun onProfileImageClick(view: View, eventstamp: Eventstamp) {
-                findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToProfileFragment2())
+                findNavController().navigate(
+                    HomeFragmentDirections.actionNavigationHomeToProfileFragment2(eventstamp.humanEntity)
+                )
             }
 
         }).apply {

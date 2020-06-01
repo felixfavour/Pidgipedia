@@ -3,30 +3,57 @@ package com.felixfavour.pidgipedia.entity
 import android.graphics.Bitmap
 import android.os.Parcelable
 import android.provider.MediaStore
+import androidx.room.*
+import com.felixfavour.pidgipedia.util.ListConverter
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
 @Parcelize
+@Entity(tableName = "words")
 data class Word(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "word_id")
+    val wordId: Int,
+    @ColumnInfo(name = "word_name")
     val name: String,
+    @ColumnInfo(name = "word_meaning")
     val meaning: String,
+    @ColumnInfo(name = "etymology")
     val etymology: String,
+    @ColumnInfo(name = "plural")
     val plural: String?,
+    @ColumnInfo(name = "part_of_speech")
     val partOfSpeech: String,
+    @ColumnInfo(name = "syllables")
     val syllables: Int,
+    @ColumnInfo(name = "syllabic_division")
     val syllabicDivision: String,
+    @ColumnInfo(name = "english_equivalent")
     val englishEquivalent: String,
-    val image: Bitmap?,
+    @ColumnInfo(name = "image_reference")
+    val imageReference: String? = null,
+    @ColumnInfo(name = "transcription")
     val transcription: String,
-    val pronunciation: @RawValue MediaStore.Audio?,
-    val synonyms: ArrayList<String>,
-    val sentences: ArrayList<String>,
-    val comments: @RawValue ArrayList<Comment>,
-    val author: User,
-    val authorsId: @RawValue ArrayList<User>,
+    @ColumnInfo(name = "audio_reference")
+    val pronunciationReference: String? = null,
+    @ColumnInfo(name = "synonyms")
+    @TypeConverters(ListConverter::class)
+    val synonyms: List<String>,
+    @TypeConverters(ListConverter::class)
+    @ColumnInfo(name = "sentences")
+    val sentences: List<String>,
+    @ColumnInfo(name = "word_author_id")
+    val authorId: Int,
+    @ColumnInfo(name = "comments")
+    @TypeConverters(ListConverter::class)
+    val comments: List<String>,
+    @ColumnInfo(name = "date_created")
     val dateCreated: Long,
+    @ColumnInfo(name = "last_updated")
     val lastUpdated: Long,
+    @ColumnInfo(name = "is_approved")
     val isApproved: Boolean = false,
+    @ColumnInfo(name = "word_of_the_day")
     val wordOfTheDay_date: Long
 ) : Parcelable {
 }

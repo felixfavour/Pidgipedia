@@ -72,6 +72,7 @@ class HomeRecyclerViewAdapter(
             binding.executePendingBindings()
         }
     }
+
     class WordSuggestionViewHolder(val binding: WordSuggestionItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
             binding.eventStamp = eventstamp
@@ -93,6 +94,7 @@ class HomeRecyclerViewAdapter(
             binding.executePendingBindings()
         }
     }
+
     class WordCommentViewHolder(val binding: WordCommentItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
             binding.eventStamp = eventstamp
@@ -114,32 +116,29 @@ class HomeRecyclerViewAdapter(
             binding.executePendingBindings()
         }
     }
+
     class RankRewardViewHolder(val binding: RankRewardItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
             binding.eventStamp = eventstamp
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
-            binding.more.setOnClickListener {view ->
-                homeCardClickListener.onMoreButtonClick(view, eventstamp)
-            }
             styleCard(binding.card)
             binding.executePendingBindings()
         }
     }
+
     class BadgeRewardViewHolder(val binding: BadgeRewardItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
             binding.eventStamp = eventstamp
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
-            binding.more.setOnClickListener {view ->
-                homeCardClickListener.onMoreButtonClick(view, eventstamp)
-            }
             styleCard(binding.card)
             binding.executePendingBindings()
         }
     }
+
     class CommentResponseViewHolder(val binding: CommentResponseItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
             binding.eventStamp = eventstamp

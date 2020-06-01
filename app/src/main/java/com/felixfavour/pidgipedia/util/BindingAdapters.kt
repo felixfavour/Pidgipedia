@@ -11,7 +11,9 @@ import com.felixfavour.pidgipedia.ui.dictionary.WordListAdapter
 import com.felixfavour.pidgipedia.ui.home.HomeRecyclerViewAdapter
 import com.felixfavour.pidgipedia.ui.home.UnapprovedWordListAdapter
 import org.joda.time.DateTime
+import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
+import java.time.Instant
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -139,11 +141,20 @@ fun eventStampDate(textView: TextView, date: Long?) {
 }
 
 @BindingAdapter("rankText")
-fun getRankText(textView: TextView, rank: Int?) {
+fun getRankTextForHomeScreen(textView: TextView, rank: Int?) {
     val context = textView.context
     when (rank) {
         1 -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_1)
         2 -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_2)
         3 -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_3)
+    }
+}
+
+@BindingAdapter("rank")
+fun getRankForModal(textView: TextView, rank: Int?) {
+    when (rank) {
+        1 -> textView.text = Rank.RANK_1
+        2 -> textView.text = Rank.RANK_2
+        3 -> textView.text = Rank.RANK_3
     }
 }

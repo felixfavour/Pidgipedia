@@ -1,8 +1,11 @@
 package com.felixfavour.pidgipedia.ui.dictionary
 
+import android.database.Cursor
+import android.database.MatrixCursor
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
+import android.widget.CursorAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.felixfavour.pidgipedia.util.MockData
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentDictionaryBinding
+import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.ui.OnWordClickListener
 
 class DictionaryFragment : Fragment() {
@@ -25,6 +29,10 @@ class DictionaryFragment : Fragment() {
 
         // Hide SearchView by default
         binding.wordSearchView.visibility = View.GONE
+        val matrixCursor = MatrixCursor(arrayOf("word"))
+        MockData.words.forEach { word ->
+            matrixCursor.addRow(arrayListOf(word))
+        }
 
         // RecyclerView
         binding.recentSearchesList.adapter = WordListAdapter(OnWordClickListener { word, view ->
