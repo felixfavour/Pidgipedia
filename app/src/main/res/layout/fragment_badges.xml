@@ -1,6 +1,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="badges"
+            type="com.felixfavour.pidgipedia.util.Badges" />
+        <variable
+            name="profile"
+            type="com.felixfavour.pidgipedia.viewmodel.ProfileViewModel" />
+    </data>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -8,217 +17,245 @@
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/badges_layout"
+            app:badgeLayout="@{profile.user.badges}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:animateLayoutChanges="true">
 
-            <GridLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:columnCount="3"
-                android:rowCount="3"
-                app:layout_constraintBottom_toTopOf="@+id/unnacomplished_badges_dummy"
-                app:layout_constraintEnd_toEndOf="parent"
+
+                app:cardBackgroundColor="@color/secondaryGreyColor"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/cardView3"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintTop_toTopOf="parent">
 
-
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/badge_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="2"
-                    android:layout_column="2"
-                    android:layout_gravity="center"
-                    android:clickable="true"
-                    app:cardBackgroundColor="@color/secondaryGreyColor"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:contentPadding="16dp">
+                    android:tag="@{badges.BADGE_1}"
+                    android:alpha="0.5"
+                    app:srcCompat="@drawable/ic_badge_1" />
 
-                    <ImageView
-                        android:id="@+id/badge_100"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_badge_100" />
+            </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                
+                app:cardBackgroundColor="@color/secondaryGreyColor"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:contentPadding="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView11"
+                app:layout_constraintEnd_toStartOf="@+id/cardView12"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/cardView11"
+                app:layout_constraintTop_toTopOf="@+id/cardView11">
 
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/badge_75"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="2"
-                    android:layout_column="1"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:clickable="true"
-                    app:cardBackgroundColor="@color/secondaryGreyColor"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:contentPadding="16dp">
+                    android:tag="@{badges.BADGE_75}"
+                    android:alpha="0.5"
+                    app:srcCompat="@drawable/ic_badge_75" />
 
-                    <ImageView
-                        android:id="@+id/badge_75"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_badge_75" />
+            </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                
+                app:cardBackgroundColor="@color/secondaryGreyColor"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:contentPadding="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView5"
+                app:layout_constraintEnd_toStartOf="@+id/cardView6"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/cardView5"
+                app:layout_constraintTop_toTopOf="@+id/cardView5">
 
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/badge_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="2"
-                    android:layout_column="0"
-                    android:layout_gravity="center"
-                    android:clickable="true"
-                    app:cardBackgroundColor="@color/secondaryGreyColor"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:contentPadding="16dp">
+                    android:tag="@{badges.BADGE_2}"
+                    android:alpha="0.5"
+                    app:srcCompat="@drawable/ic_badge_2" />
 
-                    <ImageView
-                        android:id="@+id/badge_50"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_badge_50" />
+            </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                
+                app:cardBackgroundColor="@color/secondaryGreyColor"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:contentPadding="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView8"
+                app:layout_constraintEnd_toStartOf="@+id/cardView9"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/cardView8"
+                app:layout_constraintTop_toTopOf="@+id/cardView8">
 
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/badge_20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="2"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="32dp"
-                    android:clickable="true"
-                    app:cardBackgroundColor="@color/secondaryGreyColor"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:contentPadding="16dp">
+                    android:tag="@{badges.BADGE_20}"
+                    android:alpha="0.5"
+                    app:srcCompat="@drawable/ic_badge_20" />
 
-                    <ImageView
-                        android:id="@+id/badge_25"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_badge_25" />
+            </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                
+                app:cardBackgroundColor="@color/secondaryGreyColor"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:contentPadding="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/cardView7"
+                app:layout_constraintTop_toTopOf="@+id/cardView7">
 
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/badge_25"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="1"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="32dp"
-                    android:clickable="true"
-                    app:cardBackgroundColor="@color/secondaryGreyColor"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:contentPadding="16dp">
+                    android:tag="@{badges.BADGE_25}"
+                    android:alpha="0.5"
+                    app:srcCompat="@drawable/ic_badge_25" />
 
-                    <ImageView
-                        android:id="@+id/badge_20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_badge_20" />
+            </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                
+                app:cardBackgroundColor="@color/secondaryGreyColor"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/cardView10"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView8">
 
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/badge_50"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="32dp"
-                    android:clickable="true"
-                    app:cardBackgroundColor="@color/secondaryGreyColor"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:contentPadding="16dp">
+                    android:tag="@{badges.BADGE_50}"
+                    android:alpha="0.5"
+                    app:srcCompat="@drawable/ic_badge_50" />
 
-                    <ImageView
-                        android:id="@+id/badge_10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_badge_10" />
+            </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                
+                app:cardBackgroundColor="@color/secondaryGreyColor"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:contentPadding="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/cardView7"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView5">
 
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/badge_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:layout_column="2"
-                    android:layout_gravity="center"
-                    android:clickable="true"
-                    app:cardBackgroundColor="@color/secondaryGreyColor"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:contentPadding="16dp">
+                    android:tag="@{badges.BADGE_10}"
+                    android:alpha="0.5"
+                    app:srcCompat="@drawable/ic_badge_10" />
 
-                    <ImageView
-                        android:id="@+id/badge_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_badge_5" />
+            </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                
+                app:cardBackgroundColor="@color/secondaryGreyColor"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:contentPadding="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/cardView3"
+                app:layout_constraintTop_toTopOf="@+id/cardView3">
 
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/badge_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:clickable="true"
-                    app:cardBackgroundColor="@color/secondaryGreyColor"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:contentPadding="16dp">
+                    android:tag="@{badges.BADGE_5}"
+                    android:alpha="0.5"
+                    app:srcCompat="@drawable/ic_badge_5" />
 
-                    <ImageView
-                        android:id="@+id/badge_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_badge_2" />
+            </androidx.cardview.widget.CardView>
 
-                </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                
+                app:cardBackgroundColor="@color/secondaryGreyColor"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:contentPadding="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/cardView10"
+                app:layout_constraintTop_toTopOf="@+id/cardView10">
 
-                <androidx.cardview.widget.CardView
+                <ImageView
+                    android:id="@+id/badge_100"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:layout_gravity="center"
-                    android:clickable="true"
-                    app:cardBackgroundColor="@color/secondaryGreyColor"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:contentPadding="16dp">
+                    android:tag="@{badges.BADGE_100}"
+                    android:alpha="0.5"
+                    app:srcCompat="@drawable/ic_badge_100" />
 
-                    <ImageView
-                        android:id="@+id/badge_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_badge_1" />
-
-                </androidx.cardview.widget.CardView>
-            </GridLayout>
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/unnacomplished_badges_dummy"
@@ -227,7 +264,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="Unaccomplished Badges are greyed out."
+                android:text="@string/unaccomplished_badges_are_greyed_out"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

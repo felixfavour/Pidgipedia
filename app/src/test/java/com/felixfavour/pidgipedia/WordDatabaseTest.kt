@@ -1,12 +1,12 @@
 package com.felixfavour.pidgipedia
 
 import android.content.Context
+import android.os.Build
 import androidx.room.Room
 import com.felixfavour.pidgipedia.entity.BookmarkDao
 import com.felixfavour.pidgipedia.entity.QuizDao
 import com.felixfavour.pidgipedia.entity.WordDao
 import com.felixfavour.pidgipedia.entity.WordDatabase
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.core.app.ApplicationProvider
 import com.felixfavour.pidgipedia.util.MockData
 import org.hamcrest.CoreMatchers.equalTo
@@ -15,8 +15,11 @@ import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [Build.VERSION_CODES.O_MR1])
 class WordDatabaseReadWriteTest {
     private lateinit var wordDao: WordDao
     private lateinit var bookmarkDao: BookmarkDao

@@ -7,37 +7,41 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.felixfavour.pidgipedia.ui.profile.ProfileFragment"
+        android:name="com.felixfavour.pidgipedia.view.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_badgesFragment"
             app:destination="@id/badgesFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="user"
             app:argType="com.felixfavour.pidgipedia.entity.User"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="isAuthor"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.felixfavour.pidgipedia.ui.profile.EditProfileFragment"
+        android:name="com.felixfavour.pidgipedia.view.profile.EditProfileFragment"
         android:label="@string/edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/badgesFragment"
-        android:name="com.felixfavour.pidgipedia.ui.profile.BadgesFragment"
+        android:name="com.felixfavour.pidgipedia.view.profile.BadgesFragment"
         android:label="@string/badges"
         tools:layout="@layout/fragment_badges" />
 </navigation>

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/gameFragment2"
         tools:layout="@layout/fragment_game"
-        android:name="com.felixfavour.pidgipedia.ui.game.GameFragment"
+        android:name="com.felixfavour.pidgipedia.view.game.GameFragment"
         android:label="GameFragment" >
         <action
             android:id="@+id/action_gameFragment2_to_scoreScreen2"
@@ -21,7 +21,7 @@
     <fragment
         tools:layout="@layout/fragment_score_screen"
         android:id="@+id/scoreScreen2"
-        android:name="com.felixfavour.pidgipedia.ui.game.ScoreScreen"
+        android:name="com.felixfavour.pidgipedia.view.game.ScoreScreen"
         android:label="ScoreScreen" >
         <action
             android:id="@+id/action_scoreScreen2_to_mainActivity2"

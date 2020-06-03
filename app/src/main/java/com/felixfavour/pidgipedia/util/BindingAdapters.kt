@@ -1,43 +1,77 @@
 package com.felixfavour.pidgipedia.util
 
-import android.icu.text.DateFormat
+import android.graphics.Rect
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
+import androidx.core.view.forEach
+import androidx.core.view.get
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.Word
-import com.felixfavour.pidgipedia.ui.dictionary.WordListAdapter
-import com.felixfavour.pidgipedia.ui.home.HomeRecyclerViewAdapter
-import com.felixfavour.pidgipedia.ui.home.UnapprovedWordListAdapter
+import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
+import com.felixfavour.pidgipedia.view.home.HomeRecyclerViewAdapter
+import com.felixfavour.pidgipedia.view.home.UnapprovedWordListAdapter
+import jp.wasabeef.glide.transformations.BlurTransformation
 import org.joda.time.DateTime
-import org.joda.time.LocalDateTime
-import org.joda.time.format.DateTimeFormat
-import java.time.Instant
+import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 const val MONTHS_IN_A_YEAR = 12
+const val MARGIN = 8
 
-@BindingAdapter("populateWordList")
-fun populateWordList(recyclerView: RecyclerView, words: ArrayList<Word>?) {
+
+@BindingAdapter("wordList")
+fun populateWordList(recyclerView: RecyclerView, words: List<Word>?) {
+    recyclerView.addItemDecoration(
+        DividerItemDecoration(recyclerView.context,
+        DividerItemDecoration.VERTICAL)
+    )
     val adapter = recyclerView.adapter as WordListAdapter
     adapter.submitList(words)
 }
-@BindingAdapter("populateEventstampsList")
-fun populateEventstampList(recyclerView: RecyclerView, eventstamps: ArrayList<Eventstamp>?) {
+
+
+@BindingAdapter("eventstampsList")
+fun populateEventstampList(recyclerView: RecyclerView, eventstamps: List<Eventstamp>?) {
+    /**
+     *  RecyclerView item decoration to put a margin of 8dp above and below every item */
+   recyclerView.addItemDecoration(object: RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            super.getItemOffsets(outRect, view, parent, state)
+            outRect.bottom = MARGIN
+            outRect.top = MARGIN
+            outRect.left = MARGIN
+            outRect.right = MARGIN
+        }
+    })
     val adapter = recyclerView.adapter as HomeRecyclerViewAdapter
     adapter.submitList(eventstamps)
 }
 
+
 @BindingAdapter("unapprovedWordsList")
-fun unapprovedWordsList(recyclerView: RecyclerView, words: ArrayList<Word>?) {
+fun unapprovedWordsList(recyclerView: RecyclerView, words: List<Word>?) {
     val adapter = recyclerView.adapter as UnapprovedWordListAdapter
     adapter.submitList(words)
 }
 
+
 @BindingAdapter("eventstampText")
-fun eventstampText(textView: TextView, eventstamp: Eventstamp) {
+fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
+    eventstamp!!
     when {
         eventstamp.isWordComment -> {
             textView.text = textView.context.getString(
@@ -62,6 +96,38 @@ fun eventstampText(textView: TextView, eventstamp: Eventstamp) {
         }
     }
 }
+
+
+@BindingAdapter("profileImage")
+fun getProfileImage(imageView: ImageView, url: String?) {
+    Glide.with(imageView.context)
+        .load(url)
+        .centerCrop()
+        .circleCrop()
+        .placeholder(R.drawable.person_outline)
+        .into(imageView)
+}
+
+
+@BindingAdapter("blurBGImage")
+fun getBGImage(imageView: ImageView, url: String?) {
+    Glide.with(imageView.context)
+        .load(url)
+        .placeholder(R.color.primaryColor)
+        .centerCrop()
+        .transform(BlurTransformation(2, 3))
+        .into(imageView)
+}
+
+
+@BindingAdapter("longDate")
+fun convertLongDate(textView: TextView, date: Long?) {
+    val dateRef = Date(date!!)
+    val formattedDate = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault()).format(dateRef)
+    textView.text = formattedDate
+}
+
+
 @BindingAdapter("eventTime")
 fun eventStampDate(textView: TextView, date: Long?) {
     val context = textView.context
@@ -140,7 +206,8 @@ fun eventStampDate(textView: TextView, date: Long?) {
 
 }
 
-@BindingAdapter("rankText")
+
+@BindingAdapter("rankPlaceholder")
 fun getRankTextForHomeScreen(textView: TextView, rank: Int?) {
     val context = textView.context
     when (rank) {
@@ -150,11 +217,37 @@ fun getRankTextForHomeScreen(textView: TextView, rank: Int?) {
     }
 }
 
+
 @BindingAdapter("rank")
 fun getRankForModal(textView: TextView, rank: Int?) {
     when (rank) {
         1 -> textView.text = Rank.RANK_1
         2 -> textView.text = Rank.RANK_2
         3 -> textView.text = Rank.RANK_3
+    }
+}
+
+@BindingAdapter("rankImage")
+fun getRankImage(imageView: ImageView, rank: Int?) {
+    val context = imageView.context
+    when (rank) {
+        1 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_rank_oga))
+        2 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_rank_contributor))
+        3 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_rank_jjc))
+    }
+}
+
+
+@BindingAdapter("badgeLayout")
+fun greyOutInactiveBadges(constraintLayout: ConstraintLayout, badges: List<String>?) {
+    constraintLayout.forEach {badgeCard->
+        val badgeCardView = badgeCard as? CardView
+        badges!!.forEach { badge->
+            if (badgeCardView != null) {
+                if (badge == badgeCardView[0].tag) {
+                    badgeCard[0].alpha = 1f
+                }
+            }
+        }
     }
 }

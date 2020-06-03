@@ -1,11 +1,13 @@
 package com.felixfavour.pidgipedia.entity
 
+import android.graphics.drawable.Drawable
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 @Entity(tableName = "users")
 @Parcelize
@@ -27,8 +29,10 @@ data class User(
     val location: String,
     @ColumnInfo(name = "bio")
     val bio: String,
+    val badges: List<String>,
     val postedWords: List<String>,
-    val approvedWords: List<String>
+    val approvedWords: List<String>,
+    val profileImageUrl: @RawValue String? = null
 ): Parcelable {
 
     override fun toString(): String {

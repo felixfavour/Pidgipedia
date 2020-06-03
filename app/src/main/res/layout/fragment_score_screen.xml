@@ -6,7 +6,7 @@
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
             android:background="@drawable/quiz_bg"
-            tools:context=".ui.quiz.QuizFragment">
+            tools:context=".view.quiz.QuizFragment">
 
 
             <androidx.cardview.widget.CardView

@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="mockdata"
-            type="com.felixfavour.pidgipedia.util.MockData" />
+            name="homeViewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
-                tools:context=".ui.home.HomeFragment">
+                tools:context=".view.home.HomeFragment">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/word_of_the_day_Card"
@@ -226,6 +226,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginBottom="16dp"
                             android:orientation="horizontal"
+                            app:unapprovedWordsList="@{homeViewModel.unapprovedWords}"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -245,6 +246,7 @@
                     android:layout_marginBottom="32dp"
                     android:animateLayoutChanges="false"
                     android:nestedScrollingEnabled="true"
+                    app:eventstampsList="@{homeViewModel.eventstamps}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

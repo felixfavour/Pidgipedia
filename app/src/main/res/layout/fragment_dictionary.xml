@@ -4,20 +4,14 @@
 
     <data>
         <variable
-            name="mockData"
-            type="com.felixfavour.pidgipedia.util.MockData" />
+            name="dictionaryViewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.DictionaryViewModel" />
     </data>
 
-    <ScrollView
-        android:animateLayoutChanges="true"
-        tools:context=".ui.dictionary.DictionaryFragment"
-        android:layout_width="match_parent"
-        android:fillViewport="true"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            tools:context=".view.dictionary.DictionaryFragment"
             android:animateLayoutChanges="true">
 
 
@@ -73,12 +67,46 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/recent_searches_dummy_text">
 
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/no_search_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:id="@+id/imageView7"
+                                android:layout_width="0dp"
+                                android:layout_height="150dp"
+                                android:layout_marginTop="32dp"
+                                app:layout_constraintBottom_toTopOf="@+id/textView14"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/no_searches" />
+
+                            <TextView
+                                android:id="@+id/textView14"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="8dp"
+                                android:text="@string/theres_nothing_here"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recent_searches_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:wordList="@{dictionaryViewModel.recentSearches}"
                             tools:listitem="@layout/search_history_item" />
+
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -126,7 +154,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="32dp"
                 android:padding="8dp"
-                android:text="View all words"
+                android:text="@string/view_all_words"
                 android:textAllCaps="false"
                 android:textSize="@dimen/large_text"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -136,7 +164,5 @@
                 app:strokeColor="@color/primaryColorLight" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
 
 </layout>

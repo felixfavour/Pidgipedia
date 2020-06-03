@@ -7,39 +7,39 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.felixfavour.pidgipedia.ui.settings.SettingsFragment"
+        android:name="com.felixfavour.pidgipedia.view.settings.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settingsFragment_to_informationFragment"
             app:destination="@id/informationFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_settingsFragment_to_languageFragment"
             app:destination="@id/languageFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_settingsFragment_to_profileActivity"
             app:destination="@id/profileActivity"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right" />
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/informationFragment"
-        android:name="com.felixfavour.pidgipedia.ui.settings.InformationFragment"
+        android:name="com.felixfavour.pidgipedia.view.settings.InformationFragment"
         android:label="@string/information"
         tools:layout="@layout/fragment_information" />
     <fragment
         android:id="@+id/languageFragment"
-        android:name="com.felixfavour.pidgipedia.ui.settings.LanguageFragment"
+        android:name="com.felixfavour.pidgipedia.view.settings.LanguageFragment"
         android:label="@string/language"
         tools:layout="@layout/fragment_language" />
     <activity

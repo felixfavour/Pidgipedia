@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.ProfileViewModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,7 +16,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/registerQueriesLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
                 app:layout_constraintTop_toBottomOf="@+id/header">
 
@@ -37,7 +43,8 @@
                         android:paddingTop="16dp"
                         android:paddingBottom="16dp"
                         android:singleLine="false"
-                        android:text="@string/dummy_bio"
+                        android:text="@{viewModel.user.bio}"
+                        tools:text="@string/dummy_bio"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
 
@@ -62,6 +69,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/e_mail"
+                        android:text="@{viewModel.user.email}"
                         android:inputType="textEmailAddress"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -87,6 +95,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/first_name"
+                        android:text="@{viewModel.user.firstName}"
                         android:inputType="textPersonName"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -112,6 +121,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/last_name"
+                        android:text="@{viewModel.user.lastName}"
                         android:inputType="textPersonName"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -138,6 +148,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/location"
+                        android:text="@{viewModel.user.location}"
                         android:inputType="text"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -165,6 +176,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/date_of_birth"
+                        app:longDate="@{viewModel.user.dateOfBirth}"
                         android:inputType="none"
                         android:focusable="false"
                         tools:layout_editor_absoluteX="16dp"

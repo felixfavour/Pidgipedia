@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.felixfavour.pidgipedia.databinding.FragmentBottomSheetBinding
 import com.felixfavour.pidgipedia.entity.Eventstamp
+import com.felixfavour.pidgipedia.view.home.HomeFragmentDirections
 import com.felixfavour.pidgipedia.util.Pidgipedia
-import com.felixfavour.pidgipedia.util.toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
@@ -44,13 +43,15 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.seeAuthor.setOnClickListener {
             NavHostFragment.findNavController(this).navigate(
-                BottomSheetFragmentDirections.actionBottomSheetFragmentToProfileFragment2(eventstamp?.humanEntity)
+                HomeFragmentDirections.actionNavigationHomeToProfileFragment2(eventstamp?.humanEntity, true)
             )
+            this.dismiss()
         }
         binding.seeWord.setOnClickListener {
             findNavController().navigate(
-                BottomSheetFragmentDirections.actionBottomSheetFragmentToWordFragment(eventstamp?.word!!)
+                HomeFragmentDirections.actionNavigationHomeToWordFragment(eventstamp?.word!!)
             )
+            this.dismiss()
         }
 
         return binding.root

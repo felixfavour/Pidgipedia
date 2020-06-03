@@ -9,7 +9,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.viewpager2.widget.ViewPager2
-import com.felixfavour.pidgipedia.ui.onboarding.OnboardingViewpagerAdapter
+import com.felixfavour.pidgipedia.view.onboarding.OnboardingViewpagerAdapter
 
 class OnboardingActivity : AppCompatActivity() {
 

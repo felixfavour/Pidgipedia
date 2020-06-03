@@ -10,15 +10,16 @@
     </data>
 
     <ScrollView
-        android:fillViewport="true"
+        android:id="@+id/wordScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frameLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.home.WordFragment">
+            tools:context=".view.home.WordFragment">
 
 
             <TextView
@@ -29,22 +30,22 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppinsbold"
                 android:text="@{word.name}"
-                tools:text="Danfo"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/word_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Danfo" />
 
             <TextView
                 android:id="@+id/word_transcription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="/dænfɚu/"
                 android:text="@{word.transcription}"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/header_text"
                 app:layout_constraintStart_toStartOf="@+id/wordName"
-                app:layout_constraintTop_toBottomOf="@+id/wordName" />
+                app:layout_constraintTop_toBottomOf="@+id/wordName"
+                tools:text="/dænfɚu/" />
 
             <ImageButton
                 android:id="@+id/audio_button"
@@ -115,11 +116,12 @@
 
                 <TextView
                     android:id="@+id/word_part_of_speech_and_plural"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="4dp"
                     android:backgroundTint="@color/transparentColor"
                     android:gravity="start"
                     android:paddingTop="8dp"
@@ -146,11 +148,11 @@
 
                 <Button
                     android:id="@+id/etymology_button"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/transparentColor"
                     android:gravity="start"
                     android:paddingTop="8dp"
                     android:text="@string/etymology"
@@ -174,15 +176,15 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppinsmedium"
                     android:text="@{word.etymology}"
-                    tools:text="Originated from Lagosians"
-                    android:visibility="gone"
-                    tools:visibility="visible"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etymology_button" />
+                    app:layout_constraintTop_toBottomOf="@+id/etymology_button"
+                    tools:text="Originated from Lagosians"
+                    tools:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/imageView11"
@@ -213,11 +215,11 @@
 
                 <Button
                     android:id="@+id/synonyms_button"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/transparentColor"
                     android:gravity="start"
                     android:paddingTop="8dp"
                     android:text="@string/synonyms"
@@ -235,11 +237,10 @@
 
                 <TextView
                     android:id="@+id/english_equivalent_dummy"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
                     android:backgroundTint="@color/transparentColor"
                     android:gravity="start"
                     android:paddingTop="8dp"
@@ -260,13 +261,13 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppinsmedium"
                     android:text="@{word.englishEquivalent}"
-                    tools:text="Bus"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/english_equivalent_dummy" />
+                    app:layout_constraintTop_toBottomOf="@+id/english_equivalent_dummy"
+                    tools:text="Bus" />
 
                 <ImageView
                     android:id="@+id/imageView13"
@@ -282,11 +283,11 @@
 
                 <Button
                     android:id="@+id/sentences_button"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/transparentColor"
                     android:gravity="start"
                     android:paddingTop="8dp"
                     android:text="@string/sentences"
@@ -312,15 +313,15 @@
                     android:fontFamily="@font/poppinsmedium"
                     android:inputType="textMultiLine"
                     android:text="- Danfo don full.\n- How many people wan enter the Danfo?"
-                    android:visibility="gone"
-                    tools:visibility="visible"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sentences_button" />
+                    app:layout_constraintTop_toBottomOf="@+id/sentences_button"
+                    tools:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/imageView12"
@@ -343,13 +344,13 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppinsmedium"
                     android:text="@{word.meaning}"
-                    tools:text="A privately owned bus mainly for transportation found in Lagos, NIgeria"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/word_part_of_speech_and_plural" />
+                    app:layout_constraintTop_toBottomOf="@+id/word_part_of_speech_and_plural"
+                    tools:text="A privately owned bus mainly for transportation found in Lagos, NIgeria" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
