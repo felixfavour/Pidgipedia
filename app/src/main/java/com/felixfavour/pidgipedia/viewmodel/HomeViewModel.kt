@@ -21,6 +21,17 @@ class HomeViewModel : ViewModel() {
             loadUnapprovedWords()
         }
 
+    private val _wordOfTheDay = MutableLiveData<Word>()
+    val wordOfTheDay: LiveData<Word>
+    get() = _wordOfTheDay.apply {
+        loadWordOfTheDay()
+    }
+
+    private fun loadWordOfTheDay() {
+        _wordOfTheDay.value = MockData.word
+    }
+
+
     private fun loadEventstamps() {
         _eventstamps.value = MockData.eventStamps
     }

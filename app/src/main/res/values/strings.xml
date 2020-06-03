@@ -160,4 +160,5 @@
     <string name="about_pidgipedia">About Pidgipedia</string>
     <string name="app_theme">App Theme</string>
     <string name="display">Display</string>
+    <string name="it_seems_you_have_no_bookmarked_word">It seems you have no bookmarked word</string>
 </resources>

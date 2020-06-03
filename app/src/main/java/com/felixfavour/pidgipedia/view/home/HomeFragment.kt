@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.view.OnWordClickListener
 import com.felixfavour.pidgipedia.util.Pidgipedia
+import com.felixfavour.pidgipedia.util.shareWord
 import com.felixfavour.pidgipedia.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -29,6 +31,7 @@ class HomeFragment : Fragment() {
         const val MARGIN = 8
     }
 
+    @ExperimentalStdlibApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -108,6 +111,14 @@ class HomeFragment : Fragment() {
         binding.wordOfTheDayCard.setOnClickListener {
             binding.learnMore.performClick()
         }
+
+
+        // SHARE THE WORD
+        homeViewModel.wordOfTheDay.observe(viewLifecycleOwner, Observer {word->
+            binding.shareBtn.setOnClickListener {
+                shareWord(requireContext(), word)
+            }
+        })
 
         return binding.root
     }

@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.AllWordsViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -12,6 +18,7 @@
             android:id="@+id/all_words_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:wordList="@{viewModel.words}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/word_list_item"
             app:layout_constraintBottom_toBottomOf="parent"

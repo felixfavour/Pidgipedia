@@ -1,4 +1,11 @@
 <layout>
+    
+    <data>
+        <variable
+            name="bookmarkViewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.BookmarksViewModel" />
+    </data>
+    
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -12,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/bookmarks_list"
+            app:wordList="@{bookmarkViewModel.words}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/word_list_item"/>
 
@@ -34,7 +42,7 @@
                 android:id="@+id/no_bookmark_dummy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="It seems you have no bookmarked word"
+                android:text="@string/it_seems_you_have_no_bookmarked_word"
                 android:textSize="@dimen/paragraph_text"
                 android:textStyle="bold" />
         </LinearLayout>

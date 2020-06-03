@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.felixfavour.pidgipedia.util.MockData
@@ -15,12 +16,15 @@ import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentAllWordsBinding
 import com.felixfavour.pidgipedia.view.OnWordClickListener
 import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
+import com.felixfavour.pidgipedia.viewmodel.AllWordsViewModel
 
 /**
  * A simple [Fragment] subclass.
  */
 class AllWordsFragment : Fragment() {
     private lateinit var binding: FragmentAllWordsBinding
+    private lateinit var viewModel: AllWordsViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,15 +32,20 @@ class AllWordsFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_all_words, container, false)
+        viewModel = ViewModelProvider(this).get(AllWordsViewModel::class.java)
+
+
+        // SET LIFECYCLE OWNER
+        binding.lifecycleOwner = this
+
+
+        // BIND XML DATA
+        binding.viewModel = viewModel
+
 
         binding.allWordsList.adapter = WordListAdapter(OnWordClickListener {word, view ->
             findNavController().navigate(AllWordsFragmentDirections.actionAllWordsFragmentToWordFragment(word))
-        }).apply {
-            submitList(MockData.allWords)
-        }
-        binding.allWordsList.addItemDecoration(
-            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        )
+        })
 
         return binding.root
     }
