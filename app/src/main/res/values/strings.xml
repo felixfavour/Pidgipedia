@@ -155,4 +155,9 @@
     <string name="theres_nothing_here">There\'s nothing here</string>
     <string name="download_app_for_more">Download the Pidgipedia mobile app for more today.</string>
     <string name="unaccomplished_badges_are_greyed_out">Unaccomplished Badges are greyed out.</string>
+    <string name="see_more">See more</string>
+    <string name="wod_parting_text1">We hope you learnt a lot today, Have a lovely day and come back tomorrow for more knowledge</string>
+    <string name="about_pidgipedia">About Pidgipedia</string>
+    <string name="app_theme">App Theme</string>
+    <string name="display">Display</string>
 </resources>

@@ -15,13 +15,17 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentWordBinding
+import com.felixfavour.pidgipedia.util.shareWord
 import com.felixfavour.pidgipedia.viewmodel.WordViewModel
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 
 /**
@@ -83,15 +87,7 @@ class WordFragment : Fragment() {
 
         // SHARE WORD ON BUTTON CLICKED
         binding.shareWord.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SEND).apply {
-                putExtra(Intent.EXTRA_TEXT,
-                    "${wordArg.name.capitalize(Locale.getDefault())}\n${wordArg.meaning}." +
-                            "\n" + getString(R.string.download_app_for_more)
-                )
-                type = "text/plain"
-            }
-            val shareIntent = Intent.createChooser(intent, null)
-            startActivity(shareIntent)
+            shareWord(requireContext(), wordArg)
         }
 
 
@@ -118,7 +114,7 @@ class WordFragment : Fragment() {
         // HIDE APP LOGO
         val activity = requireActivity() as AppCompatActivity
         val appLogoContainer = activity.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
-        appLogoContainer.visibility = View.GONE
+        appLogoContainer?.visibility = View.GONE
     }
 
 }

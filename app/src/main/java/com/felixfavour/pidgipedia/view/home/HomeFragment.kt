@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.felixfavour.pidgipedia.*
 import com.felixfavour.pidgipedia.databinding.FragmentHomeBinding
 import com.felixfavour.pidgipedia.entity.Eventstamp
+import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.view.OnWordClickListener
 import com.felixfavour.pidgipedia.util.Pidgipedia
 import com.felixfavour.pidgipedia.viewmodel.HomeViewModel
@@ -89,6 +90,13 @@ class HomeFragment : Fragment() {
         // NAVIGATION
         binding.suggest.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordSuggestionFragment())
+        }
+
+        if (requireActivity().intent.action == Pidgipedia.WORD_NAVIGATION) {
+            findNavController().navigate(
+                HomeFragmentDirections.actionNavigationHomeToWordFragment(
+                    requireActivity().intent.getParcelableExtra(Pidgipedia.WORD) as Word))
+            requireActivity().intent.action = ""
         }
 
 

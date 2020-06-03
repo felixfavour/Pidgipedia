@@ -1,6 +1,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="settingsViewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.SettingsViewModel" />
+    </data>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,15 +22,17 @@
                 android:id="@+id/current_Language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="32dp"
-                android:text="{current Language}"
+                android:layout_marginBottom="16dp"
+                android:text="@{settingsViewModel.language}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/change_language" />
+                app:layout_constraintTop_toBottomOf="@+id/change_language"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="{current Language}" />
 
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/Theme_buttonGroup"
@@ -175,7 +183,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Display"
+                android:text="@string/display"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/large_text"
                 android:textStyle="bold"
@@ -191,7 +199,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="App Theme"
+                android:text="@string/app_theme"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -267,7 +275,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
-                android:text="About Pidgipedia"
+                android:text="@string/about_pidgipedia"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/large_text"
                 android:textStyle="bold"
@@ -280,7 +288,7 @@
                 android:id="@+id/textView20"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginEnd="32dp"
                 android:text="@string/miscellanous_news_desc"
                 app:layout_constraintEnd_toStartOf="@+id/miscellaneous_news_notify"
@@ -291,7 +299,7 @@
                 android:id="@+id/textView22"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/word_of_the_day_channel"
                 android:textColor="@color/primaryTextColor"
@@ -304,7 +312,7 @@
                 android:id="@+id/textView21"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/miscellaneous_news"
                 android:textColor="@color/primaryTextColor"
@@ -317,7 +325,7 @@
                 android:id="@+id/textView13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/words_approved_channel"
                 android:textColor="@color/primaryTextColor"
@@ -330,7 +338,7 @@
                 android:id="@+id/textView23"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/comment_responses"
                 android:textColor="@color/primaryTextColor"
@@ -343,7 +351,7 @@
                 android:id="@+id/textView18"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/rank_promotion"
                 android:textColor="@color/primaryTextColor"
@@ -356,23 +364,22 @@
                 android:id="@+id/profile_full_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginEnd="16dp"
-                android:text="{full name}"
+                android:text="@{settingsViewModel.user.toString()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/go_to_profile" />
+                app:layout_constraintTop_toBottomOf="@+id/go_to_profile"
+                tools:text="{full name}" />
 
-            <Button
+            <TextView
                 android:id="@+id/go_to_information"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparentColor"
                 android:gravity="start"
-                android:minHeight="65dp"
-                android:padding="16dp"
+                android:padding="20dp"
                 android:text="@string/information"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
@@ -381,15 +388,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-            <Button
+            <TextView
                 android:id="@+id/share_this_app"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparentColor"
                 android:gravity="start"
-                android:minHeight="65dp"
-                android:padding="16dp"
+                android:padding="20dp"
                 android:text="@string/share_this_app"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
@@ -398,15 +403,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/go_to_information" />
 
-            <Button
+            <TextView
                 android:id="@+id/change_language"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparentColor"
                 android:gravity="start"
-                android:minHeight="65dp"
-                android:padding="16dp"
+                android:padding="20dp"
                 android:text="@string/language"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
@@ -415,15 +418,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/share_this_app" />
 
-            <Button
+            <TextView
                 android:id="@+id/delte_all_bookmarks"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparentColor"
                 android:gravity="start"
-                android:minHeight="65dp"
-                android:padding="16dp"
+                android:padding="20dp"
                 android:paddingTop="8dp"
                 android:text="@string/delete_all_bookmarks"
                 android:textAllCaps="false"
@@ -433,15 +434,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/delete_all_history" />
 
-            <Button
+            <TextView
                 android:id="@+id/delete_all_history"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparentColor"
                 android:gravity="start"
-                android:minHeight="65dp"
-                android:padding="16dp"
+                android:padding="20dp"
                 android:paddingTop="8dp"
                 android:text="@string/delete_all_history"
                 android:textAllCaps="false"
@@ -451,15 +450,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/history_buttonGroup" />
 
-            <Button
+            <TextView
                 android:id="@+id/delete_account"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparentColor"
                 android:gravity="start"
-                android:minHeight="65dp"
-                android:padding="16dp"
+                android:padding="20dp"
                 android:paddingTop="8dp"
                 android:text="@string/delete_account"
                 android:textAllCaps="false"
@@ -469,15 +466,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/log_out" />
 
-            <Button
+            <TextView
                 android:id="@+id/log_out"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparentColor"
                 android:gravity="start"
-                android:minHeight="65dp"
-                android:padding="16dp"
+                android:padding="20dp"
                 android:paddingTop="8dp"
                 android:text="@string/log_out"
                 android:textAllCaps="false"
@@ -487,15 +482,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_full_name" />
 
-            <Button
+            <TextView
                 android:id="@+id/go_to_profile"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparentColor"
                 android:gravity="start"
-                android:minHeight="65dp"
-                android:padding="16dp"
+                android:padding="20dp"
                 android:text="@string/my_profile"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"

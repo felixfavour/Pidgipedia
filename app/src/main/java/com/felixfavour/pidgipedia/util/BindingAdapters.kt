@@ -13,6 +13,9 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.Word
@@ -250,4 +253,24 @@ fun greyOutInactiveBadges(constraintLayout: ConstraintLayout, badges: List<Strin
             }
         }
     }
+}
+
+
+@BindingAdapter("wodImage")
+fun getWODImage(imageView: ImageView, url: String?) {
+    // ROUND IMAGE CORNERS
+    Glide.with(imageView.context)
+        .load(url)
+        .placeholder(R.drawable.no_bookmarks)
+        .apply(RequestOptions().transform(RoundedCorners(128)))
+        .into(imageView)
+}
+
+
+@BindingAdapter("wordImage")
+fun getWordImage(imageView: ImageView, url: String?) {
+    Glide.with(imageView.context)
+        .load(R.drawable.no_bookmarks)
+        .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16)))
+        .into(imageView)
 }
