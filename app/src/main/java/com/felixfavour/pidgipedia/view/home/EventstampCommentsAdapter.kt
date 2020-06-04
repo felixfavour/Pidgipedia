@@ -45,9 +45,10 @@ class EventstampCommentsAdapter:
 
             // Circle Image
             Glide.with(binding.root.context)
-                .load(R.drawable.greta)
+                .load(comment.author.profileImageUrl)
                 .centerCrop()
                 .circleCrop()
+                .placeholder(R.drawable.person_outline)
                 .into(binding.authorImage)
             binding.executePendingBindings()
         }

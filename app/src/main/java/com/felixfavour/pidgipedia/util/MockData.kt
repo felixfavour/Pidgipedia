@@ -132,6 +132,12 @@ object MockData {
     val comments = arrayListOf(comment,
         Comment("This is another comment, looks good Huh?", user1, 78474874897),
         Comment("This is another another comment, looks great too Huh?", user1, 78474874897),
+        Comment("This is another comment, looks good Huh?", user1, 78474874897),
+        Comment("This is another another comment, looks great too Huh?", user1, 784874897),
+        Comment("This is another comment, looks good Huh?", user1, 784748747),
+        Comment("This is another another comment, looks great too Huh?", user1, 7844874897),
+        Comment("This is another comment, looks good Huh?", user1, 7847487487),
+        Comment("This is another another comment, looks great too Huh?", user1, 7844874897),
         Comment("This is another another another comment, looks sooo great too Huh?", user1, 78474874897)
         )
 

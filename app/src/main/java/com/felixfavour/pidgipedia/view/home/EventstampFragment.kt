@@ -8,43 +8,62 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
+import com.felixfavour.pidgipedia.BottomSheetFragment
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentEventstampBinding
+import com.felixfavour.pidgipedia.entity.User
 import com.felixfavour.pidgipedia.util.MockData
+import com.felixfavour.pidgipedia.util.Pidgipedia
+import com.felixfavour.pidgipedia.viewmodel.EventstampViewModel
 
 /**
  * A simple [Fragment] subclass.
  */
 class EventstampFragment : Fragment() {
     private lateinit var binding: FragmentEventstampBinding
+    private lateinit var eventstampViewModel: EventstampViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_eventstamp, container, false)
-
+        eventstampViewModel = ViewModelProvider(this).get(EventstampViewModel::class.java)
         // EXTRACT SAFE ARG
         val eventStampArgument = EventstampFragmentArgs.fromBundle(requireArguments()).eventstamp
-        binding.eventstamp = eventStampArgument
+
+
+        // SET LIFECYCLE OWNER
+        binding.lifecycleOwner = this
+
+
+        // LOAD EVENTSTAMP VALUE FROM MOST RECENT PASSED FRAGMENT ARG
+        eventstampViewModel.loadEventstamp(eventStampArgument)
+
+
+        // BIND XML DATA
+        binding.eventstampViewModel = eventstampViewModel
+
 
         // RECYCLER VIEW
-        binding.commentsList.addItemDecoration(DividerItemDecoration(
-            requireContext(),
-            DividerItemDecoration.VERTICAL
-        ))
-        binding.commentsList.adapter = EventstampCommentsAdapter().apply {
-            submitList(MockData.comments)
+        binding.commentsList.adapter = EventstampCommentsAdapter()
+
+
+        // EVENT LISTENERS
+        binding.more.setOnClickListener {
+            val bundle = Bundle().apply {
+                putParcelable(Pidgipedia.HOME_MODAL, eventStampArgument)
+            }
+            BottomSheetFragment().apply {
+                arguments = bundle
+                show(this@EventstampFragment.parentFragmentManager, Pidgipedia.EVENTSTAMP)
+            }
         }
 
-        // CARD
-        Glide.with(requireContext())
-            .load(R.drawable.greta)
-            .centerCrop()
-            .circleCrop()
-            .into(binding.authorImage)
 
         return binding.root
     }

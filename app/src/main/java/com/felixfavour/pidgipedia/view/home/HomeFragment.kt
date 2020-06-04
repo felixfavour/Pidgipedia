@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
                     }
                     (eventstamp.rankRewardType != null) -> {
                         findNavController().navigate(
-                            HomeFragmentDirections.actionNavigationHomeToProfileFragment2(null, false))
+                            HomeFragmentDirections.actionNavigationHomeToProfileFragment2(null, true))
                     }
                     else -> {
                         findNavController().navigate(
@@ -83,7 +83,7 @@ class HomeFragment : Fragment() {
 
             override fun onProfileImageClick(view: View, eventstamp: Eventstamp) {
                 findNavController().navigate(
-                    HomeFragmentDirections.actionNavigationHomeToProfileFragment2(eventstamp.humanEntity, false)
+                    HomeFragmentDirections.actionNavigationHomeToProfileFragment2(eventstamp.humanEntity, true)
                 )
             }
 
@@ -110,6 +110,9 @@ class HomeFragment : Fragment() {
         }
         binding.wordOfTheDayCard.setOnClickListener {
             binding.learnMore.performClick()
+        }
+        binding.dismiss.setOnClickListener {
+            binding.suggestWordCard.visibility = View.GONE
         }
 
 

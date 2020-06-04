@@ -5,8 +5,8 @@
     
     <data>
         <variable
-            name="eventstamp"
-            type="com.felixfavour.pidgipedia.entity.Eventstamp" />
+            name="eventstampViewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.EventstampViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +14,7 @@
         android:layout_height="match_parent"
         android:animateLayoutChanges="true">
 
-
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fillViewport="true"
@@ -27,7 +26,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
                 <RelativeLayout
                     android:id="@+id/cardContainer"
@@ -64,7 +69,8 @@
                                 android:padding="3dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/greta" />
+                                app:profileImage="@{eventstampViewModel.eventstamp.humanEntity.profileImageUrl}"
+                                tools:srcCompat="@drawable/greta" />
 
                             <TextView
                                 android:id="@+id/card_dummy_text"
@@ -72,13 +78,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginEnd="16dp"
-                                bind:eventstampText="@{eventstamp}"
                                 android:textColor="@color/primaryTextColor"
                                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/author_image"
                                 app:layout_constraintTop_toTopOf="@+id/author_image"
                                 app:layout_constraintVertical_bias="0.0"
+                                bind:eventstampText="@{eventstampViewModel.eventstamp}"
                                 tools:text="Some sort of header text" />
 
                             <ImageButton
@@ -126,7 +132,7 @@
                                 android:layout_marginTop="16dp"
                                 android:fontFamily="@font/poppinsbold"
                                 android:gravity="center"
-                                android:text="@{eventstamp.word.name}"
+                                android:text="@{eventstampViewModel.eventstamp.word.name}"
                                 android:textColor="@color/primaryTextColor"
                                 android:textSize="@dimen/word_text"
                                 app:layout_constraintEnd_toStartOf="@+id/imageView22"
@@ -141,13 +147,14 @@
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
                                 android:layout_marginBottom="16dp"
-                                android:text="a few minutes ago"
                                 android:textSize="@dimen/small_text"
+                                app:eventTime="@{eventstampViewModel.eventstamp.eventTime}"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@+id/more"
                                 app:layout_constraintHorizontal_bias="0.0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/imageView23" />
+                                app:layout_constraintTop_toBottomOf="@+id/imageView23"
+                                tools:text="a few minutes ago" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -160,7 +167,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="32dp"
-                    android:text="View more comments"
+                    android:text="@string/view_more_comments"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -169,6 +177,7 @@
                     android:id="@+id/comments_list"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    app:eventstampComments="@{eventstampViewModel.eventstamp.comments}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@+id/view_more_comments"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -182,7 +191,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
@@ -218,7 +227,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:background="@drawable/onboarding_button"
-                android:hint="Enter your comment"
+                android:hint="@string/enter_your_comment"
                 android:inputType="textMultiLine"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"

@@ -57,7 +57,8 @@ class HomeRecyclerViewAdapter(
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
             Glide.with(binding.root.context)
-                .load(R.drawable.greta)
+                .load(eventstamp.humanEntity!!.profileImageUrl)
+                .placeholder(R.drawable.person_outline)
                 .centerCrop()
                 .circleCrop()
                 .into(binding.authorImage)
@@ -79,7 +80,8 @@ class HomeRecyclerViewAdapter(
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
             Glide.with(binding.root.context)
-                .load(R.drawable.greta)
+                .load(eventstamp.humanEntity!!.profileImageUrl)
+                .placeholder(R.drawable.person_outline)
                 .centerCrop()
                 .circleCrop()
                 .into(binding.authorImage)
@@ -101,7 +103,8 @@ class HomeRecyclerViewAdapter(
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
             Glide.with(binding.root.context)
-                .load(R.drawable.greta)
+                .load(eventstamp.humanEntity!!.profileImageUrl)
+                .placeholder(R.drawable.person_outline)
                 .centerCrop()
                 .circleCrop()
                 .into(binding.authorImage)
@@ -145,7 +148,8 @@ class HomeRecyclerViewAdapter(
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
             Glide.with(binding.root.context)
-                .load(R.drawable.greta)
+                .load(eventstamp.humanEntity!!.profileImageUrl)
+                .placeholder(R.drawable.person_outline)
                 .centerCrop()
                 .circleCrop()
                 .into(binding.authorImage)

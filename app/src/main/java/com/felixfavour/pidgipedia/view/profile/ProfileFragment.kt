@@ -21,6 +21,7 @@ import com.felixfavour.pidgipedia.util.Pidgipedia
 import com.felixfavour.pidgipedia.viewmodel.ProfileViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import jp.wasabeef.glide.transformations.BlurTransformation
+import java.lang.IllegalArgumentException
 
 /**
  * A simple [Fragment] subclass.
@@ -40,8 +41,13 @@ class ProfileFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         bottomSheet = BottomSheetBehavior.from(binding.bottomsheet)
-        userArgs = ProfileFragmentArgs.fromBundle(requireArguments()).user
-        isAuthor = ProfileFragmentArgs.fromBundle(requireArguments()).isAuthor
+        try {
+            userArgs = ProfileFragmentArgs.fromBundle(requireArguments()).user
+            isAuthor = ProfileFragmentArgs.fromBundle(requireArguments()).isAuthor
+        } catch (ex: IllegalArgumentException) {
+            userArgs = null
+            isAuthor = false
+        }
 
 
         // BIND XML DATA

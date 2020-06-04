@@ -140,6 +140,20 @@
         <argument
             android:name="eventstamp"
             app:argType="com.felixfavour.pidgipedia.entity.Eventstamp" />
+        <action
+            android:id="@+id/action_eventstampFragment_to_profileFragment2"
+            app:destination="@id/profileFragment2"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_eventstampFragment_to_wordFragment"
+            app:destination="@id/wordFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/allWordsFragment"

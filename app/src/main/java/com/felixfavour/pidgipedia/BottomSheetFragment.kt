@@ -13,7 +13,9 @@ import com.felixfavour.pidgipedia.databinding.FragmentBottomSheetBinding
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.view.home.HomeFragmentDirections
 import com.felixfavour.pidgipedia.util.Pidgipedia
+import com.felixfavour.pidgipedia.view.home.EventstampFragmentDirections
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.lang.IllegalArgumentException
 
 /**
  * A simple [Fragment] subclass.
@@ -36,21 +38,36 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         // UI Additions
         Glide.with(requireContext())
-            .load(R.drawable.greta)
+            .load(eventstamp!!.humanEntity!!.profileImageUrl)
             .centerCrop()
             .circleCrop()
+            .placeholder(R.drawable.person_outline)
             .into(binding.authorImage)
 
+
         binding.seeAuthor.setOnClickListener {
-            NavHostFragment.findNavController(this).navigate(
-                HomeFragmentDirections.actionNavigationHomeToProfileFragment2(eventstamp?.humanEntity, true)
-            )
+            try {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionNavigationHomeToProfileFragment2(eventstamp?.humanEntity, true)
+                )
+            }
+            catch (ex: IllegalArgumentException) {
+                findNavController().navigate(
+                    EventstampFragmentDirections.actionEventstampFragmentToProfileFragment2(eventstamp?.humanEntity, true))
+            }
             this.dismiss()
         }
+
         binding.seeWord.setOnClickListener {
-            findNavController().navigate(
-                HomeFragmentDirections.actionNavigationHomeToWordFragment(eventstamp?.word!!)
-            )
+            try {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionNavigationHomeToWordFragment(eventstamp?.word!!)
+                )
+            }
+            catch (ex: IllegalArgumentException) {
+                findNavController().navigate(
+                    EventstampFragmentDirections.actionEventstampFragmentToWordFragment(eventstamp?.word!!))
+            }
             this.dismiss()
         }
 

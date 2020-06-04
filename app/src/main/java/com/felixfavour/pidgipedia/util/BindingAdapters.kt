@@ -17,12 +17,15 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.felixfavour.pidgipedia.R
+import com.felixfavour.pidgipedia.entity.Comment
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
+import com.felixfavour.pidgipedia.view.home.EventstampCommentsAdapter
 import com.felixfavour.pidgipedia.view.home.HomeRecyclerViewAdapter
 import com.felixfavour.pidgipedia.view.home.UnapprovedWordListAdapter
 import jp.wasabeef.glide.transformations.BlurTransformation
+import kotlinx.android.synthetic.main.fragment_word_suggestion.view.*
 import org.joda.time.DateTime
 import java.text.SimpleDateFormat
 import java.util.*
@@ -230,6 +233,7 @@ fun getRankForModal(textView: TextView, rank: Int?) {
     }
 }
 
+
 @BindingAdapter("rankImage")
 fun getRankImage(imageView: ImageView, rank: Int?) {
     val context = imageView.context
@@ -273,4 +277,15 @@ fun getWordImage(imageView: ImageView, url: String?) {
         .load(R.drawable.no_bookmarks)
         .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16)))
         .into(imageView)
+}
+
+
+@BindingAdapter("eventstampComments")
+fun getEventStampComments(recyclerView: RecyclerView, comments: List<Comment>?) {
+    recyclerView.addItemDecoration(DividerItemDecoration(
+        recyclerView.context,
+        DividerItemDecoration.VERTICAL
+    ))
+    val adapter = recyclerView.adapter as EventstampCommentsAdapter
+    adapter.submitList(comments)
 }

@@ -161,4 +161,6 @@
     <string name="app_theme">App Theme</string>
     <string name="display">Display</string>
     <string name="it_seems_you_have_no_bookmarked_word">It seems you have no bookmarked word</string>
+    <string name="view_more_comments">View more comments</string>
+    <string name="enter_your_comment">Enter your comment</string>
 </resources>
