@@ -3,6 +3,7 @@ package com.felixfavour.pidgipedia.view.profile
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -94,8 +95,8 @@ class ProfileFragment : Fragment() {
         super.onResume()
         // HIDE APP LOGO
         val activity = requireActivity() as AppCompatActivity
-        val appLogoContainer = activity.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
-        appLogoContainer?.visibility = View.GONE
+        activity.supportActionBar!!.setDisplayShowHomeEnabled(true)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
 

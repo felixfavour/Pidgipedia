@@ -1,8 +1,10 @@
 package com.felixfavour.pidgipedia.util
 
+import android.animation.ObjectAnimator
 import android.graphics.Rect
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.felixfavour.pidgipedia.R
+import com.felixfavour.pidgipedia.WordOfTheDayActivity
 import com.felixfavour.pidgipedia.entity.Comment
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.Word
@@ -288,4 +291,16 @@ fun getEventStampComments(recyclerView: RecyclerView, comments: List<Comment>?) 
     ))
     val adapter = recyclerView.adapter as EventstampCommentsAdapter
     adapter.submitList(comments)
+}
+
+
+@BindingAdapter("questionProgress")
+fun setQuestionProgress(progressBar: ProgressBar, score: Int?) {
+    val scoreProgress = score!! * 1000
+
+    progressBar.max = 10000
+    ObjectAnimator.ofInt(progressBar, "progress", progressBar.progress, scoreProgress).apply {
+        duration = 1000
+        start()
+    }
 }

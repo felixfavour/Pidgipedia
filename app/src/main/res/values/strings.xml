@@ -89,7 +89,7 @@
     <string name="add_account">Add account</string>
     <string name="words_awaiting_approval">Words awaiting Approval</string>
     <string name="your_score">Your Score</string>
-    <string name="score_to_ace">%1%s more to ace!</string>
+    <string name="score_to_ace">%d more to ace!</string>
     <string name="next">Next</string>
     <string name="question_progress_string">%1$d out of %2$d</string>
     <string name="bookmarks">Bookmarks</string>
@@ -112,10 +112,10 @@
     <string name="eventstamp">Eventstamp</string>
     <string name="syllabic_division_example"><b>For example: </b>"dan-fo"</string>
     <string name="syllabic_division">Syllabic Division</string>
-    <string name="comment_response_placeholder"> <b>%1$s</b> replied your comment</string>
-    <string name="word_comment_placeholder"> <b>%1$s</b> commented on a word you suggested</string>
-    <string name="word_approval_placeholder"> <b>%1$s</b> approved the word you suggested</string>
-    <string name="word_suggestion_placeholder"> <b>%1$s</b> suggested a Word</string>
+    <string name="comment_response_placeholder"><b>%1$s</b> replied your comment</string>
+    <string name="word_comment_placeholder"><b>%1$s</b> commented on a word you suggested</string>
+    <string name="word_approval_placeholder"><b>%1$s</b> approved the word you suggested</string>
+    <string name="word_suggestion_placeholder"><b>%1$s</b> suggested a Word</string>
     <string name="badge_reward_placeholder">You have earned Level <b>%1$s</b> Badge</string>
     <string name="rank_reward_placeholder">Your rank has leveled up to <b>%1$s</b>!</string>
     <string name="word_suggestion">Word Suggestion</string>

@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_scoreScreen2_to_mainActivity2"
             app:destination="@id/mainActivity2"/>
+        <action
+            android:id="@+id/action_scoreScreen2_to_gameFragment2"
+            app:destination="@id/gameFragment2" />
     </fragment>
     <activity
         android:id="@+id/mainActivity2"

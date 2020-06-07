@@ -17,8 +17,6 @@ data class Quiz(
     @ColumnInfo(name = "answers")
     @TypeConverters(ListConverter::class)
     val answers: List<String>,
-    @ColumnInfo(name = "highest_score")
-    val highestScore: Int,
     @ColumnInfo(name = "correct_answer_index")
     val correctAnswerIndex: Int,
     @ColumnInfo(name = "date_created")

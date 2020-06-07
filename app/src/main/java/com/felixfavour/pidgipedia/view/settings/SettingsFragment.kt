@@ -97,8 +97,8 @@ class SettingsFragment : Fragment() {
         super.onResume()
         // HIDE APP LOGO
         val activity = requireActivity() as AppCompatActivity
-        val appLogoContainer = activity.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
-        appLogoContainer?.visibility = View.GONE
+        activity.supportActionBar!!.setDisplayShowHomeEnabled(true)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
 }

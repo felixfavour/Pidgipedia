@@ -3,18 +3,16 @@ package com.felixfavour.pidgipedia.util
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import androidx.core.graphics.drawable.toBitmap
-import com.felixfavour.pidgipedia.entity.Comment
-import com.felixfavour.pidgipedia.entity.Eventstamp
-import com.felixfavour.pidgipedia.entity.User
-import com.felixfavour.pidgipedia.entity.Word
+import androidx.lifecycle.MutableLiveData
+import com.felixfavour.pidgipedia.entity.*
 
 object MockData {
     val user2 = User(0, "Chinemerem", "Kenechukwu", "felixfavour0@gmail.com", 1590655865258, 1, "Lagos, Nigeria",
         "The quick brown fo fresh diee and you all really know it", listOf(Badges.BADGE_1, Badges.BADGE_2, Badges.BADGE_5, Badges.BADGE_10, Badges.BADGE_20, Badges.BADGE_25, Badges.BADGE_50),
-        arrayListOf(), arrayListOf())
+        arrayListOf(), arrayListOf(), 8)
     val user1 = User(0, "Felix", "Favour", "felixfavour0@gmail.com", 787397983, 1, "Lagos, Nigeria",
         "The quick brown fo fresh diee and you all really know it",listOf(Badges.BADGE_1, Badges.BADGE_2, Badges.BADGE_5, Badges.BADGE_10, Badges.BADGE_20),
-        arrayListOf(), arrayListOf())
+        arrayListOf(), arrayListOf(), 8)
     val word =
         Word(name = "pata pata", meaning = "This means you are completely done", comments = arrayListOf(), englishEquivalent = "Overall",
             sentences = arrayListOf("Pata pata we don finish everything", "Im comot the guy head pata pata"), isApproved = true, authorId = user1.userID, wordId = 5,
@@ -149,6 +147,7 @@ object MockData {
         Eventstamp(eventTime = 1574463600000, badgeRewardType = 2, humanEntity = user1, word = allWords[6], comments = comments),
         Eventstamp(eventTime = 1590690000000, isApproved = true, humanEntity = user1, word = allWords[16], comments = comments)
     )
+
     val words = arrayListOf<Word>(
         Word(name = "pata pata", meaning = "This means you are completely done", comments = arrayListOf(), englishEquivalent = "Overall",
             sentences = arrayListOf("Pata pata we don finish everything", "Im comot the guy head pata pata"), isApproved = true, authorId = user1.userID, wordId = 5,
@@ -200,5 +199,18 @@ object MockData {
             etymology = "Originated from the word pata meaning pynt", dateCreated = 984993793, lastUpdated = 87889897978, plural = null, syllabicDivision = "pa-ta-pa-ta",
             syllables = 4, synonyms = arrayListOf("love", "peace", "joy"), transcription = "/pætapæta/", wordOfTheDay_date = 88783979378, partOfSpeech = "noun"
         )
+    )
+
+    val quizzes = listOf<Quiz>(
+        Quiz(0, "How long is iroko tree?", listOf("50m", "100m", "3m", "25m"),  1, 7882627379837893, 27, true),
+        Quiz(1, "How long is iroko tree\'s father?", listOf("50m", "100m", "3m", "25m"),  1, 7882627379837893, 27, true),
+        Quiz(2, "What is the fastest car in the world?", listOf("50m", "100m", "3m", "25m"),  1, 7882627379837893, 27, true),
+        Quiz(3, "How much people do you know in the world?", listOf("50m", "100m", "3m", "25m"),  1, 7882627379837893, 27, true),
+        Quiz(4, "Do you think you are really smart?", listOf("50m", "100m", "3m", "25m"),  1, 7882627379837893, 27, true),
+        Quiz(5, "How many bottles of beer can you drink in 30 seconds?", listOf("50m", "100m", "3m", "25m"),  1, 7882627379837893, 27, true),
+        Quiz(6, "Would you ever buy a tesla, If you could afford it?", listOf("50m", "100m", "3m", "25m"),  1, 7882627379837893, 27, true),
+        Quiz(7, "How much are you willing to offer to the richest man in the World?", listOf("50m", "100m", "3m", "25m"),  1, 7882627379837893, 27, true),
+        Quiz( 8, "Is ronaldo or messi the best player in the football universe?", listOf("50m", "100m", "3m", "25m"),  1, 7882627379837893, 27, true),
+        Quiz(9, "How much do I pay you to be able to afford all of this?", listOf("50m", "100m", "3m", "25m"),  1, 7882627379837893, 27, true)
     )
 }

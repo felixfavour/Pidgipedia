@@ -32,6 +32,8 @@ data class User(
     val badges: List<String>,
     val postedWords: List<String>,
     val approvedWords: List<String>,
+    @ColumnInfo(name = "highest_score")
+    val highestScore: Int,
     val profileImageUrl: @RawValue String? = null
 ): Parcelable {
 

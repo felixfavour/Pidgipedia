@@ -9,4 +9,8 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
     }
+
+    override fun onBackPressed() {
+
+    }
 }
