@@ -1,8 +1,13 @@
 package com.felixfavour.pidgipedia.view.quiz
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
@@ -10,11 +15,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.felixfavour.pidgipedia.ProfileActivity
-import com.felixfavour.pidgipedia.R
-import com.felixfavour.pidgipedia.SettingsActivity
+import com.felixfavour.pidgipedia.*
 import com.felixfavour.pidgipedia.databinding.FragmentQuizBinding
+import com.felixfavour.pidgipedia.util.Game
+import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.viewmodel.QuizViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class QuizFragment : Fragment() {
 
@@ -36,8 +42,23 @@ class QuizFragment : Fragment() {
 
 
         // NAVIGATION
+        // CHOOSE GAME DIFFICULTY
         binding.play.setOnClickListener {
-            findNavController().navigate(QuizFragmentDirections.actionNavigationQuizToGameActivity())
+            val intent = Intent(requireContext(), GameActivity::class.java)
+            val dialog = MaterialAlertDialogBuilder(requireContext())
+                .setView(R.layout.dialog_game_difficulty)
+                .show()
+
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.findViewById<Button>(R.id.game_easy)?.setOnClickListener {
+                startActivity(intent.apply { action = Game.EASY.toString() })
+            }
+            dialog.findViewById<Button>(R.id.game_medium)?.setOnClickListener {
+                startActivity(intent.apply { action = Game.MEDIUM.toString() })
+            }
+            dialog.findViewById<Button>(R.id.game_hard)?.setOnClickListener {
+                startActivity(intent.apply { action = Game.HARD.toString() })
+            }
         }
 
         return binding.root

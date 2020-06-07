@@ -16,15 +16,18 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.view.children
 import androidx.core.view.get
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentWordSuggestionBinding
 import com.felixfavour.pidgipedia.util.snack
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import java.io.InputStream
@@ -69,6 +72,20 @@ class WordSuggestionFragment : Fragment() {
             false
         }
 
+
+        // ELEVATE TOOLBAR ON SCROLL
+        binding.scrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            val activity = requireActivity() as AppCompatActivity
+            val toolbarLayout = activity.findViewById<AppBarLayout>(R.id.home_toolbar_layout)
+            val SCROLL_DIRECTION_UP = -1
+            if (v!!.canScrollVertically(SCROLL_DIRECTION_UP)) {
+                toolbarLayout.elevation = 10f
+            } else {
+                toolbarLayout.elevation = 0f
+            }
+        }
+
+
         // ACTION FOR: When Enter is clicked on keyboard for sentences input
         binding.sentencesInput.setOnEditorActionListener { textView, i, keyEvent ->
             if (i == EditorInfo.IME_ACTION_DONE) {
@@ -87,6 +104,7 @@ class WordSuggestionFragment : Fragment() {
             this.setDropDownViewResource(R.layout.spinner_item)
         }
 
+
         // Word Transcription Formatter
         binding.wordTranscription.setOnFocusChangeListener { view, b ->
             val editText = view as EditText
@@ -97,10 +115,12 @@ class WordSuggestionFragment : Fragment() {
             }
         }
 
+
         // Add Word Image
         binding.addPicture.setOnClickListener {
             addWordPicture(requireView())
         }
+
 
         // Record User Pronunciation
         val mediaRecorder = MediaRecorder().apply {

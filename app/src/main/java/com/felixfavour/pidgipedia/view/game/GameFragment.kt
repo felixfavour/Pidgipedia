@@ -6,15 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.felixfavour.pidgipedia.GameActivityArgs
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentGameBinding
+import com.felixfavour.pidgipedia.util.Game
+import com.felixfavour.pidgipedia.util.snack
 import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.viewmodel.GameViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
 import java.lang.IllegalArgumentException
 
@@ -46,8 +52,19 @@ class GameFragment : Fragment() {
         binding.gameViewModel = gameViewModel
 
 
-        // QUESTION COUNTDOWN
-        val timer = object: CountDownTimer(15 * 1000L, 1000) {
+        // QUESTION COUNTDOWN BASED ON FRAGMENT ARGS [DIFFICULTY IN ARGS]
+        var difficulty = 0
+        val intentAction = requireActivity().intent.action!!
+
+        if (intentAction.toInt() == Game.EASY)
+            difficulty = Game.EASY
+        else if (intentAction.toInt() == Game.MEDIUM)
+            difficulty = Game.MEDIUM
+        else if (intentAction.toInt() == Game.HARD)
+            difficulty = Game.HARD
+
+        val questionInterval = difficulty
+        val timer = object: CountDownTimer(questionInterval * 1000L, 1000) {
             override fun onTick(p0: Long) {
                 gameViewModel.updateTimer(p0)
             }
@@ -103,5 +120,7 @@ class GameFragment : Fragment() {
 
         return binding.root
     }
+
+
 
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="@integer/config_navAnimTime"
+    android:exitFadeDuration="@integer/config_navAnimTime">
+    <item android:state_checked="false" android:drawable="@drawable/stroked_rounded_corner"/>
+    <item android:state_checked="true" android:drawable="@drawable/stroke_rounded_corner_active"/>
+</selector>

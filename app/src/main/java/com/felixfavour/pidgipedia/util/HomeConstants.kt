@@ -10,6 +10,12 @@ object Pidgipedia {
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
 }
 
+object Game {
+    const val EASY = 30
+    const val MEDIUM = 15
+    const val HARD = 8
+}
+
 object Rank {
     const val RANK_1 = "Oga"
     const val RANK_2 = "Contributor"

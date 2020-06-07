@@ -14,6 +14,7 @@
         android:id="@+id/swipe_refresh_home">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/home_scrollView"
             android:layout_width="match_parent"
             android:fillViewport="true"
             android:layout_height="match_parent">

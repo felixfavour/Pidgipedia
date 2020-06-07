@@ -43,5 +43,6 @@
         android:id="@+id/badgesFragment"
         android:name="com.felixfavour.pidgipedia.view.profile.BadgesFragment"
         android:label="@string/badges"
-        tools:layout="@layout/fragment_badges" />
+        tools:layout="@layout/fragment_badges" >
+    </fragment>
 </navigation>

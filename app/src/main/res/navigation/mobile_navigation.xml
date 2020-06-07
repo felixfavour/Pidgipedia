@@ -104,7 +104,11 @@
         android:id="@+id/gameActivity"
         tools:layout="@layout/activity_game"
         android:name="com.felixfavour.pidgipedia.GameActivity"
-        android:label="GameActivity" />
+        android:label="GameActivity" >
+        <argument
+            android:name="difficulty"
+            app:argType="integer" />
+    </activity>
     <fragment
         android:id="@+id/wordSuggestionFragment"
         android:name="com.felixfavour.pidgipedia.view.home.WordSuggestionFragment"

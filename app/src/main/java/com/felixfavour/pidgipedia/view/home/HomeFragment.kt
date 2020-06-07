@@ -7,6 +7,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,6 +22,7 @@ import com.felixfavour.pidgipedia.view.OnWordClickListener
 import com.felixfavour.pidgipedia.util.Pidgipedia
 import com.felixfavour.pidgipedia.util.shareWord
 import com.felixfavour.pidgipedia.viewmodel.HomeViewModel
+import com.google.android.material.appbar.AppBarLayout
 
 class HomeFragment : Fragment() {
 
@@ -113,6 +115,19 @@ class HomeFragment : Fragment() {
         }
         binding.dismiss.setOnClickListener {
             binding.suggestWordCard.visibility = View.GONE
+        }
+
+
+        // ELEVATE TOOLBAR ON SCROLL
+        binding.homeScrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            val activity = requireActivity() as AppCompatActivity
+            val toolbarLayout = activity.findViewById<AppBarLayout>(R.id.home_toolbar_layout)
+            val SCROLL_DIRECTION_UP = -1
+            if (v!!.canScrollVertically(SCROLL_DIRECTION_UP)) {
+                toolbarLayout.elevation = 10f
+            } else {
+                toolbarLayout.elevation = 0f
+            }
         }
 
 

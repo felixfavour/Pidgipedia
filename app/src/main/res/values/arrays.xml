@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="game_difficulty">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Difficult</item>
+    </string-array>
+    <string-array name="part_of_speech_list">
+        <item>Phrase</item>
+        <item>Noun</item>
+        <item>Pronoun</item>
+        <item>Verb</item>
+        <item>Adjective</item>
+        <item>Adverb</item>
+        <item>Preposition</item>
+        <item>Conjunction</item>
+        <item>Exclamation</item>
+    </string-array>
+</resources>
