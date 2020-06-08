@@ -3,6 +3,7 @@ package com.felixfavour.pidgipedia.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.felixfavour.pidgipedia.entity.Comment
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.util.MockData
 
@@ -15,6 +16,10 @@ class EventstampViewModel: ViewModel() {
 
     fun loadEventstamp(eventstamp: Eventstamp?) {
         _eventstamp.value = eventstamp
+    }
+
+    fun deleteComment(comment: Comment) {
+        TODO("Not yet implemented")
     }
 
 

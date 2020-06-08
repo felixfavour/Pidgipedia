@@ -9,20 +9,21 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.viewpager2.widget.ViewPager2
+import com.felixfavour.pidgipedia.util.Pidgipedia.PREFERENCES
 import com.felixfavour.pidgipedia.view.onboarding.OnboardingViewpagerAdapter
 
 class OnboardingActivity : AppCompatActivity() {
 
     companion object {
-        const val PREFERENCES = "MobotithePreferences"
         const val PREFERENCE_KEY = "hasActivityBeenOpenedBefore"
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isActivityOpenedBefore(applicationContext)
         setTheme(R.style.AppTheme)
+
+        isActivityOpenedBefore(applicationContext)
 
         setContentView(R.layout.activity_onboarding)
 

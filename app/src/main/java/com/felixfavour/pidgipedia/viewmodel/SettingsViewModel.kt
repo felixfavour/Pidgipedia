@@ -58,4 +58,8 @@ class SettingsViewModel: ViewModel() {
         TODO("Not yet implemented")
     }
 
+    fun setHistoryCacheLimit(cacheLimit: Int) {
+        TODO("Not yet implemented")
+    }
+
 }

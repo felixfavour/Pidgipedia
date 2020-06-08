@@ -1,5 +1,6 @@
 package com.felixfavour.pidgipedia.view.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +11,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import com.felixfavour.pidgipedia.BottomSheetFragment
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentEventstampBinding
+import com.felixfavour.pidgipedia.entity.Comment
 import com.felixfavour.pidgipedia.entity.User
 import com.felixfavour.pidgipedia.util.MockData
 import com.felixfavour.pidgipedia.util.Pidgipedia
@@ -50,7 +53,25 @@ class EventstampFragment : Fragment() {
 
 
         // RECYCLER VIEW
-        binding.commentsList.adapter = EventstampCommentsAdapter()
+        binding.commentsList.adapter = EventstampCommentsAdapter(object: CommentClickListener {
+            override fun onProfileClick(view: View, comment: Comment) {
+                findNavController().navigate(
+                    EventstampFragmentDirections.actionEventstampFragmentToProfileFragment2(comment.author, true))
+            }
+
+            @SuppressLint("SetTextI18n")
+            override fun onReplyClick(view: View, comment: Comment) {
+                binding.commentInput.setText("@${comment.author}\n")
+            }
+
+            override fun onDeleteClick(view: View, comment: Comment) {
+                eventstampViewModel.deleteComment(comment)
+            }
+
+            override fun onEditClick(view: View, comment: Comment) {
+                // Do nothing
+            }
+        })
 
 
         // EVENT LISTENERS

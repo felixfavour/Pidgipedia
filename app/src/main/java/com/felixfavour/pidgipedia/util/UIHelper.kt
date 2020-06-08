@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.entity.Word
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
+
+const val THEME_PREFERENCES = "THEME PREFERENCES"
 
 fun toast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

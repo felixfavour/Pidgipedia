@@ -52,7 +52,6 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/color_states_button_group"
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/dark"
                     android:textColor="@color/primaryColor"
@@ -63,7 +62,6 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/color_states_button_group"
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/default_theme"
                     android:textColor="@color/primaryColor"
@@ -74,7 +72,6 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/color_states_button_group"
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/light"
                     android:textColor="@color/primaryColor"
@@ -99,7 +96,6 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/color_states_button_group"
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/_50"
                     android:textColor="@color/primaryColor"
@@ -110,7 +106,6 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/color_states_button_group"
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/_100"
                     android:textColor="@color/primaryColor"
@@ -121,7 +116,6 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/color_states_button_group"
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/_150"
                     android:textColor="@color/primaryColor"
@@ -161,7 +155,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/delte_all_bookmarks"
+                app:layout_constraintTop_toBottomOf="@+id/delete_all_bookmarks"
                 app:srcCompat="@drawable/divider" />
 
             <ImageView
@@ -419,7 +413,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/share_this_app" />
 
             <TextView
-                android:id="@+id/delte_all_bookmarks"
+                android:id="@+id/delete_all_bookmarks"
                 style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -446,7 +440,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/history_buttonGroup" />
 

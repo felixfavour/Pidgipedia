@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
+import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -16,10 +17,10 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.get
 import androidx.core.widget.NestedScrollView
@@ -31,6 +32,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import java.io.InputStream
+import java.lang.IllegalStateException
 
 /**
  * A simple [Fragment] subclass.
@@ -41,19 +43,17 @@ class WordSuggestionFragment : Fragment() {
         const val REQUEST_RECORD_AUDIO_PERMISSION = 200
     }
     private lateinit var binding: FragmentWordSuggestionBinding
-    private var isRecordingPermitted: Boolean? = null
+    private var isRecordingPermitted = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // AUDIO PERMISSION
         ActivityCompat.requestPermissions( requireActivity(), permissions,
             REQUEST_RECORD_AUDIO_PERMISSION
         )
+
 
         val activity = requireActivity() as AppCompatActivity
         activity.supportActionBar?.apply {
@@ -123,32 +123,43 @@ class WordSuggestionFragment : Fragment() {
 
 
         // Record User Pronunciation
-        val mediaRecorder = MediaRecorder().apply {
-            setAudioSource(MediaRecorder.AudioSource.MIC)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                setOutputFormat(MediaRecorder.OutputFormat.MPEG_2_TS)
-            } else {
-                setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            }
-            setOutputFile("${binding.word.text}-audio")
-            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-        }
 
         binding.recordSound.setOnTouchListener { view, motionEvent ->
-            when (motionEvent.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    if (isRecordingPermitted!!) {
-                        mediaRecorder.prepare()
-                        mediaRecorder.start()
+
+            val isPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO)
+            if (isPermissionGranted == PackageManager.PERMISSION_GRANTED) {
+
+                val mediaRecorder = MediaRecorder().apply {
+                    setAudioSource(MediaRecorder.AudioSource.MIC)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_2_TS)
+                    } else {
+                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     }
+                    setOutputFile("${requireContext().cacheDir.path}/${binding.word.text}-audio.ts")
+                    setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
                 }
-                MotionEvent.ACTION_UP -> {
-                    if (isRecordingPermitted!!) {
-                        mediaRecorder.stop()
+                mediaRecorder.prepare()
+
+                try {
+                    when (motionEvent.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            mediaRecorder.start()
+                            snack(requireView(), "Voice Recording is in Session")
+                            updateNowRecordingUI()
+                        }
+                        MotionEvent.ACTION_UP -> {
+                            mediaRecorder.stop()
+                            snack(requireView(), "Voice Recording is no longer in Session")
+                        }
                     }
+                } catch (ex: IllegalStateException) {
+                    snack(requireView(), "Voice Recording is no longer in Session")
+                    /**
+                     * This exception is thrown if the recorder starts and stop immediately*/
                 }
             }
-            false
+            true
         }
 
         return binding.root
@@ -177,11 +188,11 @@ class WordSuggestionFragment : Fragment() {
         if (requestCode == IMAGE_REQUEST_CODE) {
             // Collect Image Data into an input stream
             val imageStream = requireContext().contentResolver.openInputStream(data?.data!!)
-            updateUI(imageStream)
+            updateWordImageUI(imageStream)
         }
     }
 
-    private fun updateUI(imageStream: InputStream?) {
+    private fun updateWordImageUI(imageStream: InputStream?) {
         // Set Height of Layout
         binding.addPicture.layoutParams.height = 100
         binding.addPicture.layoutParams.width = 100
@@ -193,6 +204,10 @@ class WordSuggestionFragment : Fragment() {
 
         val image = Drawable.createFromStream(imageStream, getString(R.string.word_image))
         binding.wordImage.setImageDrawable(image)
+    }
+
+    private fun updateNowRecordingUI() {
+
     }
 
     private fun addWordPicture(view: View) {
@@ -238,6 +253,7 @@ class WordSuggestionFragment : Fragment() {
         }
     }
 
+
     /**
     * Abstracted function to loop through all chips in a Chip group
     * and compare their `text` property similarity.
@@ -273,6 +289,7 @@ class WordSuggestionFragment : Fragment() {
         }
         return false
     }
+
 
     override fun onResume() {
         super.onResume()

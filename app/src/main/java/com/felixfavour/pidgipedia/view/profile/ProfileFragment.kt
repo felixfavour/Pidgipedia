@@ -97,6 +97,11 @@ class ProfileFragment : Fragment() {
         val activity = requireActivity() as AppCompatActivity
         activity.supportActionBar!!.setDisplayShowHomeEnabled(true)
         activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        // HIDE APP LOGO
+        val activityMain = requireActivity() as AppCompatActivity
+        val appLogoContainer = activityMain.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
+        appLogoContainer.visibility = View.GONE
     }
 
 

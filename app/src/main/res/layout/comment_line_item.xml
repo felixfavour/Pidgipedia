@@ -21,9 +21,10 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/image_rounded_corner"
             android:padding="2dp"
+            app:profileImage="@{comment.author.profileImageUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/greta" />
+            tools:srcCompat="@drawable/greta" />
 
         <TextView
             android:id="@+id/comment_author"
@@ -38,19 +39,63 @@
             app:layout_constraintStart_toEndOf="@+id/author_image"
             app:layout_constraintTop_toTopOf="@+id/author_image"
             app:layout_constraintVertical_bias="0.0"
-            tools:text="Some sort of header text" />
+            tools:text="Chinemerem Kenechukwu" />
 
         <TextView
             android:id="@+id/comment_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:text="@{comment.commentContent}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/comment_author"
             app:layout_constraintStart_toStartOf="@+id/comment_author"
             app:layout_constraintTop_toBottomOf="@+id/comment_author"
             tools:text="This is a lovely placeholder comment, I am sure you really love it." />
+
+        <ImageButton
+            android:id="@+id/delete_comment"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:adjustViewBounds="true"
+            android:padding="32dp"
+            android:tint="@color/primaryRed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comment_text"
+            app:srcCompat="@drawable/delete" />
+
+        <ImageButton
+            android:id="@+id/edit_comment"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:adjustViewBounds="true"
+            android:padding="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/delete_comment"
+            app:layout_constraintTop_toBottomOf="@+id/comment_text"
+            app:srcCompat="@drawable/edit" />
+
+        <ImageButton
+            android:id="@+id/reply"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:adjustViewBounds="true"
+            android:padding="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comment_text"
+            app:srcCompat="@drawable/reply" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

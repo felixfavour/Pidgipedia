@@ -6,6 +6,7 @@ object Pidgipedia {
     const val HOME_MODAL = "home_more_modal_sheet"
     const val WORD = "word"
     const val WORD_NAVIGATION = "wordNavigation"
+    const val PREFERENCES = "MobotithePreferences"
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
 }

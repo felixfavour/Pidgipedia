@@ -8,7 +8,7 @@
         tools:context=".SettingsActivity">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:background="@color/primaryWhiteColor"
+            android:background="@color/transparentColor"
             android:id="@+id/appBarLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
