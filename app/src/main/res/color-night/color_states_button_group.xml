@@ -3,7 +3,7 @@
     android:enterFadeDuration="@integer/config_navAnimTime"
     android:exitFadeDuration="@integer/config_navAnimTime">
 
-    <item android:color="@color/secondaryGreyColor" android:state_checked="true"/>
+    <item android:color="@color/primaryGreyColor" android:state_checked="true"/>
     <item android:color="@color/transparentColor" android:state_checked="false"/>
 
 </selector>

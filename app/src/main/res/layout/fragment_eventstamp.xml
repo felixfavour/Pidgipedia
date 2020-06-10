@@ -233,6 +233,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textSize="@dimen/line_text"
+                android:textColorHint="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/post_comment"
                 app:layout_constraintHorizontal_bias="0.0"

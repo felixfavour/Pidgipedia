@@ -58,7 +58,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:animateLayoutChanges="true"
-                        app:cardBackgroundColor="@color/primaryWhiteColor"
+                        app:cardBackgroundColor="@color/whiteBlackColor"
                         app:cardCornerRadius="6dp"
                         app:contentPadding="8dp"
                         app:layout_constraintBottom_toTopOf="@+id/clear_all"

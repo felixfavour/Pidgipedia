@@ -19,7 +19,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [Build.VERSION_CODES.O_MR1])
+@Config(manifest = Config.NONE)
 class WordDatabaseReadWriteTest {
     private lateinit var wordDao: WordDao
     private lateinit var bookmarkDao: BookmarkDao

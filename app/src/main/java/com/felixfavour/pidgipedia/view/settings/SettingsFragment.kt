@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentSettingsBinding
-import com.felixfavour.pidgipedia.util.toast
+import com.felixfavour.pidgipedia.util.*
 import com.felixfavour.pidgipedia.viewmodel.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -54,8 +54,26 @@ class SettingsFragment : Fragment() {
         
         
         // BUTTON GROUP LISTENERS
-        binding.ThemeButtonGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        binding.ThemeButtonGroup.addOnButtonCheckedListener { _, checkedId, _ ->
+            when(checkedId) {
+                binding.lightThemeSelection.id -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    setAppTheme(AppTheme.LIGHT_THEME, requireContext())
+                    binding.lightThemeSelection.isChecked = true
+                }
+                binding.defaultThemeSelection.id -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    setAppTheme(AppTheme.DEFAULT, requireContext())
+                    binding.defaultThemeSelection.isChecked = true
+                }
+                binding.darkThemeSelection.id -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    setAppTheme(AppTheme.DARK_THEME, requireContext())
+                    binding.darkThemeSelection.isChecked = true
+                }
+            }
         }
+
 
         binding.historyButtonGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
             when (checkedId) {

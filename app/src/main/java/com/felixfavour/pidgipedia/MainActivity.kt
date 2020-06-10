@@ -22,15 +22,9 @@ import com.felixfavour.pidgipedia.entity.User
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        val mockUpdates = arrayListOf<Eventstamp>(
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         setContentView(R.layout.activity_main)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)

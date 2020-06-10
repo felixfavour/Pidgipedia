@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import androidx.viewpager2.widget.ViewPager2
 import com.felixfavour.pidgipedia.util.Pidgipedia.PREFERENCES
+import com.felixfavour.pidgipedia.util.getAppTheme
 import com.felixfavour.pidgipedia.view.onboarding.OnboardingViewpagerAdapter
 
 class OnboardingActivity : AppCompatActivity() {
@@ -22,6 +23,7 @@ class OnboardingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
+        getAppTheme(applicationContext, null)
 
         isActivityOpenedBefore(applicationContext)
 

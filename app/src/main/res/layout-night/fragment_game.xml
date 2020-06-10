@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="700dp"
             android:animateLayoutChanges="true"
-            android:background="@drawable/quiz_bg"
+            android:background="@drawable/quiz_bg_dark"
             tools:context=".view.quiz.QuizFragment">
 
             <Button
@@ -35,6 +35,7 @@
                 app:cornerRadius="24dp"
                 app:icon="@drawable/chevron_right_white"
                 app:iconGravity="end"
+                app:iconTint="@color/blackWhiteColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -47,13 +48,13 @@
                 android:layout_marginBottom="16dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                tools:text="30"
                 android:text="@{gameViewModel.countdownTimer.toString()}"
                 android:textColor="@color/primaryWhiteColor"
                 app:cornerRadius="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:iconGravity="start" />
+                tools:iconGravity="start"
+                tools:text="30" />
 
             <TextView
                 android:id="@+id/question"

@@ -101,7 +101,7 @@ class ProfileFragment : Fragment() {
         // HIDE APP LOGO
         val activityMain = requireActivity() as AppCompatActivity
         val appLogoContainer = activityMain.findViewById<ConstraintLayout>(R.id.home_toolbar_container)
-        appLogoContainer.visibility = View.GONE
+        appLogoContainer?.visibility = View.GONE
     }
 
 

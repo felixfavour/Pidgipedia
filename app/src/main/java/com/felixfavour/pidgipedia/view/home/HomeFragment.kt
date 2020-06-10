@@ -118,19 +118,6 @@ class HomeFragment : Fragment() {
         }
 
 
-        // ELEVATE TOOLBAR ON SCROLL
-        binding.homeScrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            val activity = requireActivity() as AppCompatActivity
-            val toolbarLayout = activity.findViewById<AppBarLayout>(R.id.home_toolbar_layout)
-            val SCROLL_DIRECTION_UP = -1
-            if (v!!.canScrollVertically(SCROLL_DIRECTION_UP)) {
-                toolbarLayout.elevation = 10f
-            } else {
-                toolbarLayout.elevation = 0f
-            }
-        }
-
-
         // SHARE THE WORD
         homeViewModel.wordOfTheDay.observe(viewLifecycleOwner, Observer {word->
             binding.shareBtn.setOnClickListener {

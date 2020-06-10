@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_marginTop="9dp"
-            android:background="#FFFFFF"
+            android:background="@color/whiteBlackColor"
             app:layout_constraintTop_toBottomOf="@+id/game_easy"
             app:srcCompat="@drawable/divider"
             tools:layout_editor_absoluteX="0dp" />
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_marginTop="8dp"
-            android:background="#FFFFFF"
+            android:background="@color/whiteBlackColor"
             app:layout_constraintTop_toBottomOf="@+id/game_medium"
             app:srcCompat="@drawable/divider"
             tools:layout_editor_absoluteX="0dp" />
