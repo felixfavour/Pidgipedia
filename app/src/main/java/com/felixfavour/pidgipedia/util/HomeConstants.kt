@@ -7,8 +7,15 @@ object Pidgipedia {
     const val WORD = "word"
     const val WORD_NAVIGATION = "wordNavigation"
     const val PREFERENCES = "MobotithePreferences"
+    const val DUMMY_PASSWORD = "pidgipedia_dummy123"
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
+}
+
+object Connection {
+    const val FAILED = -1
+    const val LOADING = 1
+    const val SUCCESS = 2
 }
 
 object Game {

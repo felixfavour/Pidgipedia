@@ -166,5 +166,31 @@
                 android:pointerIcon="copy" />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:visibility="visible"
+            android:id="@+id/progress_login_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="10dp"
+            app:hideScrim="@{loginViewModel.loginStatus}">
+
+            <ImageView
+        android:id="@+id/imageView21"
+        android:src="#000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.7" />
+
+        <ImageView
+            android:id="@+id/progress_login"
+            android:layout_width="60dp"
+            android:background="@drawable/circle_border"
+            android:padding="10dp"
+            android:layout_height="60dp"
+            android:src="@drawable/pidgipedia_logo"
+            android:layout_centerInParent="true"
+            app:animateLogo="@{loginViewModel.loginStatus}" />
+        </RelativeLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

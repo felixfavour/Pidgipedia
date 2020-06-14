@@ -73,19 +73,6 @@ class WordSuggestionFragment : Fragment() {
         }
 
 
-        // ELEVATE TOOLBAR ON SCROLL
-        binding.scrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            val activity = requireActivity() as AppCompatActivity
-            val toolbarLayout = activity.findViewById<AppBarLayout>(R.id.home_toolbar_layout)
-            val SCROLL_DIRECTION_UP = -1
-            if (v!!.canScrollVertically(SCROLL_DIRECTION_UP)) {
-                toolbarLayout.elevation = 10f
-            } else {
-                toolbarLayout.elevation = 0f
-            }
-        }
-
-
         // ACTION FOR: When Enter is clicked on keyboard for sentences input
         binding.sentencesInput.setOnEditorActionListener { textView, i, keyEvent ->
             if (i == EditorInfo.IME_ACTION_DONE) {

@@ -15,7 +15,7 @@
     <string name="e_mail">E-mail</string>
     <string name="password">Password</string>
     <string name="retrieve_a_forgotten_password">Retrieve a forgotten password</string>
-    <string name="enter_email_first">Enter email first,</string>
+    <string name="enter_email_first">Enter email first,\nusername second,</string>
     <string name="create_an_account_instead">Create an Account Instead</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="log_in">Log In</string>
@@ -156,4 +156,13 @@
     <string name="medium">medium</string>
     <string name="hard">Hard</string>
     <string name="are_you_sure_you_want_to_quit_this_game">Are you sure you want to quit this game?</string>
+    <string name="fill_all_fields">You will need to fill in all required fields.</string>
+    <string name="username">Username</string>
+    <string name="username_guidelines">username must be more than 6 characters and distint</string>
+    <string name="password_guidelines">Password must contain Uppercase and Lowercase letters and digits</string>
+    <string name="email_guideline">This email is owned by another account</string>
+    <string name="checking">Checking...</string>
+    <string name="username_taken">Username is already in use</string>
+    <string name="invalid_email">Not a valid email address</string>
+    <string name="email_taken">This email is already in use</string>
 </resources>

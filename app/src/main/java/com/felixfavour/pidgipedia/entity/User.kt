@@ -34,7 +34,8 @@ data class User(
     val approvedWords: List<String>,
     @ColumnInfo(name = "highest_score")
     val highestScore: Int,
-    val profileImageUrl: @RawValue String? = null
+    val profileImageUrl: @RawValue String? = null,
+    val username: String
 ): Parcelable {
 
     override fun toString(): String {

@@ -47,8 +47,9 @@
 
                         <TextView
                             android:id="@+id/word"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="140dp"
+                            android:autoSizeTextType="uniform"
+                            android:layout_height="60dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="48dp"
                             android:fontFamily="@font/poppinsbold"
@@ -118,7 +119,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/suggest_word_card"
                     android:layout_width="0dp"
-                    android:layout_height="160dp"
+                    android:layout_height="170dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
@@ -139,24 +140,26 @@
                             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
                             android:text="@string/dismiss"
                             android:textColor="@color/primaryTextColor"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/suggest" />
+                            app:layout_constraintEnd_toStartOf="@+id/suggest"
+                            app:layout_constraintTop_toBottomOf="@+id/Suggest_word_static_text" />
 
                         <Button
                             android:id="@+id/suggest"
                             style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="8dp"
                             android:text="@string/suggest"
                             android:textColor="@color/primaryWhiteColor"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/Suggest_word_static_text" />
 
                         <TextView
                             android:id="@+id/Suggest_word_static_text"
@@ -207,17 +210,18 @@
 
                         <TextView
                             android:id="@+id/unapproved_words_static_text"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="250dp"
+                            android:layout_height="50dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="16dp"
+                            android:autoSizeTextType="uniform"
                             android:fontFamily="@font/poppinsbold"
                             android:text="@string/words_awaiting_approval"
                             android:textColor="@color/primaryColorLight"
                             android:textSize="@dimen/header_text"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 

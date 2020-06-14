@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.CreateAccountViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,6 +24,7 @@
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lineSpacingExtra="4dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -31,15 +39,19 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/registerQueriesLayout"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/header">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout_email"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="0dp"
+                    app:validateEmailField="@{viewModel.isEmailValid()}"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
@@ -61,6 +73,32 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout_username"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:validateUsernameField="@{viewModel.isUsernameValid()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_email">
+
+                    <EditText
+                        android:id="@+id/username"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:hint="@string/username"
+                        android:inputType="textPersonName"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="176dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout_first_name"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="0dp"
@@ -71,7 +109,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_email">
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_username">
 
                     <EditText
                         android:id="@+id/first_name"
@@ -154,9 +192,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
+                        android:focusable="false"
                         android:hint="@string/date_of_birth"
                         android:inputType="none"
-                        android:focusable="false"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
 
@@ -254,5 +292,33 @@
                 android:textSize="@dimen/header_text"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <RelativeLayout
+            android:visibility="visible"
+            tools:visibility="gone"
+            android:id="@+id/progress_login_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="10dp"
+            app:hideScrim="@{viewModel.creationStatus}">
+
+            <ImageView
+                android:id="@+id/imageView21"
+                android:src="#000"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5" />
+
+            <ImageView
+                android:id="@+id/progress_login"
+                android:layout_width="60dp"
+                android:background="@drawable/circle_border"
+                android:padding="10dp"
+                android:layout_height="60dp"
+                android:src="@drawable/pidgipedia_logo"
+                android:layout_centerInParent="true"
+                app:animateLogo="@{viewModel.creationStatus}" />
+        </RelativeLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
