@@ -9,6 +9,11 @@
         <item name="android:statusBarColor">@color/whiteBlackColor</item>
     </style>
 
+    <style name="AppTheme.SplashScreen" parent="AppTheme">
+        <item name="android:statusBarColor">@color/primaryColor</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
     <style name="OnboardingButton" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/primaryWhiteColor</item>
         <item name="android:layout_marginStart">@dimen/onboarding_margin_horizontal_vertical</item>

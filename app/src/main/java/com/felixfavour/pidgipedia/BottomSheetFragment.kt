@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.felixfavour.pidgipedia.databinding.FragmentBottomSheetBinding
@@ -38,7 +37,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         // UI Additions
         Glide.with(requireContext())
-            .load(eventstamp!!.humanEntity!!.profileImageUrl)
+            .load(eventstamp!!.humanEntity!!.profileImageURL)
             .centerCrop()
             .circleCrop()
             .placeholder(R.drawable.person_outline)

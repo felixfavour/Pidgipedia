@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "652479797621",
+    "firebase_url": "https://pidgipedia.firebaseio.com",
+    "project_id": "pidgipedia",
+    "storage_bucket": "pidgipedia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652479797621:android:fd5625668b390a5b9bdb3c",
+        "android_client_info": {
+          "package_name": "com.felixfavour.pidgipedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652479797621-htv1f6r09553ctbmvnnoic38tm30rq7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1wGhRUH79lyTHezO1-f7STFbLhHbzEjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652479797621-htv1f6r09553ctbmvnnoic38tm30rq7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

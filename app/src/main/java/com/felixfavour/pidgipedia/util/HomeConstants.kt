@@ -7,8 +7,18 @@ object Pidgipedia {
     const val WORD = "word"
     const val WORD_NAVIGATION = "wordNavigation"
     const val PREFERENCES = "MobotithePreferences"
+    const val AUTHENTICATION_PREFERENCES = "AuthenticationPreferences"
+    const val ONBOARDING_PREFERENCE = "hasActivityBeenOpenedBefore"
+    const val RC_SIGN_IN = 10
+    const val DUMMY_PASSWORD = "pidgipedia_dummy123"
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
+}
+
+object Connection {
+    const val FAILED = -1
+    const val LOADING = 1
+    const val SUCCESS = 2
 }
 
 object Game {
@@ -36,8 +46,9 @@ object Badges {
 }
 
 object Language {
-    const val PIDGIN = "pidgin-lingua"
-    const val ENGLISH = "english-lingua"
+    const val PIDGIN_NG = "pidgin_ng"
+    const val ENGLISH_UK = "english_uk"
+    const val ENGLISH_US = "english_us"
 }
 
 object Notifications {

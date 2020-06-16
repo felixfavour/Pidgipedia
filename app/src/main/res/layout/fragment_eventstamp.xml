@@ -69,7 +69,7 @@
                                 android:padding="3dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:profileImage="@{eventstampViewModel.eventstamp.humanEntity.profileImageUrl}"
+                                app:profileImage="@{eventstampViewModel.eventstamp.humanEntity.profileImageURL}"
                                 tools:srcCompat="@drawable/greta" />
 
                             <TextView
@@ -176,7 +176,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/comments_list"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     app:eventstampComments="@{eventstampViewModel.eventstamp.comments}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@+id/view_more_comments"
@@ -184,7 +184,6 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardContainer"
-                    app:layout_constraintVertical_bias="0.0"
                     tools:itemCount="3"
                     tools:listitem="@layout/comment_line_item" />
 
@@ -217,21 +216,24 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_send_black_24dp" />
+                app:srcCompat="@drawable/send" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/comment_input"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:background="@drawable/onboarding_button"
+                android:backgroundTint="@color/whiteBlackColor"
                 android:hint="@string/enter_your_comment"
                 android:inputType="textMultiLine"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:maxHeight="100dp"
                 android:textSize="@dimen/line_text"
                 android:textColorHint="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"

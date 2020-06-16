@@ -31,6 +31,9 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settingsFragment_to_authenticationActivity"
+            app:destination="@id/authenticationActivity" />
     </fragment>
     <fragment
         android:id="@+id/informationFragment"
@@ -46,4 +49,9 @@
         android:id="@+id/profileActivity"
         android:name="com.felixfavour.pidgipedia.ProfileActivity"
         android:label="ProfileActivity" />
+    <activity
+        android:id="@+id/authenticationActivity"
+        android:name="com.felixfavour.pidgipedia.AuthenticationActivity"
+        android:label="activity_authentication"
+        tools:layout="@layout/activity_authentication" />
 </navigation>

@@ -9,10 +9,10 @@ import com.felixfavour.pidgipedia.entity.*
 object MockData {
     val user2 = User(0, "Chinemerem", "Kenechukwu", "felixfavour0@gmail.com", 1590655865258, 1, "Lagos, Nigeria",
         "The quick brown fo fresh diee and you all really know it", listOf(Badges.BADGE_1, Badges.BADGE_2, Badges.BADGE_5, Badges.BADGE_10, Badges.BADGE_20, Badges.BADGE_25, Badges.BADGE_50),
-        arrayListOf(), arrayListOf(), 8)
+        arrayListOf(), arrayListOf(), 8, null,"chidexy")
     val user1 = User(0, "Felix", "Favour", "felixfavour0@gmail.com", 787397983, 1, "Lagos, Nigeria",
         "The quick brown fo fresh diee and you all really know it",listOf(Badges.BADGE_1, Badges.BADGE_2, Badges.BADGE_5, Badges.BADGE_10, Badges.BADGE_20),
-        arrayListOf(), arrayListOf(), 8)
+        arrayListOf(), arrayListOf(), 8, null, "favoob")
     val word =
         Word(name = "pata pata", meaning = "This means you are completely done", comments = arrayListOf(), englishEquivalent = "Overall",
             sentences = arrayListOf("Pata pata we don finish everything", "Im comot the guy head pata pata"), isApproved = true, authorId = user1.userID, wordId = 5,

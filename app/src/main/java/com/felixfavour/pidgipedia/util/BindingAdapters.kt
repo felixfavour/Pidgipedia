@@ -3,8 +3,11 @@ package com.felixfavour.pidgipedia.util
 import android.animation.ObjectAnimator
 import android.graphics.Rect
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +30,7 @@ import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
 import com.felixfavour.pidgipedia.view.home.EventstampCommentsAdapter
 import com.felixfavour.pidgipedia.view.home.HomeRecyclerViewAdapter
 import com.felixfavour.pidgipedia.view.home.UnapprovedWordListAdapter
+import com.google.android.material.textfield.TextInputLayout
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_word_suggestion.view.*
 import org.joda.time.DateTime
@@ -302,5 +306,51 @@ fun setQuestionProgress(progressBar: ProgressBar, score: Int?) {
     ObjectAnimator.ofInt(progressBar, "progress", progressBar.progress, scoreProgress).apply {
         duration = 1000
         start()
+    }
+}
+
+
+@BindingAdapter("hideScrim")
+fun hideLoginScrim(relativeLayout: RelativeLayout, loginStatus: Int) {
+    if (loginStatus == Connection.LOADING) {
+        relativeLayout.visibility = View.VISIBLE
+    } else {
+        relativeLayout.visibility = View.GONE
+    }
+}
+
+
+@BindingAdapter("animateLogo")
+fun animateScrimLogo(imageView: ImageView, loginStatus: Int) {
+    val animation = AnimationUtils.loadAnimation(imageView.context, R.anim.spinner_anim)
+    imageView.startAnimation(animation)
+}
+
+
+
+@BindingAdapter("validateUsernameField")
+fun validateUsernameField(textInputLayout: TextInputLayout, status: Int) {
+    /**
+     * This method checks whether the text inserted is an actual username in server database.
+     * If the username is found in the server (if connection succeeds) It means username is taken
+     * Otherwise it means username is available*/
+    when (status) {
+        Connection.SUCCESS -> textInputLayout.error = textInputLayout.context.getString(R.string.username_taken)
+        Connection.LOADING -> textInputLayout.error = textInputLayout.context.getString(R.string.checking)
+        Connection.FAILED -> textInputLayout.isErrorEnabled = false
+    }
+}
+
+
+@BindingAdapter("validateEmailField")
+fun validateEmailField(textInputLayout: TextInputLayout, status: Int) {
+    /**
+     * This method checks whether the text inserted is an actual username in server database.
+     * If the username is found in the server (if connection succeeds) It means username is taken
+     * Otherwise it means username is available*/
+    when (status) {
+        Connection.SUCCESS -> textInputLayout.error = textInputLayout.context.getString(R.string.email_taken)
+        Connection.LOADING -> textInputLayout.error = textInputLayout.context.getString(R.string.checking)
+        Connection.FAILED -> textInputLayout.isErrorEnabled = false
     }
 }
