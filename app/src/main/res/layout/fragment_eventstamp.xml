@@ -69,7 +69,7 @@
                                 android:padding="3dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:profileImage="@{eventstampViewModel.eventstamp.humanEntity.profileImageUrl}"
+                                app:profileImage="@{eventstampViewModel.eventstamp.humanEntity.profileImageURL}"
                                 tools:srcCompat="@drawable/greta" />
 
                             <TextView
@@ -216,7 +216,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_send_black_24dp" />
+                app:srcCompat="@drawable/send" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/comment_input"

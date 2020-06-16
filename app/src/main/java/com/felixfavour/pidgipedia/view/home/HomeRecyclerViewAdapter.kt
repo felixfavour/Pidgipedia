@@ -57,7 +57,7 @@ class HomeRecyclerViewAdapter(
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
             Glide.with(binding.root.context)
-                .load(eventstamp.humanEntity!!.profileImageUrl)
+                .load(eventstamp.humanEntity!!.profileImageURL)
                 .placeholder(R.drawable.person_outline)
                 .centerCrop()
                 .circleCrop()
@@ -80,7 +80,7 @@ class HomeRecyclerViewAdapter(
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
             Glide.with(binding.root.context)
-                .load(eventstamp.humanEntity!!.profileImageUrl)
+                .load(eventstamp.humanEntity!!.profileImageURL)
                 .placeholder(R.drawable.person_outline)
                 .centerCrop()
                 .circleCrop()
@@ -103,7 +103,7 @@ class HomeRecyclerViewAdapter(
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
             Glide.with(binding.root.context)
-                .load(eventstamp.humanEntity!!.profileImageUrl)
+                .load(eventstamp.humanEntity!!.profileImageURL)
                 .placeholder(R.drawable.person_outline)
                 .centerCrop()
                 .circleCrop()
@@ -148,7 +148,7 @@ class HomeRecyclerViewAdapter(
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
             Glide.with(binding.root.context)
-                .load(eventstamp.humanEntity!!.profileImageUrl)
+                .load(eventstamp.humanEntity!!.profileImageURL)
                 .placeholder(R.drawable.person_outline)
                 .centerCrop()
                 .circleCrop()

@@ -3,19 +3,9 @@ package com.felixfavour.pidgipedia.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.felixfavour.pidgipedia.util.Connection
-import com.felixfavour.pidgipedia.util.snack
-import com.google.android.gms.tasks.Continuation
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.functions.FirebaseFunctions
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.collections.HashMap
-import kotlin.coroutines.CoroutineContext
 
 class CreateAccountViewModel: ViewModel() {
 
@@ -36,10 +26,10 @@ class CreateAccountViewModel: ViewModel() {
         get() = _isEmailValid
 
 
-    fun createAccount(email: String, password: String, username: String) {
+    fun createAccount(email: String, password: String, displayName: String) {
         _creationStatus.value = Connection.LOADING
         val params = hashMapOf(
-            "uid" to username,
+            "displayName" to displayName,
             "email" to email,
             "password" to password
         )

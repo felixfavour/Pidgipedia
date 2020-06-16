@@ -1,11 +1,14 @@
 package com.felixfavour.pidgipedia.view.settings
 
+import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
@@ -23,6 +26,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var settingsViewModel: SettingsViewModel
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +34,7 @@ class SettingsFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
         settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
+        sharedPreferences = requireActivity().getSharedPreferences(Pidgipedia.PREFERENCES, Context.MODE_PRIVATE)
         setHasOptionsMenu(true)
 
 
@@ -45,11 +50,23 @@ class SettingsFragment : Fragment() {
         binding.goToProfile.setOnClickListener {
             findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToProfileActivity())
         }
+
         binding.changeLanguage.setOnClickListener {
             findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToLanguageFragment())
         }
+
         binding.goToInformation.setOnClickListener {
             findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToInformationFragment())
+        }
+
+        binding.logOut.setOnClickListener {
+            settingsViewModel.logUserOut()
+            sharedPreferences.edit {
+                putBoolean(Pidgipedia.AUTHENTICATION_PREFERENCES, false)
+            }
+            findNavController().navigate(
+                SettingsFragmentDirections.actionSettingsFragmentToAuthenticationActivity()
+            )
         }
         
         

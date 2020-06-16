@@ -7,8 +7,11 @@ import com.felixfavour.pidgipedia.entity.User
 import com.felixfavour.pidgipedia.util.Language
 import com.felixfavour.pidgipedia.util.MockData
 import com.felixfavour.pidgipedia.util.Pidgipedia
+import com.google.firebase.auth.FirebaseAuth
 
 class SettingsViewModel: ViewModel() {
+
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
     private val _user = MutableLiveData<User>()
     val user: LiveData<User>
@@ -28,7 +31,7 @@ class SettingsViewModel: ViewModel() {
     }
 
     private fun loadLanguage() {
-        _language.value = Language.ENGLISH
+        _language.value = Language.ENGLISH_UK
     }
 
 
@@ -60,6 +63,10 @@ class SettingsViewModel: ViewModel() {
 
     fun setHistoryCacheLimit(cacheLimit: Int) {
         TODO("Not yet implemented")
+    }
+
+    fun logUserOut() {
+        firebaseAuth.signOut()
     }
 
 }

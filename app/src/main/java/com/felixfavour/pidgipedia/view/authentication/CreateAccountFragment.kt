@@ -84,7 +84,7 @@ class CreateAccountFragment : Fragment() {
         }
 
         // Backward Navigations
-        binding.backButton.setOnClickListener {
+        binding.createAccountToolbar.setNavigationOnClickListener {
             when (true) {
                 isFirstSection() -> {
                     updateUI()
@@ -246,17 +246,14 @@ class CreateAccountFragment : Fragment() {
     private fun updateUI() {
         when (true) {
             isFirstSection() -> {
-                binding.backButton.visibility = View.VISIBLE
                 binding.header.text = getString(R.string.enter_email_first)
                 binding.proceed.text = getString(R.string.proceed)
             }
             isSecondSection() -> {
-                binding.backButton.visibility = View.VISIBLE
                 binding.header.text = getString(R.string.few_more_steps)
                 binding.proceed.text = getString(R.string.proceed)
             }
             isThirdSection() -> {
-                binding.backButton.visibility = View.VISIBLE
                 binding.header.text = getString(R.string.choose_a_password)
                 binding.proceed.text = getString(R.string.finish)
             }

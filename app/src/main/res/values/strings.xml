@@ -165,4 +165,14 @@
     <string name="username_taken">Username is already in use</string>
     <string name="invalid_email">Not a valid email address</string>
     <string name="email_taken">This email is already in use</string>
+    <string name="internet_connection_warning">Check that you have a stable internet connection.</string>
+    <string name="user_not_found_error">Funny how I don\'t seem to recognize this user. Are you messing with me?</string>
+    <string name="wrong_password_error">Check that you are sending in the right password.</string>
+    <string name="user_not_found_header">User Not Found</string>
+    <string name="network_error">Network Error</string>
+    <string name="enter_your_email_fp">Enter your email,</string>
+    <string name="send">Send</string>
+    <string name="sent">Sent!</string>
+    <string name="ok">OK</string>
+    <string name="request_password_success">Check your email inbox for retrieval processes.</string>
 </resources>

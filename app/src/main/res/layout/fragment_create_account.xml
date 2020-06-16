@@ -9,9 +9,10 @@
             type="com.felixfavour.pidgipedia.viewmodel.CreateAccountViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         tools:context=".AuthenticationActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,22 +21,31 @@
             android:layout_height="match_parent"
             android:animateLayoutChanges="true">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/create_account_toolbar"
+                android:layout_width="0dp"
+                android:layout_height="?actionBarSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/arrow_back"/>
+
             <TextView
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="4dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/poppinsbold"
+                android:lineSpacingExtra="4dp"
                 android:text="@string/enter_email_first"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/onboarding_header_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/backButton" />
+                app:layout_constraintTop_toBottomOf="@+id/create_account_toolbar" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/registerQueriesLayout"
@@ -233,6 +243,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/primaryColor"
@@ -245,80 +256,39 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <ImageButton
-                android:id="@+id/backButton"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/arrow_back" />
+                app:layout_constraintTop_toBottomOf="@+id/registerQueriesLayout"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <RelativeLayout
+                android:visibility="visible"
+                tools:visibility="gone"
+                android:id="@+id/progress_login_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="10dp"
+                app:hideScrim="@{viewModel.creationStatus}">
+
+                <ImageView
+                    android:id="@+id/imageView21"
+                    android:src="#000"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.5" />
+
+                <ImageView
+                    android:id="@+id/progress_login"
+                    android:layout_width="60dp"
+                    android:background="@drawable/circle_border"
+                    android:padding="10dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/pidgipedia_logo"
+                    android:layout_centerInParent="true"
+                    app:animateLogo="@{viewModel.creationStatus}" />
+            </RelativeLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/welcomeNoteLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            app:layout_anchor="@+id/constraintLayout3"
-            app:layout_anchorGravity="center">
-
-            <ImageView
-                android:id="@+id/checkImage"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:layout_gravity="center"
-                android:src="@drawable/check_circle"
-                android:tint="@color/primaryGreen" />
-
-            <TextView
-                android:id="@+id/welcomeString"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="0dp"
-                android:gravity="center"
-                tools:text="Welcome, Felix!"
-                android:text="@string/welcome_text"
-                android:textSize="@dimen/header_text"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:visibility="visible"
-            tools:visibility="gone"
-            android:id="@+id/progress_login_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="10dp"
-            app:hideScrim="@{viewModel.creationStatus}">
-
-            <ImageView
-                android:id="@+id/imageView21"
-                android:src="#000"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0.5" />
-
-            <ImageView
-                android:id="@+id/progress_login"
-                android:layout_width="60dp"
-                android:background="@drawable/circle_border"
-                android:padding="10dp"
-                android:layout_height="60dp"
-                android:src="@drawable/pidgipedia_logo"
-                android:layout_centerInParent="true"
-                app:animateLogo="@{viewModel.creationStatus}" />
-        </RelativeLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

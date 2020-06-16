@@ -16,4 +16,9 @@
         <item>Conjunction</item>
         <item>Exclamation</item>
     </string-array>
+    <string-array name="language">
+        <item>English(US)</item>
+        <item>English(UK)</item>
+        <item>Pidgin(NG)</item>
+    </string-array>
 </resources>

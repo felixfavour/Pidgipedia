@@ -8,17 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
+import androidx.core.content.edit
 import androidx.viewpager2.widget.ViewPager2
+import com.felixfavour.pidgipedia.util.Pidgipedia.ONBOARDING_PREFERENCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.PREFERENCES
 import com.felixfavour.pidgipedia.util.getAppTheme
 import com.felixfavour.pidgipedia.view.onboarding.OnboardingViewpagerAdapter
 
 class OnboardingActivity : AppCompatActivity() {
-
-    companion object {
-        const val PREFERENCE_KEY = "hasActivityBeenOpenedBefore"
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,7 +82,9 @@ class OnboardingActivity : AppCompatActivity() {
                             onboardingProgressBar.setProgress(100, true)
                         }
                         val sharedPref = applicationContext.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
-                        sharedPref.edit().putBoolean(PREFERENCE_KEY, true).apply()
+                        sharedPref.edit {
+                            putBoolean(ONBOARDING_PREFERENCE, true)
+                        }
                         onboardingProgressBar.progress = 100
                         nextSlide.text = getString(R.string.start)
                     }
@@ -100,12 +99,12 @@ class OnboardingActivity : AppCompatActivity() {
     */
     private fun isActivityOpenedBefore(applicationContext: Context) {
         val sharedPref = applicationContext.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
-        if (sharedPref.getBoolean(PREFERENCE_KEY, false)) {
+        if (sharedPref.getBoolean(ONBOARDING_PREFERENCE, false)) {
             val intent = Intent(applicationContext, AuthenticationActivity::class.java)
             startActivity(intent)
             finishAffinity()
         } else {
-            sharedPref.edit().putBoolean(PREFERENCE_KEY, true).apply()
+            sharedPref.edit().putBoolean(ONBOARDING_PREFERENCE, true).apply()
         }
     }
 }

@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
-import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -23,12 +22,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.get
-import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentWordSuggestionBinding
 import com.felixfavour.pidgipedia.util.snack
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import java.io.InputStream

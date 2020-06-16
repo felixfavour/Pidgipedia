@@ -54,7 +54,7 @@
                         android:id="@+id/profile_image_bg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:blurBGImage="@{user.profileImageUrl}"
+                        app:blurBGImage="@{user.profileImageURL}"
                         tools:src="@drawable/greta" />
 
                     <androidx.appcompat.widget.Toolbar
@@ -81,7 +81,7 @@
                             android:background="@drawable/circle_border"
                             android:padding="3dp"
                             tools:src="@drawable/greta"
-                            app:profileImage="@{user.profileImageUrl}"
+                            app:profileImage="@{user.profileImageURL}"
                             app:layout_collapseMode="parallax"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

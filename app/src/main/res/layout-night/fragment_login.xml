@@ -172,7 +172,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:elevation="10dp"
-            app:hideScrim="@{loginViewModel.loginStatus}">
+            app:hideScrim="@{loginViewModel.status}">
 
             <ImageView
         android:id="@+id/imageView21"
@@ -189,7 +189,7 @@
             android:layout_height="60dp"
             android:src="@drawable/pidgipedia_logo"
             android:layout_centerInParent="true"
-            app:animateLogo="@{loginViewModel.loginStatus}" />
+            app:animateLogo="@{loginViewModel.status}" />
         </RelativeLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
