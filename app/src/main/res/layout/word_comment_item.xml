@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="eventStamp"
+            name="eventstamp"
             type="com.felixfavour.pidgipedia.entity.Eventstamp" />
     </data>
 
@@ -31,9 +31,10 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/image_rounded_corner"
                 android:padding="3dp"
+                app:profileImage="@{eventstamp.humanEntityId}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/greta" />
+                tools:srcCompat="@drawable/greta" />
 
             <TextView
                 android:id="@+id/card_dummy_text"
@@ -43,7 +44,7 @@
                 android:layout_marginEnd="16dp"
                 tools:text="Some sort of header text"
                 android:gravity="center_vertical"
-                android:text="@{String.format(@string/word_commented_on_placeholder(eventStamp.humanEntity.toString()))}"
+                android:text="@{String.format(@string/word_commented_on_placeholder(eventstamp.humanEntityId.toString()))}"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +98,7 @@
                 android:fontFamily="@font/poppinsbold"
                 android:gravity="center"
                 tools:text="Danfo"
-                android:text="@{eventStamp.word.name}"
+                android:text="@{eventstamp.wordId}"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/word_text"
                 app:layout_constraintEnd_toStartOf="@+id/imageView22"
@@ -112,7 +113,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 tools:text="a few minutes ago"
-                app:eventTime="@{eventStamp.eventTime}"
+                app:eventTime="@{eventstamp.eventTime}"
                 android:textSize="@dimen/small_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/more"

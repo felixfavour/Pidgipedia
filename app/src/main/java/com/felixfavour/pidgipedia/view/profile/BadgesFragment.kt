@@ -39,7 +39,7 @@ class BadgesFragment : Fragment() {
 
 
         // BIND XML DATA
-        binding.profile = viewModel
+        binding.user = BadgesFragmentArgs.fromBundle(requireArguments()).user
 
 
         return binding.root

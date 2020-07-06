@@ -15,7 +15,6 @@ data class Quiz(
     @ColumnInfo(name = "question")
     val question: String,
     @ColumnInfo(name = "answers")
-    @TypeConverters(ListConverter::class)
     val answers: List<String>,
     @ColumnInfo(name = "correct_answer_index")
     val correctAnswerIndex: Int,

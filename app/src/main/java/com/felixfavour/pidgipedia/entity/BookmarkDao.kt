@@ -6,8 +6,8 @@ import androidx.room.*
 interface BookmarkDao {
 
     @Transaction
-    @Query("SELECT * from words ORDER BY date_created")
-    fun getAllBookmarks(): List<WordAndBookmark>
+    @Query("SELECT * from bookmarks ORDER BY date_created")
+    fun getAllBookmarks(): List<Bookmark>
 
     @Delete
     fun deleteBookmark(word: Word)

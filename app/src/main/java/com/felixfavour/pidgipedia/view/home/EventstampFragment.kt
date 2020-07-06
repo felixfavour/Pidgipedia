@@ -9,17 +9,12 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import com.bumptech.glide.Glide
 import com.felixfavour.pidgipedia.BottomSheetFragment
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentEventstampBinding
 import com.felixfavour.pidgipedia.entity.Comment
-import com.felixfavour.pidgipedia.entity.User
-import com.felixfavour.pidgipedia.util.MockData
 import com.felixfavour.pidgipedia.util.Pidgipedia
 import com.felixfavour.pidgipedia.viewmodel.EventstampViewModel
 
@@ -46,6 +41,7 @@ class EventstampFragment : Fragment() {
 
         // LOAD EVENTSTAMP VALUE FROM MOST RECENT PASSED FRAGMENT ARG
         eventstampViewModel.loadEventstamp(eventStampArgument)
+        eventstampViewModel.loadComments(eventStampArgument.wordId)
 
 
         // BIND XML DATA
@@ -56,20 +52,20 @@ class EventstampFragment : Fragment() {
         binding.commentsList.adapter = EventstampCommentsAdapter(object: CommentClickListener {
             override fun onProfileClick(view: View, comment: Comment) {
                 findNavController().navigate(
-                    EventstampFragmentDirections.actionEventstampFragmentToProfileFragment2(comment.author, true))
+                    EventstampFragmentDirections.actionEventstampFragmentToProfileFragment2(comment.authorId, true))
             }
 
             @SuppressLint("SetTextI18n")
             override fun onReplyClick(view: View, comment: Comment) {
-                binding.commentInput.setText("@${comment.author}\n")
+//                binding.commentInput.setText("@${comment.authorId}\n")
             }
 
             override fun onDeleteClick(view: View, comment: Comment) {
-                eventstampViewModel.deleteComment(comment)
+                eventstampViewModel.deleteComment(comment.commentId)
             }
 
             override fun onEditClick(view: View, comment: Comment) {
-                // Do nothing
+
             }
         })
 
@@ -82,6 +78,18 @@ class EventstampFragment : Fragment() {
             BottomSheetFragment().apply {
                 arguments = bundle
                 show(this@EventstampFragment.parentFragmentManager, Pidgipedia.EVENTSTAMP)
+            }
+        }
+
+
+        binding.postComment.setOnClickListener {
+            if (!binding.commentInput.text.isNullOrEmpty()) {
+
+                eventstampViewModel.uploadComment(
+                    binding.commentInput.text.toString(),
+                    eventStampArgument.wordId
+                )
+                binding.commentInput.setText("")
             }
         }
 

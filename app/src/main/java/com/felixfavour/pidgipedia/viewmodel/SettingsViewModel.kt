@@ -3,21 +3,28 @@ package com.felixfavour.pidgipedia.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.felixfavour.pidgipedia.entity.RemoteUser
 import com.felixfavour.pidgipedia.entity.User
 import com.felixfavour.pidgipedia.util.Language
-import com.felixfavour.pidgipedia.util.MockData
-import com.felixfavour.pidgipedia.util.Pidgipedia
+import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
+import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SettingsViewModel: ViewModel() {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
 
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User>
+    private val _user = MutableLiveData<RemoteUser>()
+    val user: LiveData<RemoteUser>
         get() = _user.apply {
             loadUser()
         }
+
+    private val _error = MutableLiveData<Throwable?>(null)
+    val error: LiveData<Throwable?>
+        get() = _error
 
     private val _language = MutableLiveData<String>()
     val language: LiveData<String>
@@ -27,7 +34,15 @@ class SettingsViewModel: ViewModel() {
 
 
     private fun loadUser() {
-        _user.value = MockData.user1
+        firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
+            .get(SOURCE)
+            .addOnSuccessListener { documentSnapshot ->
+                val user = documentSnapshot.toObject(RemoteUser::class.java)
+                _user.value = user
+            }
+            .addOnFailureListener {exception ->
+                _error.value = exception
+            }
     }
 
     private fun loadLanguage() {

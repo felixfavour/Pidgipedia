@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.felixfavour.pidgipedia.MainActivity
@@ -76,7 +75,7 @@ class WordOfTheDayMeaningFragment : Fragment() {
         }
 
 
-        viewModel.word.observe(viewLifecycleOwner, Observer {word->
+        viewModel.word.observe(viewLifecycleOwner, Observer { word->
             binding.seeMore.setOnClickListener {
                 val intent = Intent(requireActivity(), MainActivity::class.java).apply {
                     putExtra(Pidgipedia.WORD, word)

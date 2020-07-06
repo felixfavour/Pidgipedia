@@ -1,32 +1,34 @@
 package com.felixfavour.pidgipedia.view.home
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentWordBinding
+import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.shareWord
 import com.felixfavour.pidgipedia.viewmodel.WordViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -42,6 +44,7 @@ class WordFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_word, container, false)
         wordViewModel = ViewModelProvider(this).get(WordViewModel::class.java)
+        animateApprovalButtonGroup()
 
 
         // SET LIFECYCLE OWNER
@@ -56,8 +59,9 @@ class WordFragment : Fragment() {
 
 
         // BINDING THE RETRIEVED WORD ARGUMENT PASSED BY NAV COMPONENTS
-        val wordArg = WordFragmentArgs.fromBundle(requireArguments()).word
-        binding.word = wordArg
+        val wordId = WordFragmentArgs.fromBundle(requireArguments()).wordId
+        wordViewModel.loadWord(wordId)
+        binding.wordViewModel = wordViewModel
 
 
         // HIDE AND REVEAL VIEWS
@@ -69,6 +73,10 @@ class WordFragment : Fragment() {
         }
         binding.sentencesButton.setOnClickListener {
             updateUI(binding.sentencesButton, binding.sentences)
+            CoroutineScope(Dispatchers.Default).launch {
+                delay(200)
+                binding.wordScrollView.fullScroll(View.FOCUS_DOWN)
+            }
         }
 
 
@@ -81,14 +89,15 @@ class WordFragment : Fragment() {
 
         // BOOKMARK WORD ON BUTTON CLICKED
         binding.bookmarkWord.setOnClickListener {
-
         }
 
 
         // SHARE WORD ON BUTTON CLICKED
-        binding.shareWord.setOnClickListener {
-            shareWord(requireContext(), wordArg)
-        }
+        wordViewModel.word.observe(viewLifecycleOwner, Observer { word ->
+            binding.shareWord.setOnClickListener {
+                shareWord(requireContext(), word)
+            }
+        })
 
 
         return binding.root
@@ -108,6 +117,34 @@ class WordFragment : Fragment() {
             textView.visibility = View.VISIBLE
         }
     }
+
+
+    private fun animateApprovalButtonGroup() {
+        val openAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.search_translate_anim_down)
+        val closeAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.search_translate_anim_up)
+        binding.approveWord.setOnClickListener {
+            wordViewModel.approveWord()
+        }
+        binding.disapproveWord.setOnClickListener {
+            wordViewModel.disapproveWord()
+        }
+
+
+        // OBSERVE LIVE DATA FOR CHANGES
+        wordViewModel.word.observe(viewLifecycleOwner, Observer { word ->
+            if (!word.approved) {
+                binding.buttonGroup.startAnimation(openAnimation)
+                binding.buttonGroup.visibility = View.VISIBLE
+            }
+        })
+        wordViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            if (status == SUCCESS) {
+                binding.buttonGroup.startAnimation(closeAnimation)
+                binding.buttonGroup.visibility = View.GONE
+            }
+        })
+    }
+
 
     override fun onResume() {
         super.onResume()

@@ -29,11 +29,12 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                app:profileImage="@{eventStamp.humanEntityId}"
                 android:background="@drawable/image_rounded_corner"
                 android:padding="3dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/greta" />
+                tools:srcCompat="@drawable/greta" />
 
             <TextView
                 android:id="@+id/card_dummy_text"
@@ -43,7 +44,7 @@
                 android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
                 tools:text="@string/comment_response_placeholder"
-                android:text="@{String.format(@string/comment_response_placeholder(eventStamp.humanEntity.toString()))}"
+                android:text="@{String.format(@string/comment_response_placeholder(eventStamp.humanEntityId.toString()))}"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                 app:layout_constraintEnd_toEndOf="parent"

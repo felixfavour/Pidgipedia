@@ -4,21 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
-import android.widget.ImageView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.felixfavour.pidgipedia.R
-import com.felixfavour.pidgipedia.entity.Comment
-import com.felixfavour.pidgipedia.entity.Eventstamp
-import com.felixfavour.pidgipedia.entity.User
 
 class MainActivity : AppCompatActivity() {
 

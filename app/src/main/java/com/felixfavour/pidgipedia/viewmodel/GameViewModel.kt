@@ -38,8 +38,8 @@ class GameViewModel: ViewModel() {
             _currentScore.value = score
         }
 
-    private val _highScore = MutableLiveData<Int>()
-    val highScore: LiveData<Int>
+    private val _highScore = MutableLiveData<Long>()
+    val highScore: LiveData<Long>
         get() = _highScore.apply {
             _highScore.value = 5
         }

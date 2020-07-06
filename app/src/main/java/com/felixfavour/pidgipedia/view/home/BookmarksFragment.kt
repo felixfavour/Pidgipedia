@@ -44,7 +44,7 @@ class BookmarksFragment : Fragment() {
 
         // RECYCLER VIEW
         binding.bookmarksList.adapter = WordListAdapter(OnWordClickListener { word, it ->
-            findNavController().navigate(BookmarksFragmentDirections.actionBookmarksFragmentToWordFragment(word))
+            findNavController().navigate(BookmarksFragmentDirections.actionBookmarksFragmentToWordFragment(word.wordId))
         })
 
 

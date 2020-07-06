@@ -13,47 +13,47 @@ import kotlinx.android.parcel.RawValue
 data class Word(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "word_id")
-    val wordId: Int,
+    val wordRoomId: Int = 0,
+    var wordId: String = "",
     @ColumnInfo(name = "word_name")
-    val name: String,
+    val name: String = "",
     @ColumnInfo(name = "word_meaning")
-    val meaning: String,
+    val meaning: String = "",
     @ColumnInfo(name = "etymology")
-    val etymology: String,
+    val etymology: String = "",
     @ColumnInfo(name = "plural")
-    val plural: String?,
+    val plural: String? = "",
     @ColumnInfo(name = "part_of_speech")
-    val partOfSpeech: String,
+    val partOfSpeech: String = "",
     @ColumnInfo(name = "syllables")
-    val syllables: Int,
+    val syllables: Long = 0,
     @ColumnInfo(name = "syllabic_division")
-    val syllabicDivision: String,
+    val syllabicDivision: String = "",
     @ColumnInfo(name = "english_equivalent")
-    val englishEquivalent: String,
+    val englishEquivalent: String = "",
     @ColumnInfo(name = "image_reference")
     val imageReference: String? = null,
     @ColumnInfo(name = "transcription")
-    val transcription: String,
+    val transcription: String? = null,
     @ColumnInfo(name = "audio_reference")
     val pronunciationReference: String? = null,
     @ColumnInfo(name = "synonyms")
-    @TypeConverters(ListConverter::class)
-    val synonyms: List<String>,
-    @TypeConverters(ListConverter::class)
+    val synonyms: List<String> = emptyList(),
     @ColumnInfo(name = "sentences")
-    val sentences: List<String>,
+    val sentences: List<String> = emptyList(),
     @ColumnInfo(name = "word_author_id")
-    val authorId: Int,
-    @ColumnInfo(name = "comments")
-    @TypeConverters(ListConverter::class)
-    val comments: List<String>,
+    val authorId: String = "",
     @ColumnInfo(name = "date_created")
-    val dateCreated: Long,
+    val dateCreated: Long = 0L,
     @ColumnInfo(name = "last_updated")
-    val lastUpdated: Long,
+    val lastUpdated: Long = 0L,
     @ColumnInfo(name = "is_approved")
-    val isApproved: Boolean = false,
+    val approved: Boolean = false,
+    val rejected: Boolean = false,
+    val approvedAuthorId:String = "",
     @ColumnInfo(name = "word_of_the_day")
-    val wordOfTheDay_date: Long
+    val wordOfTheDay_date: Long = 0L,
+    val comments: List<String> = emptyList()
 ) : Parcelable {
+    constructor(word: Word, wordId: String) : this()
 }

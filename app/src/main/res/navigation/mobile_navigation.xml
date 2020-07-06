@@ -133,8 +133,8 @@
         android:label="@string/word"
         tools:layout="@layout/fragment_word" >
         <argument
-            android:name="word"
-            app:argType="com.felixfavour.pidgipedia.entity.Word" />
+            android:name="wordId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/eventstampFragment"
@@ -176,15 +176,19 @@
         android:id="@+id/badgesFragment2"
         android:name="com.felixfavour.pidgipedia.view.profile.BadgesFragment"
         tools:layout="@layout/fragment_badges"
-        android:label="@string/badges" />
+        android:label="@string/badges" >
+        <argument
+            android:name="user"
+            app:argType="com.felixfavour.pidgipedia.entity.RemoteUser" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment2"
         android:name="com.felixfavour.pidgipedia.view.profile.ProfileFragment"
         android:label="@string/author"
         tools:layout="@layout/fragment_profile">
         <argument
-            android:name="user"
-            app:argType="com.felixfavour.pidgipedia.entity.User"
+            android:name="userId"
+            app:argType="string"
             app:nullable="true" />
         <argument
             android:name="isAuthor"

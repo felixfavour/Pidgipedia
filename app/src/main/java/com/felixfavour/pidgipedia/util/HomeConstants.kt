@@ -1,24 +1,37 @@
 package com.felixfavour.pidgipedia.util
 
+import com.google.firebase.firestore.Source
+
 object Pidgipedia {
     const val WORD_DATABASE = "word_database"
     const val EVENTSTAMP = "eventstamp"
     const val HOME_MODAL = "home_more_modal_sheet"
-    const val WORD = "word"
+    const val WORD = "wordId"
     const val WORD_NAVIGATION = "wordNavigation"
     const val PREFERENCES = "MobotithePreferences"
     const val AUTHENTICATION_PREFERENCES = "AuthenticationPreferences"
     const val ONBOARDING_PREFERENCE = "hasActivityBeenOpenedBefore"
     const val RC_SIGN_IN = 10
+    const val USERS = "users"
+    const val SUGGESTED_WORDS = "suggested_words"
+    const val EVENTSTAMPS = "eventstamps"
+    const val QUIZZES = "quizzes"
+    const val COMMENTS = "comments"
+    const val PROFILE_IMAGES_REFERENCE = "profile_images/"
+    const val WORD_IMAGES_REFERENCE = "word_images/"
+    const val DATABASES_REFERENCE = "databases/"
+    const val AUDIO_REFERENCE = "word_audio/"
     const val DUMMY_PASSWORD = "pidgipedia_dummy123"
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
+    var SOURCE = Source.SERVER
 }
 
 object Connection {
     const val FAILED = -1
     const val LOADING = 1
     const val SUCCESS = 2
+    const val SUCCESS_OAUTH = 3
 }
 
 object Game {
@@ -31,6 +44,9 @@ object Rank {
     const val RANK_1 = "Oga"
     const val RANK_2 = "Contributor"
     const val RANK_3 = "JJC"
+    const val RANK_JJC = 3L
+    const val RANK_CONTRIBUTOR = 2L
+    const val RANK_OGA = 1L
 }
 
 object Badges {

@@ -175,4 +175,11 @@
     <string name="sent">Sent!</string>
     <string name="ok">OK</string>
     <string name="request_password_success">Check your email inbox for retrieval processes.</string>
+    <string name="email_address_alteration_warning">You cannot change your email address.</string>
+    <string name="profile_updated">Your Profile has been updated!</string>
+    <string name="profile_image_updation">Profile Image has been Updated!</string>
+    <string name="successful_suggestion_details">Thank you for contributing to a fast-rising global vocabulary, you would be notified upon approval of this word.</string>
+    <string name="successful_suggestion_title">Word Suggestion Successful</string>
+    <string name="go_to_word">Go to word</string>
+    <string name="go_to_author">Go to author</string>
 </resources>

@@ -9,8 +9,8 @@ interface WordDao {
     /**
      * Method to get all words from words database*/
     @Transaction
-    @Query("SELECT * FROM users")
-    fun getAllWords(): List<UserAndWord>
+    @Query("SELECT * FROM words")
+    fun getAllWords(): List<Word>
 
     /**
      * Method to get all words with initial specified from words database*/

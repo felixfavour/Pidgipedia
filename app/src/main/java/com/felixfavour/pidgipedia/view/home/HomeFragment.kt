@@ -7,7 +7,6 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
-import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -22,7 +21,6 @@ import com.felixfavour.pidgipedia.view.OnWordClickListener
 import com.felixfavour.pidgipedia.util.Pidgipedia
 import com.felixfavour.pidgipedia.util.shareWord
 import com.felixfavour.pidgipedia.viewmodel.HomeViewModel
-import com.google.android.material.appbar.AppBarLayout
 
 class HomeFragment : Fragment() {
 
@@ -37,6 +35,8 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeViewModel.loadUnapprovedWords()
+        homeViewModel.loadEventstamps()
         setHasOptionsMenu(true)
 
 
@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
 
         // RECYCLER VIEW
         binding.unapprovedWordsList.adapter = UnapprovedWordListAdapter(OnWordClickListener { word, it ->
-            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordFragment(word))
+            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordFragment(word.wordId))
         })
 
         binding.appUpdatesList.layoutManager = CustomLayoutManager(requireContext())
@@ -59,12 +59,12 @@ class HomeFragment : Fragment() {
             override fun onHomeCardClick(view: View, eventstamp: Eventstamp) {
                 when {
                     (eventstamp.badgeRewardType != null) -> {
-                        findNavController().navigate(
-                            HomeFragmentDirections.actionNavigationHomeToBadgesFragment2())
+//                        findNavController().navigate(
+//                            HomeFragmentDirections.actionNavigationHomeToBadgesFragment2(eventstamp.humanEntityId!!))
                     }
                     (eventstamp.rankRewardType != null) -> {
                         findNavController().navigate(
-                            HomeFragmentDirections.actionNavigationHomeToProfileFragment2(null, true))
+                            HomeFragmentDirections.actionNavigationHomeToProfileFragment2(null, false))
                     }
                     else -> {
                         findNavController().navigate(
@@ -85,7 +85,9 @@ class HomeFragment : Fragment() {
 
             override fun onProfileImageClick(view: View, eventstamp: Eventstamp) {
                 findNavController().navigate(
-                    HomeFragmentDirections.actionNavigationHomeToProfileFragment2(eventstamp.humanEntity, true)
+                    HomeFragmentDirections.actionNavigationHomeToProfileFragment2(
+                        eventstamp.humanEntityId, true
+                    )
                 )
             }
 
@@ -98,9 +100,9 @@ class HomeFragment : Fragment() {
         }
 
         if (requireActivity().intent.action == Pidgipedia.WORD_NAVIGATION) {
+            val word = requireActivity().intent.getParcelableExtra(Pidgipedia.WORD) as Word
             findNavController().navigate(
-                HomeFragmentDirections.actionNavigationHomeToWordFragment(
-                    requireActivity().intent.getParcelableExtra(Pidgipedia.WORD) as Word))
+                HomeFragmentDirections.actionNavigationHomeToWordFragment(word.wordId))
             requireActivity().intent.action = ""
         }
 

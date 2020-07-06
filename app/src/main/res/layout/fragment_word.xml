@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="word"
-            type="com.felixfavour.pidgipedia.entity.Word" />
+            name="wordViewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.WordViewModel" />
     </data>
 
     <ScrollView
@@ -22,25 +22,68 @@
             tools:context=".view.home.WordFragment">
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/disapprove_word"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primaryRed"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="16dp"
+                    android:text="decline"
+                    app:cornerRadius="0dp"
+                    app:icon="@drawable/close_primary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toEndOf="@+id/approve_word"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/approve_word"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="16dp"
+                    android:text="approve"
+                    app:cornerRadius="0dp"
+                    app:icon="@drawable/check_circle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/disapprove_word"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/wordName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppinsbold"
-                android:text="@{word.name}"
+                android:text="@{wordViewModel.word.name}"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/word_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_group"
                 tools:text="Danfo" />
 
             <TextView
                 android:id="@+id/word_transcription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{word.transcription}"
+                android:text="@{wordViewModel.word.transcription}"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/header_text"
                 app:layout_constraintStart_toStartOf="@+id/wordName"
@@ -110,10 +153,10 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/bookmark_word"
-                    app:wordImage="@{word.imageReference}"
+                    app:wordImage="@{wordViewModel.word.imageReference}"
                     tools:scaleType="centerCrop"
                     tools:src="@tools:sample/backgrounds/scenic"
-                    tools:srcCompat="@drawable/greta" />
+                    tools:srcCompat="@drawable/no_internet_image" />
 
                 <TextView
                     android:id="@+id/word_part_of_speech_and_plural"
@@ -126,14 +169,14 @@
                     android:backgroundTint="@color/transparentColor"
                     android:gravity="start"
                     android:paddingTop="8dp"
-                    android:text="Noun (plural: danfos)"
                     android:textAllCaps="false"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/line_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/word_image" />
+                    app:layout_constraintTop_toBottomOf="@+id/word_image"
+                    app:partOfSpeechText="@{wordViewModel.word.partOfSpeech}" />
 
                 <ImageView
                     android:id="@+id/imageView8"
@@ -160,7 +203,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/line_text"
-                    app:icon="@drawable/arrow_down"
+                    app:icon="@drawable/chevron_right"
                     app:iconGravity="end"
                     app:iconTint="@color/primaryWhiteColor"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -176,7 +219,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="@{word.etymology}"
+                    android:text="@{wordViewModel.word.etymology}"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
                     android:visibility="gone"
@@ -206,7 +249,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="Yellow Bus, Molue"
+                    android:text="@{wordViewModel.word.synonyms.toString()}"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -227,7 +270,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/line_text"
-                    app:icon="@drawable/arrow_down"
+                    app:icon="@drawable/chevron_right"
                     app:iconGravity="end"
                     app:iconTint="@color/primaryWhiteColor"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -261,7 +304,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="@{word.englishEquivalent}"
+                    android:text="@{wordViewModel.word.englishEquivalent}"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -295,7 +338,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/line_text"
-                    app:icon="@drawable/arrow_down"
+                    app:icon="@drawable/chevron_right"
                     app:iconGravity="end"
                     app:iconTint="@color/primaryWhiteColor"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -312,8 +355,6 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="24dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:inputType="textMultiLine"
-                    android:text="- Danfo don full.\n- How many people wan enter the Danfo?"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
                     android:visibility="gone"
@@ -322,6 +363,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sentences_button"
+                    app:sentencesText="@{wordViewModel.word.sentences}"
                     tools:visibility="visible" />
 
                 <ImageView
@@ -344,7 +386,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="@{word.meaning}"
+                    android:text="@{wordViewModel.word.meaning}"
                     android:textColor="@color/primaryWhiteColor"
                     android:textSize="@dimen/large_text"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -354,6 +396,7 @@
                     tools:text="A privately owned bus mainly for transportation found in Lagos, NIgeria" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
