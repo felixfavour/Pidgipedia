@@ -34,15 +34,17 @@ class SettingsViewModel: ViewModel() {
 
 
     private fun loadUser() {
-        firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
-            .get(SOURCE)
-            .addOnSuccessListener { documentSnapshot ->
-                val user = documentSnapshot.toObject(RemoteUser::class.java)
-                _user.value = user
-            }
-            .addOnFailureListener {exception ->
-                _error.value = exception
-            }
+        if (firebaseAuth.uid != null) {
+            firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
+                .get(SOURCE)
+                .addOnSuccessListener { documentSnapshot ->
+                    val user = documentSnapshot.toObject(RemoteUser::class.java)
+                    _user.value = user
+                }
+                .addOnFailureListener {exception ->
+                    _error.value = exception
+                }
+        }
     }
 
     private fun loadLanguage() {

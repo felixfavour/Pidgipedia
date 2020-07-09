@@ -112,15 +112,16 @@
     <string name="eventstamp">Eventstamp</string>
     <string name="syllabic_division_example"><b>For example: </b>"dan-fo"</string>
     <string name="syllabic_division">Syllabic Division</string>
-    <string name="comment_response_placeholder"><b>%1$s</b> replied your comment</string>
-    <string name="word_comment_placeholder"><b>%1$s</b> commented on a word you suggested</string>
-    <string name="word_approval_placeholder"><b>%1$s</b> approved the word you suggested</string>
+    <string name="comment_response_placeholder"><b>%1$s</b> replied <b>%2$s</b>\'s comment</string>
+    <string name="word_comment_placeholder"><b>%1$s</b> commented on a word <b>%2$s</b> suggested</string>
+    <string name="word_approval_placeholder"><b>%1$s</b> approved the word <b>%2$s</b> suggested</string>
     <string name="word_suggestion_placeholder"><b>%1$s</b> suggested a Word</string>
-    <string name="badge_reward_placeholder">You have earned Level <b>%1$s</b> Badge</string>
-    <string name="rank_reward_placeholder">Your rank has leveled up to <b>%1$s</b>!</string>
+    <string name="badge_reward_placeholder"><b>%1$s</b> earned <b>%2$s</b></string>
+    <string name="rank_reward_placeholder"><b>%1$s</b> rank has leveled up to <b>%2$s</b>!</string>
+    <string name="word_commented_on_placeholder"><b>%1$s</b> commented on the word <b>%2$s</b> suggested.</string>
+    <string name="word_rejection_placeholder"><b>%1$s</b> rejected the word <b>%2$s</b> suggested</string>
     <string name="word_suggestion">Word Suggestion</string>
     <string name="title_dictionary">Dictionary</string>
-    <string name="word_commented_on_placeholder">%1$s commented on the word you suggested.</string>
     <string name="a_year_ago">A year ago</string>
     <string name="years_ago">%d years ago</string>
     <string name="a_month_ago">A month ago</string>
@@ -182,4 +183,7 @@
     <string name="successful_suggestion_title">Word Suggestion Successful</string>
     <string name="go_to_word">Go to word</string>
     <string name="go_to_author">Go to author</string>
+    <string name="there_are_no_words_awaiting_approval">There are no words awaiting approval</string>
+    <string name="authentication_error_message">Oops! An Error Ocurred  and you are no longer signed in.</string>
+    <string name="authentication_error_header">Logged Out!</string>
 </resources>

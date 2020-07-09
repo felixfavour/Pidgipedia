@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.felixfavour.pidgipedia.BottomSheetFragment
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentEventstampBinding
 import com.felixfavour.pidgipedia.entity.Comment
+import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.Pidgipedia
 import com.felixfavour.pidgipedia.viewmodel.EventstampViewModel
 
@@ -57,7 +59,7 @@ class EventstampFragment : Fragment() {
 
             @SuppressLint("SetTextI18n")
             override fun onReplyClick(view: View, comment: Comment) {
-//                binding.commentInput.setText("@${comment.authorId}\n")
+                eventstampViewModel.replyComment(comment.authorId)
             }
 
             override fun onDeleteClick(view: View, comment: Comment) {
@@ -65,7 +67,6 @@ class EventstampFragment : Fragment() {
             }
 
             override fun onEditClick(view: View, comment: Comment) {
-
             }
         })
 
@@ -92,6 +93,15 @@ class EventstampFragment : Fragment() {
                 binding.commentInput.setText("")
             }
         }
+
+        // OBSERVE LIVE DATA CHANGES
+        eventstampViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            // IF status is successful, it means reply has been clicked!
+            if (status == SUCCESS) {
+                val author = eventstampViewModel.humanEntity.value
+                binding.commentInput.setText("@${author?.username}\n")
+            }
+        })
 
 
         return binding.root

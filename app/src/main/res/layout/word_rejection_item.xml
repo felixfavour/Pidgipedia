@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="eventStamp"
+            name="eventstamp"
             type="com.felixfavour.pidgipedia.entity.Eventstamp" />
     </data>
 
@@ -18,10 +18,10 @@
         app:cardElevation="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/primaryColorLight"
-            android:foreground="?android:attr/selectableItemBackground">
+            android:backgroundTint="@color/primaryColorLight">
 
             <ImageView
                 android:id="@+id/author_image"
@@ -31,26 +31,25 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/image_rounded_corner"
                 android:padding="3dp"
+                app:profileImage="@{eventstamp.humanEntityId}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:profileImage="@{eventStamp.humanEntityId}"
                 tools:srcCompat="@drawable/greta" />
 
             <TextView
                 android:id="@+id/card_dummy_text"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center_vertical"
+                app:eventstampText="@{eventstamp}"
                 android:textColor="@color/primaryTextColor"
-                app:eventstampText="@{eventStamp}"
                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/author_image"
                 app:layout_constraintTop_toTopOf="@+id/author_image"
-                app:layout_constraintVertical_bias="0.0"
-                tools:text="@string/comment_response_placeholder" />
+                app:layout_constraintVertical_bias="0.45"
+                tools:text="@string/word_rejection_placeholder" />
 
             <ImageButton
                 android:id="@+id/more"
@@ -65,40 +64,62 @@
                 app:layout_constraintTop_toTopOf="@+id/time"
                 app:srcCompat="@drawable/more" />
 
-            <TextView
-                android:id="@+id/comment_response"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+            <ImageView
+                android:id="@+id/imageView22"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/rounded_corners"
-                android:fontFamily="@font/poppinsmedium"
-                android:gravity="center"
-                android:padding="16dp"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/paragraph_text"
-                app:comment="@{eventStamp.commentId}"
+                android:layout_marginBottom="32dp"
+                android:tint="@color/primaryTextColor"
+                app:layout_constraintBottom_toBottomOf="@+id/word"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintTop_toTopOf="@+id/word"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/quote" />
+
+            <ImageView
+                android:id="@+id/imageView23"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:rotation="180"
+                android:tint="@color/primaryTextColor"
+                app:layout_constraintBottom_toBottomOf="@+id/word"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/author_image"
-                tools:text="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum beatae ut iure earum qui recusandae alias ea atque provident quaerat!" />
+                app:layout_constraintTop_toTopOf="@+id/word"
+                app:srcCompat="@drawable/quote" />
+
+            <TextView
+                android:id="@+id/word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppinsbold"
+                android:gravity="center"
+                tools:text="Danfo"
+                app:word="@{eventstamp.wordId}"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/word_text"
+                app:layout_constraintEnd_toStartOf="@+id/imageView22"
+                app:layout_constraintStart_toEndOf="@+id/imageView23"
+                app:layout_constraintTop_toBottomOf="@+id/author_image" />
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                tools:text="a few minutes ago"
+                app:eventTime="@{eventstamp.eventTime}"
                 android:textSize="@dimen/small_text"
-                app:eventTime="@{eventStamp.eventTime}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/more"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/comment_response"
-                tools:text="a few minutes ago" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView23" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

@@ -38,6 +38,12 @@ import com.felixfavour.pidgipedia.util.Pidgipedia.COMMENTS
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
 import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
+import com.felixfavour.pidgipedia.util.Rank.RANK_1
+import com.felixfavour.pidgipedia.util.Rank.RANK_2
+import com.felixfavour.pidgipedia.util.Rank.RANK_3
+import com.felixfavour.pidgipedia.util.Rank.RANK_CONTRIBUTOR
+import com.felixfavour.pidgipedia.util.Rank.RANK_JJC
+import com.felixfavour.pidgipedia.util.Rank.RANK_OGA
 import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
 import com.felixfavour.pidgipedia.view.home.EventstampCommentsAdapter
 import com.felixfavour.pidgipedia.view.home.HomeRecyclerViewAdapter
@@ -100,34 +106,90 @@ fun unapprovedWordsList(recyclerView: RecyclerView, words: List<Word>?) {
 
 @BindingAdapter("eventstampText")
 fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
-    firebaseFirestore.collection(USERS).document(eventstamp?.humanEntityId!!)
-        .get(SOURCE)
-        .addOnSuccessListener { userDoc ->
-            val user = userDoc.toObject(RemoteUser::class.java)
-            when {
-                eventstamp.wordComment -> {
-                    textView.text = textView.context.getString(
-                        R.string.word_comment_placeholder,
-                        user.toString()
-                    )
+    var primaryUser = ""
+    var secondaryUser = ""
+
+    if (eventstamp?.humanEntityId != null) {
+
+        firebaseFirestore.collection(USERS).document(eventstamp.humanEntityId)
+            .get(SOURCE)
+            .addOnSuccessListener { userDoc ->
+                val primaryHumanEntity = userDoc.toObject(RemoteUser::class.java)
+                primaryUser = primaryHumanEntity.toString()
+                if (primaryHumanEntity?.userId == firebaseAuth.uid) primaryUser = "You"
+
+                if (eventstamp.wordAuthorId != null) {
+                    firebaseFirestore.collection(USERS).document(eventstamp.wordAuthorId)
+                        .get(SOURCE)
+                        .addOnSuccessListener { documentSnapshot ->
+                            val secondaryHumanEntity = documentSnapshot.toObject(RemoteUser::class.java)
+                            secondaryUser = secondaryHumanEntity.toString()
+                            if (secondaryHumanEntity?.userId == firebaseAuth.uid) secondaryUser = "you"
+                            else if (primaryHumanEntity?.equals(secondaryHumanEntity)!!) secondaryUser = "they"
+
+                            when {
+                                eventstamp.wordComment -> {
+                                    textView.text = textView.context.getString(
+                                        R.string.word_comment_placeholder,
+                                        primaryUser,
+                                        secondaryUser
+                                    )
+                                }
+                                eventstamp.commentResponse -> {
+                                    textView.text = textView.context.getString(
+                                        R.string.comment_response_placeholder,
+                                        primaryUser,
+                                        secondaryUser
+                                    )
+                                }
+                                eventstamp.suggested -> {
+                                    textView.text = textView.context.getString(
+                                        R.string.word_suggestion_placeholder,
+                                        primaryUser
+                                    )
+                                }
+                                eventstamp.approved -> {
+                                    textView.text = textView.context.getString(
+                                        R.string.word_approval_placeholder,
+                                        primaryUser,
+                                        secondaryUser
+                                    )
+                                }
+                                eventstamp.rejected -> {
+                                    textView.text = textView.context.getString(
+                                        R.string.word_rejection_placeholder,
+                                        primaryUser,
+                                        secondaryUser
+                                    )
+                                }
+                            }
+                        }
+
                 }
-                eventstamp.commentResponse -> {
-                    textView.text = textView.context.getString(
-                        R.string.comment_response_placeholder,
-                        user.toString())
-                }
-                eventstamp.suggested -> {
-                    textView.text = textView.context.getString(
-                        R.string.word_suggestion_placeholder,
-                        user.toString())
-                }
-                eventstamp.approved -> {
-                    textView.text = textView.context.getString(
-                        R.string.word_approval_placeholder,
-                        user.toString())
+                when {
+                    eventstamp.rankRewardType != null -> {
+                        textView.text = textView.context.getString(
+                            R.string.rank_reward_placeholder,
+                            primaryUser,
+                            eventstamp.rankRewardType.let {
+                                when (it) {
+                                    RANK_JJC -> return@let RANK_3
+                                    RANK_CONTRIBUTOR -> return@let RANK_2
+                                    else -> return@let RANK_1
+                                }
+                            }
+                        )
+                    }
+                    eventstamp.badgeRewardType.toString().isNotEmpty() -> {
+                        textView.text = textView.context.getString(
+                            R.string.badge_reward_placeholder,
+                            primaryUser,
+                            eventstamp.badgeRewardType
+                        )
+                    }
                 }
             }
-        }
+    }
 }
 
 
@@ -137,10 +199,10 @@ fun getProfileImage(imageView: ImageView, authorId: String?) {
         try {
             firebaseFirestore.collection(USERS).document(authorId)
                 .get().addOnSuccessListener {documentSnapshot ->
-                    val url = documentSnapshot["profileImageURL"] as String
+                    val user = documentSnapshot.toObject(RemoteUser::class.java)
 
-                    Glide.with(imageView.context)
-                        .load(url)
+                    Glide.with(imageView.context.applicationContext)
+                        .load(user?.profileImageURL)
                         .centerCrop()
                         .circleCrop()
                         .placeholder(R.drawable.person_outline)
@@ -173,6 +235,29 @@ fun getWordName(textView: TextView, wordId: String?) {
                 val word = documentSnapshot["name"].toString()
                 textView.text = word
             }
+    }
+}
+
+
+@BindingAdapter("comment")
+fun getCommentText(textView: TextView, commentId: String?) {
+    if (commentId != null) {
+        firebaseFirestore.collection(COMMENTS).document(commentId)
+            .get(SOURCE)
+            .addOnSuccessListener { documentSnapshot ->
+                val commentText = documentSnapshot["commentContent"].toString()
+                textView.text = "\" $commentText \""
+            }
+    }
+}
+
+
+@BindingAdapter("commentActionVisibility")
+fun hideUnnecessaryCommentActions(imageView: ImageView, comment: Comment?) {
+    if (comment != null) {
+        if (comment.authorId != firebaseAuth.uid) {
+            imageView.visibility = View.GONE
+        }
     }
 }
 
@@ -274,15 +359,15 @@ fun eventStampDate(textView: TextView, date: Long?) {
 }
 
 
-@BindingAdapter("rankPlaceholder")
-fun getRankTextForHomeScreen(textView: TextView, rank: Long?) {
-    val context = textView.context
-    when (rank) {
-        1L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_1)
-        2L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_2)
-        3L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_3)
-    }
-}
+//@BindingAdapter("rankPlaceholder")
+//fun getRankTextForHomeScreen(textView: TextView, rank: Long?) {
+//    val context = textView.context
+//    when (rank) {
+//        1L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_1)
+//        2L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_2)
+//        3L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_3)
+//    }
+//}
 
 
 @BindingAdapter("rank")

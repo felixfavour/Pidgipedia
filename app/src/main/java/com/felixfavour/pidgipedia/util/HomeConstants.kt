@@ -24,7 +24,7 @@ object Pidgipedia {
     const val DUMMY_PASSWORD = "pidgipedia_dummy123"
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
-    var SOURCE = Source.SERVER
+    var SOURCE = Source.DEFAULT
 }
 
 object Connection {
@@ -50,15 +50,15 @@ object Rank {
 }
 
 object Badges {
-    const val BADGE_1 = "Badge 1"
-    const val BADGE_2 = "Badge 2"
-    const val BADGE_5 = "Badge 5"
-    const val BADGE_10 = "Badge 10"
-    const val BADGE_20 = "Badge 20"
-    const val BADGE_25 = "Badge 25"
-    const val BADGE_50 = "Badge 50"
-    const val BADGE_75 = "Badge 75"
-    const val BADGE_100 = "Badge 100"
+    const val BADGE_1 = "Level 1 Badge"
+    const val BADGE_2 = "Level 2 Badge"
+    const val BADGE_5 = "Level 5 Badge"
+    const val BADGE_10 = "Level 10 Badge"
+    const val BADGE_20 = "Level 20 Badge"
+    const val BADGE_25 = "Level 25 Badge"
+    const val BADGE_50 = "Level 50 Badge"
+    const val BADGE_75 = "Level 75 Badge"
+    const val BADGE_100 = "Level 100 Badge"
 }
 
 object Language {

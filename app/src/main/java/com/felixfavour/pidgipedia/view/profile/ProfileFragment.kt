@@ -39,7 +39,9 @@ class ProfileFragment : Fragment() {
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         bottomSheet = BottomSheetBehavior.from(binding.bottomsheet)
 
+
         binding.profileViewModel = profileViewModel
+        profileViewModel.loadUser()
 
 
         // GET ARGUMENTS PASSED THROUGH NAVIGATION COMPONENTS

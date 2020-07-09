@@ -2,10 +2,12 @@ package com.felixfavour.pidgipedia.view.home
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.edit
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -17,14 +19,18 @@ import com.felixfavour.pidgipedia.*
 import com.felixfavour.pidgipedia.databinding.FragmentHomeBinding
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.Word
+import com.felixfavour.pidgipedia.util.*
+import com.felixfavour.pidgipedia.util.Connection.FAILED
 import com.felixfavour.pidgipedia.view.OnWordClickListener
-import com.felixfavour.pidgipedia.util.Pidgipedia
-import com.felixfavour.pidgipedia.util.shareWord
 import com.felixfavour.pidgipedia.viewmodel.HomeViewModel
+import com.felixfavour.pidgipedia.viewmodel.MainActivityViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var mainActivityViewModel: MainActivityViewModel
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentHomeBinding
 
     companion object {
@@ -35,9 +41,36 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        sharedPreferences = requireActivity().getSharedPreferences(Pidgipedia.PREFERENCES, Context.MODE_PRIVATE)
+        mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         homeViewModel.loadUnapprovedWords()
         homeViewModel.loadEventstamps()
         setHasOptionsMenu(true)
+
+
+        // CHECK IF USER IS AUTHENTICATED
+        mainActivityViewModel.status.observe(viewLifecycleOwner, Observer {status ->
+            val intent = Intent(requireContext(), AuthenticationActivity::class.java)
+            if (status == FAILED) {
+
+                MaterialAlertDialogBuilder(context)
+                    .setIcon(R.drawable.warning)
+                    .setTitle(R.string.authentication_error_header)
+                    .setMessage(R.string.authentication_error_message)
+                    .setPositiveButton(R.string.log_in) { _, _ ->
+                        startActivity(intent)
+                        sharedPreferences.edit {
+                            putBoolean(Pidgipedia.AUTHENTICATION_PREFERENCES, true)
+                        }
+                    }.setOnDismissListener {
+                        startActivity(intent)
+                        sharedPreferences.edit {
+                            putBoolean(Pidgipedia.AUTHENTICATION_PREFERENCES, true)
+                        }
+                    }
+                    .show()
+            }
+        })
 
 
         // Initialize DataBinding model data
@@ -91,7 +124,8 @@ class HomeFragment : Fragment() {
                 )
             }
 
-        })
+        }
+        )
 
 
         // NAVIGATION

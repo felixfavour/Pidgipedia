@@ -11,6 +11,7 @@ import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class HomeViewModel : ViewModel() {
 
@@ -39,7 +40,9 @@ class HomeViewModel : ViewModel() {
     fun loadEventstamps() {
         val eventstamps = mutableListOf<Eventstamp>()
 
-        firebaseFirestore.collection(EVENTSTAMPS).get(SOURCE)
+        firebaseFirestore.collection(EVENTSTAMPS)
+            .orderBy("eventTime", Query.Direction.DESCENDING)
+            .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
                 // All Eventstamps Objects from this specific RemoteUser
 
@@ -55,7 +58,6 @@ class HomeViewModel : ViewModel() {
         val words = mutableListOf<Word>()
         firebaseFirestore.collection(SUGGESTED_WORDS)
             .whereEqualTo("approved", false)
-            .whereEqualTo("rejected", false)
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
                 querySnapshot.documents.forEach { document ->

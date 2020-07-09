@@ -9,7 +9,9 @@ data class Comment (
     val commentContent: String = "",
     val authorId: String = "",
     val wordId: String = "",
-    val dateCreated: Long = 0L
+    val respondingTo: String = "",
+    val dateCreated: Long = 0L,
+    val unlisted: Boolean = false
 ) : Parcelable {
 
 }

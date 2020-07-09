@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.entity.Quiz
 import com.felixfavour.pidgipedia.util.MockData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_game.view.*
 import kotlin.random.Random
 
@@ -15,6 +17,18 @@ class GameViewModel: ViewModel() {
     companion object {
         const val TOTAL_QUESTIONS = 10
     }
+
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+
+    private val _error = MutableLiveData<Throwable?>(null)
+    val error: LiveData<Throwable?>
+        get() = _error
+
+    private val _status = MutableLiveData<Int>()
+    val status: LiveData<Int>
+        get() = _status
+
 
     /** [score] records increase in */
     private var score = 0
@@ -59,7 +73,7 @@ class GameViewModel: ViewModel() {
 
 
     fun loadQuiz() {
-        _quiz.value = MockData.quizzes[_currentQuestion.value!!]
+//        _quiz.value = MockData.quizzes[_currentQuestion.value!!]
     }
 
 
@@ -74,9 +88,9 @@ class GameViewModel: ViewModel() {
             R.id.answer4 -> checkedAnswer = 3
         }
 
-        if (checkedAnswer == quizObj.correctAnswerIndex) {
-            score += 1
-        }
+//        if (checkedAnswer == quizObj.correctAnswerIndex) {
+//            score += 1
+//        }
         _currentQuestion.value = _currentQuestion.value!! + 1
     }
 

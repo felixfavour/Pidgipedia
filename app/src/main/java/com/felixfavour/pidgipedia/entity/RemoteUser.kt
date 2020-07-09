@@ -21,6 +21,11 @@ data class RemoteUser(
     val username: String = ""
 ): Parcelable {
 
+    override fun equals(other: Any?): Boolean {
+        other as RemoteUser
+        return this.userId == other.userId
+    }
+
     override fun toString(): String {
         return "$firstName $lastName"
     }

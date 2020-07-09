@@ -23,6 +23,7 @@ class HomeRecyclerViewAdapter(
         const val TYPE_BADGE_REWARD = 4
         const val TYPE_COMMENT_RESPONSE = 5
         const val TYPE_WORD_COMMENT = 6
+        const val TYPE_WORD_REJECTION = 7
 
         fun styleCard(cardView: CardView) {
             val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -93,6 +94,23 @@ class HomeRecyclerViewAdapter(
         }
     }
 
+    class WordRejectionViewHolder(val binding: WordRejectionItemBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
+            binding.eventstamp = eventstamp
+            binding.root.setOnClickListener {view ->
+                homeCardClickListener.onHomeCardClick(view, eventstamp)
+            }
+            binding.more.setOnClickListener {view ->
+                homeCardClickListener.onMoreButtonClick(view, eventstamp)
+            }
+            binding.authorImage.setOnClickListener {view ->
+                homeCardClickListener.onProfileImageClick(view, eventstamp)
+            }
+            styleCard(binding.card)
+            binding.executePendingBindings()
+        }
+    }
+
     class RankRewardViewHolder(val binding: RankRewardItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
             binding.eventStamp = eventstamp
@@ -106,7 +124,7 @@ class HomeRecyclerViewAdapter(
 
     class BadgeRewardViewHolder(val binding: BadgeRewardItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
-            binding.eventStamp = eventstamp
+            binding.eventstamp = eventstamp
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
@@ -154,6 +172,9 @@ class HomeRecyclerViewAdapter(
             item.suggested -> {
                 return TYPE_WORD_SUGGESTION
             }
+            item.rejected -> {
+                return TYPE_WORD_REJECTION
+            }
         }
         return super.getItemViewType(position)
     }
@@ -165,6 +186,8 @@ class HomeRecyclerViewAdapter(
             TYPE_COMMENT_RESPONSE -> CommentResponseViewHolder(CommentResponseItemBinding.inflate(LayoutInflater.from(parent.context)))
             TYPE_WORD_APPROVAL -> WordApprovalViewHolder(WordApprovalItemBinding.inflate(LayoutInflater.from(parent.context)))
             TYPE_WORD_SUGGESTION -> WordSuggestionViewHolder(WordSuggestionItemBinding.inflate(LayoutInflater.from(parent.context)))
+            TYPE_WORD_REJECTION -> WordRejectionViewHolder(WordRejectionItemBinding.inflate(LayoutInflater.from(parent.context)))
+            TYPE_WORD_COMMENT -> WordCommentViewHolder(WordCommentItemBinding.inflate(LayoutInflater.from(parent.context)))
             else -> WordCommentViewHolder(WordCommentItemBinding.inflate(LayoutInflater.from(parent.context)))
         }
     }
@@ -194,6 +217,10 @@ class HomeRecyclerViewAdapter(
             }
             TYPE_WORD_COMMENT -> {
                 val holderCasted = holder as WordCommentViewHolder
+                holderCasted.bind(item, homeCardClickListener)
+            }
+            TYPE_WORD_REJECTION -> {
+                val holderCasted = holder as WordRejectionViewHolder
                 holderCasted.bind(item, homeCardClickListener)
             }
         }

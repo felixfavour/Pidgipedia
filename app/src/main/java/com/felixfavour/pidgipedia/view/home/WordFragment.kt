@@ -22,6 +22,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentWordBinding
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
+import com.felixfavour.pidgipedia.util.Rank.RANK_CONTRIBUTOR
 import com.felixfavour.pidgipedia.util.shareWord
 import com.felixfavour.pidgipedia.viewmodel.WordViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -44,7 +45,9 @@ class WordFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_word, container, false)
         wordViewModel = ViewModelProvider(this).get(WordViewModel::class.java)
-        animateApprovalButtonGroup()
+        wordViewModel.loadUser()
+        val openAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.search_translate_anim_down)
+        val closeAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.search_translate_anim_up)
 
 
         // SET LIFECYCLE OWNER
@@ -92,10 +95,36 @@ class WordFragment : Fragment() {
         }
 
 
-        // SHARE WORD ON BUTTON CLICKED
+        binding.approveWord.setOnClickListener {
+            wordViewModel.approveWord()
+        }
+
+
+        binding.disapproveWord.setOnClickListener {
+            wordViewModel.disapproveWord()
+        }
+
+
+        // OBSERVE LIVE DATA CHANGES
         wordViewModel.word.observe(viewLifecycleOwner, Observer { word ->
             binding.shareWord.setOnClickListener {
                 shareWord(requireContext(), word)
+            }
+            if (wordViewModel.user.value!!.rank <= RANK_CONTRIBUTOR) {
+                if (word.approved || word.rejected) {
+                    binding.buttonGroup.startAnimation(closeAnimation)
+                    binding.buttonGroup.visibility = View.GONE
+                } else {
+                    binding.buttonGroup.startAnimation(openAnimation)
+                    binding.buttonGroup.visibility = View.VISIBLE
+                }
+            }
+        })
+
+        wordViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            if (status == SUCCESS) {
+                binding.buttonGroup.startAnimation(closeAnimation)
+                binding.buttonGroup.visibility = View.GONE
             }
         })
 
@@ -103,10 +132,6 @@ class WordFragment : Fragment() {
         return binding.root
     }
 
-
-    private fun toggleButtonIcon(button: ImageButton, icon1: Int, icon2: Int) {
-
-    }
 
     /*
     * Method to expand and contract views in Word screen*/
@@ -116,33 +141,6 @@ class WordFragment : Fragment() {
         } else {
             textView.visibility = View.VISIBLE
         }
-    }
-
-
-    private fun animateApprovalButtonGroup() {
-        val openAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.search_translate_anim_down)
-        val closeAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.search_translate_anim_up)
-        binding.approveWord.setOnClickListener {
-            wordViewModel.approveWord()
-        }
-        binding.disapproveWord.setOnClickListener {
-            wordViewModel.disapproveWord()
-        }
-
-
-        // OBSERVE LIVE DATA FOR CHANGES
-        wordViewModel.word.observe(viewLifecycleOwner, Observer { word ->
-            if (!word.approved) {
-                binding.buttonGroup.startAnimation(openAnimation)
-                binding.buttonGroup.visibility = View.VISIBLE
-            }
-        })
-        wordViewModel.status.observe(viewLifecycleOwner, Observer { status ->
-            if (status == SUCCESS) {
-                binding.buttonGroup.startAnimation(closeAnimation)
-                binding.buttonGroup.visibility = View.GONE
-            }
-        })
     }
 
 

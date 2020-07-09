@@ -7,6 +7,7 @@ import com.felixfavour.pidgipedia.entity.Comment
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.RemoteUser
 import com.felixfavour.pidgipedia.entity.Word
+import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.Pidgipedia.COMMENTS
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
@@ -75,7 +76,7 @@ class EventstampViewModel: ViewModel() {
 
     fun deleteComment(commentId: String) {
         firebaseFirestore.collection(COMMENTS).document(commentId)
-            .delete()
+            .update("unlisted", true)
             .addOnSuccessListener {
                 if (this@EventstampViewModel::wordId.isInitialized) {
                     loadComments(wordId)
@@ -106,7 +107,13 @@ class EventstampViewModel: ViewModel() {
                     commentContent = commentText,
                     dateCreated = System.currentTimeMillis(),
                     wordId = wordId!!,
-                    authorId = firebaseAuth.uid!!
+                    authorId = firebaseAuth.uid!!,
+                    respondingTo = _humanEntity.value?.userId!!.let {userId ->
+                        if (userId == firebaseAuth.uid) {
+                            return@let ""
+                        }
+                        return@let userId
+                    }
                 )
             firebaseFirestore.collection(COMMENTS).document(commentId)
                 .set(comment)
@@ -122,7 +129,9 @@ class EventstampViewModel: ViewModel() {
     fun loadComments(wordIdParam: String?) {
         wordId = wordIdParam!!
         val remoteComments = mutableListOf<Comment>()
-        firebaseFirestore.collection(COMMENTS).whereEqualTo("wordId", wordIdParam)
+        firebaseFirestore.collection(COMMENTS)
+            .whereEqualTo("wordId", wordIdParam)
+            .whereEqualTo("unlisted", false)
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
                 val documents = querySnapshot.documents
@@ -134,5 +143,15 @@ class EventstampViewModel: ViewModel() {
             }
     }
 
+
+    fun replyComment(authorId: String?) {
+        firebaseFirestore.collection(USERS).document(authorId!!)
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                val author = documentSnapshot.toObject(RemoteUser::class.java)
+                _humanEntity.value = author
+                _status.value = SUCCESS
+            }
+    }
 
 }

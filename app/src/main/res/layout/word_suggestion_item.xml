@@ -42,14 +42,13 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                tools:text="@string/word_suggestion_placeholder"
-                app:authorName="@{eventstamp.humanEntityId}"
                 android:textColor="@color/primaryTextColor"
+                app:eventstampText="@{eventstamp}"
                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/author_image"
                 app:layout_constraintTop_toTopOf="@+id/author_image"
-                app:layout_constraintVertical_bias="0.0" />
+                tools:text="@string/word_suggestion_placeholder" />
 
             <ImageButton
                 android:id="@+id/more"

@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                app:authorName="@{bottomSheetViewModel.humanEntity.userId}"
+                android:text="@{bottomSheetViewModel.humanEntity.toString}"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/large_text"
                 android:textStyle="bold"

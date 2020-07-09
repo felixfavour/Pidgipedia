@@ -3,10 +3,12 @@ package com.felixfavour.pidgipedia.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.felixfavour.pidgipedia.entity.RemoteUser
 import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
+import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -27,6 +29,20 @@ class WordViewModel: ViewModel() {
     val word: LiveData<Word>
         get() = _word
 
+    private val _user = MutableLiveData<RemoteUser>()
+    val user: LiveData<RemoteUser>
+        get() = _user
+
+
+    fun loadUser() {
+        firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
+            .get(SOURCE)
+            .addOnSuccessListener { documentSnapshot ->
+                val remoteUser = documentSnapshot.toObject(RemoteUser::class.java)
+                _user.value = remoteUser
+            }
+    }
+
 
     fun loadWord(wordId: String) {
         firebaseFirestore.collection(SUGGESTED_WORDS).document(wordId)
@@ -40,7 +56,12 @@ class WordViewModel: ViewModel() {
 
     fun approveWord() {
         firebaseFirestore.collection(SUGGESTED_WORDS).document(word.value?.wordId!!)
-            .update("approved", true)
+            .update(
+                mapOf(
+                    "approved" to true,
+                    "approvedAuthorId" to firebaseAuth.uid!!
+                )
+            )
             .addOnSuccessListener {
                 _status.value = SUCCESS
             }
@@ -49,7 +70,11 @@ class WordViewModel: ViewModel() {
 
     fun disapproveWord() {
         firebaseFirestore.collection(SUGGESTED_WORDS).document(word.value?.wordId!!)
-            .update("rejected", true)
+            .update(
+                mapOf(
+                    "rejected" to true,
+                    "approvedAuthorId" to firebaseAuth.uid!!
+                ))
             .addOnSuccessListener {
                 _status.value = SUCCESS
             }

@@ -23,9 +23,7 @@ class ProfileViewModel: ViewModel() {
 
     private val _user = MutableLiveData<RemoteUser>()
     val user: LiveData<RemoteUser>
-        get() = _user.apply {
-            loadUser()
-        }
+        get() = _user
 
     private val _status = MutableLiveData<Int>()
     val status: LiveData<Int>
@@ -36,7 +34,7 @@ class ProfileViewModel: ViewModel() {
         get() = _error
 
 
-    private fun loadUser() {
+    fun loadUser() {
         firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
             .get(SOURCE)
             .addOnSuccessListener { documentSnapshot ->
