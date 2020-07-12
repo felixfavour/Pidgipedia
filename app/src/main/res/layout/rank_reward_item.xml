@@ -31,10 +31,10 @@
                 android:layout_marginTop="16dp"
                 android:textAlignment="center"
                 android:textColor="@color/primaryTextColor"
+                app:eventstampText="@{eventStamp}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:rankPlaceholder="@{eventStamp.rankRewardType}"
                 tools:text="@string/rank_reward_placeholder" />
 
             <TextView
@@ -60,7 +60,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_dummy_text"
-                app:srcCompat="@drawable/ic_rank_jjc" />
+                tools:srcCompat="@drawable/ic_rank_jjc" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

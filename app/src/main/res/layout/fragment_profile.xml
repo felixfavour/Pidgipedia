@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="user"
-            type="com.felixfavour.pidgipedia.entity.User" />
+            name="profileViewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.ProfileViewModel" />
         <variable
             name="pidgipedia"
             type="com.felixfavour.pidgipedia.util.Pidgipedia" />
@@ -38,13 +38,12 @@
                     android:id="@+id/collapsingToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/greta"
                     android:fitsSystemWindows="true"
                     app:contentScrim="@color/primaryColor"
                     app:expandedTitleMarginEnd="56dp"
                     app:expandedTitleMarginStart="40dp"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                    app:title="@{user.firstName}"
+                    app:title="@{profileViewModel.user.firstName}"
                     tools:title="@string/dummy_person_text"
                     app:expandedTitleTextAppearance="@style/boldPoppins"
                     app:collapsedTitleTextAppearance="@style/mediumPoppins"
@@ -54,8 +53,17 @@
                         android:id="@+id/profile_image_bg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:blurBGImage="@{user.profileImageURL}"
+                        android:scaleType="centerCrop"
+                        app:blurBGImage="@{profileViewModel.user.userId}"
                         tools:src="@drawable/greta" />
+
+                    <ImageView
+                        android:id="@+id/profile_image_transaparent_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:alpha="0.4"
+                        android:src="#000" />
 
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/profile_toolbar"
@@ -78,17 +86,17 @@
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:layout_marginBottom="32dp"
-                            android:background="@drawable/circle_border"
-                            android:padding="3dp"
-                            tools:src="@drawable/greta"
-                            app:profileImage="@{user.profileImageURL}"
+                            android:background="@drawable/just_borders"
+                            android:padding="12dp"
                             app:layout_collapseMode="parallax"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.19999999" />
+                            app:layout_constraintVertical_bias="0.19999999"
+                            app:profileImage="@{profileViewModel.user.userId}"
+                            tools:src="@drawable/greta" />
 
                         <ImageView
                             android:id="@+id/rank_image"
@@ -97,11 +105,22 @@
                             android:layout_marginStart="16dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="105dp"
-                            app:rankImage="@{user.rank}"
+                            app:rankImage="@{profileViewModel.user.rank}"
                             app:layout_constraintEnd_toEndOf="@+id/profile_image"
                             app:layout_constraintStart_toStartOf="@+id/profile_image"
                             app:layout_constraintTop_toTopOf="@+id/profile_image"
                             tools:srcCompat="@drawable/ic_rank_contributor" />
+
+                        <ImageView
+                            android:id="@+id/bottom_sheet_shade"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shade_bg"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:visibility="invisible"
+                            tools:layout_editor_absoluteX="0dp"
+                            tools:layout_editor_absoluteY="56dp" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -128,21 +147,19 @@
                         android:id="@+id/profile_bio"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginBottom="24dp"
+                        android:background="@color/secondaryGreyColor"
                         android:fontFamily="@font/poppinsmedium"
-                        android:text="@{user.bio}"
-                        tools:text="@string/dummy_bio"
+                        android:padding="24dp"
+                        android:text="@{profileViewModel.user.bio}"
                         android:textAlignment="center"
-                        android:textColor="@color/primaryTextColor"
+                        android:textColor="@android:color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/full_name_dummy"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/dummy_bio" />
 
                     <TextView
                         android:id="@+id/full_name_dummy"
@@ -170,12 +187,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        tools:text="Favour Felix Chinemerem"
-                        android:text="@{user.toString()}"
+                        android:text="@{profileViewModel.user.toString()}"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/imageView9"
                         app:layout_constraintStart_toEndOf="@+id/profile_image_dummy"
-                        app:layout_constraintTop_toBottomOf="@+id/full_name_dummy" />
+                        app:layout_constraintTop_toBottomOf="@+id/full_name_dummy"
+                        tools:text="Favour Felix Chinemerem" />
 
                     <ImageView
                         android:id="@+id/email_icon"
@@ -194,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         
-                        android:text="@{user.email}"
+                        android:text="@{profileViewModel.user.email}"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/email_icon"
@@ -241,7 +259,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         tools:text="Lagos, Nigeria"
-                        android:text="@{user.location}"
+                        android:text="@{profileViewModel.user.location}"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/location_icon"
@@ -276,7 +294,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginBottom="24dp"
                         tools:text="5 Badges"
-                        android:text="@{String.format(@string/badges_placeholder(user.badges.size))}"
+                        android:text="@{String.format(@string/badges_placeholder(profileViewModel.user.badges.size))}"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/go_to_badges"
@@ -318,7 +336,7 @@
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/dob_icon"
                         app:layout_constraintTop_toBottomOf="@+id/dob_dummy"
-                        app:longDate="@{user.dateOfBirth}"
+                        app:longDate="@{profileViewModel.user.dateOfBirth}"
                         tools:text="8th May, 2003" />
 
                     <TextView
@@ -347,12 +365,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        tools:text="13 Words"
-                        android:text="@{String.format(@string/approved_words_placeholder(user.approvedWords.size))}"
+                        android:text="@{String.format(@string/approved_words_placeholder(profileViewModel.user.approvedWords.size))}"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
+                        app:layout_constraintBottom_toTopOf="@+id/imageView18"
                         app:layout_constraintStart_toEndOf="@+id/approved_words_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/approved_words_dummy" />
+                        app:layout_constraintTop_toBottomOf="@+id/approved_words_dummy"
+                        tools:text="13 Words" />
 
                     <TextView
                         android:id="@+id/rank_dummy"
@@ -381,7 +400,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         tools:text="Contributor"
-                        app:rank="@{user.rank}"
+                        app:rank="@{profileViewModel.user.rank}"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/rank_icon"
@@ -497,16 +516,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.core.widget.NestedScrollView>
-
-            <ImageView
-                android:id="@+id/bottom_sheet_shade"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/shade_bg"
-                android:clickable="true"
-                android:focusable="true"
-                
-                android:visibility="invisible" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bottomsheet"

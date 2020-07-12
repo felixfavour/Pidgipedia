@@ -13,14 +13,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.felixfavour.pidgipedia.MainActivity
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.WordOfTheDayActivity.Companion.checkTime
 import com.felixfavour.pidgipedia.databinding.FragmentWordOfTheDayImageBinding
 import com.felixfavour.pidgipedia.util.shareWord
+import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.viewmodel.WODViewModel
 
 /**
@@ -70,6 +68,7 @@ class WordOfTheDayImageFragment : Fragment() {
                         startActivity(intent)
                     }
                 }
+                MotionEvent.ACTION_SCROLL -> toast(requireContext(), "scrolled!")
             }
             false
         }

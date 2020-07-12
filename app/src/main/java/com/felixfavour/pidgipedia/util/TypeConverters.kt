@@ -1,7 +1,6 @@
 package com.felixfavour.pidgipedia.util
 
 import androidx.room.TypeConverter
-import com.felixfavour.pidgipedia.entity.Word
 
 class ListConverter {
     @TypeConverter
@@ -13,6 +12,5 @@ class ListConverter {
     fun toString(stringList: List<String>): String {
         return stringList.joinToString(separator = ",")
     }
-
 
 }

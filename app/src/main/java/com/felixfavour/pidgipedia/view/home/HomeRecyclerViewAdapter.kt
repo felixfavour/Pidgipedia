@@ -7,8 +7,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.*
 import com.felixfavour.pidgipedia.entity.Eventstamp
 
@@ -25,6 +23,7 @@ class HomeRecyclerViewAdapter(
         const val TYPE_BADGE_REWARD = 4
         const val TYPE_COMMENT_RESPONSE = 5
         const val TYPE_WORD_COMMENT = 6
+        const val TYPE_WORD_REJECTION = 7
 
         fun styleCard(cardView: CardView) {
             val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -46,7 +45,7 @@ class HomeRecyclerViewAdapter(
 
     class WordApprovalViewHolder(val binding: WordApprovalItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
-            binding.eventStamp = eventstamp
+            binding.eventstamp = eventstamp
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
@@ -56,12 +55,6 @@ class HomeRecyclerViewAdapter(
             binding.authorImage.setOnClickListener {view ->
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
-            Glide.with(binding.root.context)
-                .load(eventstamp.humanEntity!!.profileImageURL)
-                .placeholder(R.drawable.person_outline)
-                .centerCrop()
-                .circleCrop()
-                .into(binding.authorImage)
             styleCard(binding.card)
             binding.executePendingBindings()
         }
@@ -69,7 +62,7 @@ class HomeRecyclerViewAdapter(
 
     class WordSuggestionViewHolder(val binding: WordSuggestionItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
-            binding.eventStamp = eventstamp
+            binding.eventstamp = eventstamp
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
@@ -79,12 +72,6 @@ class HomeRecyclerViewAdapter(
             binding.authorImage.setOnClickListener {view ->
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
-            Glide.with(binding.root.context)
-                .load(eventstamp.humanEntity!!.profileImageURL)
-                .placeholder(R.drawable.person_outline)
-                .centerCrop()
-                .circleCrop()
-                .into(binding.authorImage)
             styleCard(binding.card)
             binding.executePendingBindings()
         }
@@ -92,7 +79,7 @@ class HomeRecyclerViewAdapter(
 
     class WordCommentViewHolder(val binding: WordCommentItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
-            binding.eventStamp = eventstamp
+            binding.eventstamp = eventstamp
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
@@ -102,12 +89,23 @@ class HomeRecyclerViewAdapter(
             binding.authorImage.setOnClickListener {view ->
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
-            Glide.with(binding.root.context)
-                .load(eventstamp.humanEntity!!.profileImageURL)
-                .placeholder(R.drawable.person_outline)
-                .centerCrop()
-                .circleCrop()
-                .into(binding.authorImage)
+            styleCard(binding.card)
+            binding.executePendingBindings()
+        }
+    }
+
+    class WordRejectionViewHolder(val binding: WordRejectionItemBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
+            binding.eventstamp = eventstamp
+            binding.root.setOnClickListener {view ->
+                homeCardClickListener.onHomeCardClick(view, eventstamp)
+            }
+            binding.more.setOnClickListener {view ->
+                homeCardClickListener.onMoreButtonClick(view, eventstamp)
+            }
+            binding.authorImage.setOnClickListener {view ->
+                homeCardClickListener.onProfileImageClick(view, eventstamp)
+            }
             styleCard(binding.card)
             binding.executePendingBindings()
         }
@@ -126,7 +124,7 @@ class HomeRecyclerViewAdapter(
 
     class BadgeRewardViewHolder(val binding: BadgeRewardItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind (eventstamp: Eventstamp, homeCardClickListener: HomeCardClickListener) {
-            binding.eventStamp = eventstamp
+            binding.eventstamp = eventstamp
             binding.root.setOnClickListener {view ->
                 homeCardClickListener.onHomeCardClick(view, eventstamp)
             }
@@ -147,12 +145,6 @@ class HomeRecyclerViewAdapter(
             binding.authorImage.setOnClickListener {view ->
                 homeCardClickListener.onProfileImageClick(view, eventstamp)
             }
-            Glide.with(binding.root.context)
-                .load(eventstamp.humanEntity!!.profileImageURL)
-                .placeholder(R.drawable.person_outline)
-                .centerCrop()
-                .circleCrop()
-                .into(binding.authorImage)
 
             styleCard(binding.card)
             binding.executePendingBindings()
@@ -168,17 +160,20 @@ class HomeRecyclerViewAdapter(
             item?.rankRewardType != null -> {
                 return TYPE_RANK_REWARD
             }
-            item.isCommentResponse -> {
+            item.commentResponse -> {
                 return TYPE_COMMENT_RESPONSE
             }
-            item.isWordComment -> {
+            item.wordComment -> {
                 return TYPE_WORD_COMMENT
             }
-            item.isApproved -> {
+            item.approved -> {
                 return TYPE_WORD_APPROVAL
             }
-            item.isSuggested -> {
+            item.suggested -> {
                 return TYPE_WORD_SUGGESTION
+            }
+            item.rejected -> {
+                return TYPE_WORD_REJECTION
             }
         }
         return super.getItemViewType(position)
@@ -191,6 +186,8 @@ class HomeRecyclerViewAdapter(
             TYPE_COMMENT_RESPONSE -> CommentResponseViewHolder(CommentResponseItemBinding.inflate(LayoutInflater.from(parent.context)))
             TYPE_WORD_APPROVAL -> WordApprovalViewHolder(WordApprovalItemBinding.inflate(LayoutInflater.from(parent.context)))
             TYPE_WORD_SUGGESTION -> WordSuggestionViewHolder(WordSuggestionItemBinding.inflate(LayoutInflater.from(parent.context)))
+            TYPE_WORD_REJECTION -> WordRejectionViewHolder(WordRejectionItemBinding.inflate(LayoutInflater.from(parent.context)))
+            TYPE_WORD_COMMENT -> WordCommentViewHolder(WordCommentItemBinding.inflate(LayoutInflater.from(parent.context)))
             else -> WordCommentViewHolder(WordCommentItemBinding.inflate(LayoutInflater.from(parent.context)))
         }
     }
@@ -220,6 +217,10 @@ class HomeRecyclerViewAdapter(
             }
             TYPE_WORD_COMMENT -> {
                 val holderCasted = holder as WordCommentViewHolder
+                holderCasted.bind(item, homeCardClickListener)
+            }
+            TYPE_WORD_REJECTION -> {
+                val holderCasted = holder as WordRejectionViewHolder
                 holderCasted.bind(item, homeCardClickListener)
             }
         }

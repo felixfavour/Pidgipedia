@@ -20,6 +20,7 @@ import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentLoginBinding
 import com.felixfavour.pidgipedia.util.*
 import com.felixfavour.pidgipedia.viewmodel.LoginViewModel
+import com.felixfavour.pidgipedia.viewmodel.MainActivityViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

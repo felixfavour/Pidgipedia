@@ -2,10 +2,12 @@ package com.felixfavour.pidgipedia.view.home
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.edit
 import androidx.core.view.forEach
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
@@ -18,30 +20,81 @@ import com.felixfavour.pidgipedia.*
 import com.felixfavour.pidgipedia.databinding.FragmentHomeBinding
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.Word
+import com.felixfavour.pidgipedia.util.*
+import com.felixfavour.pidgipedia.util.Connection.FAILED
+import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.view.OnWordClickListener
-import com.felixfavour.pidgipedia.util.Pidgipedia
-import com.felixfavour.pidgipedia.util.shareWord
 import com.felixfavour.pidgipedia.viewmodel.HomeViewModel
-import com.google.android.material.appbar.AppBarLayout
+import com.felixfavour.pidgipedia.viewmodel.MainActivityViewModel
+import com.felixfavour.pidgipedia.viewmodel.WODViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var mainActivityViewModel: MainActivityViewModel
+    private lateinit var wodViewModel: WODViewModel
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentHomeBinding
 
     companion object {
-        const val MARGIN = 8
+        const val MARGIN = 4
     }
 
     @ExperimentalStdlibApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        sharedPreferences = requireActivity().getSharedPreferences(Pidgipedia.PREFERENCES, Context.MODE_PRIVATE)
+        mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        wodViewModel = ViewModelProvider(this).get(WODViewModel::class.java)
+        homeViewModel.loadUnapprovedWords()
+        homeViewModel.loadEventstamps()
         setHasOptionsMenu(true)
+
+
+        // OBSERVE LIVE DATA CHANGES
+        // CHECK IF USER IS AUTHENTICATED
+        mainActivityViewModel.status.observe(viewLifecycleOwner, Observer {status ->
+            val intent = Intent(requireContext(), AuthenticationActivity::class.java)
+            if (status == FAILED) {
+                sharedPreferences.edit {
+                    putBoolean(Pidgipedia.AUTHENTICATION_PREFERENCES, false)
+                }
+                MaterialAlertDialogBuilder(context)
+                    .setIcon(R.drawable.warning)
+                    .setTitle(R.string.authentication_error_header)
+                    .setMessage(R.string.authentication_error_message)
+                    .setPositiveButton(R.string.log_in) { _, _ ->
+                        startActivity(intent)
+                    }.setOnDismissListener {
+                        startActivity(intent)
+                    }
+                    .show()
+            }
+        })
+
+
+        homeViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            binding.swipeRefreshHome.isRefreshing = true
+            when (status) {
+                SUCCESS -> {
+                    binding.swipeRefreshHome.isRefreshing = false
+                }
+                FAILED -> {
+                    binding.swipeRefreshHome.isRefreshing = false
+                }
+            }
+        })
+
+        binding.swipeRefreshHome.setOnRefreshListener {
+            homeViewModel.loadEventstamps()
+        }
 
 
         // Initialize DataBinding model data
         binding.homeViewModel = homeViewModel
+        binding.wodViewModel = wodViewModel
 
 
         // Set LifeCycleOwner to this Fragment
@@ -50,7 +103,7 @@ class HomeFragment : Fragment() {
 
         // RECYCLER VIEW
         binding.unapprovedWordsList.adapter = UnapprovedWordListAdapter(OnWordClickListener { word, it ->
-            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordFragment(word))
+            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordFragment(word.wordId))
         })
 
         binding.appUpdatesList.layoutManager = CustomLayoutManager(requireContext())
@@ -59,12 +112,12 @@ class HomeFragment : Fragment() {
             override fun onHomeCardClick(view: View, eventstamp: Eventstamp) {
                 when {
                     (eventstamp.badgeRewardType != null) -> {
-                        findNavController().navigate(
-                            HomeFragmentDirections.actionNavigationHomeToBadgesFragment2())
+//                        findNavController().navigate(
+//                            HomeFragmentDirections.actionNavigationHomeToBadgesFragment2(eventstamp.humanEntityId!!))
                     }
                     (eventstamp.rankRewardType != null) -> {
                         findNavController().navigate(
-                            HomeFragmentDirections.actionNavigationHomeToProfileFragment2(null, true))
+                            HomeFragmentDirections.actionNavigationHomeToProfileFragment2(null, false))
                     }
                     else -> {
                         findNavController().navigate(
@@ -85,11 +138,14 @@ class HomeFragment : Fragment() {
 
             override fun onProfileImageClick(view: View, eventstamp: Eventstamp) {
                 findNavController().navigate(
-                    HomeFragmentDirections.actionNavigationHomeToProfileFragment2(eventstamp.humanEntity, true)
+                    HomeFragmentDirections.actionNavigationHomeToProfileFragment2(
+                        eventstamp.humanEntityId, true
+                    )
                 )
             }
 
-        })
+        }
+        )
 
 
         // NAVIGATION
@@ -98,9 +154,9 @@ class HomeFragment : Fragment() {
         }
 
         if (requireActivity().intent.action == Pidgipedia.WORD_NAVIGATION) {
+            val word = requireActivity().intent.getParcelableExtra(Pidgipedia.WORD) as Word
             findNavController().navigate(
-                HomeFragmentDirections.actionNavigationHomeToWordFragment(
-                    requireActivity().intent.getParcelableExtra(Pidgipedia.WORD) as Word))
+                HomeFragmentDirections.actionNavigationHomeToWordFragment(word.wordId))
             requireActivity().intent.action = ""
         }
 

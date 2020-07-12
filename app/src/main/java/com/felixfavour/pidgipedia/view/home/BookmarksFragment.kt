@@ -32,6 +32,7 @@ class BookmarksFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmarks, container, false)
         bookmarksViewModel = ViewModelProvider(this).get(BookmarksViewModel::class.java)
+        bookmarksViewModel.loadWords()
 
 
         // SET LIFECYCLE OWNER
@@ -44,7 +45,7 @@ class BookmarksFragment : Fragment() {
 
         // RECYCLER VIEW
         binding.bookmarksList.adapter = WordListAdapter(OnWordClickListener { word, it ->
-            findNavController().navigate(BookmarksFragmentDirections.actionBookmarksFragmentToWordFragment(word))
+            findNavController().navigate(BookmarksFragmentDirections.actionBookmarksFragmentToWordFragment(word.wordId))
         })
 
 

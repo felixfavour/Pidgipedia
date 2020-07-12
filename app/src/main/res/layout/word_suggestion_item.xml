@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="eventStamp"
+            name="eventstamp"
             type="com.felixfavour.pidgipedia.entity.Eventstamp" />
     </data>
 
@@ -30,10 +30,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/image_rounded_corner"
+                app:profileImage="@{eventstamp.humanEntityId}"
                 android:padding="3dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/greta" />
+                tools:srcCompat="@drawable/greta" />
 
             <TextView
                 android:id="@+id/card_dummy_text"
@@ -41,14 +42,13 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                tools:text="@string/word_suggestion_placeholder"
-                android:text="@{String.format(@string/word_suggestion_placeholder(eventStamp.humanEntity.toString()))}"
                 android:textColor="@color/primaryTextColor"
+                app:eventstampText="@{eventstamp}"
                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/author_image"
                 app:layout_constraintTop_toTopOf="@+id/author_image"
-                app:layout_constraintVertical_bias="0.0" />
+                tools:text="@string/word_suggestion_placeholder" />
 
             <ImageButton
                 android:id="@+id/more"
@@ -95,13 +95,13 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppinsbold"
                 android:gravity="center"
-                tools:text="Danfo"
-                android:text="@{eventStamp.word.name}"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/word_text"
                 app:layout_constraintEnd_toStartOf="@+id/imageView22"
                 app:layout_constraintStart_toEndOf="@+id/imageView23"
-                app:layout_constraintTop_toBottomOf="@+id/author_image" />
+                app:layout_constraintTop_toBottomOf="@+id/author_image"
+                app:word="@{eventstamp.wordId}"
+                tools:text="Danfo" />
 
             <TextView
                 android:id="@+id/time"
@@ -111,7 +111,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 tools:text="a few minutes ago"
-                app:eventTime="@{eventStamp.eventTime}"
+                app:eventTime="@{eventstamp.eventTime}"
                 android:textSize="@dimen/small_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/more"

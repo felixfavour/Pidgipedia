@@ -39,7 +39,7 @@ class DictionaryFragment : Fragment() {
 
         // RecyclerView
         binding.recentSearchesList.adapter = WordListAdapter(OnWordClickListener { word, view ->
-            findNavController().navigate(DictionaryFragmentDirections.actionNavigationDictionaryToWordFragment(word))
+            findNavController().navigate(DictionaryFragmentDirections.actionNavigationDictionaryToWordFragment(word.wordId))
         })
 
 

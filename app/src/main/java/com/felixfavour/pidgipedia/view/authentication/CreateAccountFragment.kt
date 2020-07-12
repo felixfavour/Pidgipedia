@@ -1,17 +1,17 @@
 package com.felixfavour.pidgipedia.view.authentication
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.FrameLayout
+import androidx.core.content.edit
 import androidx.core.view.children
 import androidx.core.view.forEach
-import androidx.core.view.get
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.databinding.DataBindingUtil
@@ -20,9 +20,14 @@ import androidx.navigation.fragment.findNavController
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentCreateAccountBinding
 import com.felixfavour.pidgipedia.util.Connection
+import com.felixfavour.pidgipedia.util.Pidgipedia
+import com.felixfavour.pidgipedia.util.showWarningDialog
 import com.felixfavour.pidgipedia.util.snack
 import com.felixfavour.pidgipedia.viewmodel.CreateAccountViewModel
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuthException
+import org.joda.time.LocalDate
+import java.lang.ClassCastException
 import java.lang.IllegalArgumentException
 import java.util.*
 import java.util.regex.Pattern
@@ -33,6 +38,8 @@ import java.util.regex.Pattern
 class CreateAccountFragment : Fragment() {
     private lateinit var binding: FragmentCreateAccountBinding
     private lateinit var viewModel: CreateAccountViewModel
+    private lateinit var sharedPreferences: SharedPreferences
+    private var longDate = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +47,7 @@ class CreateAccountFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_account, container, false)
         viewModel = ViewModelProvider(this).get(CreateAccountViewModel::class.java)
+        sharedPreferences = requireActivity().getSharedPreferences(Pidgipedia.PREFERENCES, Context.MODE_PRIVATE)
 
 
         // SET LIFECYCLE OWNER
@@ -105,9 +113,29 @@ class CreateAccountFragment : Fragment() {
         // OBSERVE LIVE DATA
         viewModel.creationStatus.observe(viewLifecycleOwner, Observer {  creationStatus ->
             if (creationStatus == Connection.SUCCESS) {
+                /**
+                 * If user was successfully created add the user's fields*/
+                viewModel.addUserFields(
+                    binding.firstName.text!!.toString(),
+                    binding.lastName.text!!.toString(),
+                    longDate,
+                    binding.location.text?.toString(),
+                    binding.email.text!!.toString(),
+                    binding.username.text!!.toString()
+                )
+                sharedPreferences.edit {
+                    putBoolean(Pidgipedia.AUTHENTICATION_PREFERENCES, true)
+                }
                 findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToMainActivity())
             }
         })
+
+        viewModel.error.observe(viewLifecycleOwner, Observer { throwable ->
+            if (throwable != null) {
+                snack(requireView(), throwable.localizedMessage!!)
+            }
+        })
+
 
 
         // VALIDATE FIELDS
@@ -129,6 +157,8 @@ class CreateAccountFragment : Fragment() {
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
             calendar.set(Calendar.DAY_OF_MONTH, day)
+
+            longDate = LocalDate.fromCalendarFields(calendar).toDate().time
 
             binding.dateOfBirth.setText("${formatDate(day)}-${formatDate(month+1)}-${formatDate(year)}")
         }

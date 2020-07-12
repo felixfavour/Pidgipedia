@@ -12,48 +12,30 @@ import kotlinx.android.parcel.RawValue
 @Entity(tableName = "words")
 data class Word(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "word_id")
-    val wordId: Int,
-    @ColumnInfo(name = "word_name")
-    val name: String,
-    @ColumnInfo(name = "word_meaning")
-    val meaning: String,
-    @ColumnInfo(name = "etymology")
-    val etymology: String,
-    @ColumnInfo(name = "plural")
-    val plural: String?,
-    @ColumnInfo(name = "part_of_speech")
-    val partOfSpeech: String,
-    @ColumnInfo(name = "syllables")
-    val syllables: Int,
-    @ColumnInfo(name = "syllabic_division")
-    val syllabicDivision: String,
-    @ColumnInfo(name = "english_equivalent")
-    val englishEquivalent: String,
-    @ColumnInfo(name = "image_reference")
+    val wordRoomId: Int = 0,
+    var wordId: String = "",
+    val name: String = "",
+    val meaning: String = "",
+    val etymology: String = "",
+    val plural: String? = "",
+    val partOfSpeech: String = "",
+    val syllables: Long = 0,
+    val syllabicDivision: String = "",
+    val englishEquivalent: String = "",
     val imageReference: String? = null,
-    @ColumnInfo(name = "transcription")
-    val transcription: String,
-    @ColumnInfo(name = "audio_reference")
+    val transcription: String? = null,
     val pronunciationReference: String? = null,
-    @ColumnInfo(name = "synonyms")
-    @TypeConverters(ListConverter::class)
-    val synonyms: List<String>,
-    @TypeConverters(ListConverter::class)
-    @ColumnInfo(name = "sentences")
-    val sentences: List<String>,
-    @ColumnInfo(name = "word_author_id")
-    val authorId: Int,
-    @ColumnInfo(name = "comments")
-    @TypeConverters(ListConverter::class)
-    val comments: List<String>,
-    @ColumnInfo(name = "date_created")
-    val dateCreated: Long,
-    @ColumnInfo(name = "last_updated")
-    val lastUpdated: Long,
-    @ColumnInfo(name = "is_approved")
-    val isApproved: Boolean = false,
-    @ColumnInfo(name = "word_of_the_day")
-    val wordOfTheDay_date: Long
+    val synonyms: List<String> = emptyList(),
+    val sentences: List<String> = emptyList(),
+    val authorId: String = "",
+    val dateCreated: Long = 0L,
+    val lastUpdated: Long = 0L,
+    val approved: Boolean = false,
+    val rejected: Boolean = false,
+    val bookmarked: Boolean = false,
+    val approvedAuthorId:String = "",
+    val wordOfTheDay_date: Long = 0L,
+    val comments: List<String> = emptyList()
 ) : Parcelable {
+    constructor(word: Word, wordId: String) : this()
 }

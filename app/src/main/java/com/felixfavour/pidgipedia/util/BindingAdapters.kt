@@ -1,17 +1,13 @@
 package com.felixfavour.pidgipedia.util
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
 import androidx.core.view.forEach
 import androidx.core.view.get
 import androidx.databinding.BindingAdapter
@@ -22,24 +18,47 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.felixfavour.pidgipedia.R
-import com.felixfavour.pidgipedia.WordOfTheDayActivity
 import com.felixfavour.pidgipedia.entity.Comment
 import com.felixfavour.pidgipedia.entity.Eventstamp
+import com.felixfavour.pidgipedia.entity.RemoteUser
 import com.felixfavour.pidgipedia.entity.Word
+import com.felixfavour.pidgipedia.util.Badges.BADGE_1
+import com.felixfavour.pidgipedia.util.Badges.BADGE_10
+import com.felixfavour.pidgipedia.util.Badges.BADGE_100
+import com.felixfavour.pidgipedia.util.Badges.BADGE_2
+import com.felixfavour.pidgipedia.util.Badges.BADGE_20
+import com.felixfavour.pidgipedia.util.Badges.BADGE_25
+import com.felixfavour.pidgipedia.util.Badges.BADGE_5
+import com.felixfavour.pidgipedia.util.Badges.BADGE_50
+import com.felixfavour.pidgipedia.util.Badges.BADGE_75
+import com.felixfavour.pidgipedia.util.Pidgipedia.COMMENTS
+import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
+import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
+import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
+import com.felixfavour.pidgipedia.util.Rank.RANK_1
+import com.felixfavour.pidgipedia.util.Rank.RANK_2
+import com.felixfavour.pidgipedia.util.Rank.RANK_3
+import com.felixfavour.pidgipedia.util.Rank.RANK_CONTRIBUTOR
+import com.felixfavour.pidgipedia.util.Rank.RANK_JJC
+import com.felixfavour.pidgipedia.util.Rank.RANK_OGA
 import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
 import com.felixfavour.pidgipedia.view.home.EventstampCommentsAdapter
 import com.felixfavour.pidgipedia.view.home.HomeRecyclerViewAdapter
 import com.felixfavour.pidgipedia.view.home.UnapprovedWordListAdapter
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import jp.wasabeef.glide.transformations.BlurTransformation
-import kotlinx.android.synthetic.main.fragment_word_suggestion.view.*
 import org.joda.time.DateTime
+import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.*
 
 const val MONTHS_IN_A_YEAR = 12
-const val MARGIN = 8
+const val MARGIN = 4
 
+private val firebaseAuth = FirebaseAuth.getInstance()
+private val firebaseFirestore = FirebaseFirestore.getInstance()
 
 @BindingAdapter("wordList")
 fun populateWordList(recyclerView: RecyclerView, words: List<Word>?) {
@@ -84,41 +103,175 @@ fun unapprovedWordsList(recyclerView: RecyclerView, words: List<Word>?) {
 
 @BindingAdapter("eventstampText")
 fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
-    eventstamp!!
-    when {
-        eventstamp.isWordComment -> {
-            textView.text = textView.context.getString(
-                R.string.word_comment_placeholder,
-                eventstamp.humanEntity.toString()
-            )
-        }
-        eventstamp.isCommentResponse -> {
-            textView.text = textView.context.getString(
-                R.string.comment_response_placeholder,
-                eventstamp.humanEntity.toString())
-        }
-        eventstamp.isSuggested -> {
-            textView.text = textView.context.getString(
-                R.string.word_suggestion_placeholder,
-                eventstamp.humanEntity.toString())
-        }
-        eventstamp.isApproved -> {
-            textView.text = textView.context.getString(
-                R.string.word_approval_placeholder,
-                eventstamp.humanEntity.toString())
-        }
+    var primaryUser = ""
+    var secondaryUser = ""
+
+    if (eventstamp?.humanEntityId != null) {
+
+        firebaseFirestore.collection(USERS).document(eventstamp.humanEntityId)
+            .get(SOURCE)
+            .addOnSuccessListener { userDoc ->
+                val primaryHumanEntity = userDoc.toObject(RemoteUser::class.java)
+                primaryUser = primaryHumanEntity.toString()
+                if (primaryHumanEntity?.userId == firebaseAuth.uid) primaryUser = "You"
+
+                if (eventstamp.wordAuthorId != null) {
+                    firebaseFirestore.collection(USERS).document(eventstamp.wordAuthorId)
+                        .get(SOURCE)
+                        .addOnSuccessListener { documentSnapshot ->
+                            val secondaryHumanEntity = documentSnapshot.toObject(RemoteUser::class.java)
+                            secondaryUser = secondaryHumanEntity.toString()
+                            if (secondaryHumanEntity?.userId == firebaseAuth.uid) secondaryUser = "you"
+                            else if (primaryHumanEntity?.equals(secondaryHumanEntity)!!) secondaryUser = "they"
+
+                            when {
+                                eventstamp.wordComment -> {
+                                    textView.text = textView.context.getString(
+                                        R.string.word_comment_placeholder,
+                                        primaryUser,
+                                        secondaryUser
+                                    )
+                                }
+                                eventstamp.commentResponse -> {
+                                    textView.text = textView.context.getString(
+                                        R.string.comment_response_placeholder,
+                                        primaryUser,
+                                        secondaryUser
+                                    )
+                                }
+                                eventstamp.suggested -> {
+                                    textView.text = textView.context.getString(
+                                        R.string.word_suggestion_placeholder,
+                                        primaryUser
+                                    )
+                                }
+                                eventstamp.approved -> {
+                                    textView.text = textView.context.getString(
+                                        R.string.word_approval_placeholder,
+                                        primaryUser,
+                                        secondaryUser
+                                    )
+                                }
+                                eventstamp.rejected -> {
+                                    textView.text = textView.context.getString(
+                                        R.string.word_rejection_placeholder,
+                                        primaryUser,
+                                        secondaryUser
+                                    )
+                                }
+                            }
+                        }
+
+                }
+                if (eventstamp.badgeRewardType != null || eventstamp.rankRewardType != null) {
+                    when {
+                        eventstamp.rankRewardType != null -> {
+                            textView.text = textView.context.getString(
+                                R.string.rank_reward_placeholder,
+                                primaryUser,
+                                eventstamp.rankRewardType.let {
+                                    when (it) {
+                                        RANK_JJC -> return@let RANK_3
+                                        RANK_CONTRIBUTOR -> return@let RANK_2
+                                        else -> return@let RANK_1
+                                    }
+                                }
+                            )
+                        }
+                        eventstamp.badgeRewardType.toString().isNotEmpty() -> {
+                            textView.text = textView.context.getString(
+                                R.string.badge_reward_placeholder,
+                                primaryUser,
+                                eventstamp.badgeRewardType
+                            )
+                        }
+                    }
+                }
+            }
     }
 }
 
 
 @BindingAdapter("profileImage")
-fun getProfileImage(imageView: ImageView, url: String?) {
-    Glide.with(imageView.context)
-        .load(url)
-        .centerCrop()
-        .circleCrop()
-        .placeholder(R.drawable.person_outline)
-        .into(imageView)
+fun getProfileImage(imageView: ImageView, authorId: String?) {
+    if (authorId != null) {
+        try {
+            firebaseFirestore.collection(USERS).document(authorId)
+                .get().addOnSuccessListener {documentSnapshot ->
+                    val user = documentSnapshot.toObject(RemoteUser::class.java)
+
+                    Glide.with(imageView.context.applicationContext)
+                        .load(user?.profileImageURL)
+                        .placeholder(R.drawable.person_outline)
+                        .centerCrop()
+                        .circleCrop()
+                        .into(imageView)
+                }
+        } catch (ex: IllegalArgumentException) {}
+    }
+}
+
+
+@BindingAdapter("authorName")
+fun getAuthorFullName(textView: TextView, authorId: String?) {
+    if (authorId != null) {
+        firebaseFirestore.collection(USERS).document(authorId)
+            .get(SOURCE)
+            .addOnSuccessListener { documentSnapshot ->
+                val fullName = documentSnapshot["firstName"].toString() + " " + documentSnapshot["lastName"].toString()
+                textView.text = fullName
+            }
+    }
+}
+
+
+@BindingAdapter("word")
+fun getWordName(textView: TextView, wordId: String?) {
+    if (wordId != null) {
+        firebaseFirestore.collection(SUGGESTED_WORDS).document(wordId)
+            .get(SOURCE)
+            .addOnSuccessListener { documentSnapshot ->
+                val word = documentSnapshot["name"].toString()
+                textView.text = word
+            }
+    }
+}
+
+
+@BindingAdapter("wordBookmarked")
+fun isWordBookmarked(imageButton: ImageButton, bookmarked: Boolean?) {
+    if(bookmarked != null) {
+        if(bookmarked) {
+            val drawable = imageButton.context.getDrawable(R.drawable.bookmark)
+            imageButton.setImageDrawable(drawable)
+        } else {
+            val drawable = imageButton.context.getDrawable(R.drawable.bookmark_border)
+            imageButton.setImageDrawable(drawable)
+        }
+    }
+}
+
+
+@BindingAdapter("comment")
+fun getCommentText(textView: TextView, commentId: String?) {
+    if (commentId != null) {
+        firebaseFirestore.collection(COMMENTS).document(commentId)
+            .get(SOURCE)
+            .addOnSuccessListener { documentSnapshot ->
+                val commentText = documentSnapshot["commentContent"].toString()
+                textView.text = "\" $commentText \""
+            }
+    }
+}
+
+
+@BindingAdapter("commentActionVisibility")
+fun hideUnnecessaryCommentActions(imageView: ImageView, comment: Comment?) {
+    if (comment != null) {
+        if (comment.authorId != firebaseAuth.uid) {
+            imageView.visibility = View.GONE
+        }
+    }
 }
 
 
@@ -127,7 +280,6 @@ fun getBGImage(imageView: ImageView, url: String?) {
     Glide.with(imageView.context)
         .load(url)
         .placeholder(R.color.primaryColor)
-        .centerCrop()
         .transform(BlurTransformation(2, 3))
         .into(imageView)
 }
@@ -148,7 +300,7 @@ fun eventStampDate(textView: TextView, date: Long?) {
     val dateNow = DateTime(System.currentTimeMillis()).toLocalDateTime()
 
     /*
-    * Condition if the two events occured in different years and in
+    * Condition if the two events occurred in different years and in
     * a span of 12 months*/
     if ((dateNow.year != dateThen.year) && (dateNow.monthOfYear >= MONTHS_IN_A_YEAR)) {
         val yearDifference = dateNow.year - dateThen.year
@@ -182,26 +334,42 @@ fun eventStampDate(textView: TextView, date: Long?) {
         } else {
             // Condition if the two events occurred in the same month
             val dayDifference = dateNow.dayOfMonth - dateThen.dayOfMonth
-            if (dayDifference <= 1) {
+            if (dayDifference in 0..1) {
                 // Conditon if the two events occured in the same day
-                textView.text = context.getString(R.string.a_day_ago)
                 val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
-                if (hourDiffference <= 1) {
+                if (hourDiffference == 0) {
                     // Conditon if the two events occured in the same hour
-                    textView.text = context.getString(R.string.an_hour_ago)
                     val minuteDifference = dateNow.minuteOfHour - dateThen.minuteOfHour
-                    if (minuteDifference <= 1) {
+                    if (minuteDifference in 0..1) {
                         // Conditon if the two events occured in the same minute
                         textView.text = context.getString(R.string.a_few_seconds_ago)
                     }
-                    else {
+                    else if (minuteDifference in 2..59) {
                         textView.text = context.getString(R.string.minutes_ago, minuteDifference)
+                    }
+                    else if (minuteDifference < 0) {
+                        /**
+                         * To get the accurate [minuteDifference], 24 hours is added because the minutes are negative value
+                         * The minutes are negative because of the 24-hour time format.
+                         */
+                        textView.text = context.getString(R.string.minutes_ago, minuteDifference + 60)
                     }
 
                 }
-                else if (hourDiffference in 2..23) {
+                else if (hourDiffference in 1..23) {
+                    if (hourDiffference == 1)
+                        textView.text = context.getString(R.string.an_hour_ago)
                     textView.text = context.getString(R.string.hours_ago, hourDiffference)
+                } else if (hourDiffference < 0) {
+                    /**
+                     * To get the accurate [hourDifference], 24 hours is added because the hours are negative value
+                     * The hours are negative because of the 24-hour time format.
+                     */
+                    textView.text = context.getString(R.string.hours_ago, hourDiffference + 24)
                 }
+            }
+            else if (dayDifference == 1) {
+                textView.text = context.getString(R.string.a_day_ago)
             }
             else if (dayDifference == Calendar.DAY_OF_WEEK) {
                 textView.text = context.getString(R.string.a_week_ago)
@@ -220,34 +388,51 @@ fun eventStampDate(textView: TextView, date: Long?) {
 }
 
 
-@BindingAdapter("rankPlaceholder")
-fun getRankTextForHomeScreen(textView: TextView, rank: Int?) {
-    val context = textView.context
-    when (rank) {
-        1 -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_1)
-        2 -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_2)
-        3 -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_3)
-    }
-}
+//@BindingAdapter("rankPlaceholder")
+//fun getRankTextForHomeScreen(textView: TextView, rank: Long?) {
+//    val context = textView.context
+//    when (rank) {
+//        1L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_1)
+//        2L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_2)
+//        3L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_3)
+//    }
+//}
 
 
 @BindingAdapter("rank")
-fun getRankForModal(textView: TextView, rank: Int?) {
+fun getRankForModal(textView: TextView, rank: Long?) {
     when (rank) {
-        1 -> textView.text = Rank.RANK_1
-        2 -> textView.text = Rank.RANK_2
-        3 -> textView.text = Rank.RANK_3
+        1L -> textView.text = Rank.RANK_1
+        2L -> textView.text = Rank.RANK_2
+        3L -> textView.text = Rank.RANK_3
     }
 }
 
 
 @BindingAdapter("rankImage")
-fun getRankImage(imageView: ImageView, rank: Int?) {
+fun getRankImage(imageView: ImageView, rank: Long?) {
     val context = imageView.context
     when (rank) {
-        1 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_rank_oga))
-        2 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_rank_contributor))
-        3 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_rank_jjc))
+        1L -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_rank_oga))
+        2L -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_rank_contributor))
+        3L -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_rank_jjc))
+    }
+}
+
+
+@BindingAdapter("badgeImage")
+fun getBadgeImage(imageView: ImageView, badge: String) {
+    val context = imageView.context
+    when(badge) {
+        BADGE_1 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_badge_1))
+        BADGE_2 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_badge_2))
+        BADGE_5 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_badge_5))
+        BADGE_10 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_badge_10))
+        BADGE_20 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_badge_20))
+        BADGE_25 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_badge_25))
+        BADGE_50 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_badge_50))
+        BADGE_75 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_badge_75))
+        BADGE_100 -> imageView.setImageDrawable(context.getDrawable(R.drawable.ic_badge_100))
     }
 }
 
@@ -256,7 +441,7 @@ fun getRankImage(imageView: ImageView, rank: Int?) {
 fun greyOutInactiveBadges(constraintLayout: ConstraintLayout, badges: List<String>?) {
     constraintLayout.forEach {badgeCard->
         val badgeCardView = badgeCard as? CardView
-        badges!!.forEach { badge->
+        badges?.forEach { badge->
             if (badgeCardView != null) {
                 if (badge == badgeCardView[0].tag) {
                     badgeCard[0].alpha = 1f
@@ -267,12 +452,31 @@ fun greyOutInactiveBadges(constraintLayout: ConstraintLayout, badges: List<Strin
 }
 
 
+@SuppressLint("SetTextI18n")
+@BindingAdapter("partOfSpeechText")
+fun getPartOfSpeechText(textView: TextView, string: String?) {
+    if (string.equals("noun", true)) {
+        textView.text = "$string (plural: ${string}s)"
+    }
+    else textView.text = "$string"
+}
+
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("sentencesText")
+fun getSentencesText(textView: TextView, sentences: List<String>?) {
+    sentences?.forEach { sentence ->
+        textView.text = textView.text.toString() + "- $sentence\n"
+    }
+}
+
+
 @BindingAdapter("wodImage")
 fun getWODImage(imageView: ImageView, url: String?) {
     // ROUND IMAGE CORNERS
     Glide.with(imageView.context)
         .load(url)
-        .placeholder(R.drawable.no_bookmarks)
+        .placeholder(R.drawable.no_internet_image)
         .apply(RequestOptions().transform(RoundedCorners(128)))
         .into(imageView)
 }
@@ -281,7 +485,8 @@ fun getWODImage(imageView: ImageView, url: String?) {
 @BindingAdapter("wordImage")
 fun getWordImage(imageView: ImageView, url: String?) {
     Glide.with(imageView.context)
-        .load(R.drawable.no_bookmarks)
+        .load(url)
+        .placeholder(R.drawable.no_internet_image)
         .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16)))
         .into(imageView)
 }
@@ -289,12 +494,14 @@ fun getWordImage(imageView: ImageView, url: String?) {
 
 @BindingAdapter("eventstampComments")
 fun getEventStampComments(recyclerView: RecyclerView, comments: List<Comment>?) {
+    if (comments != null) {
+        val adapter = recyclerView.adapter as EventstampCommentsAdapter
+        adapter.submitList(comments)
+    }
     recyclerView.addItemDecoration(DividerItemDecoration(
         recyclerView.context,
         DividerItemDecoration.VERTICAL
     ))
-    val adapter = recyclerView.adapter as EventstampCommentsAdapter
-    adapter.submitList(comments)
 }
 
 

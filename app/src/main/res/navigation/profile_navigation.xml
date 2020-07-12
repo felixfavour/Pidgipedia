@@ -25,10 +25,9 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <argument
-            android:name="user"
-            app:argType="com.felixfavour.pidgipedia.entity.User"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:name="userId"
+            app:argType="string"
+            app:nullable="true" />
         <argument
             android:name="isAuthor"
             app:argType="boolean"
@@ -38,11 +37,18 @@
         android:id="@+id/editProfileFragment"
         android:name="com.felixfavour.pidgipedia.view.profile.EditProfileFragment"
         android:label="@string/edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <argument
+            android:name="user"
+            app:argType="com.felixfavour.pidgipedia.entity.RemoteUser" />
+    </fragment>
     <fragment
         android:id="@+id/badgesFragment"
         android:name="com.felixfavour.pidgipedia.view.profile.BadgesFragment"
         android:label="@string/badges"
         tools:layout="@layout/fragment_badges" >
+        <argument
+            android:name="user"
+            app:argType="com.felixfavour.pidgipedia.entity.RemoteUser" />
     </fragment>
 </navigation>

@@ -3,8 +3,15 @@ package com.felixfavour.pidgipedia.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
+import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class QuizViewModel : ViewModel() {
+
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
 
     private val _highScore = MutableLiveData<Int>()
     val highScore: LiveData<Int>
@@ -12,17 +19,27 @@ class QuizViewModel : ViewModel() {
             loadHighScore()
         }
 
-    private val _rank = MutableLiveData<Int>()
-    val rank: LiveData<Int>
+    private val _rank = MutableLiveData<Long>()
+    val rank: LiveData<Long>
         get() = _rank.apply {
             loadUserRank()
         }
 
     private fun loadUserRank() {
-        _rank.value = 2
+        firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
+            .get(SOURCE)
+            .addOnSuccessListener { documentSnapshot ->
+                val rank = documentSnapshot["rank"] as Long
+                _rank.value = rank
+            }
     }
 
     private fun loadHighScore() {
-        _highScore.value = 10
+        firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
+            .get(SOURCE)
+            .addOnSuccessListener { documentSnapshot ->
+                val highestScore = documentSnapshot["highestScore"] as Long
+                _highScore.value = highestScore.toInt()
+            }
     }
 }

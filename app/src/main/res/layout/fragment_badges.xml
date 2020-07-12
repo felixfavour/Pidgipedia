@@ -7,8 +7,8 @@
             name="badges"
             type="com.felixfavour.pidgipedia.util.Badges" />
         <variable
-            name="profile"
-            type="com.felixfavour.pidgipedia.viewmodel.ProfileViewModel" />
+            name="user"
+            type="com.felixfavour.pidgipedia.entity.RemoteUser" />
     </data>
 
     <ScrollView
@@ -18,7 +18,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/badges_layout"
-            app:badgeLayout="@{profile.user.badges}"
+            app:badgeLayout="@{user.badges}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true">

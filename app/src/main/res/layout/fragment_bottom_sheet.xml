@@ -5,8 +5,8 @@
     
     <data>
         <variable
-            name="eventstamp"
-            type="com.felixfavour.pidgipedia.entity.Eventstamp" />
+            name="bottomSheetViewModel"
+            type="com.felixfavour.pidgipedia.viewmodel.BottomSheetViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,7 +52,8 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/greta"
+                tools:src="@drawable/greta"
+                app:profileImage="@{bottomSheetViewModel.humanEntity.userId}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -63,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="@{eventstamp.humanEntity.toString()}"
+                android:text="@{bottomSheetViewModel.humanEntity.toString}"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/large_text"
                 android:textStyle="bold"
@@ -81,7 +82,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="@{@string/approved_words_placeholder(eventstamp.humanEntity.approvedWords.size())}"
+                android:text="@{@string/approved_words_placeholder(bottomSheetViewModel.humanEntity.approvedWords.size())}"
                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -97,7 +98,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                 app:layout_constraintStart_toStartOf="@+id/user_name"
                 app:layout_constraintTop_toBottomOf="@+id/user_name"
-                app:rank="@{eventstamp.humanEntity.rank}"
+                app:rank="@{bottomSheetViewModel.humanEntity.rank}"
                 tools:text="JJC" />
 
             <ImageView
@@ -120,7 +121,7 @@
             android:drawablePadding="8dp"
             android:gravity="start"
             android:padding="16dp"
-            android:text="Go to author"
+            android:text="@string/go_to_author"
             android:textAllCaps="false"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/line_text"
@@ -138,7 +139,7 @@
             android:drawablePadding="8dp"
             android:gravity="start"
             android:padding="16dp"
-            android:text="Go to word"
+            android:text="@string/go_to_word"
             android:textAllCaps="false"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/line_text"

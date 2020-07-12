@@ -15,11 +15,11 @@ class WordListAdapter(
 ): ListAdapter<Word, WordListAdapter.WordListViewHolder>(DiffCallback), SectionIndexer {
     companion object DiffCallback : DiffUtil.ItemCallback<Word>() {
         override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {
-            return oldItem == newItem
+            return oldItem.wordId == newItem.wordId
         }
 
         override fun areItemsTheSame(oldItem: Word, newItem: Word): Boolean {
-            return oldItem === newItem
+            return oldItem.wordId === newItem.wordId
         }
     }
 

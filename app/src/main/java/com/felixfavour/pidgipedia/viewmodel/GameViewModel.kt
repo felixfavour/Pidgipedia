@@ -7,6 +7,10 @@ import androidx.lifecycle.ViewModel
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.entity.Quiz
 import com.felixfavour.pidgipedia.util.MockData
+import com.felixfavour.pidgipedia.util.Pidgipedia.QUIZZES
+import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_game.view.*
 import kotlin.random.Random
 
@@ -15,6 +19,18 @@ class GameViewModel: ViewModel() {
     companion object {
         const val TOTAL_QUESTIONS = 10
     }
+
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
+
+    private val _error = MutableLiveData<Throwable?>(null)
+    val error: LiveData<Throwable?>
+        get() = _error
+
+    private val _status = MutableLiveData<Int>()
+    val status: LiveData<Int>
+        get() = _status
+
 
     /** [score] records increase in */
     private var score = 0
@@ -38,8 +54,8 @@ class GameViewModel: ViewModel() {
             _currentScore.value = score
         }
 
-    private val _highScore = MutableLiveData<Int>()
-    val highScore: LiveData<Int>
+    private val _highScore = MutableLiveData<Long>()
+    val highScore: LiveData<Long>
         get() = _highScore.apply {
             _highScore.value = 5
         }
@@ -59,19 +75,24 @@ class GameViewModel: ViewModel() {
 
 
     fun loadQuiz() {
-        _quiz.value = MockData.quizzes[_currentQuestion.value!!]
+        firebaseFirestore.collection(QUIZZES)
+            .get(SOURCE)
+            .addOnSuccessListener { querySnapshot ->
+                val quizzes = querySnapshot.toObjects(Quiz::class.java)
+                _quiz.value = quizzes[0]
+            }
     }
 
 
     fun isAnswerCorrect(checkedAnswerId: Int) {
         val quizObj = quiz.value!!
-        var checkedAnswer = 0
+        var checkedAnswer = 0L
 
         when(checkedAnswerId) {
-            R.id.answer1 -> checkedAnswer = 0
-            R.id.answer2 -> checkedAnswer = 1
-            R.id.answer3 -> checkedAnswer = 2
-            R.id.answer4 -> checkedAnswer = 3
+            R.id.answer1 -> checkedAnswer = 0L
+            R.id.answer2 -> checkedAnswer = 1L
+            R.id.answer3 -> checkedAnswer = 2L
+            R.id.answer4 -> checkedAnswer = 3L
         }
 
         if (checkedAnswer == quizObj.correctAnswerIndex) {

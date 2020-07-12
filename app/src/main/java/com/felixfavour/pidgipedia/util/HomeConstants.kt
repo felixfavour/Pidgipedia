@@ -1,24 +1,47 @@
 package com.felixfavour.pidgipedia.util
 
+import com.google.firebase.firestore.Source
+
 object Pidgipedia {
     const val WORD_DATABASE = "word_database"
     const val EVENTSTAMP = "eventstamp"
     const val HOME_MODAL = "home_more_modal_sheet"
-    const val WORD = "word"
+    const val WORD = "wordId"
     const val WORD_NAVIGATION = "wordNavigation"
-    const val PREFERENCES = "MobotithePreferences"
+    const val PREFERENCES = "PidgipediaPreferences"
     const val AUTHENTICATION_PREFERENCES = "AuthenticationPreferences"
     const val ONBOARDING_PREFERENCE = "hasActivityBeenOpenedBefore"
     const val RC_SIGN_IN = 10
+    const val USERS = "users"
+    const val SUGGESTED_WORDS = "suggested_words"
+    const val EVENTSTAMPS = "eventstamps"
+    const val QUIZZES = "quizzes"
+    const val COMMENTS = "comments"
+    const val PROFILE_IMAGES_REFERENCE = "profile_images/"
+    const val WORD_IMAGES_REFERENCE = "word_images/"
+    const val DATABASES_REFERENCE = "databases/"
+    const val AUDIO_REFERENCE = "word_audio/"
     const val DUMMY_PASSWORD = "pidgipedia_dummy123"
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
+    var SOURCE = Source.CACHE
+}
+
+object Notification {
+    const val WORD_SUGGESTION_CHANNEL_ID = "Channel-01"
+    const val WORD_OF_THE_DAY_CHANNEL_ID = "Channel-02"
+    const val WORD_REJECTION_CHANNEL_ID = "Channel-03"
+    const val WORD_APPROVAL_CHANNEL_ID = "Channel-04"
+    const val WORD_COMMENTS_CHANNEL_ID = "Channel-05"
+    const val REWARD_CHANNEL_ID = "Channel-06"
+    const val MISCELLANEOUS_NEWS_CHANNEL_ID = "Channel-07"
 }
 
 object Connection {
     const val FAILED = -1
     const val LOADING = 1
     const val SUCCESS = 2
+    const val SUCCESS_OAUTH = 3
 }
 
 object Game {
@@ -31,18 +54,21 @@ object Rank {
     const val RANK_1 = "Oga"
     const val RANK_2 = "Contributor"
     const val RANK_3 = "JJC"
+    const val RANK_JJC = 3L
+    const val RANK_CONTRIBUTOR = 2L
+    const val RANK_OGA = 1L
 }
 
 object Badges {
-    const val BADGE_1 = "Badge 1"
-    const val BADGE_2 = "Badge 2"
-    const val BADGE_5 = "Badge 5"
-    const val BADGE_10 = "Badge 10"
-    const val BADGE_20 = "Badge 20"
-    const val BADGE_25 = "Badge 25"
-    const val BADGE_50 = "Badge 50"
-    const val BADGE_75 = "Badge 75"
-    const val BADGE_100 = "Badge 100"
+    const val BADGE_1 = "Level 1 Badge"
+    const val BADGE_2 = "Level 2 Badge"
+    const val BADGE_5 = "Level 5 Badge"
+    const val BADGE_10 = "Level 10 Badge"
+    const val BADGE_20 = "Level 20 Badge"
+    const val BADGE_25 = "Level 25 Badge"
+    const val BADGE_50 = "Level 50 Badge"
+    const val BADGE_75 = "Level 75 Badge"
+    const val BADGE_100 = "Level 100 Badge"
 }
 
 object Language {

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/onboarding_activity_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColorLight"
+    android:background="@color/primaryColorLightConstant"
     tools:context=".OnboardingActivity">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -42,7 +43,7 @@
         android:backgroundTint="@color/primaryWhiteColor"
         android:paddingVertical="8dp"
         android:text="@string/more_tori"
-        android:textColor="@color/primaryColorLight"
+        android:textColor="@color/primaryColorLightConstant"
         android:textSize="20sp"
         app:cornerRadius="24dp"
         app:layout_constraintBottom_toBottomOf="parent"

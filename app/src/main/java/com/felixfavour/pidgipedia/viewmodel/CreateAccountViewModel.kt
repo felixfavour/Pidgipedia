@@ -3,19 +3,28 @@ package com.felixfavour.pidgipedia.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.felixfavour.pidgipedia.entity.RemoteUser
 import com.felixfavour.pidgipedia.util.Connection
+import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
+import com.felixfavour.pidgipedia.util.Rank
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.functions.FirebaseFunctions
 
 class CreateAccountViewModel: ViewModel() {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseFunc = FirebaseFunctions.getInstance()
+    private val firebaseFirestore = FirebaseFirestore.getInstance()
 
     // LIVE DATA
     private val _creationStatus = MutableLiveData<Int>()
     val creationStatus: LiveData<Int>
         get() = _creationStatus
+
+    private val _error = MutableLiveData<Throwable?>(null)
+    val error: LiveData<Throwable?>
+        get() = _error
 
     private val _isUsernameValid = MutableLiveData<Int>(Connection.FAILED)
     val isUsernameValid: LiveData<Int>
@@ -36,15 +45,52 @@ class CreateAccountViewModel: ViewModel() {
         firebaseFunc.getHttpsCallable("createUser")
             .call(params)
             .addOnSuccessListener {
-                _creationStatus.value = Connection.SUCCESS
-            }.addOnFailureListener {
+                /**
+                 * Logging in after Creation of Account*/
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                    .addOnSuccessListener {
+                    _creationStatus.value = Connection.SUCCESS
+                }.addOnFailureListener {exception->
+                        _error.value = exception
+                        _creationStatus.value = Connection.FAILED
+                    }
+                firebaseAuth.currentUser?.sendEmailVerification()
+            }.addOnFailureListener {exception->
+                _error.value = exception
                 _creationStatus.value = Connection.FAILED
             }
     }
 
+
+    fun addUserFields(firstName: String, lastName: String, dateOfBirth: Long, location: String?, email: String, username: String) {
+        val user = RemoteUser(
+            userId = firebaseAuth.currentUser?.uid!!,
+            firstName = firstName,
+            lastName = lastName,
+            email = email,
+            dateOfBirth = dateOfBirth,
+            rank = Rank.RANK_JJC,
+            location = location?:"",
+            bio = "",
+            badges = emptyList(),
+            suggestedWords = emptyList(),
+            approvedWords = emptyList(),
+            highestScore = 0,
+            profileImageURL = "",
+            username = username
+        )
+
+        firebaseFirestore.collection(USERS).document(firebaseAuth.currentUser?.uid!!).set(user)
+            .addOnFailureListener { exception ->
+                _error.value = exception
+            }
+    }
+
+
     fun executionFailed() {
         _creationStatus.value = Connection.FAILED
     }
+
 
     fun isUsernameTaken(username: String) {
         val params = hashMapOf(

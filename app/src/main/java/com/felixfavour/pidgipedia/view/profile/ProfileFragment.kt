@@ -1,27 +1,23 @@
 package com.felixfavour.pidgipedia.view.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
-import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
-import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentProfileBinding
 import com.felixfavour.pidgipedia.entity.User
-import com.felixfavour.pidgipedia.util.Pidgipedia
+import com.felixfavour.pidgipedia.util.Connection.SUCCESS
+import com.felixfavour.pidgipedia.util.snack
+import com.felixfavour.pidgipedia.view.home.WordSuggestionFragment.Companion.IMAGE_REQUEST_CODE
 import com.felixfavour.pidgipedia.viewmodel.ProfileViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import jp.wasabeef.glide.transformations.BlurTransformation
 import java.lang.IllegalArgumentException
 
 /**
@@ -31,7 +27,7 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var bottomSheet: BottomSheetBehavior<ConstraintLayout>
-    private var userArgs: User? = null
+    private var userId: String? = null
     private var isAuthor: Boolean = false
 
     override fun onCreateView(
@@ -42,11 +38,18 @@ class ProfileFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         bottomSheet = BottomSheetBehavior.from(binding.bottomsheet)
+
+
+        binding.profileViewModel = profileViewModel
+        profileViewModel.loadUser()
+
+
+        // GET ARGUMENTS PASSED THROUGH NAVIGATION COMPONENTS
         try {
-            userArgs = ProfileFragmentArgs.fromBundle(requireArguments()).user
+            userId = ProfileFragmentArgs.fromBundle(requireArguments()).userId
             isAuthor = ProfileFragmentArgs.fromBundle(requireArguments()).isAuthor
         } catch (ex: IllegalArgumentException) {
-            userArgs = null
+            userId = null
             isAuthor = false
         }
 
@@ -55,10 +58,8 @@ class ProfileFragment : Fragment() {
         profileViewModel.user.observe(viewLifecycleOwner, Observer {user->
             /**
              * IF FragmentArgs have not been passed to bundle use default [User] value*/
-            if (userArgs == null)
-                binding.user = user
-            else
-                binding.user = userArgs
+            if (userId != null)
+                profileViewModel.loadAuthor(userId!!)
         })
 
 
@@ -80,14 +81,56 @@ class ProfileFragment : Fragment() {
 
         // NAVIGATION
         binding.editProfile.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(profileViewModel.user.value!!)
+            )
         }
         binding.goToBadges.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToBadgesFragment())
+            findNavController().navigate(
+                ProfileFragmentDirections.actionProfileFragmentToBadgesFragment(profileViewModel.user.value!!))
         }
+
+
+        // USER IMAGE OPERATIONS
+        binding.addPictureFiles.setOnClickListener {
+            val intent = Intent().apply {
+                type = "image/*"
+                action = Intent.ACTION_GET_CONTENT
+            }
+            startActivityForResult(intent, IMAGE_REQUEST_CODE)
+        }
+
+        binding.deletePicture.setOnClickListener {
+            profileViewModel.deleteProfileImage()
+        }
+
+
+        // OBSERVE LIVE DATA
+        profileViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            if (status == SUCCESS) {
+                snack(requireView(), getString(R.string.profile_image_updation))
+                bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
+            }
+        })
+
+        profileViewModel.error.observe(viewLifecycleOwner, Observer { exception ->
+            if (exception != null) {
+                snack(requireView(), exception.localizedMessage!!)
+                bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
+            }
+        })
 
 
         return binding.root
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_REQUEST_CODE) {
+            val imageStream = requireContext().contentResolver.openInputStream(data?.data!!)
+            profileViewModel.uploadProfilePicture(imageStream)
+        }
     }
 
 

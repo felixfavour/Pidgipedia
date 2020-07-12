@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.felixfavour.pidgipedia.viewmodel.ProfileViewModel" />
+            name="user"
+            type="com.felixfavour.pidgipedia.entity.RemoteUser" />
     </data>
 
     <ScrollView
@@ -43,7 +43,7 @@
                         android:paddingTop="16dp"
                         android:paddingBottom="16dp"
                         android:singleLine="false"
-                        android:text="@{viewModel.user.bio}"
+                        android:text="@{user.bio}"
                         tools:text="@string/dummy_bio"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -53,6 +53,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout_email"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:helperText="@string/email_address_alteration_warning"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -69,8 +70,8 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/e_mail"
-                        android:text="@{viewModel.user.email}"
-                        android:inputType="textEmailAddress"
+                        android:text="@{user.email}"
+                        android:inputType="none"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
 
@@ -95,7 +96,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/first_name"
-                        android:text="@{viewModel.user.firstName}"
+                        android:text="@{user.firstName}"
                         android:inputType="textPersonName"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -121,7 +122,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/last_name"
-                        android:text="@{viewModel.user.lastName}"
+                        android:text="@{user.lastName}"
                         android:inputType="textPersonName"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -148,7 +149,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/location"
-                        android:text="@{viewModel.user.location}"
+                        android:text="@{user.location}"
                         android:inputType="text"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -176,7 +177,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/date_of_birth"
-                        app:longDate="@{viewModel.user.dateOfBirth}"
+                        app:longDate="@{user.dateOfBirth}"
                         android:inputType="none"
                         android:focusable="false"
                         tools:layout_editor_absoluteX="16dp"

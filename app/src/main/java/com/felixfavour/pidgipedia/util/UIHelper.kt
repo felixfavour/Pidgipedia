@@ -1,5 +1,7 @@
 package com.felixfavour.pidgipedia.util
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -12,7 +14,6 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 
 const val THEME_PREFERENCES = "THEME PREFERENCES"
@@ -116,4 +117,17 @@ fun getButtonGroupSelection(context: Context, buttonToggleGroup: MaterialButtonT
         }
     }
 
+}
+
+fun wordOfTheDayAlarm(context: Context) {
+    context.run {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 20, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val intervalMillis: Long = 100 * 60 * 60 * 24
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
+            intervalMillis, pendingIntent)
+    }
 }
