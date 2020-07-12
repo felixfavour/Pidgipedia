@@ -41,6 +41,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/wordName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/wordName"
-            app:srcCompat="@drawable/chevron_right" />
+            app:srcCompat="@drawable/chevron_right_white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

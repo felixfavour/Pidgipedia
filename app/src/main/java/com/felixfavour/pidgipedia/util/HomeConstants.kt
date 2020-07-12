@@ -8,7 +8,7 @@ object Pidgipedia {
     const val HOME_MODAL = "home_more_modal_sheet"
     const val WORD = "wordId"
     const val WORD_NAVIGATION = "wordNavigation"
-    const val PREFERENCES = "MobotithePreferences"
+    const val PREFERENCES = "PidgipediaPreferences"
     const val AUTHENTICATION_PREFERENCES = "AuthenticationPreferences"
     const val ONBOARDING_PREFERENCE = "hasActivityBeenOpenedBefore"
     const val RC_SIGN_IN = 10
@@ -24,7 +24,17 @@ object Pidgipedia {
     const val DUMMY_PASSWORD = "pidgipedia_dummy123"
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
-    var SOURCE = Source.DEFAULT
+    var SOURCE = Source.CACHE
+}
+
+object Notification {
+    const val WORD_SUGGESTION_CHANNEL_ID = "Channel-01"
+    const val WORD_OF_THE_DAY_CHANNEL_ID = "Channel-02"
+    const val WORD_REJECTION_CHANNEL_ID = "Channel-03"
+    const val WORD_APPROVAL_CHANNEL_ID = "Channel-04"
+    const val WORD_COMMENTS_CHANNEL_ID = "Channel-05"
+    const val REWARD_CHANNEL_ID = "Channel-06"
+    const val MISCELLANEOUS_NEWS_CHANNEL_ID = "Channel-07"
 }
 
 object Connection {

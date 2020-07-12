@@ -86,17 +86,17 @@
                             android:layout_width="120dp"
                             android:layout_height="120dp"
                             android:layout_marginBottom="32dp"
-                            android:background="@drawable/circle_border"
-                            android:padding="3dp"
-                            tools:src="@drawable/greta"
-                            app:profileImage="@{profileViewModel.user.userId}"
+                            android:background="@drawable/just_borders"
+                            android:padding="12dp"
                             app:layout_collapseMode="parallax"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.19999999" />
+                            app:layout_constraintVertical_bias="0.19999999"
+                            app:profileImage="@{profileViewModel.user.userId}"
+                            tools:src="@drawable/greta" />
 
                         <ImageView
                             android:id="@+id/rank_image"
@@ -110,6 +110,17 @@
                             app:layout_constraintStart_toStartOf="@+id/profile_image"
                             app:layout_constraintTop_toTopOf="@+id/profile_image"
                             tools:srcCompat="@drawable/ic_rank_contributor" />
+
+                        <ImageView
+                            android:id="@+id/bottom_sheet_shade"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shade_bg"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:visibility="invisible"
+                            tools:layout_editor_absoluteX="0dp"
+                            tools:layout_editor_absoluteY="56dp" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -505,17 +516,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.core.widget.NestedScrollView>
-
-            <ImageView
-                android:id="@+id/bottom_sheet_shade"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/shade_bg"
-                android:clickable="true"
-                android:focusable="true"
-                android:visibility="invisible"
-                app:layout_anchor="@+id/nestedScrollView"
-                app:layout_anchorGravity="top|center" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bottomsheet"

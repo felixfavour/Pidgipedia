@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/primaryColor</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="snackbarStyle">@style/Widget.MaterialComponents.Snackbar.FullWidth</item>
     </style>
 
     <style name="AppTheme.SplashScreen" parent="AppTheme">
@@ -21,7 +22,7 @@
         <item name="android:layout_marginEnd">@dimen/onboarding_margin_horizontal_vertical</item>
         <item name="android:layout_marginBottom">32dp</item>
         <item name="android:background">@drawable/onboarding_button</item>
-        <item name="drawableTint">@color/primaryColorLight</item>
+        <item name="drawableTint">@color/primaryColorLightConstant</item>
         <item name="android:drawableEnd">@drawable/chevron_right</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/primaryTextColor</item>

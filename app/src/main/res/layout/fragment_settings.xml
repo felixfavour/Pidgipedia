@@ -51,8 +51,8 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppinslight"
                     android:backgroundTint="@color/color_states_button_group"
+                    android:fontFamily="@font/poppinslight"
                     android:text="@string/dark"
                     android:textColor="@color/primaryColor"
                     app:strokeColor="@color/primaryColorLight" />
@@ -73,8 +73,8 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppinslight"
                     android:backgroundTint="@color/color_states_button_group"
+                    android:fontFamily="@font/poppinslight"
                     android:text="@string/light"
                     android:textColor="@color/primaryColor"
                     app:strokeColor="@color/primaryColorLight" />
@@ -95,9 +95,9 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/fifty_selection"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:backgroundTint="@color/color_states_button_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/color_states_button_group"
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/_50"
                     android:textColor="@color/primaryColor"
@@ -106,9 +106,9 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/hundred_selection"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:backgroundTint="@color/color_states_button_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/color_states_button_group"
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/_100"
                     android:textColor="@color/primaryColor"
@@ -117,9 +117,9 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/one_fifty_selection"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:backgroundTint="@color/color_states_button_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/color_states_button_group"
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/_150"
                     android:textColor="@color/primaryColor"
@@ -287,74 +287,87 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="32dp"
                 android:text="@string/miscellanous_news_desc"
                 app:layout_constraintEnd_toStartOf="@+id/miscellaneous_news_notify"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+                app:layout_constraintTop_toTopOf="@+id/miscellaneous_news" />
 
             <TextView
-                android:id="@+id/textView22"
+                android:id="@+id/word_of_the_day"
+                style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="32dp"
+                android:gravity="start"
+                android:padding="20dp"
                 android:text="@string/word_of_the_day_channel"
+                android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toStartOf="@+id/word_of_the_day_notify"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+                app:layout_constraintTop_toBottomOf="@+id/comment_responses" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/miscellaneous_news"
+                style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="32dp"
+                android:height="100dp"
+                android:gravity="start"
+                android:padding="20dp"
                 android:text="@string/miscellaneous_news"
+                android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toStartOf="@+id/miscellaneous_news_notify"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+                app:layout_constraintTop_toBottomOf="@+id/words_approved" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/words_approved"
+                style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="32dp"
+                android:gravity="start"
+                android:padding="20dp"
                 android:text="@string/words_approved_channel"
+                android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toStartOf="@+id/words_approved_notify"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+                app:layout_constraintTop_toBottomOf="@+id/word_of_the_day" />
 
             <TextView
-                android:id="@+id/textView23"
+                android:id="@+id/comment_responses"
+                style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="32dp"
+                android:gravity="start"
+                android:padding="20dp"
                 android:text="@string/comment_responses"
+                android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toStartOf="@+id/comment_responses_notify"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                app:layout_constraintTop_toBottomOf="@+id/rank_promotion" />
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/rank_promotion"
+                style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="8dp"
+                android:gravity="start"
+                android:padding="20dp"
                 android:text="@string/rank_promotion"
+                android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
-                app:layout_constraintEnd_toStartOf="@+id/rank_promotion_notify"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -363,12 +376,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="16dp"
                 android:text="@{settingsViewModel.user.toString()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/go_to_profile"
+                app:layout_constraintTop_toTopOf="@+id/go_to_profile"
                 tools:text="{full name}" />
 
             <TextView
@@ -478,13 +492,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_full_name" />
+                app:layout_constraintTop_toBottomOf="@+id/go_to_profile" />
 
             <TextView
                 android:id="@+id/go_to_profile"
                 style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:height="80dp"
                 android:gravity="start"
                 android:padding="20dp"
                 android:text="@string/my_profile"
@@ -500,45 +515,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView21"
+                app:layout_constraintBottom_toBottomOf="@+id/miscellaneous_news"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView21" />
+                app:layout_constraintTop_toTopOf="@+id/miscellaneous_news" />
 
             <Switch
                 android:id="@+id/words_approved_notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                app:layout_constraintBottom_toBottomOf="@+id/words_approved"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView13" />
+                app:layout_constraintTop_toTopOf="@+id/words_approved" />
 
             <Switch
                 android:id="@+id/word_of_the_day_notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView22"
+                app:layout_constraintBottom_toBottomOf="@+id/word_of_the_day"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView22" />
+                app:layout_constraintTop_toTopOf="@+id/word_of_the_day" />
 
             <Switch
                 android:id="@+id/comment_responses_notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView23"
+                app:layout_constraintBottom_toBottomOf="@+id/comment_responses"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView23" />
+                app:layout_constraintTop_toTopOf="@+id/comment_responses" />
 
             <Switch
                 android:id="@+id/rank_promotion_notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView18"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView18" />
+                app:layout_constraintBottom_toBottomOf="@+id/rank_promotion"
+                app:layout_constraintEnd_toEndOf="@+id/rank_promotion"
+                app:layout_constraintTop_toTopOf="@+id/rank_promotion" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

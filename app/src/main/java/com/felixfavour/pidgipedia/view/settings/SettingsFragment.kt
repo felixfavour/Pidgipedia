@@ -19,6 +19,7 @@ import com.felixfavour.pidgipedia.databinding.FragmentSettingsBinding
 import com.felixfavour.pidgipedia.util.*
 import com.felixfavour.pidgipedia.viewmodel.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**
  * A simple [Fragment] subclass.
@@ -36,6 +37,7 @@ class SettingsFragment : Fragment() {
         settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
         sharedPreferences = requireActivity().getSharedPreferences(Pidgipedia.PREFERENCES, Context.MODE_PRIVATE)
         setHasOptionsMenu(true)
+        updateUI()
 
 
         // SET LIFECYCLE OWNER
@@ -140,6 +142,15 @@ class SettingsFragment : Fragment() {
 
             false
         }
+    }
+
+
+    fun updateUI() {
+        binding.rankPromotion.setOnClickListener { binding.rankPromotionNotify.performClick() }
+        binding.wordOfTheDay.setOnClickListener { binding.wordOfTheDayNotify.performClick()  }
+        binding.commentResponses.setOnClickListener { binding.commentResponsesNotify.performClick() }
+        binding.wordsApproved.setOnClickListener { binding.wordsApprovedNotify.performClick() }
+        binding.miscellaneousNews.setOnClickListener { binding.miscellaneousNewsNotify.performClick() }
     }
 
 

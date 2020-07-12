@@ -71,6 +71,7 @@
         <ImageButton
             android:id="@+id/edit_comment"
             android:background="?actionBarItemBackground"
+            android:visibility="gone"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="20dp"
             app:commentActionVisibility="@{comment}"

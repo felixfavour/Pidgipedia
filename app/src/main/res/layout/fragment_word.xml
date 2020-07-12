@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:src="@drawable/bookmark_border"
+                    app:wordBookmarked="@{wordViewModel.word.bookmarked}"
                     android:tint="@color/primaryWhiteColor"
                     app:layout_constraintEnd_toStartOf="@+id/share_word"
                     app:layout_constraintHorizontal_bias="0.5"

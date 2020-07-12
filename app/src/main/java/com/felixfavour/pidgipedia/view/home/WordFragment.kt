@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,11 +20,11 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentWordBinding
+import com.felixfavour.pidgipedia.util.Connection.FAILED
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
-import com.felixfavour.pidgipedia.util.Rank.RANK_CONTRIBUTOR
 import com.felixfavour.pidgipedia.util.shareWord
+import com.felixfavour.pidgipedia.util.snack
 import com.felixfavour.pidgipedia.viewmodel.WordViewModel
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -92,6 +91,7 @@ class WordFragment : Fragment() {
 
         // BOOKMARK WORD ON BUTTON CLICKED
         binding.bookmarkWord.setOnClickListener {
+            wordViewModel.toggleBookmarkWord()
         }
 
 
@@ -110,14 +110,12 @@ class WordFragment : Fragment() {
             binding.shareWord.setOnClickListener {
                 shareWord(requireContext(), word)
             }
-            if (wordViewModel.user.value!!.rank <= RANK_CONTRIBUTOR) {
-                if (word.approved || word.rejected) {
-                    binding.buttonGroup.startAnimation(closeAnimation)
-                    binding.buttonGroup.visibility = View.GONE
-                } else {
-                    binding.buttonGroup.startAnimation(openAnimation)
-                    binding.buttonGroup.visibility = View.VISIBLE
-                }
+            if (word.approved || word.rejected) {
+                binding.buttonGroup.startAnimation(closeAnimation)
+                binding.buttonGroup.visibility = View.GONE
+            } else {
+                binding.buttonGroup.startAnimation(openAnimation)
+                binding.buttonGroup.visibility = View.VISIBLE
             }
         })
 
@@ -125,6 +123,8 @@ class WordFragment : Fragment() {
             if (status == SUCCESS) {
                 binding.buttonGroup.startAnimation(closeAnimation)
                 binding.buttonGroup.visibility = View.GONE
+            } else if (status == FAILED) {
+                snack(requireView(), getString(R.string.word_approve_rejection_requirement_warning))
             }
         })
 

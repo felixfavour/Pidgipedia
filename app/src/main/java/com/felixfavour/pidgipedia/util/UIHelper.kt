@@ -1,5 +1,7 @@
 package com.felixfavour.pidgipedia.util
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -7,23 +9,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.get
 import com.felixfavour.pidgipedia.R
-import com.felixfavour.pidgipedia.entity.Comment
-import com.felixfavour.pidgipedia.entity.Eventstamp
-import com.felixfavour.pidgipedia.entity.RemoteUser
 import com.felixfavour.pidgipedia.entity.Word
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
-import kotlin.collections.HashMap
 
 const val THEME_PREFERENCES = "THEME PREFERENCES"
-
-private val firebaseAuth = FirebaseAuth.getInstance()
-private val firestore = FirebaseFirestore.getInstance()
 
 fun toast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -126,113 +119,15 @@ fun getButtonGroupSelection(context: Context, buttonToggleGroup: MaterialButtonT
 
 }
 
-//fun hashMapToWord(hashMap: HashMap<String, Any>?): Word? {
-//    if (hashMap != null) {
-//        val wordId: String = hashMap["wordId"] as String
-//        val name: String = hashMap["name"] as String
-//        val meaning: String = hashMap["meaning"] as String
-//        val etymology: String = hashMap["etymology"] as String
-//        val plural: String = hashMap["plural"] as String
-//        val partOfSpeech: String = hashMap["partOfSpeech"] as String
-//        val syllables: Long = hashMap["syllables"] as Long
-//        val syllabicDivision: String = hashMap["syllabicDivision"] as String
-//        val englishEquivalent: String = hashMap["englishEquivalent"] as String
-//        val imageReference: String = hashMap["imageReference"] as String
-//        val transcription: String = hashMap["transcription"] as String
-//        val pronunciationReference: String = hashMap["pronunciationReference"] as String
-//        val synonyms: List<String>? = hashMap["synonyms"] as List<String>?
-//        val sentences: List<String>? = hashMap["sentences"] as List<String>?
-//        val authorId: String = hashMap["authorId"] as String
-//        val dateCreated: Long = hashMap["dateCreated"] as Long
-//        val lastUpdated: Long = hashMap["lastUpdated"] as Long
-//        val approved: Boolean = hashMap["approved"] as Boolean
-//        val rejected: Boolean = hashMap["rejected"] as Boolean
-//        val wordOfTheDay_date: Long = hashMap["wordOfTheDay_date"] as Long
-//
-//        return Word(
-//            wordId = wordId,
-//            name = name,
-//            meaning = meaning,
-//            etymology = etymology,
-//            plural = plural,
-//            partOfSpeech = partOfSpeech,
-//            syllables = syllables,
-//            syllabicDivision = syllabicDivision,
-//            englishEquivalent = englishEquivalent,
-//            imageReference = imageReference,
-//            transcription = transcription,
-//            pronunciationReference = pronunciationReference,
-//            synonyms = synonyms!!,
-//            sentences = sentences!!,
-//            authorId = authorId,
-//            dateCreated = dateCreated,
-//            lastUpdated = lastUpdated,
-//            approved = approved,
-//            rejected = rejected,
-//            wordOfTheDay_date = wordOfTheDay_date
-//        )
-//    }
-//
-//    return null
-//}
-//
-//
-//fun hashMapToRemoteUser(hashMap: HashMap<String, Any>?): RemoteUser? {
-//    if (hashMap != null) {
-//        val userID: String? = hashMap["userId"] as String?
-//        val firstName: String = hashMap["firstName"] as String
-//        val lastName: String = hashMap["lastName"] as String
-//        val email: String = hashMap["email"] as String
-//        val dateOfBirth: Long = hashMap["dateOfBirth"] as Long
-//        val rank: Long = hashMap["rank"] as Long
-//        val location: String = hashMap["location"] as String
-//        val bio: String = hashMap["bio"] as String
-//        val badges: List<String> = hashMap["badges"] as List<String>
-//        val suggestedWords: List<String> = hashMap["suggestedWords"] as List<String>
-//        val approvedWords: List<String> = hashMap["approvedWords"] as List<String>
-//        val highestScore: Long = hashMap["highestScore"] as Long
-//        val profileImageURL: String = hashMap["profileImageURL"] as String
-//        val username: String = hashMap["username"] as String
-//        val eventstamps: List<Eventstamp> = emptyList()
-//
-//        return RemoteUser(
-//            userID,
-//            firstName,
-//            lastName,
-//            email,
-//            dateOfBirth,
-//            rank,
-//            location,
-//            bio,
-//            badges,
-//            suggestedWords,
-//            approvedWords,
-//            highestScore,
-//            profileImageURL,
-//            username,
-//            eventstamps
-//        )
-//    }
-//    return null
-//}
-//
-//
-//fun UIDToRemoteUser(userID: String?): RemoteUser? {
-//    var user: RemoteUser? = null
-//    if (!userID.isNullOrBlank()) {
-//        return user
-//    }
-//    return user
-//}
+fun wordOfTheDayAlarm(context: Context) {
+    context.run {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 20, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-//fun hashMapToComment(hashMap: HashMap<String, Any>?): Comment? {
-//    if (hashMap != null) {
-//        val commentContent: String = hashMap["commentContent"] as String
-//        val author: HashMap<String, Any> = hashMap["authorId"] as HashMap<String, Any>
-//        val dateCreated: Long = hashMap["dateCreated"] as Long
-//
-//        return Comment(commentContent, hashMapToRemoteUser(author)!!, dateCreated)
-//    }
-//    return null
-//}
+        val intervalMillis: Long = 100 * 60 * 60 * 24
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),
+            intervalMillis, pendingIntent)
+    }
+}

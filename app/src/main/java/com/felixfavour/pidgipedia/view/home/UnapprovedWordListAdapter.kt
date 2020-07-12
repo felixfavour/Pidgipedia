@@ -36,7 +36,7 @@ class UnapprovedWordListAdapter(
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
             binding.card.layoutParams = marginLayoutParams.apply {
-                marginEnd = 24
+                marginStart = 24
             }
             binding.cardLayout.setOnClickListener {
                 onWordClickListener.onWordClick(word, it)

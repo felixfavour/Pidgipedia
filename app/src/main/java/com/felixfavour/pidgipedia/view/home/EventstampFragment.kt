@@ -1,6 +1,7 @@
 package com.felixfavour.pidgipedia.view.home
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.felixfavour.pidgipedia.entity.Comment
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.Pidgipedia
 import com.felixfavour.pidgipedia.viewmodel.EventstampViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 /**
  * A simple [Fragment] subclass.
@@ -63,7 +65,11 @@ class EventstampFragment : Fragment() {
             }
 
             override fun onDeleteClick(view: View, comment: Comment) {
-                eventstampViewModel.deleteComment(comment.commentId)
+                MaterialAlertDialogBuilder(requireContext())
+                    .setMessage(getString(R.string.delete_comment))
+                    .setPositiveButton(getString(R.string.delete)) { _: DialogInterface, _: Int ->
+                        eventstampViewModel.deleteComment(comment.commentId)
+                    }.setNegativeButton(getString(R.string.just_kidding), null).show()
             }
 
             override fun onEditClick(view: View, comment: Comment) {

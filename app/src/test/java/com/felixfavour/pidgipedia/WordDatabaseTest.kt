@@ -1,9 +1,7 @@
 package com.felixfavour.pidgipedia
 
 import android.content.Context
-import android.os.Build
 import androidx.room.Room
-import com.felixfavour.pidgipedia.entity.BookmarkDao
 import com.felixfavour.pidgipedia.entity.QuizDao
 import com.felixfavour.pidgipedia.entity.WordDao
 import com.felixfavour.pidgipedia.entity.WordDatabase

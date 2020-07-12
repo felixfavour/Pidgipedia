@@ -32,6 +32,7 @@ class BookmarksFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmarks, container, false)
         bookmarksViewModel = ViewModelProvider(this).get(BookmarksViewModel::class.java)
+        bookmarksViewModel.loadWords()
 
 
         // SET LIFECYCLE OWNER

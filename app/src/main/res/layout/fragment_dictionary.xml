@@ -15,19 +15,19 @@
             android:animateLayoutChanges="true">
 
 
-            <SearchView
-                android:id="@+id/word_search_view"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/search_bg_drawable"
-                android:closeIcon="@color/transparentColor"
-                android:elevation="7dp"
-                android:iconifiedByDefault="false"
-                android:queryHint="Danfo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:inputType="textShortMessage" />
+        <SearchView
+            android:id="@+id/word_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/search_bg_drawable"
+            android:closeIcon="@color/transparentColor"
+            android:elevation="7dp"
+            android:iconifiedByDefault="false"
+            android:queryHint="Danfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:inputType="textShortMessage" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"

@@ -5,10 +5,7 @@ import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.forEach
@@ -166,26 +163,28 @@ fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
                         }
 
                 }
-                when {
-                    eventstamp.rankRewardType != null -> {
-                        textView.text = textView.context.getString(
-                            R.string.rank_reward_placeholder,
-                            primaryUser,
-                            eventstamp.rankRewardType.let {
-                                when (it) {
-                                    RANK_JJC -> return@let RANK_3
-                                    RANK_CONTRIBUTOR -> return@let RANK_2
-                                    else -> return@let RANK_1
+                if (eventstamp.badgeRewardType != null || eventstamp.rankRewardType != null) {
+                    when {
+                        eventstamp.rankRewardType != null -> {
+                            textView.text = textView.context.getString(
+                                R.string.rank_reward_placeholder,
+                                primaryUser,
+                                eventstamp.rankRewardType.let {
+                                    when (it) {
+                                        RANK_JJC -> return@let RANK_3
+                                        RANK_CONTRIBUTOR -> return@let RANK_2
+                                        else -> return@let RANK_1
+                                    }
                                 }
-                            }
-                        )
-                    }
-                    eventstamp.badgeRewardType.toString().isNotEmpty() -> {
-                        textView.text = textView.context.getString(
-                            R.string.badge_reward_placeholder,
-                            primaryUser,
-                            eventstamp.badgeRewardType
-                        )
+                            )
+                        }
+                        eventstamp.badgeRewardType.toString().isNotEmpty() -> {
+                            textView.text = textView.context.getString(
+                                R.string.badge_reward_placeholder,
+                                primaryUser,
+                                eventstamp.badgeRewardType
+                            )
+                        }
                     }
                 }
             }
@@ -203,9 +202,9 @@ fun getProfileImage(imageView: ImageView, authorId: String?) {
 
                     Glide.with(imageView.context.applicationContext)
                         .load(user?.profileImageURL)
+                        .placeholder(R.drawable.person_outline)
                         .centerCrop()
                         .circleCrop()
-                        .placeholder(R.drawable.person_outline)
                         .into(imageView)
                 }
         } catch (ex: IllegalArgumentException) {}
@@ -235,6 +234,20 @@ fun getWordName(textView: TextView, wordId: String?) {
                 val word = documentSnapshot["name"].toString()
                 textView.text = word
             }
+    }
+}
+
+
+@BindingAdapter("wordBookmarked")
+fun isWordBookmarked(imageButton: ImageButton, bookmarked: Boolean?) {
+    if(bookmarked != null) {
+        if(bookmarked) {
+            val drawable = imageButton.context.getDrawable(R.drawable.bookmark)
+            imageButton.setImageDrawable(drawable)
+        } else {
+            val drawable = imageButton.context.getDrawable(R.drawable.bookmark_border)
+            imageButton.setImageDrawable(drawable)
+        }
     }
 }
 
@@ -287,7 +300,7 @@ fun eventStampDate(textView: TextView, date: Long?) {
     val dateNow = DateTime(System.currentTimeMillis()).toLocalDateTime()
 
     /*
-    * Condition if the two events occured in different years and in
+    * Condition if the two events occurred in different years and in
     * a span of 12 months*/
     if ((dateNow.year != dateThen.year) && (dateNow.monthOfYear >= MONTHS_IN_A_YEAR)) {
         val yearDifference = dateNow.year - dateThen.year
@@ -321,26 +334,42 @@ fun eventStampDate(textView: TextView, date: Long?) {
         } else {
             // Condition if the two events occurred in the same month
             val dayDifference = dateNow.dayOfMonth - dateThen.dayOfMonth
-            if (dayDifference <= 1) {
+            if (dayDifference in 0..1) {
                 // Conditon if the two events occured in the same day
-                textView.text = context.getString(R.string.a_day_ago)
                 val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
-                if (hourDiffference <= 1) {
+                if (hourDiffference == 0) {
                     // Conditon if the two events occured in the same hour
-                    textView.text = context.getString(R.string.an_hour_ago)
                     val minuteDifference = dateNow.minuteOfHour - dateThen.minuteOfHour
-                    if (minuteDifference <= 1) {
+                    if (minuteDifference in 0..1) {
                         // Conditon if the two events occured in the same minute
                         textView.text = context.getString(R.string.a_few_seconds_ago)
                     }
-                    else {
+                    else if (minuteDifference in 2..59) {
                         textView.text = context.getString(R.string.minutes_ago, minuteDifference)
+                    }
+                    else if (minuteDifference < 0) {
+                        /**
+                         * To get the accurate [minuteDifference], 24 hours is added because the minutes are negative value
+                         * The minutes are negative because of the 24-hour time format.
+                         */
+                        textView.text = context.getString(R.string.minutes_ago, minuteDifference + 60)
                     }
 
                 }
-                else if (hourDiffference in 2..23) {
+                else if (hourDiffference in 1..23) {
+                    if (hourDiffference == 1)
+                        textView.text = context.getString(R.string.an_hour_ago)
                     textView.text = context.getString(R.string.hours_ago, hourDiffference)
+                } else if (hourDiffference < 0) {
+                    /**
+                     * To get the accurate [hourDifference], 24 hours is added because the hours are negative value
+                     * The hours are negative because of the 24-hour time format.
+                     */
+                    textView.text = context.getString(R.string.hours_ago, hourDiffference + 24)
                 }
+            }
+            else if (dayDifference == 1) {
+                textView.text = context.getString(R.string.a_day_ago)
             }
             else if (dayDifference == Calendar.DAY_OF_WEEK) {
                 textView.text = context.getString(R.string.a_week_ago)

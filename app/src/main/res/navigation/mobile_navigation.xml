@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
+    android:label=" "
     app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_dictionary"
         android:name="com.felixfavour.pidgipedia.view.dictionary.DictionaryFragment"
         android:label="@string/title_dictionary"
-        tools:layout="@layout/fragment_dictionary" >
+        tools:layout="@layout/fragment_dictionary">
         <action
             android:id="@+id/action_navigation_dictionary_to_wordFragment"
             app:destination="@id/wordFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" >
-        </action>
+            app:popExitAnim="@anim/slide_out_right"></action>
         <action
             android:id="@+id/action_navigation_dictionary_to_allWordsFragment"
             app:destination="@id/allWordsFragment"
@@ -30,16 +30,14 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.felixfavour.pidgipedia.view.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_wordSuggestionFragment"
             app:destination="@id/wordSuggestionFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right">
-        </action>
+            app:popExitAnim="@anim/slide_out_right"></action>
         <action
             android:id="@+id/action_navigation_home_to_bookmarksFragment"
             app:destination="@id/bookmarksFragment"
@@ -67,7 +65,7 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_home_to_wordSuggestionFragment2"
             app:destination="@id/wordSuggestionFragment"
@@ -88,10 +86,10 @@
         android:id="@+id/navigation_quiz"
         android:name="com.felixfavour.pidgipedia.view.quiz.QuizFragment"
         android:label="@string/title_quiz"
-        tools:layout="@layout/fragment_quiz" >
+        tools:layout="@layout/fragment_quiz">
         <action
             android:id="@+id/action_navigation_quiz_to_gameActivity"
-            app:destination="@id/gameActivity"/>
+            app:destination="@id/gameActivity" />
         <action
             android:id="@+id/action_navigation_quiz_to_bookmarksFragment"
             app:destination="@id/bookmarksFragment"
@@ -102,9 +100,9 @@
     </fragment>
     <activity
         android:id="@+id/gameActivity"
-        tools:layout="@layout/activity_game"
         android:name="com.felixfavour.pidgipedia.GameActivity"
-        android:label="GameActivity" >
+        android:label="GameActivity"
+        tools:layout="@layout/activity_game">
         <argument
             android:name="difficulty"
             app:argType="integer" />
@@ -118,7 +116,7 @@
         android:id="@+id/bookmarksFragment"
         android:name="com.felixfavour.pidgipedia.view.home.BookmarksFragment"
         android:label="@string/bookmarks"
-        tools:layout="@layout/fragment_bookmarks" >
+        tools:layout="@layout/fragment_bookmarks">
         <action
             android:id="@+id/action_bookmarksFragment_to_wordFragment"
             app:destination="@id/wordFragment"
@@ -131,7 +129,7 @@
         android:id="@+id/wordFragment"
         android:name="com.felixfavour.pidgipedia.view.home.WordFragment"
         android:label="@string/word"
-        tools:layout="@layout/fragment_word" >
+        tools:layout="@layout/fragment_word">
         <argument
             android:name="wordId"
             app:argType="string" />
@@ -140,7 +138,7 @@
         android:id="@+id/eventstampFragment"
         android:name="com.felixfavour.pidgipedia.view.home.EventstampFragment"
         android:label="@string/eventstamp"
-        tools:layout="@layout/fragment_eventstamp" >
+        tools:layout="@layout/fragment_eventstamp">
         <argument
             android:name="eventstamp"
             app:argType="com.felixfavour.pidgipedia.entity.Eventstamp" />
@@ -163,7 +161,7 @@
         android:id="@+id/allWordsFragment"
         android:name="com.felixfavour.pidgipedia.view.home.AllWordsFragment"
         android:label="@string/index"
-        tools:layout="@layout/fragment_all_words" >
+        tools:layout="@layout/fragment_all_words">
         <action
             android:id="@+id/action_allWordsFragment_to_wordFragment"
             app:destination="@id/wordFragment"
@@ -175,8 +173,8 @@
     <fragment
         android:id="@+id/badgesFragment2"
         android:name="com.felixfavour.pidgipedia.view.profile.BadgesFragment"
-        tools:layout="@layout/fragment_badges"
-        android:label="@string/badges" >
+        android:label="@string/badges"
+        tools:layout="@layout/fragment_badges">
         <argument
             android:name="user"
             app:argType="com.felixfavour.pidgipedia.entity.RemoteUser" />
@@ -198,7 +196,7 @@
         android:id="@+id/bottomSheetFragment"
         android:name="com.felixfavour.pidgipedia.BottomSheetFragment"
         android:label="fragment_bottom_sheet"
-        tools:layout="@layout/fragment_bottom_sheet" >
+        tools:layout="@layout/fragment_bottom_sheet">
         <action
             android:id="@+id/action_bottomSheetFragment_to_wordFragment"
             app:destination="@id/wordFragment" />

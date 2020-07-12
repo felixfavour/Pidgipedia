@@ -18,6 +18,7 @@ import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.WordOfTheDayActivity.Companion.checkTime
 import com.felixfavour.pidgipedia.databinding.FragmentWordOfTheDayImageBinding
 import com.felixfavour.pidgipedia.util.shareWord
+import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.viewmodel.WODViewModel
 
 /**
@@ -67,6 +68,7 @@ class WordOfTheDayImageFragment : Fragment() {
                         startActivity(intent)
                     }
                 }
+                MotionEvent.ACTION_SCROLL -> toast(requireContext(), "scrolled!")
             }
             false
         }

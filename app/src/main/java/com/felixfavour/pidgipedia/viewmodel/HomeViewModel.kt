@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.util.*
+import com.felixfavour.pidgipedia.util.Connection.FAILED
+import com.felixfavour.pidgipedia.util.Connection.LOADING
+import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.Pidgipedia.EVENTSTAMPS
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
@@ -32,6 +35,10 @@ class HomeViewModel : ViewModel() {
         loadWordOfTheDay()
     }
 
+    private val _status = MutableLiveData<Int>()
+    val status: LiveData<Int>
+        get() = _status
+
     private fun loadWordOfTheDay() {
         _wordOfTheDay.value = MockData.word
     }
@@ -39,11 +46,13 @@ class HomeViewModel : ViewModel() {
 
     fun loadEventstamps() {
         val eventstamps = mutableListOf<Eventstamp>()
+        _status.value = LOADING
 
         firebaseFirestore.collection(EVENTSTAMPS)
             .orderBy("eventTime", Query.Direction.DESCENDING)
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
+                _status.value = SUCCESS
                 // All Eventstamps Objects from this specific RemoteUser
 
                 querySnapshot?.documents?.forEach { eventstampField ->
@@ -51,6 +60,8 @@ class HomeViewModel : ViewModel() {
                     eventstamps.add(eventstamp!!)
                 }
                 _eventstamps.value = eventstamps
+            }.addOnFailureListener {
+                _status.value = FAILED
             }
     }
 

@@ -8,13 +8,13 @@ import java.util.*
 
 @Parcelize
 data class Quiz(
-    val question_id: Long,
-    val question: String,
-    val answers: List<String>,
-    val difficulty: Long,
-    val correctAnswerIndex: Long,
-    val dateCreated: Long,
-    val authorId: String,
-    val isApproved: Boolean
+    val questionId: String = "",
+    val question: String = "",
+    val answers: List<String> = emptyList(),
+    val difficulty: Long = 0,
+    val correctAnswerIndex: Long = 0,
+    val dateCreated: Long = 0,
+    val authorId: String = "",
+    val isApproved: Boolean = false
 ) : Parcelable {
 }
