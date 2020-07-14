@@ -58,31 +58,34 @@
 
         <TextView
             android:id="@+id/word"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/poppinsbold"
-            tools:text="Danfo"
             android:text="@{viewModel.word.name}"
             android:textColor="@color/primaryWhiteColor"
             android:textSize="@dimen/word_text_stories_dictionary"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toStartOf="@+id/part_of_speech"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wod_dummy" />
+            app:layout_constraintTop_toBottomOf="@+id/wod_dummy"
+            tools:text="Chizaramekperem" />
 
         <TextView
             android:id="@+id/part_of_speech"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
-            tools:text="noun"
+            android:layout_marginEnd="24dp"
             android:text="@{viewModel.word.partOfSpeech}"
             android:textColor="@color/primaryWhiteColor"
-            android:textSize="@dimen/header_text"
+            android:textSize="@dimen/line_text"
             app:layout_constraintBottom_toTopOf="@+id/word_transcription"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/word"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="noun" />
 
         <TextView
             android:id="@+id/word_transcription"

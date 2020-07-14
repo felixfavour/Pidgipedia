@@ -40,7 +40,6 @@ import com.felixfavour.pidgipedia.util.Rank.RANK_2
 import com.felixfavour.pidgipedia.util.Rank.RANK_3
 import com.felixfavour.pidgipedia.util.Rank.RANK_CONTRIBUTOR
 import com.felixfavour.pidgipedia.util.Rank.RANK_JJC
-import com.felixfavour.pidgipedia.util.Rank.RANK_OGA
 import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
 import com.felixfavour.pidgipedia.view.home.EventstampCommentsAdapter
 import com.felixfavour.pidgipedia.view.home.HomeRecyclerViewAdapter
@@ -220,6 +219,19 @@ fun getAuthorFullName(textView: TextView, authorId: String?) {
             .addOnSuccessListener { documentSnapshot ->
                 val fullName = documentSnapshot["firstName"].toString() + " " + documentSnapshot["lastName"].toString()
                 textView.text = fullName
+            }
+    }
+}
+
+
+@BindingAdapter("username")
+fun getAuthorUsername(textView: TextView, authorId: String?) {
+    if (authorId != null) {
+        firebaseFirestore.collection(USERS).document(authorId)
+            .get(SOURCE)
+            .addOnSuccessListener { documentSnapshot ->
+                val username = documentSnapshot["username"].toString()
+                textView.text = username
             }
     }
 }

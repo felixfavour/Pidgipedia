@@ -100,6 +100,10 @@ class ProfileFragment : Fragment() {
             startActivityForResult(intent, IMAGE_REQUEST_CODE)
         }
 
+        binding.addPictureCamera.setOnClickListener {
+
+        }
+
         binding.deletePicture.setOnClickListener {
             profileViewModel.deleteProfileImage()
         }

@@ -39,7 +39,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:color/black" />
+            app:srcCompat="@android:color/black"
+            tools:visibility="gone" />
 
         <ImageView
             android:id="@+id/animated_recording"
@@ -51,7 +52,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/animated_recording" />
+            app:srcCompat="@drawable/animated_recording"
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/dummy_text"
@@ -447,11 +449,15 @@
                         android:layout_height="150dp"
                         android:backgroundTint="@color/primaryColor"
                         android:elevation="2dp"
+                        android:gravity="center|start"
+                        android:paddingEnd="16dp"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
                         app:cornerRadius="16dp"
                         app:icon="@drawable/add_photo_white"
                         app:iconGravity="start"
-                        app:iconPadding="60dp"
                         app:iconSize="30dp"
+                        app:iconTint="@android:color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 

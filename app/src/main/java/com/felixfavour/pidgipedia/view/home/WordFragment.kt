@@ -128,6 +128,12 @@ class WordFragment : Fragment() {
             }
         })
 
+        wordViewModel.bookmarked.observe(viewLifecycleOwner, Observer { bookmarked ->
+            if (bookmarked) {
+                snack(requireView(), getString(R.string.bookmarks_added))
+            }
+        })
+
 
         return binding.root
     }

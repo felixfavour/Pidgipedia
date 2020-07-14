@@ -24,7 +24,9 @@ object Pidgipedia {
     const val DUMMY_PASSWORD = "pidgipedia_dummy123"
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
+    var BOOKMARKS_VISIBILITY = true
     var SOURCE = Source.CACHE
+    var HISTORY_LIMIT = HistorySize.FIFTY
 }
 
 object Notification {
@@ -83,6 +85,12 @@ object Notifications {
     const val WORD_OF_THE_DAY = "WOD"
     const val WORDS_APPROVED = "WA"
     const val MISCELLANEOUS = "MISC"
+}
+
+object HistorySize {
+    const val ONE_FIFTY = 150
+    const val HUNDRED = 100
+    const val FIFTY = 50
 }
 
 object AppTheme {

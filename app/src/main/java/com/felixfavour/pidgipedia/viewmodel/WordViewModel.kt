@@ -25,6 +25,10 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
     val error: LiveData<Throwable?>
         get() = _error
 
+    private val _bookmarked = MutableLiveData<Boolean>()
+    val bookmarked: LiveData<Boolean>
+        get() = _bookmarked
+
     private val _status = MutableLiveData<Int>()
     val status: LiveData<Int>
         get() = _status
@@ -68,6 +72,7 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
                 firebaseFirestore.collection(SUGGESTED_WORDS).document(wordLocal.wordId)
                     .update("bookmarked", false)
                     .addOnSuccessListener {
+                        _bookmarked.value = true
                         loadWord(wordLocal.wordId)
                     }
             } else {

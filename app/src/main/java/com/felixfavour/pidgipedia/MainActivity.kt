@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
         checkConnectivity()
+
         return super.onCreateView(name, context, attrs)
     }
 
@@ -93,19 +94,19 @@ class MainActivity : AppCompatActivity() {
                     override fun onUnavailable() {
                         super.onUnavailable()
                         SOURCE = Source.CACHE
-                        findViewById<View>(R.id.main_activity_layout).apply {
-                            if (this != null)
-                                snack(this, context.getString(R.string.no_internet_access))
-                        }
+//                        findViewById<View>(R.id.main_activity_layout).apply {
+//                            if (this != null)
+//                                snack(this, context.getString(R.string.no_internet_access))
+//                        }
                     }
 
                     override fun onLost(network: Network) {
                         super.onLost(network)
                         SOURCE = Source.CACHE
-                        findViewById<View>(R.id.main_activity_layout).apply {
-                            if (this != null)
-                                snack(this, context.getString(R.string.internet_unstable))
-                        }
+//                        findViewById<View>(R.id.main_activity_layout).apply {
+//                            if (this != null)
+//                                snack(this, context.getString(R.string.internet_unstable))
+//                        }
                     }
                 }, 5000)
             } else {
@@ -118,10 +119,10 @@ class MainActivity : AppCompatActivity() {
                     override fun onLost(network: Network) {
                         super.onLost(network)
                         SOURCE = Source.CACHE
-                        findViewById<View>(R.id.main_activity_layout).apply {
-                            if (this != null)
-                                snack(this, context.getString(R.string.internet_unstable))
-                        }
+//                        findViewById<View>(R.id.main_activity_layout).apply {
+//                            if (this != null)
+//                                snack(this, context.getString(R.string.internet_unstable))
+//                        }
                     }
                 })
             }

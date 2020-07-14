@@ -12,8 +12,11 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -30,16 +33,18 @@ class OnboardingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = getSharedPreferences(Pidgipedia.PREFERENCES, Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
 
         isActivityOpenedBefore(applicationContext)
+
+        onboardingUI()
 
         createNotificationChannel(applicationContext)
 
         checkInternetConnectivity()
 
         // The color code matches the primaryLightColor resource
-        window.statusBarColor = Color.parseColor("#6EC6FF")
+        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.primaryColorLightConstant)
     }
 
     /*
@@ -53,7 +58,6 @@ class OnboardingActivity : AppCompatActivity() {
             isUserAuthenticated()
             getAppTheme(applicationContext, null)
         } else {
-            setContentView(R.layout.activity_onboarding)
             onboardingUI()
             sharedPref.edit().putBoolean(ONBOARDING_PREFERENCE, true).commit()
         }
@@ -123,9 +127,16 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun onboardingUI() {
+        setContentView(R.layout.activity_onboarding)
+        val clouds = findViewById<ImageView>(R.id.clouds)
+        val cloudAnimation = AnimationUtils.loadAnimation(applicationContext, R.anim.onboarding_cloud_animation)
+        clouds.animation = cloudAnimation
+        clouds.animate()
 
         val onboardingViewpager = findViewById<ViewPager2>(R.id.onboarding_viewpager)
-        val onboardingProgressBar = findViewById<ProgressBar>(R.id.onboardingProgressBar)
+        val circle1 = findViewById<ImageView>(R.id.circle1)
+        val circle2 = findViewById<ImageView>(R.id.circle2)
+        val circle3 = findViewById<ImageView>(R.id.circle3)
         val nextSlide = findViewById<Button>(R.id.onboardingButton)
 
 
@@ -159,32 +170,47 @@ class OnboardingActivity : AppCompatActivity() {
                 super.onPageSelected(position)
                 when (position) {
                     0 -> {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            onboardingProgressBar.setProgress(33, true)
-                        }
-                        onboardingProgressBar.progress = 33
+                        tintCircle(circle1)
                         nextSlide.text = getString(R.string.more_tori)
                     }
                     1 -> {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            onboardingProgressBar.setProgress(66, true)
-                        }
-                        onboardingProgressBar.progress = 66
+                        tintCircle(circle2)
                         nextSlide.text = getString(R.string.more_tori)
                     }
                     else -> {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            onboardingProgressBar.setProgress(100, true)
-                        }
+                        tintCircle(circle3)
                         val sharedPref = applicationContext.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
                         sharedPref.edit {
                             putBoolean(ONBOARDING_PREFERENCE, true)
                         }
-                        onboardingProgressBar.progress = 100
                         nextSlide.text = getString(R.string.start)
                     }
                 }
             }
         })
+    }
+
+    private fun tintCircle(circle: ImageView) {
+        val circle1 = findViewById<ImageView>(R.id.circle1)
+        val circle2 = findViewById<ImageView>(R.id.circle2)
+        val circle3 = findViewById<ImageView>(R.id.circle3)
+
+        when (circle) {
+            circle1 -> {
+                circle1.setColorFilter(ContextCompat.getColor(applicationContext, R.color.primaryWhiteColor))
+                circle2.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
+                circle3.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
+            }
+            circle2 -> {
+                circle2.setColorFilter(ContextCompat.getColor(applicationContext, R.color.primaryWhiteColor))
+                circle1.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
+                circle3.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
+            }
+            circle3 -> {
+                circle3.setColorFilter(ContextCompat.getColor(applicationContext, R.color.primaryWhiteColor))
+                circle2.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
+                circle1.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
+            }
+        }
     }
 }

@@ -191,4 +191,11 @@
     <string name="internet_unstable">Your Internet Connection is not stable</string>
     <string name="delete_comment">Are you sure you want to delete this comment?</string>
     <string name="word_of_the_day">Word of the Day</string>
+    <string name="approve">approve</string>
+    <string name="decline">decline</string>
+    <string name="bookmarks_added">Word has been added to bookmarks</string>
+    <string name="change">Change</string>
+    <string name="danfo">Danfo</string>
+    <string name="Account_deletion_prompt">Sorry you cannot delete your account at this time.</string>
+    <string name="bookmarks_deletion_prompt">Sorry you cannot delete all bookmarks at this time.</string>
 </resources>

@@ -28,6 +28,8 @@ import com.felixfavour.pidgipedia.viewmodel.HomeViewModel
 import com.felixfavour.pidgipedia.viewmodel.MainActivityViewModel
 import com.felixfavour.pidgipedia.viewmodel.WODViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class HomeFragment : Fragment() {
 
@@ -162,6 +164,7 @@ class HomeFragment : Fragment() {
 
 
         // UI EVENT LISTENERS
+        animateSuggestWordImage()
         binding.learnMore.setOnClickListener {
             val intent = Intent(requireContext(), WordOfTheDayActivity::class.java)
             startActivity(intent)
@@ -169,9 +172,9 @@ class HomeFragment : Fragment() {
         binding.wordOfTheDayCard.setOnClickListener {
             binding.learnMore.performClick()
         }
-        binding.dismiss.setOnClickListener {
-            binding.suggestWordCard.visibility = View.GONE
-        }
+//        binding.dismiss.setOnClickListener {
+//            binding.suggestWordCard.visibility = View.GONE
+//        }
 
 
         // SHARE THE WORD
@@ -183,6 +186,19 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
+
+
+    private fun animateSuggestWordImage() {
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(500)
+            binding.suggestWordImage.animate().apply {
+                translationY(0f)
+                duration = 300
+                start()
+            }
+        }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

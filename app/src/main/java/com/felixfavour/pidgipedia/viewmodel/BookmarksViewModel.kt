@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.util.MockData
+import com.felixfavour.pidgipedia.util.Pidgipedia.BOOKMARKS_VISIBILITY
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
 import com.google.firebase.auth.FirebaseAuth
@@ -21,7 +22,7 @@ class BookmarksViewModel: ViewModel() {
 
     fun loadWords() {
         firebaseFirestore.collection(SUGGESTED_WORDS)
-            .whereEqualTo("bookmarked", true)
+            .whereEqualTo("bookmarked", BOOKMARKS_VISIBILITY)
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
                 _words.value = querySnapshot.toObjects(Word::class.java)

@@ -26,7 +26,7 @@
                 android:layout_height="1dp"
                 android:elevation="100dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@color/primaryGreyColor" />
+                app:srcCompat="@color/secondaryGreyColor" />
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/home_scrollView"
@@ -140,7 +140,6 @@
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="4dp"
-                        app:cardBackgroundColor="@color/primaryColorDark"
                         app:cardCornerRadius="6dp"
                         app:cardElevation="0dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -150,31 +149,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <Button
-                                android:id="@+id/dismiss"
-                                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:text="@string/dismiss"
-                                android:textColor="@color/primaryTextColor"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/suggest"
-                                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-                            <Button
-                                android:id="@+id/suggest"
-                                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="16dp"
-                                android:text="@string/suggest"
-                                android:textColor="@color/primaryWhiteColor"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/dismiss" />
+                            android:layout_height="match_parent"
+                            android:background="@drawable/suggest_bg_drawable">
 
                             <TextView
                                 android:id="@+id/Suggest_word_static_text"
@@ -182,27 +158,48 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginTop="16dp"
-                                android:layout_marginEnd="16dp"
+                                android:layout_marginEnd="8dp"
                                 android:fontFamily="@font/poppinsbold"
                                 android:text="@string/do_you_wish_to_share_an_unlisted_word"
-                                android:textColor="@color/primaryColorLight"
-                                android:textSize="@dimen/header_text"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <ImageView
-                                android:id="@+id/imageView2"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="16dp"
-                                android:src="@drawable/suggest_word"
-                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:textColor="@color/primaryWhiteColor"
+                                android:textSize="@dimen/large_text"
+                                app:layout_constraintBottom_toTopOf="@+id/suggest"
+                                app:layout_constraintEnd_toStartOf="@+id/suggest_word_image"
+                                app:layout_constraintHorizontal_bias="0.5"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_bias="0.0" />
+                                app:layout_constraintVertical_chainStyle="packed" />
+
+                            <ImageView
+                                android:id="@+id/suggest_word_image"
+                                android:layout_width="110dp"
+                                android:layout_height="150dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:src="@drawable/suggest_teacher"
+                                android:translationY="150dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="1.0" />
+
+                            <Button
+                                android:id="@+id/suggest"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="16dp"
+                                android:text="@string/suggest"
+                                android:textColor="@color/primaryWhiteColor"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/Suggest_word_static_text"
+                                app:strokeColor="@android:color/white" />
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </androidx.cardview.widget.CardView>
 
 

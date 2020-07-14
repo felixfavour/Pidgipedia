@@ -4,13 +4,14 @@
     <color name="primaryColorLight">#0067AA</color>
     <color name="primaryColorLightConstant">#6ec6ff</color>
     <color name="primaryColorDark">#003867</color>
-    <color name="colorAccent">#801CAA</color>
+    <color name="colorAccent">#CB64FF</color>
     <color name="primaryTextColor">#FFFFFFFF</color>
     <color name="transparentColor">#00000000</color>
     <color name="primaryWhiteColor">#FFFFFF</color>
     <color name="blackWhiteColor">#FFFFFF</color>
     <color name="whiteBlackColor">#151515</color>
     <color name="primaryGreyColor">#7D7D7D</color>
+    <color name="secondaryGreyColor">#7D7D7D</color>
     <color name="primaryGreen">#00B743</color>
     <color name="primaryRed">#7A0000</color>
 

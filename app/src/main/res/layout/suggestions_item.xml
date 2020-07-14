@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="word"
+            type="com.felixfavour.pidgipedia.entity.Word" />
+    </data>
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/suggestion_word_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryColorLight"
+        android:drawableStart="@drawable/spellcheck"
+        android:drawablePadding="24dp"
+        android:padding="22dp"
+        android:textSize="@dimen/line_text"
+        tools:text="Chizaramekperem">
+
+    </TextView>
+</layout>

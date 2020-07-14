@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.forEach
 import androidx.core.view.get
+import androidx.core.view.setMargins
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -308,12 +309,13 @@ class WordSuggestionFragment : Fragment() {
 
     private fun updateWordImageUI(imageStream: InputStream?) {
         // Set Height of Layout
-        binding.addPicture.layoutParams.height = 100
-        binding.addPicture.layoutParams.width = 100
+        binding.addPicture.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.addPicture.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.addPicture.text = getString(R.string.change)
 
         // Set Margins of Layout
         val marginParams = binding.addPicture.layoutParams as ViewGroup.MarginLayoutParams
-        marginParams.setMargins(0,0, 8, 8)
+        marginParams.setMargins(8)
         binding.addPicture.requestLayout()
 
         val image = Drawable.createFromStream(imageStream, getString(R.string.word_image))

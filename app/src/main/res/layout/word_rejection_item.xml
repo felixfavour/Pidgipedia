@@ -92,18 +92,21 @@
 
             <TextView
                 android:id="@+id/word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="4dp"
                 android:fontFamily="@font/poppinsbold"
                 android:gravity="center"
-                tools:text="Danfo"
-                app:word="@{eventstamp.wordId}"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/word_text"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintEnd_toStartOf="@+id/imageView22"
                 app:layout_constraintStart_toEndOf="@+id/imageView23"
-                app:layout_constraintTop_toBottomOf="@+id/author_image" />
+                app:layout_constraintTop_toBottomOf="@+id/author_image"
+                app:word="@{eventstamp.wordId}"
+                tools:text="Chizaramekperemma" />
 
             <TextView
                 android:id="@+id/time"

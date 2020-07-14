@@ -26,6 +26,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/bottom_sheet_shade"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shade_bg"
+                android:clickable="true"
+                android:elevation="10dp"
+                android:focusable="true"
+                android:visibility="invisible"
+                tools:visibility="visible" />
+
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
@@ -110,17 +121,6 @@
                             app:layout_constraintStart_toStartOf="@+id/profile_image"
                             app:layout_constraintTop_toTopOf="@+id/profile_image"
                             tools:srcCompat="@drawable/ic_rank_contributor" />
-
-                        <ImageView
-                            android:id="@+id/bottom_sheet_shade"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/shade_bg"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:visibility="invisible"
-                            tools:layout_editor_absoluteX="0dp"
-                            tools:layout_editor_absoluteY="56dp" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -501,6 +501,7 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="100dp"
                         android:drawableEnd="@drawable/chevron_right"
+                        android:drawableTint="@color/primaryColor"
                         android:gravity="start"
                         android:padding="8dp"
                         
@@ -522,11 +523,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bottomsheet"
-                tools:visibility="visible"
-                app:behavior_peekHeight="0dp"
+                android:elevation="10dp"
                 app:behavior_hideable="true"
+                app:behavior_peekHeight="0dp"
                 app:behavior_skipCollapsed="true"
-                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                tools:behavior_peekHeight="auto"
+                tools:visibility="visible">
 
                 <ImageView
                     android:id="@+id/imageView6"
@@ -534,13 +537,12 @@
                     android:layout_height="2dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@color/primaryGreyColor"
+                    android:background="@color/secondaryGreyColor"
                     app:layout_constraintBottom_toBottomOf="@+id/add_picture_files"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/delete_picture"
-                    app:srcCompat="@drawable/divider" />
+                    app:layout_constraintTop_toTopOf="@+id/delete_picture" />
 
                 <Button
                     android:id="@+id/delete_picture"
@@ -558,7 +560,8 @@
                     android:textColor="@color/primaryRed"
                     android:textSize="@dimen/large_text"
                     app:icon="@drawable/delete"
-                    app:iconGravity="end"
+                    app:iconGravity="start"
+                    app:iconPadding="16dp"
                     app:iconTint="@color/primaryRed"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -581,14 +584,15 @@
                     android:textAllCaps="false"
                     android:textSize="@dimen/large_text"
                     app:icon="@drawable/file"
-                    app:iconGravity="end"
+                    app:iconGravity="start"
+                    app:iconPadding="16dp"
                     app:layout_constraintBottom_toTopOf="@+id/imageView6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button3" />
+                    app:layout_constraintTop_toBottomOf="@+id/add_picture_camera" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/add_picture_camera"
                     style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -601,7 +605,8 @@
                     android:textAllCaps="false"
                     android:textSize="@dimen/large_text"
                     app:icon="@drawable/camera"
-                    app:iconGravity="end"
+                    app:iconGravity="start"
+                    app:iconPadding="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView5" />
