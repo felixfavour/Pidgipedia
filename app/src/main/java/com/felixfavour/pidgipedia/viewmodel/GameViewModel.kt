@@ -69,11 +69,6 @@ class GameViewModel: ViewModel() {
         get() = _countdownTimer
 
 
-    private fun loadHighScore() {
-        _highScore.value = MockData.user2.highestScore
-    }
-
-
     fun loadQuiz() {
         firebaseFirestore.collection(QUIZZES)
             .get(SOURCE)

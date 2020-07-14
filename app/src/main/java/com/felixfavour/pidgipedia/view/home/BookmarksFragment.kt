@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.felixfavour.pidgipedia.util.MockData
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentBookmarksBinding
+import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.view.OnWordClickListener
 import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
@@ -54,14 +55,8 @@ class BookmarksFragment : Fragment() {
         })
 
 
-        bookmarksViewModel.words.observe(viewLifecycleOwner, Observer {
-            /*
-            * Running this in a thread so as to increase the probability of the application
-            * to pause a while before the function updateUI() is called
-            */
-            CoroutineScope(Dispatchers.Main).launch {
-                updateUI()
-            }
+        bookmarksViewModel.words.observe(viewLifecycleOwner, Observer {words ->
+            updateUI(words)
         })
 
 
@@ -71,12 +66,12 @@ class BookmarksFragment : Fragment() {
 
     /*
     * Method to update UI, specifically Views Visibility when recycler view wordList is empty*/
-    private fun updateUI() {
+    private fun updateUI(words: List<Word>) {
         val adapter = binding.bookmarksList.adapter as WordListAdapter
-        if (adapter.itemCount > 0) {
-            binding.noBookmarksLayout.visibility = View.GONE
-        } else {
+        if (words.isEmpty()) {
             binding.noBookmarksLayout.visibility = View.VISIBLE
+        } else {
+            binding.noBookmarksLayout.visibility = View.GONE
         }
     }
 

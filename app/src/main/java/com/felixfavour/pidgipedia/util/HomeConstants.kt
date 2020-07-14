@@ -74,9 +74,9 @@ object Badges {
 }
 
 object Language {
-    const val PIDGIN_NG = "pidgin_ng"
-    const val ENGLISH_UK = "english_uk"
-    const val ENGLISH_US = "english_us"
+    const val PIDGIN_NG = "Pidgin NG"
+    const val ENGLISH_UK = "English UK"
+    const val ENGLISH_US = "English US"
 }
 
 object Notifications {

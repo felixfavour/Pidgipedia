@@ -1,11 +1,15 @@
 package com.felixfavour.pidgipedia.view.profile
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,9 +19,11 @@ import com.felixfavour.pidgipedia.databinding.FragmentProfileBinding
 import com.felixfavour.pidgipedia.entity.User
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.snack
+import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.view.home.WordSuggestionFragment.Companion.IMAGE_REQUEST_CODE
 import com.felixfavour.pidgipedia.viewmodel.ProfileViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import java.io.ByteArrayOutputStream
 import java.lang.IllegalArgumentException
 
 /**
@@ -29,6 +35,11 @@ class ProfileFragment : Fragment() {
     private lateinit var bottomSheet: BottomSheetBehavior<ConstraintLayout>
     private var userId: String? = null
     private var isAuthor: Boolean = false
+
+    companion object {
+        const val IMAGE_REQUEST_CODE = 1
+        const val REQUEST_IMAGE_CAPTURE = 2
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,7 +112,9 @@ class ProfileFragment : Fragment() {
         }
 
         binding.addPictureCamera.setOnClickListener {
-
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            intent.resolveActivity(requireActivity().packageManager)
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
         }
 
         binding.deletePicture.setOnClickListener {
@@ -131,9 +144,21 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IMAGE_REQUEST_CODE) {
-            val imageStream = requireContext().contentResolver.openInputStream(data?.data!!)
-            profileViewModel.uploadProfilePicture(imageStream)
+        if (data != null) {
+            when (requestCode) {
+                IMAGE_REQUEST_CODE -> {
+                    val imageStream = requireContext().contentResolver.openInputStream(data?.data!!)
+                    profileViewModel.uploadProfilePicture(imageStream, null)
+                }
+                REQUEST_IMAGE_CAPTURE -> {
+                    val bitmap = data.extras?.get("data") as Bitmap
+                    val bitmapStream = ByteArrayOutputStream().also {
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+                    }
+
+                    profileViewModel.uploadProfilePicture(null, bitmapStream.toByteArray())
+                }
+            }
         }
     }
 

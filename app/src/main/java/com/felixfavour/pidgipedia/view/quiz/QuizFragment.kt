@@ -64,29 +64,6 @@ class QuizFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.basic_menu, menu)
-        menu.forEach { item: MenuItem ->
-            item.setOnMenuItemClickListener {
-                when (item.itemId) {
-                    R.id.profile -> {
-                        val activityIntent = Intent(requireContext(), ProfileActivity::class.java)
-                        startActivity(activityIntent)
-                    }
-                    R.id.settings -> {
-                        val activityIntent = Intent(requireContext(), SettingsActivity::class.java)
-                        startActivity(activityIntent)
-                    }
-                    R.id.menu_bookmarks -> {
-                        findNavController().navigate(QuizFragmentDirections.actionNavigationQuizToBookmarksFragment())
-                    }
-                }
-                false
-            }
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         // REVEAL APP LOGO

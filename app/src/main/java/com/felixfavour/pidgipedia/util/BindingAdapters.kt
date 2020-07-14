@@ -371,7 +371,8 @@ fun eventStampDate(textView: TextView, date: Long?) {
                 else if (hourDiffference in 1..23) {
                     if (hourDiffference == 1)
                         textView.text = context.getString(R.string.an_hour_ago)
-                    textView.text = context.getString(R.string.hours_ago, hourDiffference)
+                    else
+                        textView.text = context.getString(R.string.hours_ago, hourDiffference)
                 } else if (hourDiffference < 0) {
                     /**
                      * To get the accurate [hourDifference], 24 hours is added because the hours are negative value

@@ -1,5 +1,9 @@
 package com.felixfavour.pidgipedia.view.home
 
+import android.graphics.drawable.Drawable
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +13,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -29,6 +36,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.io.File
+import java.net.URI
 
 /**
  * A simple [Fragment] subclass.
@@ -84,14 +93,55 @@ class WordFragment : Fragment() {
 
         // EVENT LISTENERS
         // PLAY MEDIA ON BUTTON CLICKED
+        val animatedVectorDrawable = AnimatedVectorDrawableCompat.create(
+            requireContext(),
+            R.drawable.animated_recording
+        )
         binding.audioButton.setOnClickListener {
-
+            val word = wordViewModel.word.value
+            val audioURL = word?.pronunciationReference
+            if (!audioURL.isNullOrEmpty()) {
+                val mediaPlayer = MediaPlayer().apply {
+                    setAudioAttributes(
+                        AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_MEDIA)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                            .setLegacyStreamType(AudioManager.STREAM_MUSIC)
+                            .build()
+                    )
+                    setDataSource(audioURL)
+                    prepareAsync()
+                }
+                mediaPlayer.setOnPreparedListener {
+                    it.start()
+                    binding.audioButton.setImageDrawable(animatedVectorDrawable)
+                    animatedVectorDrawable?.start()
+                    animatedVectorDrawable?.registerAnimationCallback(object: Animatable2Compat.AnimationCallback() {
+                        override fun onAnimationEnd(drawable: Drawable?) {
+                            super.onAnimationEnd(drawable)
+                            animatedVectorDrawable.start()
+                        }
+                    })
+                    binding.audioButton.isClickable = false
+                }
+                mediaPlayer.setOnCompletionListener {
+                    binding.audioButton.setImageResource(R.drawable.play)
+                    binding.audioButton.isClickable = true
+                }
+            }
         }
 
 
         // BOOKMARK WORD ON BUTTON CLICKED
         binding.bookmarkWord.setOnClickListener {
             wordViewModel.toggleBookmarkWord()
+            wordViewModel.word.observe(viewLifecycleOwner, Observer { word ->
+                if (word.bookmarked) {
+                    snack(requireView(), getString(R.string.bookmarks_added))
+                } else {
+                    snack(requireView(), getString(R.string.bookmarks_removed))
+                }
+            })
         }
 
 
@@ -125,12 +175,6 @@ class WordFragment : Fragment() {
                 binding.buttonGroup.visibility = View.GONE
             } else if (status == FAILED) {
                 snack(requireView(), getString(R.string.word_approve_rejection_requirement_warning))
-            }
-        })
-
-        wordViewModel.bookmarked.observe(viewLifecycleOwner, Observer { bookmarked ->
-            if (bookmarked) {
-                snack(requireView(), getString(R.string.bookmarks_added))
             }
         })
 

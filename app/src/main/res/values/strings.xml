@@ -102,7 +102,7 @@
     <string name="english_equivalent">English Equivalent</string>
     <string name="eng_equivalent_desc">Word Synonym if expressed in English</string>
     <string name="word_transcription">Word Transcription</string>
-    <string name="no_recordings_yet">No recordings yet</string>
+    <string name="no_recordings_yet">No recording yet</string>
     <string name="submit">Submit</string>
     <string name="add">Add</string>
     <string name="duplicate_synonym_warning">%1$s has been added to Synonyms</string>
@@ -198,4 +198,7 @@
     <string name="danfo">Danfo</string>
     <string name="Account_deletion_prompt">Sorry you cannot delete your account at this time.</string>
     <string name="bookmarks_deletion_prompt">Sorry you cannot delete all bookmarks at this time.</string>
+    <string name="bookmarks_removed">Word has been removed from Bookmarks</string>
+    <string name="audio_recorded">Pronunciation Recorded</string>
+    <string name="hold_to_pronounce">Hold Button to Record Pronunciation</string>
 </resources>

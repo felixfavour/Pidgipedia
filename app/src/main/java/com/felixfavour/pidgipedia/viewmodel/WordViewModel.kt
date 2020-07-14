@@ -19,7 +19,6 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseFirestore = FirebaseFirestore.getInstance()
     private val database = WordDatabase.getInstance(application.applicationContext)!!
-    private val wordDao = database.getWordDao()
 
     private val _error = MutableLiveData<Throwable?>(null)
     val error: LiveData<Throwable?>

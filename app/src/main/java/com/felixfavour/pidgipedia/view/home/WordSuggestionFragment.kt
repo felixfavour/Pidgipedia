@@ -9,6 +9,7 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -37,6 +38,7 @@ import com.felixfavour.pidgipedia.util.Connection.LOADING
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.showSuccessDialog
 import com.felixfavour.pidgipedia.util.snack
+import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.viewmodel.WordSuggestionViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -56,6 +58,8 @@ class WordSuggestionFragment : Fragment() {
 
     private lateinit var binding: FragmentWordSuggestionBinding
     private lateinit var wordSuggestionViewModel: WordSuggestionViewModel
+    private lateinit var mediaRecorder: MediaRecorder
+    private lateinit var recordTimer: CountDownTimer
     private var isRecordingPermitted = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
     private var imageUri: Uri? = Uri.EMPTY
@@ -141,55 +145,42 @@ class WordSuggestionFragment : Fragment() {
 
         // Record User Pronunciation
         toggleRecordingInterface("gone")
-        binding.recordSound.setOnTouchListener { _, motionEvent ->
+        val path = "${requireContext().cacheDir.path}/audio.m4a"
+        binding.recordSound.setOnClickListener {
+            snack(requireView(), getString(R.string.hold_to_pronounce))
+        }
+        binding.recordSound.setOnLongClickListener {
 
             val isPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO)
             if (isPermissionGranted == PackageManager.PERMISSION_GRANTED) {
-                val path = "${requireContext().cacheDir.path}/audio.m4a"
 
-                val mediaRecorder = MediaRecorder().apply {
+                mediaRecorder = MediaRecorder().apply {
                     setAudioSource(MediaRecorder.AudioSource.MIC)
                     setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)
                     setOutputFile(path)
                 }
                 mediaRecorder.prepare()
-
-                try {
-                    when (motionEvent.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            mediaRecorder.start()
-                            toggleRecordingInterface("visible")
-                        }
-                        MotionEvent.ACTION_UP -> {
-                            toggleRecordingInterface("gone")
-                            mediaRecorder.stop()
-                        }
-                    }
-                } catch (ex: IllegalStateException) {
-
-                    snack(requireView(), "Voice Recording is no longer in Session")
-                    val recordedFile = File(requireContext().cacheDir, "-audio.m4a")
-                    if (recordedFile.exists()) {
-                        file = recordedFile
-                        val mediaPlayer = MediaPlayer().apply {
-//                            setAudioAttributes(
-//                                AudioAttributes.Builder()
-//                                    .setUsage(AudioAttributes.USAGE_MEDIA)
-//                                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-//                                    .setLegacyStreamType(AudioManager.STREAM_MUSIC)
-//                                    .build()
-//                            )
-//                            setDataSource(file.path)
-//                            prepareAsync()
-//                            start()
-                        }
-                    }
-                    /**
-                     * This exception is thrown if the recorder starts and stop immediately*/
-                }
+                mediaRecorder.start()
+                recordTimerInit()
+                toggleRecordingInterface("visible")
             }
             true
+        }
+
+        binding.stopRecord.setOnClickListener {
+            // Stop the Media Recorderr
+            mediaRecorder.stop()
+
+            // Assign the recording to a file
+            file = File(path)
+            if (file != null) {
+                if (file!!.exists()) {
+                    binding.wordPronounciationStatus.text = getString(R.string.audio_recorded)
+                }
+            }
+            recordTimer.cancel()
+            toggleRecordingInterface("gone")
         }
 
 
@@ -296,6 +287,7 @@ class WordSuggestionFragment : Fragment() {
 
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE) {
@@ -306,6 +298,7 @@ class WordSuggestionFragment : Fragment() {
             updateWordImageUI(imageStream)
         }
     }
+
 
     private fun updateWordImageUI(imageStream: InputStream?) {
         // Set Height of Layout
@@ -321,6 +314,7 @@ class WordSuggestionFragment : Fragment() {
         val image = Drawable.createFromStream(imageStream, getString(R.string.word_image))
         binding.wordImage.setImageDrawable(image)
     }
+
 
     private fun addWordPicture(view: View) {
         val intent = Intent().apply {
@@ -424,6 +418,19 @@ class WordSuggestionFragment : Fragment() {
                 }
             }
         }
+    }
+
+
+    private fun recordTimerInit() {
+        recordTimer = object: CountDownTimer(5500, 1000) {
+            override fun onTick(millisecond: Long) {
+                binding.timer.text = "00:0${millisecond.div(1000)}"
+            }
+
+            override fun onFinish() {
+                binding.stopRecord.performClick()
+            }
+        }.start()
     }
 
 }

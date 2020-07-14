@@ -163,7 +163,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:pointerIcon="copy" />
+                android:pointerIcon="copy"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <RelativeLayout

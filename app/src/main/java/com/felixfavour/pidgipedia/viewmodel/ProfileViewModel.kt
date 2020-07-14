@@ -1,5 +1,6 @@
 package com.felixfavour.pidgipedia.viewmodel
 
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -73,7 +74,7 @@ class ProfileViewModel: ViewModel() {
             }
     }
 
-    fun uploadProfilePicture(imageStream: InputStream?) {
+    fun uploadProfilePicture(imageStream: InputStream?, bitmap: ByteArray?) {
         if (imageStream != null) {
             firebaseStorage.getReference(PROFILE_IMAGES_REFERENCE+firebaseAuth.uid!!)
                 .putStream(imageStream).addOnSuccessListener { taskSnapshot ->
@@ -87,7 +88,21 @@ class ProfileViewModel: ViewModel() {
                     _status.value = FAILED
                     _error.value = exception
                 }
-        } else {
+        } else if (bitmap != null) {
+            firebaseStorage.getReference(PROFILE_IMAGES_REFERENCE+firebaseAuth.uid!!)
+                .putBytes(bitmap).addOnSuccessListener { taskSnapshot ->
+                    _status.value = SUCCESS
+                    taskSnapshot.storage.downloadUrl
+                        .addOnSuccessListener {downloadUrl ->
+                            updatePhotoURL(downloadUrl)
+                        }
+                }
+                .addOnFailureListener { exception ->
+                    _status.value = FAILED
+                    _error.value = exception
+                }
+        }
+        else {
             _status.value = FAILED
         }
     }
