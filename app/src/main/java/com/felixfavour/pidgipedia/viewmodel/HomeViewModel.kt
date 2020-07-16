@@ -68,7 +68,7 @@ class HomeViewModel : ViewModel() {
     fun loadUnapprovedWords() {
         val words = mutableListOf<Word>()
         firebaseFirestore.collection(SUGGESTED_WORDS)
-            .whereEqualTo("approved", false)
+            .orderBy("wordId", Query.Direction.DESCENDING)
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
                 querySnapshot.documents.forEach { document ->

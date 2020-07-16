@@ -104,7 +104,7 @@
 
                             <ImageButton
                                 android:id="@+id/shareBtn"
-                                style="@android:style/Widget.Material.Button.Borderless"
+                                style="?attr/actionButtonStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="4dp"

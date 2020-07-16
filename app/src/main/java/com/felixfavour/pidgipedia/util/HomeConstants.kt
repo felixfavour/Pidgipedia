@@ -3,6 +3,7 @@ package com.felixfavour.pidgipedia.util
 import com.google.firebase.firestore.Source
 
 object Pidgipedia {
+    const val APP_NAME = "Pidgipedia"
     const val WORD_DATABASE = "word_database"
     const val EVENTSTAMP = "eventstamp"
     const val HOME_MODAL = "home_more_modal_sheet"

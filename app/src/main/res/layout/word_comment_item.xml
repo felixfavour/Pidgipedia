@@ -34,7 +34,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:profileImage="@{eventstamp.humanEntityId}"
-                tools:srcCompat="@drawable/greta" />
+                app:srcCompat="@drawable/person" />
 
             <TextView
                 android:id="@+id/card_dummy_text"

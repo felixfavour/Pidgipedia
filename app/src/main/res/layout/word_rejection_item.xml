@@ -31,10 +31,10 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/image_rounded_corner"
                 android:padding="3dp"
-                app:profileImage="@{eventstamp.humanEntityId}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/greta" />
+                app:profileImage="@{eventstamp.humanEntityId}"
+                app:srcCompat="@drawable/person" />
 
             <TextView
                 android:id="@+id/card_dummy_text"

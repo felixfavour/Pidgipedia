@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -145,7 +146,7 @@ class WordSuggestionFragment : Fragment() {
 
         // Record User Pronunciation
         toggleRecordingInterface("gone")
-        val path = "${requireContext().cacheDir.path}/audio.m4a"
+        val path = "${requireContext().cacheDir.path}/audio.ts"
         binding.recordSound.setOnClickListener {
             snack(requireView(), getString(R.string.hold_to_pronounce))
         }
@@ -156,6 +157,9 @@ class WordSuggestionFragment : Fragment() {
 
                 mediaRecorder = MediaRecorder().apply {
                     setAudioSource(MediaRecorder.AudioSource.MIC)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_2_TS)
+                    }
                     setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)
                     setOutputFile(path)

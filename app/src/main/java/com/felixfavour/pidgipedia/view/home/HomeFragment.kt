@@ -3,11 +3,15 @@ package com.felixfavour.pidgipedia.view.home
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
+import androidx.core.view.children
 import androidx.core.view.forEach
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
@@ -16,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.felixfavour.pidgipedia.*
 import com.felixfavour.pidgipedia.databinding.FragmentHomeBinding
 import com.felixfavour.pidgipedia.entity.Eventstamp
@@ -39,8 +44,8 @@ class HomeFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentHomeBinding
 
-    companion object {
-        const val MARGIN = 4
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     @ExperimentalStdlibApi
@@ -76,7 +81,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-
         homeViewModel.status.observe(viewLifecycleOwner, Observer { status ->
             binding.swipeRefreshHome.isRefreshing = true
             when (status) {
@@ -88,6 +92,7 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+
 
         binding.swipeRefreshHome.setOnRefreshListener {
             homeViewModel.loadEventstamps()
@@ -109,6 +114,22 @@ class HomeFragment : Fragment() {
         })
 
         binding.appUpdatesList.layoutManager = CustomLayoutManager(requireContext())
+
+        binding.appUpdatesList.addItemDecoration(object: RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                super.getItemOffsets(outRect, view, parent, state)
+                outRect.bottom = MARGIN
+                outRect.top = MARGIN
+                outRect.left = MARGIN
+                outRect.right = MARGIN
+            }
+        })
+
         binding.appUpdatesList.adapter = HomeRecyclerViewAdapter(
             object: HomeRecyclerViewAdapter.HomeCardClickListener {
             override fun onHomeCardClick(view: View, eventstamp: Eventstamp) {
@@ -148,6 +169,10 @@ class HomeFragment : Fragment() {
 
         }
         )
+        var count = 0
+
+
+        binding.appUpdatesList
 
 
         // NAVIGATION
@@ -172,17 +197,6 @@ class HomeFragment : Fragment() {
         binding.wordOfTheDayCard.setOnClickListener {
             binding.learnMore.performClick()
         }
-//        binding.dismiss.setOnClickListener {
-//            binding.suggestWordCard.visibility = View.GONE
-//        }
-
-
-        // SHARE THE WORD
-        homeViewModel.wordOfTheDay.observe(viewLifecycleOwner, Observer {word->
-            binding.shareBtn.setOnClickListener {
-                shareWord(requireContext(), word)
-            }
-        })
 
         return binding.root
     }
@@ -223,6 +237,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+
     override fun onResume() {
         super.onResume()
         // REVEAL APP LOGO
@@ -234,13 +249,4 @@ class HomeFragment : Fragment() {
         activity.supportActionBar?.setDisplayShowHomeEnabled(false)
     }
 
-}
-
-/*
-* Custom Layout manager to set make recyclerView unscrollable */
-class CustomLayoutManager(context: Context) : LinearLayoutManager(context) {
-    override fun canScrollVertically(): Boolean {
-        val isScrollEnabled = false
-        return super.canScrollVertically() && isScrollEnabled
-    }
 }

@@ -1,18 +1,23 @@
 package com.felixfavour.pidgipedia.viewmodel
 
 import android.app.Application
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.*
 import com.felixfavour.pidgipedia.entity.RemoteUser
 import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.entity.WordDatabase
 import com.felixfavour.pidgipedia.util.Connection.FAILED
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
+import com.felixfavour.pidgipedia.util.Pidgipedia.AUDIO_REFERENCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
 import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
 import com.felixfavour.pidgipedia.util.Rank
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.io.File
 
 class WordViewModel(application: Application): AndroidViewModel(application) {
 
@@ -56,6 +61,12 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
             .get(SOURCE)
             .addOnSuccessListener { documentSnapshot ->
                 val wordSnapshot = documentSnapshot.toObject(Word::class.java)
+
+                // Download Audio immediately after collecting [Word] data
+                wordSnapshot?.let {
+                    if (!it.pronunciationReference.isNullOrEmpty())
+                        saveAudioLocal(it.pronunciationReference, it.wordId)
+                }
                 _word.value = wordSnapshot
             }
     }
@@ -119,6 +130,23 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
                 }
         } else {
             _status.value = FAILED
+        }
+    }
+
+    private fun saveAudioLocal(url: String, fileName: String) {
+        val context = getApplication<Application>().applicationContext
+        val file = File("${context.getExternalFilesDir(null)}/$AUDIO_REFERENCE", "$fileName.ts")
+
+        val downloadRequest = DownloadManager.Request(Uri.parse(url))
+        downloadRequest.apply {
+            setAllowedOverMetered(true)
+            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+            setDestinationInExternalFilesDir(context, null, "$AUDIO_REFERENCE/$fileName.ts")
+        }
+
+        if (!file.exists()) {
+            val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            downloadManager.enqueue(downloadRequest)
         }
     }
 

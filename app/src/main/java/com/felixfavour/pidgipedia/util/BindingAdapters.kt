@@ -74,20 +74,6 @@ fun populateWordList(recyclerView: RecyclerView, words: List<Word>?) {
 fun populateEventstampList(recyclerView: RecyclerView, eventstamps: List<Eventstamp>?) {
     /**
      *  RecyclerView item decoration to put a margin of 8dp above and below every item */
-   recyclerView.addItemDecoration(object: RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            super.getItemOffsets(outRect, view, parent, state)
-            outRect.bottom = MARGIN
-            outRect.top = MARGIN
-            outRect.left = MARGIN
-            outRect.right = MARGIN
-        }
-    })
     val adapter = recyclerView.adapter as HomeRecyclerViewAdapter
     adapter.submitList(eventstamps)
 }
@@ -125,34 +111,34 @@ fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
 
                             when {
                                 eventstamp.wordComment -> {
-                                    textView.text = textView.context.getString(
+                                    textView.text = textView.context.applicationContext.getString(
                                         R.string.word_comment_placeholder,
                                         primaryUser,
                                         secondaryUser
                                     )
                                 }
                                 eventstamp.commentResponse -> {
-                                    textView.text = textView.context.getString(
+                                    textView.text = textView.context.applicationContext.getString(
                                         R.string.comment_response_placeholder,
                                         primaryUser,
                                         secondaryUser
                                     )
                                 }
                                 eventstamp.suggested -> {
-                                    textView.text = textView.context.getString(
+                                    textView.text = textView.context.applicationContext.getString(
                                         R.string.word_suggestion_placeholder,
                                         primaryUser
                                     )
                                 }
                                 eventstamp.approved -> {
-                                    textView.text = textView.context.getString(
+                                    textView.text = textView.context.applicationContext.getString(
                                         R.string.word_approval_placeholder,
                                         primaryUser,
                                         secondaryUser
                                     )
                                 }
                                 eventstamp.rejected -> {
-                                    textView.text = textView.context.getString(
+                                    textView.text = textView.context.applicationContext.getString(
                                         R.string.word_rejection_placeholder,
                                         primaryUser,
                                         secondaryUser
@@ -165,7 +151,7 @@ fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
                 if (eventstamp.badgeRewardType != null || eventstamp.rankRewardType != null) {
                     when {
                         eventstamp.rankRewardType != null -> {
-                            textView.text = textView.context.getString(
+                            textView.text = textView.context.applicationContext.getString(
                                 R.string.rank_reward_placeholder,
                                 primaryUser,
                                 eventstamp.rankRewardType.let {
@@ -178,7 +164,7 @@ fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
                             )
                         }
                         eventstamp.badgeRewardType.toString().isNotEmpty() -> {
-                            textView.text = textView.context.getString(
+                            textView.text = textView.context.applicationContext.getString(
                                 R.string.badge_reward_placeholder,
                                 primaryUser,
                                 eventstamp.badgeRewardType
@@ -201,7 +187,7 @@ fun getProfileImage(imageView: ImageView, authorId: String?) {
 
                     Glide.with(imageView.context.applicationContext)
                         .load(user?.profileImageURL)
-                        .placeholder(R.drawable.person_outline)
+                        .placeholder(R.drawable.person)
                         .centerCrop()
                         .circleCrop()
                         .into(imageView)
@@ -289,7 +275,7 @@ fun hideUnnecessaryCommentActions(imageView: ImageView, comment: Comment?) {
 
 @BindingAdapter("blurBGImage")
 fun getBGImage(imageView: ImageView, url: String?) {
-    Glide.with(imageView.context)
+    Glide.with(imageView.context.applicationContext)
         .load(url)
         .placeholder(R.color.primaryColor)
         .transform(BlurTransformation(2, 3))
@@ -307,7 +293,7 @@ fun convertLongDate(textView: TextView, date: Long?) {
 
 @BindingAdapter("eventTime")
 fun eventStampDate(textView: TextView, date: Long?) {
-    val context = textView.context
+    val context = textView.context.applicationContext
     val dateThen = DateTime(date).toLocalDateTime()
     val dateNow = DateTime(System.currentTimeMillis()).toLocalDateTime()
 
@@ -403,7 +389,7 @@ fun eventStampDate(textView: TextView, date: Long?) {
 
 //@BindingAdapter("rankPlaceholder")
 //fun getRankTextForHomeScreen(textView: TextView, rank: Long?) {
-//    val context = textView.context
+//    val context = textView.context.applicationContext
 //    when (rank) {
 //        1L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_1)
 //        2L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_2)
@@ -487,7 +473,7 @@ fun getSentencesText(textView: TextView, sentences: List<String>?) {
 @BindingAdapter("wodImage")
 fun getWODImage(imageView: ImageView, url: String?) {
     // ROUND IMAGE CORNERS
-    Glide.with(imageView.context)
+    Glide.with(imageView.context.applicationContext)
         .load(url)
         .placeholder(R.drawable.no_internet_image)
         .apply(RequestOptions().transform(RoundedCorners(128)))
@@ -497,7 +483,7 @@ fun getWODImage(imageView: ImageView, url: String?) {
 
 @BindingAdapter("wordImage")
 fun getWordImage(imageView: ImageView, url: String?) {
-    Glide.with(imageView.context)
+    Glide.with(imageView.context.applicationContext)
         .load(url)
         .placeholder(R.drawable.no_internet_image)
         .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16)))

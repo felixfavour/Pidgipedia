@@ -1,10 +1,13 @@
 package com.felixfavour.pidgipedia.view.home
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.media.AudioAttributes
 import android.media.AudioManager
+import android.media.MediaDataSource
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +32,9 @@ import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentWordBinding
 import com.felixfavour.pidgipedia.util.Connection.FAILED
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
+import com.felixfavour.pidgipedia.util.Pidgipedia
+import com.felixfavour.pidgipedia.util.Pidgipedia.APP_NAME
+import com.felixfavour.pidgipedia.util.Pidgipedia.AUDIO_REFERENCE
 import com.felixfavour.pidgipedia.util.shareWord
 import com.felixfavour.pidgipedia.util.snack
 import com.felixfavour.pidgipedia.viewmodel.WordViewModel
@@ -37,6 +43,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
+import java.io.FileDescriptor
+import java.io.FileInputStream
 import java.net.URI
 
 /**
@@ -99,7 +107,9 @@ class WordFragment : Fragment() {
         )
         binding.audioButton.setOnClickListener {
             val word = wordViewModel.word.value
+            val audioFile = File("${requireContext().getExternalFilesDir(null)}/$AUDIO_REFERENCE", "${word?.wordId}.ts")
             val audioURL = word?.pronunciationReference
+
             if (!audioURL.isNullOrEmpty()) {
                 val mediaPlayer = MediaPlayer().apply {
                     setAudioAttributes(
@@ -109,7 +119,12 @@ class WordFragment : Fragment() {
                             .setLegacyStreamType(AudioManager.STREAM_MUSIC)
                             .build()
                     )
-                    setDataSource(audioURL)
+                    audioFile.let {
+                        if (it.exists())
+                            setDataSource(FileInputStream(audioFile).fd)
+                        else
+                            setDataSource(audioURL)
+                    }
                     prepareAsync()
                 }
                 mediaPlayer.setOnPreparedListener {
