@@ -18,7 +18,8 @@ data class RemoteUser(
     val approvedWords: List<String> = emptyList(),
     val highestScore: Long = 0L,
     val profileImageURL: String = "",
-    val username: String = ""
+    val username: String = "",
+    val bookmarks: List<String> = emptyList()
 ): Parcelable {
 
     override fun equals(other: Any?): Boolean {

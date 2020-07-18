@@ -47,21 +47,19 @@ class WordSuggestionViewModel: ViewModel() {
         }
     }
 
-    private fun uploadWordImage(word: Word, imageUri: Uri?) {
-        if (imageUri != null){
-            storage.getReference("$WORD_IMAGES_REFERENCE$docId.jpg")
-                .putFile(imageUri)
-                .addOnSuccessListener { taskSnapshot ->
-                    taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
-                        firestore.collection(SUGGESTED_WORDS).document(docId).update(
-                            mapOf("imageReference" to uri.toString())
-                        )
-                    }
+    private fun uploadWordImage(word: Word, image: ByteArray) {
+        storage.getReference("$WORD_IMAGES_REFERENCE$docId.jpg")
+            .putBytes(image)
+            .addOnSuccessListener { taskSnapshot ->
+                taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
+                    firestore.collection(SUGGESTED_WORDS).document(docId).update(
+                        mapOf("imageReference" to uri.toString())
+                    )
                 }
-        }
+            }
     }
 
-    fun uploadSuggestedWord(word: Word, audioUri: Uri?, imageUri: Uri?) {
+    fun uploadSuggestedWord(word: Word, audioUri: Uri?, image: ByteArray) {
         _status.value = LOADING
 
         // Get the number of words available
@@ -73,7 +71,7 @@ class WordSuggestionViewModel: ViewModel() {
                 firestore.collection(SUGGESTED_WORDS).document(docId).set(word)
                     .addOnSuccessListener {
                         uploadWordAudio(word, audioUri)
-                        uploadWordImage(word, imageUri)
+                        uploadWordImage(word, image)
                         _status.value = SUCCESS
                     }.addOnFailureListener { exception ->
                         _status.value = FAILED

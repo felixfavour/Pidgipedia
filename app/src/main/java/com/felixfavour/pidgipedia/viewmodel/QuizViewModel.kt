@@ -19,6 +19,10 @@ class QuizViewModel : ViewModel() {
             loadHighScore()
         }
 
+    private val _status = MutableLiveData<Int>()
+    val status: LiveData<Int>
+        get() = _status
+
     private val _rank = MutableLiveData<Long>()
     val rank: LiveData<Long>
         get() = _rank.apply {

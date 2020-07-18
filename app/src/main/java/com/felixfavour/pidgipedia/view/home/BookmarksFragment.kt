@@ -67,7 +67,6 @@ class BookmarksFragment : Fragment() {
     /*
     * Method to update UI, specifically Views Visibility when recycler view wordList is empty*/
     private fun updateUI(words: List<Word>) {
-        val adapter = binding.bookmarksList.adapter as WordListAdapter
         if (words.isEmpty()) {
             binding.noBookmarksLayout.visibility = View.VISIBLE
         } else {

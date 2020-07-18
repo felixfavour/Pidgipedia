@@ -74,7 +74,10 @@ class GameViewModel: ViewModel() {
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
                 val quizzes = querySnapshot.toObjects(Quiz::class.java)
-                _quiz.value = quizzes[0]
+                if (quizzes.isNotEmpty()) {
+                    _quiz.value = quizzes[0]
+                }
+                _status
             }
     }
 

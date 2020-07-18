@@ -4,15 +4,15 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
-import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
@@ -37,15 +37,15 @@ import com.felixfavour.pidgipedia.databinding.FragmentWordSuggestionBinding
 import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.util.Connection.LOADING
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
+import com.felixfavour.pidgipedia.util.resizeImage
 import com.felixfavour.pidgipedia.util.showSuccessDialog
 import com.felixfavour.pidgipedia.util.snack
-import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.viewmodel.WordSuggestionViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
+import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.InputStream
 
 /**
  * A simple [Fragment] subclass.
@@ -63,7 +63,7 @@ class WordSuggestionFragment : Fragment() {
     private lateinit var recordTimer: CountDownTimer
     private var isRecordingPermitted = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
-    private var imageUri: Uri? = Uri.EMPTY
+    private var imageByteArray: ByteArray? = null
     private var file: File? = null
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
@@ -159,8 +159,9 @@ class WordSuggestionFragment : Fragment() {
                     setAudioSource(MediaRecorder.AudioSource.MIC)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         setOutputFormat(MediaRecorder.OutputFormat.MPEG_2_TS)
+                    } else {
+                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     }
-                    setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                     setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)
                     setOutputFile(path)
                 }
@@ -244,9 +245,9 @@ class WordSuggestionFragment : Fragment() {
             )
 
             if (file != null) {
-                wordSuggestionViewModel.uploadSuggestedWord(suggestedWord, Uri.fromFile(file), imageUri)
+                wordSuggestionViewModel.uploadSuggestedWord(suggestedWord, Uri.fromFile(file), imageByteArray!!)
             } else {
-                wordSuggestionViewModel.uploadSuggestedWord(suggestedWord, null, imageUri)
+                wordSuggestionViewModel.uploadSuggestedWord(suggestedWord, null, imageByteArray!!)
             }
         }
 
@@ -296,15 +297,22 @@ class WordSuggestionFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE) {
             // Collect Image Data into an input stream
-            imageUri = data?.data
             val imageStream = requireContext().contentResolver.openInputStream(data?.data!!)
 
-            updateWordImageUI(imageStream)
+            val bitmap = BitmapFactory.decodeStream(imageStream)
+            val bitmapComp = resizeImage(bitmap)
+            val bitmapStream = ByteArrayOutputStream().also {
+                bitmapComp.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            }
+
+            imageByteArray = bitmapStream.toByteArray()
+
+            updateWordImageUI(bitmap)
         }
     }
 
 
-    private fun updateWordImageUI(imageStream: InputStream?) {
+    private fun updateWordImageUI(bitmap: Bitmap) {
         // Set Height of Layout
         binding.addPicture.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
         binding.addPicture.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
@@ -315,8 +323,7 @@ class WordSuggestionFragment : Fragment() {
         marginParams.setMargins(8)
         binding.addPicture.requestLayout()
 
-        val image = Drawable.createFromStream(imageStream, getString(R.string.word_image))
-        binding.wordImage.setImageDrawable(image)
+        binding.wordImage.setImageBitmap(bitmap)
     }
 
 

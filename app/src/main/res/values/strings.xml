@@ -113,6 +113,7 @@
     <string name="syllabic_division_example"><b>For example: </b>"dan-fo"</string>
     <string name="syllabic_division">Syllabic Division</string>
     <string name="comment_response_placeholder"><b>%1$s</b> replied <b>%2$s</b>\'s comment</string>
+    <string name="comment_response_placeholder2"><b>%1$s</b> replied your comment</string>
     <string name="word_comment_placeholder"><b>%1$s</b> commented on a word <b>%2$s</b> suggested</string>
     <string name="word_approval_placeholder"><b>%1$s</b> approved the word <b>%2$s</b> suggested</string>
     <string name="word_suggestion_placeholder"><b>%1$s</b> suggested a Word</string>
@@ -196,9 +197,11 @@
     <string name="bookmarks_added">Word has been added to bookmarks</string>
     <string name="change">Change</string>
     <string name="danfo">Danfo</string>
-    <string name="Account_deletion_prompt">Sorry you cannot delete your account at this time.</string>
-    <string name="bookmarks_deletion_prompt">Sorry you cannot delete all bookmarks at this time.</string>
+    <string name="Account_deletion_prompt">Sorry. You cannot delete your account at this time.</string>
+    <string name="bookmarks_deletion_prompt">Sorry. You cannot delete all bookmarks at this time.</string>
     <string name="bookmarks_removed">Word has been removed from Bookmarks</string>
     <string name="audio_recorded">Pronunciation Recorded</string>
     <string name="hold_to_pronounce">Hold Button to Record Pronunciation</string>
+    <string name="quiz_internet_error">Sorry. You cannot enjoy the quiz at this time, you would need to connect to the internet.</string>
+    <string name="no_internet">No Internet</string>
 </resources>

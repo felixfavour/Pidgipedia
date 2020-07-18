@@ -31,11 +31,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:authorName="@{comment.authorId}"
             android:textColor="@color/primaryTextColor"
+            app:authorName="@{comment.authorId}"
             app:layout_constraintBottom_toBottomOf="@+id/author_image"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/time"
             app:layout_constraintStart_toEndOf="@+id/author_image"
             app:layout_constraintTop_toTopOf="@+id/author_image"
             app:layout_constraintVertical_bias="0.0"
@@ -46,14 +45,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{comment.commentContent}"
-            app:layout_constraintEnd_toEndOf="@+id/comment_author"
+            app:layout_constraintEnd_toEndOf="@+id/time"
             app:layout_constraintStart_toStartOf="@+id/comment_author"
             app:layout_constraintTop_toBottomOf="@+id/comment_author"
             tools:text="This is a lovely placeholder comment, I am sure you really love it." />
 
         <ImageButton
             android:id="@+id/delete_comment"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            style="?attr/actionButtonStyle"
+            android:maxHeight="20dp"
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             app:commentActionVisibility="@{comment}"
@@ -72,7 +72,8 @@
             android:id="@+id/edit_comment"
             android:background="?actionBarItemBackground"
             android:visibility="gone"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            style="?attr/actionButtonStyle"
+            android:maxHeight="20dp"
             android:layout_width="20dp"
             app:commentActionVisibility="@{comment}"
             android:layout_height="wrap_content"
@@ -101,6 +102,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comment_text"
             app:srcCompat="@drawable/reply" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textSize="@dimen/small_text"
+            app:commentTime="@{comment.dateCreated}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/author_image"
+            tools:text="1h" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

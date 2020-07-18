@@ -639,7 +639,7 @@
             android:backgroundTint="@color/primaryColor"
             android:clickable="true"
             android:focusable="true"
-            
+
             android:tint="@color/primaryColor"
             app:fabSize="auto"
             app:layout_anchorGravity="bottom|right|end"

@@ -32,7 +32,7 @@ data class Word(
     val lastUpdated: Long = 0L,
     val approved: Boolean = false,
     val rejected: Boolean = false,
-    val bookmarked: Boolean = false,
+    val derogatory: Boolean = false,
     val approvedAuthorId:String = "",
     val wordOfTheDay_date: Long = 0L,
     val comments: List<String> = emptyList()

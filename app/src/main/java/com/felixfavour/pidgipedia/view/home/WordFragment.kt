@@ -150,13 +150,6 @@ class WordFragment : Fragment() {
         // BOOKMARK WORD ON BUTTON CLICKED
         binding.bookmarkWord.setOnClickListener {
             wordViewModel.toggleBookmarkWord()
-            wordViewModel.word.observe(viewLifecycleOwner, Observer { word ->
-                if (word.bookmarked) {
-                    snack(requireView(), getString(R.string.bookmarks_added))
-                } else {
-                    snack(requireView(), getString(R.string.bookmarks_removed))
-                }
-            })
         }
 
 

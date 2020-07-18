@@ -16,6 +16,7 @@ import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
 import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
 import com.felixfavour.pidgipedia.util.Rank
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.io.File
 
@@ -29,7 +30,7 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
     val error: LiveData<Throwable?>
         get() = _error
 
-    private val _bookmarked = MutableLiveData<Boolean>()
+    private val _bookmarked = MutableLiveData<Boolean>(false)
     val bookmarked: LiveData<Boolean>
         get() = _bookmarked
 
@@ -68,31 +69,52 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
                         saveAudioLocal(it.pronunciationReference, it.wordId)
                 }
                 _word.value = wordSnapshot
+                isWordBookmarked(wordSnapshot)
             }
     }
 
 
     fun toggleBookmarkWord() {
         /**
-         * [wordLocal] is the value of word but the name is changed so as to bypass
+         * [wordLocal] is the value of [word] but the name is changed so as to bypass
          * similarity and conflict between variable names.*/
+        /**
+         * [bookmarkedLocal] is the value of [bookmarked] but the name is changed so as to bypass
+         * similarity and conflict between variable names.*/
+
         val wordLocal = word.value
+        val bookmarkedLocal = bookmarked.value
+
         if (wordLocal != null) {
-            if (wordLocal.bookmarked) {
-                firebaseFirestore.collection(SUGGESTED_WORDS).document(wordLocal.wordId)
-                    .update("bookmarked", false)
-                    .addOnSuccessListener {
-                        _bookmarked.value = true
-                        loadWord(wordLocal.wordId)
-                    }
-            } else {
-                firebaseFirestore.collection(SUGGESTED_WORDS).document(wordLocal.wordId)
-                    .update("bookmarked", true)
-                    .addOnSuccessListener {
-                        loadWord(wordLocal.wordId)
-                    }
+            // Check If word Id is in bookmarks
+            if (bookmarkedLocal != null) {
+                if (!bookmarkedLocal) {
+                    // Add Word Id to bookmarked Words
+                    firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
+                        .update("bookmarks", FieldValue.arrayUnion(wordLocal.wordId))
+                        .addOnSuccessListener {
+                            _bookmarked.value = true
+                            loadWord(wordLocal.wordId)
+                        }
+                }
+
             }
         }
+    }
+
+
+    private fun isWordBookmarked(word: Word?) {
+
+        if (word != null) {
+            // Check If word Id is in bookmarks
+            firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
+                .get(SOURCE)
+                .addOnSuccessListener { documentSnapshot ->
+                    val bookmarks = documentSnapshot["bookmarks"] as List<String>?
+                    _bookmarked.value = bookmarks?.contains(word.wordId)
+                }
+        }
+
     }
 
 

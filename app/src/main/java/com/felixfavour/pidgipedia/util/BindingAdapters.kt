@@ -118,11 +118,18 @@ fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
                                     )
                                 }
                                 eventstamp.commentResponse -> {
-                                    textView.text = textView.context.applicationContext.getString(
-                                        R.string.comment_response_placeholder,
-                                        primaryUser,
-                                        secondaryUser
-                                    )
+                                    if (secondaryUser == "you") {
+                                        textView.text = textView.context.applicationContext.getString(
+                                            R.string.comment_response_placeholder2,
+                                            primaryUser
+                                        )
+                                    } else {
+                                        textView.text = textView.context.applicationContext.getString(
+                                            R.string.comment_response_placeholder,
+                                            primaryUser,
+                                            secondaryUser
+                                        )
+                                    }
                                 }
                                 eventstamp.suggested -> {
                                     textView.text = textView.context.applicationContext.getString(
@@ -246,6 +253,9 @@ fun isWordBookmarked(imageButton: ImageButton, bookmarked: Boolean?) {
             val drawable = imageButton.context.getDrawable(R.drawable.bookmark_border)
             imageButton.setImageDrawable(drawable)
         }
+    } else {
+        val drawable = imageButton.context.getDrawable(R.drawable.bookmark_border)
+        imageButton.setImageDrawable(drawable)
     }
 }
 
@@ -332,9 +342,9 @@ fun eventStampDate(textView: TextView, date: Long?) {
         } else {
             // Condition if the two events occurred in the same month
             val dayDifference = dateNow.dayOfMonth - dateThen.dayOfMonth
+            val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
             if (dayDifference in 0..1) {
                 // Conditon if the two events occured in the same day
-                val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
                 if (hourDiffference == 0) {
                     // Conditon if the two events occured in the same hour
                     val minuteDifference = dateNow.minuteOfHour - dateThen.minuteOfHour
@@ -367,18 +377,93 @@ fun eventStampDate(textView: TextView, date: Long?) {
                     textView.text = context.getString(R.string.hours_ago, hourDiffference + 24)
                 }
             }
-            else if (dayDifference == 1) {
+            else if (dayDifference == 1 && hourDiffference > 0) {
                 textView.text = context.getString(R.string.a_day_ago)
-            }
-            else if (dayDifference == Calendar.DAY_OF_WEEK) {
-                textView.text = context.getString(R.string.a_week_ago)
             }
             else if (dayDifference in 2..6) {
                 textView.text = context.getString(R.string.days_ago, dayDifference)
             }
             else {
-                val weeksInDay = dayDifference % Calendar.DAY_OF_WEEK
-                textView.text = context.getString(R.string.weeks_ago, weeksInDay)
+                val weeksInDay = (dayDifference / Calendar.DAY_OF_WEEK)
+                if (weeksInDay == 1) {
+                    textView.text = context.getString(R.string.a_week_ago)
+                }
+                else if (weeksInDay in 2..5) {
+                    textView.text = context.getString(R.string.weeks_ago, weeksInDay)
+                }
+            }
+        }
+
+    }
+
+}
+
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("commentTime")
+fun commentDate(textView: TextView, date: Long?) {
+    val context = textView.context.applicationContext
+    val dateThen = DateTime(date).toLocalDateTime()
+    val dateNow = DateTime(System.currentTimeMillis()).toLocalDateTime()
+
+    /*
+    * Condition if the two events occurred in different years and in
+    * a span of 12 months*/
+    if ((dateNow.year != dateThen.year) && (dateNow.monthOfYear >= MONTHS_IN_A_YEAR)) {
+        val yearDifference = dateNow.year - dateThen.year
+        textView.text = "${yearDifference}y"
+    } else {
+        // Condition if the two events occurred in the same year
+
+        if (dateNow.monthOfYear != dateThen.monthOfYear) {
+            var monthDifference = dateNow.monthOfYear - dateThen.monthOfYear
+
+            /*
+            * Having considered a dreadful anomaly in Month difference; in the sense that,
+            * months are usually aligned in the range 1 to 12 and each 1 to 12 number is
+            * assigned to a year, meaning checking the difference in months in different years could
+            * create an anomaly and give a negative value. Hence, monthDifference coud be
+            * referred to as the below*/
+            if (dateNow.year != dateThen.year)
+                monthDifference = dateNow.monthOfYear + (MONTHS_IN_A_YEAR - dateThen.monthOfYear)
+
+            if (monthDifference > 0) {
+                textView.text = "${monthDifference}m"
+            }
+        } else {
+            // Condition if the two events occurred in the same month
+            val dayDifference = dateNow.dayOfMonth - dateThen.dayOfMonth
+            val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
+            if (dayDifference in 0..1) {
+                // Conditon if the two events occured in the same day
+                if (hourDiffference == 0) {
+                    // Conditon if the two events occured in the same hour
+                    val minuteDifference = dateNow.minuteOfHour - dateThen.minuteOfHour
+                    if (minuteDifference in 0..1) {
+                        val secondsDifference = dateNow.secondOfMinute - dateThen.secondOfMinute
+                        if (secondsDifference > 0) {
+                            textView.text = "${secondsDifference}s"
+                        } else {
+                            textView.text = "${secondsDifference+60}s"
+                        }
+                    }
+                    else {
+                        textView.text = "${minuteDifference}m"
+                    }
+
+                }
+                else if (hourDiffference in 1..23) {
+                    textView.text = "${hourDiffference}h"
+                } else if (hourDiffference < 0) {
+                    textView.text = "${hourDiffference + 24}h"
+                }
+            }
+            else if (dayDifference in 2..6) {
+                textView.text = "${dayDifference}d"
+            }
+            else {
+                val weeksInDay = (dayDifference / Calendar.DAY_OF_WEEK)
+                textView.text = "${weeksInDay}w"
             }
         }
 

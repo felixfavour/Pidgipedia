@@ -41,7 +41,7 @@ class OnboardingActivity : AppCompatActivity() {
 
         createNotificationChannel(applicationContext)
 
-        checkInternetConnectivity()
+        checkInternetConnectivity(applicationContext)
 
         // The color code matches the primaryLightColor resource
         window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.primaryColorLightConstant)
@@ -59,7 +59,6 @@ class OnboardingActivity : AppCompatActivity() {
             getAppTheme(applicationContext, null)
         } else {
             onboardingUI()
-            sharedPref.edit().putBoolean(ONBOARDING_PREFERENCE, true).commit()
         }
     }
 
@@ -72,57 +71,6 @@ class OnboardingActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, AuthenticationActivity::class.java)
             startActivity(intent)
             finishAffinity()
-        }
-    }
-
-    private fun checkInternetConnectivity() {
-
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val request = NetworkRequest.Builder()
-            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            .build()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            connectivityManager.requestNetwork(request, object: ConnectivityManager.NetworkCallback() {
-                override fun onAvailable(network: Network) {
-                    super.onAvailable(network)
-                    Pidgipedia.SOURCE = Source.DEFAULT
-                }
-
-                override fun onUnavailable() {
-                    super.onUnavailable()
-                    Pidgipedia.SOURCE = Source.CACHE
-                    findViewById<View>(R.id.main_activity_layout).apply {
-                        if (this != null)
-                            snack(this, getString(R.string.no_internet_access))
-                    }
-                }
-
-                override fun onLost(network: Network) {
-                    super.onLost(network)
-                    Pidgipedia.SOURCE = Source.CACHE
-                    findViewById<View>(R.id.onboarding_activity_layout).apply {
-                        if (this != null)
-                            snack(this, getString(R.string.internet_unstable))
-                    }
-                }
-            }, 5000)
-        } else {
-            connectivityManager.requestNetwork(request, object: ConnectivityManager.NetworkCallback() {
-                override fun onAvailable(network: Network) {
-                    super.onAvailable(network)
-                    Pidgipedia.SOURCE = Source.DEFAULT
-                }
-
-                override fun onLost(network: Network) {
-                    super.onLost(network)
-                    Pidgipedia.SOURCE = Source.CACHE
-                    findViewById<View>(R.id.onboarding_activity_layout).apply {
-                        if (this != null)
-                            snack(this, context.getString(R.string.internet_unstable))
-                    }
-                }
-            })
         }
     }
 

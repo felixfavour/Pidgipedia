@@ -19,6 +19,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
+import com.felixfavour.pidgipedia.util.checkInternetConnectivity
 import com.felixfavour.pidgipedia.util.snack
 import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.viewmodel.MainActivityViewModel
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_main)
+
+        checkInternetConnectivity(applicationContext)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
