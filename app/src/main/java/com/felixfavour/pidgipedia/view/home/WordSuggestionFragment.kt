@@ -4,13 +4,15 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
-import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
@@ -23,6 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.forEach
 import androidx.core.view.get
+import androidx.core.view.setMargins
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -34,14 +37,15 @@ import com.felixfavour.pidgipedia.databinding.FragmentWordSuggestionBinding
 import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.util.Connection.LOADING
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
+import com.felixfavour.pidgipedia.util.resizeImage
 import com.felixfavour.pidgipedia.util.showSuccessDialog
 import com.felixfavour.pidgipedia.util.snack
 import com.felixfavour.pidgipedia.viewmodel.WordSuggestionViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
+import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.InputStream
 
 /**
  * A simple [Fragment] subclass.
@@ -55,9 +59,11 @@ class WordSuggestionFragment : Fragment() {
 
     private lateinit var binding: FragmentWordSuggestionBinding
     private lateinit var wordSuggestionViewModel: WordSuggestionViewModel
+    private lateinit var mediaRecorder: MediaRecorder
+    private lateinit var recordTimer: CountDownTimer
     private var isRecordingPermitted = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
-    private var imageUri: Uri? = Uri.EMPTY
+    private var imageByteArray: ByteArray? = null
     private var file: File? = null
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
@@ -140,55 +146,46 @@ class WordSuggestionFragment : Fragment() {
 
         // Record User Pronunciation
         toggleRecordingInterface("gone")
-        binding.recordSound.setOnTouchListener { _, motionEvent ->
+        val path = "${requireContext().cacheDir.path}/audio.ts"
+        binding.recordSound.setOnClickListener {
+            snack(requireView(), getString(R.string.hold_to_pronounce))
+        }
+        binding.recordSound.setOnLongClickListener {
 
             val isPermissionGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO)
             if (isPermissionGranted == PackageManager.PERMISSION_GRANTED) {
-                val path = "${requireContext().cacheDir.path}/audio.m4a"
 
-                val mediaRecorder = MediaRecorder().apply {
+                mediaRecorder = MediaRecorder().apply {
                     setAudioSource(MediaRecorder.AudioSource.MIC)
-                    setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_2_TS)
+                    } else {
+                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                    }
                     setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB)
                     setOutputFile(path)
                 }
                 mediaRecorder.prepare()
-
-                try {
-                    when (motionEvent.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            mediaRecorder.start()
-                            toggleRecordingInterface("visible")
-                        }
-                        MotionEvent.ACTION_UP -> {
-                            toggleRecordingInterface("gone")
-                            mediaRecorder.stop()
-                        }
-                    }
-                } catch (ex: IllegalStateException) {
-
-                    snack(requireView(), "Voice Recording is no longer in Session")
-                    val recordedFile = File(requireContext().cacheDir, "-audio.m4a")
-                    if (recordedFile.exists()) {
-                        file = recordedFile
-                        val mediaPlayer = MediaPlayer().apply {
-//                            setAudioAttributes(
-//                                AudioAttributes.Builder()
-//                                    .setUsage(AudioAttributes.USAGE_MEDIA)
-//                                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-//                                    .setLegacyStreamType(AudioManager.STREAM_MUSIC)
-//                                    .build()
-//                            )
-//                            setDataSource(file.path)
-//                            prepareAsync()
-//                            start()
-                        }
-                    }
-                    /**
-                     * This exception is thrown if the recorder starts and stop immediately*/
-                }
+                mediaRecorder.start()
+                recordTimerInit()
+                toggleRecordingInterface("visible")
             }
             true
+        }
+
+        binding.stopRecord.setOnClickListener {
+            // Stop the Media Recorderr
+            mediaRecorder.stop()
+
+            // Assign the recording to a file
+            file = File(path)
+            if (file != null) {
+                if (file!!.exists()) {
+                    binding.wordPronounciationStatus.text = getString(R.string.audio_recorded)
+                }
+            }
+            recordTimer.cancel()
+            toggleRecordingInterface("gone")
         }
 
 
@@ -217,6 +214,7 @@ class WordSuggestionFragment : Fragment() {
 
                 partOfSpeech = binding.partOfSpeech.selectedItem.toString(),
                 approved = false,
+                certified = false,
                 lastUpdated = System.currentTimeMillis(),
 
                 plural = binding.partOfSpeech.let {spinner ->
@@ -225,6 +223,11 @@ class WordSuggestionFragment : Fragment() {
                     return@let pluralForm
                 },
                 pronunciationReference = "",
+
+                derogatory = binding.derogatoryButtonGroup.checkedButtonId.let {checkedButton ->
+                    // If checkedButton is equal to the Yes Button ID, then it is true.
+                    checkedButton == R.id.derogatory_yes_selection
+                },
 
                 sentences = binding.sentencesChipGroup.let {
                     val sentences = mutableListOf<String>()
@@ -248,9 +251,9 @@ class WordSuggestionFragment : Fragment() {
             )
 
             if (file != null) {
-                wordSuggestionViewModel.uploadSuggestedWord(suggestedWord, Uri.fromFile(file), imageUri)
+                wordSuggestionViewModel.uploadSuggestedWord(suggestedWord, Uri.fromFile(file), imageByteArray!!)
             } else {
-                wordSuggestionViewModel.uploadSuggestedWord(suggestedWord, null, imageUri)
+                wordSuggestionViewModel.uploadSuggestedWord(suggestedWord, null, imageByteArray!!)
             }
         }
 
@@ -295,30 +298,40 @@ class WordSuggestionFragment : Fragment() {
 
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE) {
             // Collect Image Data into an input stream
-            imageUri = data?.data
             val imageStream = requireContext().contentResolver.openInputStream(data?.data!!)
 
-            updateWordImageUI(imageStream)
+            val bitmap = BitmapFactory.decodeStream(imageStream)
+            val bitmapComp = resizeImage(bitmap)
+            val bitmapStream = ByteArrayOutputStream().also {
+                bitmapComp.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            }
+
+            imageByteArray = bitmapStream.toByteArray()
+
+            updateWordImageUI(bitmap)
         }
     }
 
-    private fun updateWordImageUI(imageStream: InputStream?) {
+
+    private fun updateWordImageUI(bitmap: Bitmap) {
         // Set Height of Layout
-        binding.addPicture.layoutParams.height = 100
-        binding.addPicture.layoutParams.width = 100
+        binding.addPicture.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.addPicture.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.addPicture.text = getString(R.string.change)
 
         // Set Margins of Layout
         val marginParams = binding.addPicture.layoutParams as ViewGroup.MarginLayoutParams
-        marginParams.setMargins(0,0, 8, 8)
+        marginParams.setMargins(8)
         binding.addPicture.requestLayout()
 
-        val image = Drawable.createFromStream(imageStream, getString(R.string.word_image))
-        binding.wordImage.setImageDrawable(image)
+        binding.wordImage.setImageBitmap(bitmap)
     }
+
 
     private fun addWordPicture(view: View) {
         val intent = Intent().apply {
@@ -422,6 +435,19 @@ class WordSuggestionFragment : Fragment() {
                 }
             }
         }
+    }
+
+
+    private fun recordTimerInit() {
+        recordTimer = object: CountDownTimer(5500, 1000) {
+            override fun onTick(millisecond: Long) {
+                binding.timer.text = "00:0${millisecond.div(1000)}"
+            }
+
+            override fun onFinish() {
+                binding.stopRecord.performClick()
+            }
+        }.start()
     }
 
 }

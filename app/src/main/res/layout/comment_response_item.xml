@@ -20,6 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
             android:backgroundTint="@color/primaryColorLight"
             android:foreground="?android:attr/selectableItemBackground">
 
@@ -34,7 +35,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:profileImage="@{eventStamp.humanEntityId}"
-                tools:srcCompat="@drawable/greta" />
+                app:srcCompat="@drawable/person" />
 
             <TextView
                 android:id="@+id/card_dummy_text"
@@ -43,6 +44,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
+                android:text="@string/loading"
                 android:textColor="@color/primaryTextColor"
                 app:eventstampText="@{eventStamp}"
                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
@@ -73,10 +75,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/secondaryGreyColor"
                 android:fontFamily="@font/poppinsmedium"
                 android:gravity="center"
                 android:padding="16dp"
-                android:textColor="@android:color/white"
+                android:text="@string/ellipsis"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/paragraph_text"
                 app:comment="@{eventStamp.commentId}"
                 app:layout_constraintEnd_toEndOf="parent"

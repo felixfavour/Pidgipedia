@@ -30,6 +30,7 @@ import java.lang.IllegalArgumentException
 class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
     private lateinit var gameViewModel: GameViewModel
+    private lateinit var timer: CountDownTimer
 
     /**
      * So as to ensure that various callback responses of the [RadioGroup] OnCheckedChangeListener
@@ -64,7 +65,7 @@ class GameFragment : Fragment() {
             difficulty = Game.HARD
 
         val questionInterval = difficulty
-        val timer = object: CountDownTimer(questionInterval * 1000L, 1000) {
+        timer = object: CountDownTimer(questionInterval * 1000L, 1000) {
             override fun onTick(p0: Long) {
                 gameViewModel.updateTimer(p0)
             }
@@ -119,6 +120,13 @@ class GameFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    /**
+     * When the activity is no longer in view (destroyed) cancel the [timer]*/
+    override fun onDestroyView() {
+        super.onDestroyView()
+        timer.cancel()
     }
 
 

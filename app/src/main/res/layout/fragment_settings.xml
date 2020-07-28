@@ -26,6 +26,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="@{settingsViewModel.language}"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -44,7 +45,8 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView11"
-                app:singleSelection="true">
+                app:singleSelection="true"
+                tools:checkedButton="@id/light_theme_selection">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/dark_theme_selection"
@@ -86,11 +88,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView19"
-                app:singleSelection="true">
+                app:singleSelection="true"
+                tools:checkedButton="@id/hundred_selection">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/fifty_selection"
@@ -147,7 +151,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView20"
+                app:layout_constraintTop_toBottomOf="@id/miscellaneous_news"
                 app:srcCompat="@drawable/divider" />
 
             <ImageView
@@ -156,6 +160,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/secondaryGreyColor"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -234,7 +239,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider4" />
+                app:layout_constraintTop_toBottomOf="@+id/divider4"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -261,6 +267,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/history_size"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -335,6 +342,7 @@
                 android:text="@string/words_approved_channel"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -350,6 +358,7 @@
                 android:text="@string/comment_responses"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -366,6 +375,7 @@
                 android:text="@string/rank_promotion"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -405,15 +415,18 @@
                 style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:gravity="start"
                 android:padding="20dp"
                 android:text="@string/share_this_app"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/go_to_information" />
+                app:layout_constraintTop_toBottomOf="@+id/go_to_information"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/change_language"
@@ -425,6 +438,7 @@
                 android:text="@string/language"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -441,6 +455,7 @@
                 android:text="@string/delete_all_bookmarks"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -457,6 +472,7 @@
                 android:text="@string/delete_all_history"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -524,6 +540,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/words_approved"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/words_approved" />
@@ -542,6 +559,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/comment_responses"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/comment_responses" />
@@ -551,6 +569,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/rank_promotion"
                 app:layout_constraintEnd_toEndOf="@+id/rank_promotion"
                 app:layout_constraintTop_toTopOf="@+id/rank_promotion" />

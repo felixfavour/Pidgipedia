@@ -8,6 +8,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
@@ -17,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentSettingsBinding
 import com.felixfavour.pidgipedia.util.*
+import com.felixfavour.pidgipedia.util.Pidgipedia.BOOKMARKS_VISIBILITY
 import com.felixfavour.pidgipedia.viewmodel.SettingsViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -78,17 +80,17 @@ class SettingsFragment : Fragment() {
                 binding.lightThemeSelection.id -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     setAppTheme(AppTheme.LIGHT_THEME, requireContext())
-                    binding.lightThemeSelection.isChecked = true
+                    updatePreferencesUI()
                 }
                 binding.defaultThemeSelection.id -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                     setAppTheme(AppTheme.DEFAULT, requireContext())
-                    binding.defaultThemeSelection.isChecked = true
+                    updatePreferencesUI()
                 }
                 binding.darkThemeSelection.id -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     setAppTheme(AppTheme.DARK_THEME, requireContext())
-                    binding.darkThemeSelection.isChecked = true
+                    updatePreferencesUI()
                 }
             }
         }
@@ -109,7 +111,7 @@ class SettingsFragment : Fragment() {
                 .setTitle(getString(R.string.delete_account))
                 .setMessage(getString(R.string.delete_acct_message))
                 .setPositiveButton(getString(R.string.delete)) { _: DialogInterface, _: Int ->
-
+                    snack(requireView(), getString(R.string.Account_deletion_prompt))
                 }.setNegativeButton(getString(R.string.just_kidding), null).show()
         }
         binding.deleteAllHistory.setOnClickListener {
@@ -125,32 +127,36 @@ class SettingsFragment : Fragment() {
                 .setTitle(getString(R.string.delete_all_bookmarks))
                 .setMessage(getString(R.string.delete_bookmarks_message))
                 .setPositiveButton(getString(R.string.delete)) { _: DialogInterface, _: Int ->
-
+                    snack(requireView(), getString(R.string.bookmarks_deletion_prompt))
                 }.setNegativeButton(getString(R.string.just_kidding), null).show()
         }
-
+        updatePreferencesUI()
 
         return binding.root
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.settings_menu, menu)
-
-        menu.findItem(R.id.menu_add_account).setOnMenuItemClickListener {
-
-            false
-        }
-    }
-
-
-    fun updateUI() {
+    private fun updateUI() {
         binding.rankPromotion.setOnClickListener { binding.rankPromotionNotify.performClick() }
         binding.wordOfTheDay.setOnClickListener { binding.wordOfTheDayNotify.performClick()  }
         binding.commentResponses.setOnClickListener { binding.commentResponsesNotify.performClick() }
         binding.wordsApproved.setOnClickListener { binding.wordsApprovedNotify.performClick() }
         binding.miscellaneousNews.setOnClickListener { binding.miscellaneousNewsNotify.performClick() }
+    }
+
+
+    private fun updatePreferencesUI() {
+        when (sharedPreferences.getString(THEME_PREFERENCES, AppTheme.LIGHT_THEME)) {
+            AppTheme.LIGHT_THEME -> {
+                binding.lightThemeSelection.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondaryGreyColor))
+            }
+            AppTheme.DARK_THEME -> {
+                binding.darkThemeSelection.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondaryGreyColor))
+            }
+            AppTheme.DEFAULT -> {
+                binding.defaultThemeSelection.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.secondaryGreyColor))
+            }
+        }
     }
 
 
@@ -161,5 +167,6 @@ class SettingsFragment : Fragment() {
         activity.supportActionBar!!.setDisplayShowHomeEnabled(true)
         activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
+
 
 }

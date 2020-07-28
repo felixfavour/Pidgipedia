@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
 @Parcelize
-@Entity(tableName = "words")
+@Entity(tableName = "recentSearches")
 data class Word(
     @PrimaryKey(autoGenerate = true)
     val wordRoomId: Int = 0,
@@ -32,10 +32,14 @@ data class Word(
     val lastUpdated: Long = 0L,
     val approved: Boolean = false,
     val rejected: Boolean = false,
-    val bookmarked: Boolean = false,
+    val derogatory: Boolean = false,
+    val certified: Boolean = false,
     val approvedAuthorId:String = "",
     val wordOfTheDay_date: Long = 0L,
     val comments: List<String> = emptyList()
 ) : Parcelable {
-    constructor(word: Word, wordId: String) : this()
+
+    override fun toString(): String {
+        return this.name
+    }
 }

@@ -5,7 +5,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="150dp"
+        tools:layout_editor_absoluteY="-30dp">
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -21,11 +23,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageButton
+            android:id="@+id/stop_record"
+            style="?attr/actionButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_seperator"
+            android:elevation="10dp"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/timer"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/animated_recording"
+            app:srcCompat="@drawable/stop"
+            tools:visibility="gone" />
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"
+            tools:visibility="gone"></LinearLayout>
 
         <ImageView
             android:id="@+id/bg"
@@ -39,47 +59,76 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:color/black" />
+            app:srcCompat="@android:color/black"
+            tools:visibility="gone" />
 
         <ImageView
             android:id="@+id/animated_recording"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_marginBottom="8dp"
             android:elevation="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/stop_record"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/animated_recording" />
-
-        <TextView
-            android:id="@+id/dummy_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:elevation="3dp"
-            android:text="Remove finger to stop recording Audio"
-            android:textColor="#FFFFFF"
-            android:textSize="@dimen/small_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/animated_recording" />
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/animated_recording"
+            tools:visibility="gone" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            tools:layout_editor_absoluteX="-16dp"
+            tools:layout_editor_absoluteY="-16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/texts_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true">
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/derogatory_buttonGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    app:checkedButton="@id/derogatory_no_selection"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/derogatory_yes_selection"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/color_states_button_group"
+                        android:fontFamily="@font/poppinslight"
+                        android:text="@string/yes"
+                        android:textColor="@color/primaryColor"
+                        app:strokeColor="@color/primaryColorLight" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/derogatory_no_selection"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/color_states_button_group"
+                        android:fontFamily="@font/poppinslight"
+                        android:text="@string/no"
+                        android:textColor="@color/primaryColor"
+                        app:strokeColor="@color/primaryColorLight" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout_word_meaning"
@@ -243,13 +292,12 @@
 
                     <ImageButton
                         android:id="@+id/recordSound"
-                        style="@style/Widget.AppCompat.Button"
+                        style="?attr/actionButtonStyle"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:backgroundTint="@color/primaryColor"
-                        android:foreground="?attr/selectableItemBackground"
                         android:src="@drawable/voice_recorder"
-                        android:tint="@color/primaryWhiteColor"
+                        android:tint="@color/blackWhiteColor"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -408,7 +456,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_transcription">
+                    app:layout_constraintTop_toBottomOf="@+id/derogatory_buttonGroup">
 
                     <EditText
                         android:id="@+id/syllabic_division"
@@ -447,11 +495,15 @@
                         android:layout_height="150dp"
                         android:backgroundTint="@color/primaryColor"
                         android:elevation="2dp"
+                        android:gravity="center|start"
+                        android:paddingEnd="16dp"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
                         app:cornerRadius="16dp"
                         app:icon="@drawable/add_photo_white"
                         app:iconGravity="start"
-                        app:iconPadding="60dp"
                         app:iconSize="30dp"
+                        app:iconTint="@android:color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -474,9 +526,40 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout_pronounce" />
 
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/derogatory_warning"
+                    android:textSize="@dimen/line_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_transcription" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:elevation="10dp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="center|center_vertical"
+            android:textColor="@color/primaryWhiteColor"
+            android:textSize="44sp"
+            app:layout_constraintBottom_toBottomOf="@+id/stop_record"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/stop_record"
+            app:layout_constraintTop_toTopOf="@+id/stop_record"
+            tools:text="00:05" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

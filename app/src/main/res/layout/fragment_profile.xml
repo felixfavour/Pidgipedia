@@ -26,6 +26,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/bottom_sheet_shade"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shade_bg"
+                android:clickable="true"
+                android:elevation="10dp"
+                android:focusable="true"
+                android:visibility="invisible"
+                tools:visibility="visible" />
+
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
@@ -111,17 +122,6 @@
                             app:layout_constraintTop_toTopOf="@+id/profile_image"
                             tools:srcCompat="@drawable/ic_rank_contributor" />
 
-                        <ImageView
-                            android:id="@+id/bottom_sheet_shade"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/shade_bg"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:visibility="invisible"
-                            tools:layout_editor_absoluteX="0dp"
-                            tools:layout_editor_absoluteY="56dp" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -136,7 +136,8 @@
                 android:fillViewport="true"
                 app:layout_anchor="@+id/nestedScrollView"
                 app:layout_anchorGravity="center"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                tools:visibility="gone">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/profile_details_layout"
@@ -200,7 +201,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
-                        
+
                         app:layout_constraintBottom_toBottomOf="@+id/profile_email"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/email_address_dummy"
@@ -211,7 +212,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        
+
                         android:text="@{profileViewModel.user.email}"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
@@ -225,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        
+
                         android:text="@string/e_mail"
                         android:textSize="@dimen/small_text"
                         app:layout_constraintStart_toEndOf="@+id/email_icon"
@@ -258,12 +259,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        tools:text="Lagos, Nigeria"
                         android:text="@{profileViewModel.user.location}"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/location_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/location_dummy" />
+                        app:layout_constraintTop_toBottomOf="@+id/location_dummy"
+                        tools:text="Lagos, Nigeria" />
 
 
                     <TextView
@@ -293,14 +294,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginBottom="24dp"
-                        tools:text="5 Badges"
                         android:text="@{String.format(@string/badges_placeholder(profileViewModel.user.badges.size))}"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toTopOf="@+id/go_to_badges"
                         app:layout_constraintStart_toEndOf="@+id/badges_icon"
                         app:layout_constraintTop_toBottomOf="@+id/badges_dummy"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:text="5 Badges" />
 
                     <TextView
                         android:id="@+id/dob_dummy"
@@ -308,7 +309,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        
+
                         android:text="@string/date_of_birth"
                         android:textSize="@dimen/sub_text"
                         app:layout_constraintStart_toEndOf="@+id/dob_icon"
@@ -320,7 +321,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
                         android:layout_marginBottom="11dp"
-                        
+
                         app:layout_constraintBottom_toBottomOf="@+id/profile_dob"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/dob_dummy"
@@ -331,7 +332,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        
+
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/dob_icon"
@@ -399,12 +400,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        tools:text="Contributor"
-                        app:rank="@{profileViewModel.user.rank}"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
                         app:layout_constraintStart_toEndOf="@+id/rank_icon"
-                        app:layout_constraintTop_toBottomOf="@+id/rank_dummy" />
+                        app:layout_constraintTop_toBottomOf="@+id/rank_dummy"
+                        app:rank="@{profileViewModel.user.rank}"
+                        tools:text="Contributor" />
 
                     <ImageView
                         android:id="@+id/imageView9"
@@ -427,7 +428,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:background="@color/secondaryGreyColor"
-                        
+
                         app:layout_constraintBottom_toTopOf="@+id/badges_dummy"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -484,7 +485,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:background="@color/secondaryGreyColor"
-                        
+
                         app:layout_constraintBottom_toTopOf="@+id/location_dummy"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -501,9 +502,10 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="100dp"
                         android:drawableEnd="@drawable/chevron_right"
+                        android:drawableTint="@color/primaryColor"
                         android:gravity="start"
                         android:padding="8dp"
-                        
+
                         android:text="@string/badges"
                         android:textAllCaps="false"
                         android:textSize="@dimen/large_text"
@@ -522,11 +524,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bottomsheet"
-                tools:visibility="visible"
-                app:behavior_peekHeight="0dp"
+                android:elevation="10dp"
                 app:behavior_hideable="true"
+                app:behavior_peekHeight="0dp"
                 app:behavior_skipCollapsed="true"
-                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                tools:behavior_peekHeight="auto"
+                tools:visibility="visible">
 
                 <ImageView
                     android:id="@+id/imageView6"
@@ -534,13 +538,12 @@
                     android:layout_height="2dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@color/primaryGreyColor"
+                    android:background="@color/secondaryGreyColor"
                     app:layout_constraintBottom_toBottomOf="@+id/add_picture_files"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/delete_picture"
-                    app:srcCompat="@drawable/divider" />
+                    app:layout_constraintTop_toTopOf="@+id/delete_picture" />
 
                 <Button
                     android:id="@+id/delete_picture"
@@ -552,13 +555,15 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:gravity="start"
+                    android:letterSpacing="0"
                     android:paddingTop="8dp"
                     android:text="@string/delete_picture"
                     android:textAllCaps="false"
                     android:textColor="@color/primaryRed"
                     android:textSize="@dimen/large_text"
                     app:icon="@drawable/delete"
-                    app:iconGravity="end"
+                    app:iconGravity="start"
+                    app:iconPadding="16dp"
                     app:iconTint="@color/primaryRed"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -576,19 +581,21 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:gravity="start"
+                    android:letterSpacing="0"
                     android:paddingTop="8dp"
                     android:text="@string/add_picture_from_files"
                     android:textAllCaps="false"
                     android:textSize="@dimen/large_text"
                     app:icon="@drawable/file"
-                    app:iconGravity="end"
+                    app:iconGravity="start"
+                    app:iconPadding="16dp"
                     app:layout_constraintBottom_toTopOf="@+id/imageView6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button3" />
+                    app:layout_constraintTop_toBottomOf="@+id/add_picture_camera" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/add_picture_camera"
                     style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -596,12 +603,14 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:gravity="start"
+                    android:letterSpacing="0"
                     android:paddingTop="8dp"
                     android:text="@string/add_picture_with_camera"
                     android:textAllCaps="false"
                     android:textSize="@dimen/large_text"
                     app:icon="@drawable/camera"
-                    app:iconGravity="end"
+                    app:iconGravity="start"
+                    app:iconPadding="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView5" />
@@ -630,7 +639,7 @@
             android:backgroundTint="@color/primaryColor"
             android:clickable="true"
             android:focusable="true"
-            
+
             android:tint="@color/primaryColor"
             app:fabSize="auto"
             app:layout_anchorGravity="bottom|right|end"

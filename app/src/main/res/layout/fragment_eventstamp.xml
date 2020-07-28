@@ -70,22 +70,25 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:profileImage="@{eventstampViewModel.eventstamp.humanEntityId}"
-                                tools:srcCompat="@drawable/greta" />
+                                app:srcCompat="@drawable/person" />
 
                             <TextView
                                 android:id="@+id/card_dummy_text"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginEnd="16dp"
                                 android:textColor="@color/primaryTextColor"
+                                android:textSize="@dimen/line_text"
+                                app:autoSizeMaxTextSize="@dimen/line_text"
+                                app:autoSizeTextType="uniform"
                                 app:layout_constraintBottom_toBottomOf="@+id/author_image"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/author_image"
                                 app:layout_constraintTop_toTopOf="@+id/author_image"
                                 app:layout_constraintVertical_bias="0.0"
                                 bind:eventstampText="@{eventstampViewModel.eventstamp}"
-                                tools:text="Some sort of header text" />
+                                tools:text="Felix Favour Chinemerem approved the Word Felix Esther Chizaram Suggested" />
 
                             <ImageButton
                                 android:id="@+id/more"
@@ -127,18 +130,21 @@
 
                             <TextView
                                 android:id="@+id/comment_response"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="4dp"
                                 android:layout_marginTop="16dp"
+                                android:layout_marginEnd="4dp"
                                 android:fontFamily="@font/poppinsbold"
-                                android:gravity="center"
                                 android:text="@{eventstampViewModel.word.name}"
                                 android:textColor="@color/primaryTextColor"
-                                android:textSize="@dimen/word_text"
+                                android:gravity="center"
+                                android:textSize="30sp"
+                                app:autoSizeTextType="uniform"
+                                tools:text="Chizaramekperem Ada"
                                 app:layout_constraintEnd_toStartOf="@+id/imageView22"
                                 app:layout_constraintStart_toEndOf="@+id/imageView23"
-                                app:layout_constraintTop_toBottomOf="@+id/author_image"
-                                tools:text="Danfo" />
+                                app:layout_constraintTop_toBottomOf="@+id/author_image"/>
 
                             <TextView
                                 android:id="@+id/time"
@@ -205,8 +211,8 @@
 
             <ImageButton
                 android:id="@+id/post_comment"
-                style="@android:style/Widget.Material.Button.Borderless"
-                android:layout_width="60dp"
+                style="?attr/actionButtonStyle"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:backgroundTint="@color/primaryColor"
@@ -215,6 +221,8 @@
                 android:tint="@color/primaryWhiteColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/comment_input"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/send" />
 
@@ -223,24 +231,42 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingVertical="12dp"
-                android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:background="@drawable/onboarding_button"
                 android:backgroundTint="@color/whiteBlackColor"
                 android:hint="@string/enter_your_comment"
                 android:inputType="textMultiLine"
+                android:maxHeight="100dp"
+                android:paddingVertical="12dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:maxHeight="100dp"
-                android:textSize="@dimen/line_text"
                 android:textColorHint="@color/primaryTextColor"
+                android:textSize="@dimen/line_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/post_comment"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/image_rounded_corner"
+                android:backgroundTint="@color/whiteBlackColor"
+                android:padding="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/comment_input"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:profileImage="@{eventstampViewModel.user.userId}"
+                app:srcCompat="@drawable/person" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,10 @@ class QuizViewModel : ViewModel() {
             loadHighScore()
         }
 
+    private val _status = MutableLiveData<Int>()
+    val status: LiveData<Int>
+        get() = _status
+
     private val _rank = MutableLiveData<Long>()
     val rank: LiveData<Long>
         get() = _rank.apply {
@@ -29,7 +33,7 @@ class QuizViewModel : ViewModel() {
         firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
             .get(SOURCE)
             .addOnSuccessListener { documentSnapshot ->
-                val rank = documentSnapshot["rank"] as Long
+                val rank = documentSnapshot["rank"] as Long?
                 _rank.value = rank
             }
     }
@@ -38,8 +42,8 @@ class QuizViewModel : ViewModel() {
         firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
             .get(SOURCE)
             .addOnSuccessListener { documentSnapshot ->
-                val highestScore = documentSnapshot["highestScore"] as Long
-                _highScore.value = highestScore.toInt()
+                val highestScore = documentSnapshot["highestScore"] as Long?
+                _highScore.value = highestScore?.toInt()
             }
     }
 }

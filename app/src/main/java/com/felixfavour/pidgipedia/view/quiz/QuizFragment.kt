@@ -18,9 +18,12 @@ import androidx.navigation.fragment.findNavController
 import com.felixfavour.pidgipedia.*
 import com.felixfavour.pidgipedia.databinding.FragmentQuizBinding
 import com.felixfavour.pidgipedia.util.Game
+import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
+import com.felixfavour.pidgipedia.util.showWarningDialog
 import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.viewmodel.QuizViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.firestore.Source
 
 class QuizFragment : Fragment() {
 
@@ -44,47 +47,31 @@ class QuizFragment : Fragment() {
         // NAVIGATION
         // CHOOSE GAME DIFFICULTY
         binding.play.setOnClickListener {
-            val intent = Intent(requireContext(), GameActivity::class.java)
-            val dialog = MaterialAlertDialogBuilder(requireContext())
-                .setView(R.layout.dialog_game_difficulty)
-                .show()
+            /*
+            * This decision construct means that basically if there is no internet connection
+            * game cannot be played*/
+            if (SOURCE == Source.DEFAULT) {
+                val intent = Intent(requireContext(), GameActivity::class.java)
+                val dialog = MaterialAlertDialogBuilder(requireContext())
+                    .setView(R.layout.dialog_game_difficulty)
+                    .show()
 
-            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.findViewById<Button>(R.id.game_easy)?.setOnClickListener {
-                startActivity(intent.apply { action = Game.EASY.toString() })
-            }
-            dialog.findViewById<Button>(R.id.game_medium)?.setOnClickListener {
-                startActivity(intent.apply { action = Game.MEDIUM.toString() })
-            }
-            dialog.findViewById<Button>(R.id.game_hard)?.setOnClickListener {
-                startActivity(intent.apply { action = Game.HARD.toString() })
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.findViewById<Button>(R.id.game_easy)?.setOnClickListener {
+                    startActivity(intent.apply { action = Game.EASY.toString() })
+                }
+                dialog.findViewById<Button>(R.id.game_medium)?.setOnClickListener {
+                    startActivity(intent.apply { action = Game.MEDIUM.toString() })
+                }
+                dialog.findViewById<Button>(R.id.game_hard)?.setOnClickListener {
+                    startActivity(intent.apply { action = Game.HARD.toString() })
+                }
+            } else {
+                showWarningDialog(requireContext(), R.string.no_internet, R.string.quiz_internet_error)
             }
         }
 
         return binding.root
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.basic_menu, menu)
-        menu.forEach { item: MenuItem ->
-            item.setOnMenuItemClickListener {
-                when (item.itemId) {
-                    R.id.profile -> {
-                        val activityIntent = Intent(requireContext(), ProfileActivity::class.java)
-                        startActivity(activityIntent)
-                    }
-                    R.id.settings -> {
-                        val activityIntent = Intent(requireContext(), SettingsActivity::class.java)
-                        startActivity(activityIntent)
-                    }
-                    R.id.menu_bookmarks -> {
-                        findNavController().navigate(QuizFragmentDirections.actionNavigationQuizToBookmarksFragment())
-                    }
-                }
-                false
-            }
-        }
     }
 
     override fun onResume() {

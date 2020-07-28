@@ -46,9 +46,14 @@ class EventstampViewModel: ViewModel() {
     val comments: LiveData<List<Comment>>
         get() = _comments
 
+    private val _user = MutableLiveData<RemoteUser>()
+    val user: LiveData<RemoteUser>
+        get() = _user
+
 
     fun loadEventstamp(eventstamp: Eventstamp?) {
         _eventstamp.value = eventstamp
+        loadUser()
         loadWord()
         loadHumanEntity()
     }
@@ -71,6 +76,18 @@ class EventstampViewModel: ViewModel() {
             .addOnSuccessListener { user ->
                 _humanEntity.value = user.toObject(RemoteUser::class.java)
             }
+    }
+
+
+    private fun loadUser() {
+        val userId = firebaseAuth.uid
+        userId?.let {
+            firebaseFirestore.collection(USERS).document(it)
+                .get(SOURCE)
+                .addOnSuccessListener { documentSnapshot ->
+                    _user.value = documentSnapshot.toObject(RemoteUser::class.java)
+                }
+        }
     }
 
 

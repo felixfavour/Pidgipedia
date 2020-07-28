@@ -40,7 +40,6 @@ import com.felixfavour.pidgipedia.util.Rank.RANK_2
 import com.felixfavour.pidgipedia.util.Rank.RANK_3
 import com.felixfavour.pidgipedia.util.Rank.RANK_CONTRIBUTOR
 import com.felixfavour.pidgipedia.util.Rank.RANK_JJC
-import com.felixfavour.pidgipedia.util.Rank.RANK_OGA
 import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
 import com.felixfavour.pidgipedia.view.home.EventstampCommentsAdapter
 import com.felixfavour.pidgipedia.view.home.HomeRecyclerViewAdapter
@@ -75,20 +74,6 @@ fun populateWordList(recyclerView: RecyclerView, words: List<Word>?) {
 fun populateEventstampList(recyclerView: RecyclerView, eventstamps: List<Eventstamp>?) {
     /**
      *  RecyclerView item decoration to put a margin of 8dp above and below every item */
-   recyclerView.addItemDecoration(object: RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            super.getItemOffsets(outRect, view, parent, state)
-            outRect.bottom = MARGIN
-            outRect.top = MARGIN
-            outRect.left = MARGIN
-            outRect.right = MARGIN
-        }
-    })
     val adapter = recyclerView.adapter as HomeRecyclerViewAdapter
     adapter.submitList(eventstamps)
 }
@@ -126,34 +111,47 @@ fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
 
                             when {
                                 eventstamp.wordComment -> {
-                                    textView.text = textView.context.getString(
+                                    textView.text = textView.context.applicationContext.getString(
                                         R.string.word_comment_placeholder,
                                         primaryUser,
                                         secondaryUser
                                     )
                                 }
                                 eventstamp.commentResponse -> {
-                                    textView.text = textView.context.getString(
-                                        R.string.comment_response_placeholder,
-                                        primaryUser,
-                                        secondaryUser
-                                    )
+                                    if (secondaryUser == "you") {
+                                        textView.text = textView.context.applicationContext.getString(
+                                            R.string.comment_response_placeholder2,
+                                            primaryUser
+                                        )
+                                    } else if (secondaryUser == "they") {
+                                        textView.text = textView.context.applicationContext.getString(
+                                            R.string.comment_response_placeholder3,
+                                            primaryUser
+                                        )
+                                    }
+                                    else {
+                                        textView.text = textView.context.applicationContext.getString(
+                                            R.string.comment_response_placeholder,
+                                            primaryUser,
+                                            secondaryUser
+                                        )
+                                    }
                                 }
                                 eventstamp.suggested -> {
-                                    textView.text = textView.context.getString(
+                                    textView.text = textView.context.applicationContext.getString(
                                         R.string.word_suggestion_placeholder,
                                         primaryUser
                                     )
                                 }
                                 eventstamp.approved -> {
-                                    textView.text = textView.context.getString(
+                                    textView.text = textView.context.applicationContext.getString(
                                         R.string.word_approval_placeholder,
                                         primaryUser,
                                         secondaryUser
                                     )
                                 }
                                 eventstamp.rejected -> {
-                                    textView.text = textView.context.getString(
+                                    textView.text = textView.context.applicationContext.getString(
                                         R.string.word_rejection_placeholder,
                                         primaryUser,
                                         secondaryUser
@@ -166,7 +164,7 @@ fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
                 if (eventstamp.badgeRewardType != null || eventstamp.rankRewardType != null) {
                     when {
                         eventstamp.rankRewardType != null -> {
-                            textView.text = textView.context.getString(
+                            textView.text = textView.context.applicationContext.getString(
                                 R.string.rank_reward_placeholder,
                                 primaryUser,
                                 eventstamp.rankRewardType.let {
@@ -179,7 +177,7 @@ fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
                             )
                         }
                         eventstamp.badgeRewardType.toString().isNotEmpty() -> {
-                            textView.text = textView.context.getString(
+                            textView.text = textView.context.applicationContext.getString(
                                 R.string.badge_reward_placeholder,
                                 primaryUser,
                                 eventstamp.badgeRewardType
@@ -202,7 +200,7 @@ fun getProfileImage(imageView: ImageView, authorId: String?) {
 
                     Glide.with(imageView.context.applicationContext)
                         .load(user?.profileImageURL)
-                        .placeholder(R.drawable.person_outline)
+                        .placeholder(R.drawable.person)
                         .centerCrop()
                         .circleCrop()
                         .into(imageView)
@@ -220,6 +218,19 @@ fun getAuthorFullName(textView: TextView, authorId: String?) {
             .addOnSuccessListener { documentSnapshot ->
                 val fullName = documentSnapshot["firstName"].toString() + " " + documentSnapshot["lastName"].toString()
                 textView.text = fullName
+            }
+    }
+}
+
+
+@BindingAdapter("username")
+fun getAuthorUsername(textView: TextView, authorId: String?) {
+    if (authorId != null) {
+        firebaseFirestore.collection(USERS).document(authorId)
+            .get(SOURCE)
+            .addOnSuccessListener { documentSnapshot ->
+                val username = documentSnapshot["username"].toString()
+                textView.text = username
             }
     }
 }
@@ -248,6 +259,9 @@ fun isWordBookmarked(imageButton: ImageButton, bookmarked: Boolean?) {
             val drawable = imageButton.context.getDrawable(R.drawable.bookmark_border)
             imageButton.setImageDrawable(drawable)
         }
+    } else {
+        val drawable = imageButton.context.getDrawable(R.drawable.bookmark_border)
+        imageButton.setImageDrawable(drawable)
     }
 }
 
@@ -277,7 +291,7 @@ fun hideUnnecessaryCommentActions(imageView: ImageView, comment: Comment?) {
 
 @BindingAdapter("blurBGImage")
 fun getBGImage(imageView: ImageView, url: String?) {
-    Glide.with(imageView.context)
+    Glide.with(imageView.context.applicationContext)
         .load(url)
         .placeholder(R.color.primaryColor)
         .transform(BlurTransformation(2, 3))
@@ -295,7 +309,7 @@ fun convertLongDate(textView: TextView, date: Long?) {
 
 @BindingAdapter("eventTime")
 fun eventStampDate(textView: TextView, date: Long?) {
-    val context = textView.context
+    val context = textView.context.applicationContext
     val dateThen = DateTime(date).toLocalDateTime()
     val dateNow = DateTime(System.currentTimeMillis()).toLocalDateTime()
 
@@ -334,9 +348,9 @@ fun eventStampDate(textView: TextView, date: Long?) {
         } else {
             // Condition if the two events occurred in the same month
             val dayDifference = dateNow.dayOfMonth - dateThen.dayOfMonth
-            if (dayDifference in 0..1) {
+            val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
+            if (dayDifference == 0) {
                 // Conditon if the two events occured in the same day
-                val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
                 if (hourDiffference == 0) {
                     // Conditon if the two events occured in the same hour
                     val minuteDifference = dateNow.minuteOfHour - dateThen.minuteOfHour
@@ -347,19 +361,13 @@ fun eventStampDate(textView: TextView, date: Long?) {
                     else if (minuteDifference in 2..59) {
                         textView.text = context.getString(R.string.minutes_ago, minuteDifference)
                     }
-                    else if (minuteDifference < 0) {
-                        /**
-                         * To get the accurate [minuteDifference], 24 hours is added because the minutes are negative value
-                         * The minutes are negative because of the 24-hour time format.
-                         */
-                        textView.text = context.getString(R.string.minutes_ago, minuteDifference + 60)
-                    }
 
                 }
                 else if (hourDiffference in 1..23) {
                     if (hourDiffference == 1)
                         textView.text = context.getString(R.string.an_hour_ago)
-                    textView.text = context.getString(R.string.hours_ago, hourDiffference)
+                    else
+                        textView.text = context.getString(R.string.hours_ago, hourDiffference)
                 } else if (hourDiffference < 0) {
                     /**
                      * To get the accurate [hourDifference], 24 hours is added because the hours are negative value
@@ -368,18 +376,93 @@ fun eventStampDate(textView: TextView, date: Long?) {
                     textView.text = context.getString(R.string.hours_ago, hourDiffference + 24)
                 }
             }
-            else if (dayDifference == 1) {
+            else if (dayDifference == 1 && hourDiffference > 0) {
                 textView.text = context.getString(R.string.a_day_ago)
-            }
-            else if (dayDifference == Calendar.DAY_OF_WEEK) {
-                textView.text = context.getString(R.string.a_week_ago)
             }
             else if (dayDifference in 2..6) {
                 textView.text = context.getString(R.string.days_ago, dayDifference)
             }
             else {
-                val weeksInDay = dayDifference % Calendar.DAY_OF_WEEK
-                textView.text = context.getString(R.string.weeks_ago, weeksInDay)
+                val weeksInDay = (dayDifference / Calendar.DAY_OF_WEEK)
+                if (weeksInDay == 1) {
+                    textView.text = context.getString(R.string.a_week_ago)
+                }
+                else if (weeksInDay in 2..5) {
+                    textView.text = context.getString(R.string.weeks_ago, weeksInDay)
+                }
+            }
+        }
+
+    }
+
+}
+
+
+@SuppressLint("SetTextI18n")
+@BindingAdapter("commentTime")
+fun commentDate(textView: TextView, date: Long?) {
+    val context = textView.context.applicationContext
+    val dateThen = DateTime(date).toLocalDateTime()
+    val dateNow = DateTime(System.currentTimeMillis()).toLocalDateTime()
+
+    /*
+    * Condition if the two events occurred in different years and in
+    * a span of 12 months*/
+    if ((dateNow.year != dateThen.year) && (dateNow.monthOfYear >= MONTHS_IN_A_YEAR)) {
+        val yearDifference = dateNow.year - dateThen.year
+        textView.text = "${yearDifference}y"
+    } else {
+        // Condition if the two events occurred in the same year
+
+        if (dateNow.monthOfYear != dateThen.monthOfYear) {
+            var monthDifference = dateNow.monthOfYear - dateThen.monthOfYear
+
+            /*
+            * Having considered a dreadful anomaly in Month difference; in the sense that,
+            * months are usually aligned in the range 1 to 12 and each 1 to 12 number is
+            * assigned to a year, meaning checking the difference in months in different years could
+            * create an anomaly and give a negative value. Hence, monthDifference coud be
+            * referred to as the below*/
+            if (dateNow.year != dateThen.year)
+                monthDifference = dateNow.monthOfYear + (MONTHS_IN_A_YEAR - dateThen.monthOfYear)
+
+            if (monthDifference > 0) {
+                textView.text = "${monthDifference}m"
+            }
+        } else {
+            // Condition if the two events occurred in the same month
+            val dayDifference = dateNow.dayOfMonth - dateThen.dayOfMonth
+            val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
+            if (dayDifference in 0..1) {
+                // Conditon if the two events occured in the same day
+                if (hourDiffference == 0) {
+                    // Conditon if the two events occured in the same hour
+                    val minuteDifference = dateNow.minuteOfHour - dateThen.minuteOfHour
+                    if (minuteDifference in 0..1) {
+                        val secondsDifference = dateNow.secondOfMinute - dateThen.secondOfMinute
+                        if (secondsDifference > 0) {
+                            textView.text = "${secondsDifference}s"
+                        } else {
+                            textView.text = "${secondsDifference+60}s"
+                        }
+                    }
+                    else {
+                        textView.text = "${minuteDifference}m"
+                    }
+
+                }
+                else if (hourDiffference in 1..23) {
+                    textView.text = "${hourDiffference}h"
+                } else if (hourDiffference < 0) {
+                    textView.text = "${hourDiffference + 24}h"
+                }
+            }
+            else if (dayDifference in 2..6) {
+                textView.text = "${dayDifference}d"
+            }
+            else {
+                val weeksInDay = (dayDifference / Calendar.DAY_OF_WEEK)
+                textView.text = "${weeksInDay}w"
             }
         }
 
@@ -390,7 +473,7 @@ fun eventStampDate(textView: TextView, date: Long?) {
 
 //@BindingAdapter("rankPlaceholder")
 //fun getRankTextForHomeScreen(textView: TextView, rank: Long?) {
-//    val context = textView.context
+//    val context = textView.context.applicationContext
 //    when (rank) {
 //        1L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_1)
 //        2L -> textView.text = context.getString(R.string.rank_reward_placeholder, Rank.RANK_2)
@@ -454,11 +537,25 @@ fun greyOutInactiveBadges(constraintLayout: ConstraintLayout, badges: List<Strin
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("partOfSpeechText")
-fun getPartOfSpeechText(textView: TextView, string: String?) {
-    if (string.equals("noun", true)) {
-        textView.text = "$string (plural: ${string}s)"
+fun getPartOfSpeechText(textView: TextView, word: Word?) {
+    if (word != null) {
+        if (word.partOfSpeech.equals("Noun", true)) {
+            textView.text = "${word.partOfSpeech} (plural:  ${word.plural})"
+        } else {
+            textView.text = word.partOfSpeech
+        }
     }
-    else textView.text = "$string"
+}
+
+
+@BindingAdapter("certifiedWordCheck")
+fun getCertificationMarkVisibility(imageView: ImageView, certified: Boolean?) {
+    if (certified != null) {
+        if (certified) imageView.visibility = View.VISIBLE
+        else imageView.visibility = View.GONE
+    } else {
+        imageView.visibility = View.GONE
+    }
 }
 
 
@@ -474,7 +571,7 @@ fun getSentencesText(textView: TextView, sentences: List<String>?) {
 @BindingAdapter("wodImage")
 fun getWODImage(imageView: ImageView, url: String?) {
     // ROUND IMAGE CORNERS
-    Glide.with(imageView.context)
+    Glide.with(imageView.context.applicationContext)
         .load(url)
         .placeholder(R.drawable.no_internet_image)
         .apply(RequestOptions().transform(RoundedCorners(128)))
@@ -484,7 +581,7 @@ fun getWODImage(imageView: ImageView, url: String?) {
 
 @BindingAdapter("wordImage")
 fun getWordImage(imageView: ImageView, url: String?) {
-    Glide.with(imageView.context)
+    Glide.with(imageView.context.applicationContext)
         .load(url)
         .placeholder(R.drawable.no_internet_image)
         .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16)))

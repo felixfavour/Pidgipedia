@@ -9,7 +9,7 @@ import com.felixfavour.pidgipedia.util.ListConverter
 import com.felixfavour.pidgipedia.util.Pidgipedia
 
 @TypeConverters(ListConverter::class)
-@Database(entities = [Word::class, User::class], version = 1, exportSchema = true)
+@Database(entities = [Word::class, User::class], version = 1, exportSchema = false)
 abstract class WordDatabase: RoomDatabase() {
     companion object {
         private var INSTANCE: WordDatabase? = null

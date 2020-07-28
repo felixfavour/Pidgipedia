@@ -32,8 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/divider"
             app:layout_constraintTop_toBottomOf="@+id/author_layout"
+            app:srcCompat="@color/secondaryGreyColor"
             tools:layout_editor_absoluteX="142dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,19 +50,19 @@
                 android:id="@+id/author_image"
                 android:layout_width="107dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginBottom="8dp"
-                tools:src="@drawable/greta"
-                app:profileImage="@{bottomSheetViewModel.humanEntity.userId}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:profileImage="@{bottomSheetViewModel.humanEntity.userId}"
+                android:src="@drawable/person" />
 
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="@{bottomSheetViewModel.humanEntity.toString}"
                 android:textColor="@color/primaryColor"

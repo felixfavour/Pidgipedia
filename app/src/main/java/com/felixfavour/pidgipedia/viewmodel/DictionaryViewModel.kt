@@ -1,23 +1,28 @@
 package com.felixfavour.pidgipedia.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.*
 import com.felixfavour.pidgipedia.entity.Word
+import com.felixfavour.pidgipedia.entity.WordDatabase
 import com.felixfavour.pidgipedia.util.Pidgipedia
+import com.felixfavour.pidgipedia.util.Pidgipedia.HISTORY_LIMIT
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class DictionaryViewModel : ViewModel() {
+class DictionaryViewModel(application: Application) : AndroidViewModel(application) {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val wordDatabase = WordDatabase.getInstance(application.applicationContext)?.getWordDao()
 
     private val _recentSearches = MutableLiveData<List<Word>>()
     val recentSearches: LiveData<List<Word>>
-        get() = _recentSearches.apply {
-            loadRecentSearches()
-        }
+        get() = _recentSearches
 
     private val _words = MutableLiveData<List<Word>>()
     val words: LiveData<List<Word>>
@@ -25,8 +30,10 @@ class DictionaryViewModel : ViewModel() {
             if (this.value == null) loadWords()
         }
 
-    private fun loadRecentSearches() {
-        _recentSearches.value = listOf()
+    fun loadRecentSearches() {
+        viewModelScope.launch {
+            _recentSearches.value = getSearches()
+        }
     }
 
     private fun loadWords() {
@@ -36,6 +43,43 @@ class DictionaryViewModel : ViewModel() {
             .addOnSuccessListener { querySnapshot ->
                 _words.value = querySnapshot.toObjects(Word::class.java)
             }
+    }
+
+    fun addSearchedWord(word: Word) {
+        viewModelScope.launch {
+            addSearch(word)
+        }
+    }
+
+    fun deleteAllSearches() {
+        viewModelScope.launch {
+            deleteAllSearchesRoom()
+        }
+    }
+
+    private suspend fun getSearches(): List<Word>? {
+        return withContext(Dispatchers.IO) {
+            val words = wordDatabase?.getAllWordsSearch(HISTORY_LIMIT)
+            words
+        }
+    }
+
+    private suspend fun addSearch(word: Word) {
+        withContext(Dispatchers.IO) {
+            wordDatabase?.insertWordSearch(word)
+        }
+    }
+
+    private suspend fun deleteAllSearchesRoom() {
+        withContext(Dispatchers.IO) {
+            wordDatabase?.deleteRecentSearches()
+        }
+    }
+
+    private suspend fun deleteSearchById(wordId: Long) {
+        withContext(Dispatchers.IO) {
+            wordDatabase?.deleteRecentSearchById(wordId)
+        }
     }
 
 }

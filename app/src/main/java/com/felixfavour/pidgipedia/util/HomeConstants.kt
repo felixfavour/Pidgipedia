@@ -3,6 +3,7 @@ package com.felixfavour.pidgipedia.util
 import com.google.firebase.firestore.Source
 
 object Pidgipedia {
+    const val APP_NAME = "Pidgipedia"
     const val WORD_DATABASE = "word_database"
     const val EVENTSTAMP = "eventstamp"
     const val HOME_MODAL = "home_more_modal_sheet"
@@ -24,7 +25,9 @@ object Pidgipedia {
     const val DUMMY_PASSWORD = "pidgipedia_dummy123"
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
+    var BOOKMARKS_VISIBILITY = true
     var SOURCE = Source.CACHE
+    var HISTORY_LIMIT = HistorySize.FIFTY
 }
 
 object Notification {
@@ -72,9 +75,9 @@ object Badges {
 }
 
 object Language {
-    const val PIDGIN_NG = "pidgin_ng"
-    const val ENGLISH_UK = "english_uk"
-    const val ENGLISH_US = "english_us"
+    const val PIDGIN_NG = "Pidgin NG"
+    const val ENGLISH_UK = "English UK"
+    const val ENGLISH_US = "English US"
 }
 
 object Notifications {
@@ -83,6 +86,12 @@ object Notifications {
     const val WORD_OF_THE_DAY = "WOD"
     const val WORDS_APPROVED = "WA"
     const val MISCELLANEOUS = "MISC"
+}
+
+object HistorySize {
+    const val ONE_FIFTY = 150
+    const val HUNDRED = 100
+    const val FIFTY = 50
 }
 
 object AppTheme {

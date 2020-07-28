@@ -15,9 +15,15 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.felixfavour.pidgipedia.util.MockData
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentBookmarksBinding
+import com.felixfavour.pidgipedia.entity.Word
+import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.view.OnWordClickListener
 import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
 import com.felixfavour.pidgipedia.viewmodel.BookmarksViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -26,13 +32,17 @@ class BookmarksFragment : Fragment() {
     private lateinit var binding: FragmentBookmarksBinding
     private lateinit var bookmarksViewModel: BookmarksViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        bookmarksViewModel = ViewModelProvider(this).get(BookmarksViewModel::class.java)
+        bookmarksViewModel.loadWords()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmarks, container, false)
-        bookmarksViewModel = ViewModelProvider(this).get(BookmarksViewModel::class.java)
-        bookmarksViewModel.loadWords()
 
 
         // SET LIFECYCLE OWNER
@@ -48,9 +58,11 @@ class BookmarksFragment : Fragment() {
             findNavController().navigate(BookmarksFragmentDirections.actionBookmarksFragmentToWordFragment(word.wordId))
         })
 
+        val adapter = binding.bookmarksList.adapter as WordListAdapter
 
-        bookmarksViewModel.words.observe(viewLifecycleOwner, Observer {
-            updateUI()
+
+        bookmarksViewModel.words.observe(viewLifecycleOwner, Observer {words ->
+            updateUI(words)
         })
 
 
@@ -59,13 +71,12 @@ class BookmarksFragment : Fragment() {
 
 
     /*
-    * Method to update UI, specifically Views Visibility when recycler view list is empty*/
-    private fun updateUI() {
-        val adapter = binding.bookmarksList.adapter as WordListAdapter
-        if (adapter.itemCount > 0) {
-            binding.noBookmarksLayout.visibility = View.GONE
-        } else {
+    * Method to update UI, specifically Views Visibility when recycler view wordList is empty*/
+    private fun updateUI(words: List<Word>) {
+        if (words.isEmpty()) {
             binding.noBookmarksLayout.visibility = View.VISIBLE
+        } else {
+            binding.noBookmarksLayout.visibility = View.GONE
         }
     }
 

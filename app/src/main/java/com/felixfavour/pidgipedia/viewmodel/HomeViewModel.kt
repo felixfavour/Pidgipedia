@@ -21,6 +21,8 @@ class HomeViewModel : ViewModel() {
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseFirestore = FirebaseFirestore.getInstance()
 
+    private lateinit var localEventstamps: List<Eventstamp>
+
     private val _eventstamps = MutableLiveData<List<Eventstamp>>()
     val eventstamps: LiveData<List<Eventstamp>>
         get() = _eventstamps
@@ -68,7 +70,7 @@ class HomeViewModel : ViewModel() {
     fun loadUnapprovedWords() {
         val words = mutableListOf<Word>()
         firebaseFirestore.collection(SUGGESTED_WORDS)
-            .whereEqualTo("approved", false)
+            .orderBy("wordId", Query.Direction.DESCENDING)
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
                 querySnapshot.documents.forEach { document ->

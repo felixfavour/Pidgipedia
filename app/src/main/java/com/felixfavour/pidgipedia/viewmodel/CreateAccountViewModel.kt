@@ -22,6 +22,10 @@ class CreateAccountViewModel: ViewModel() {
     val creationStatus: LiveData<Int>
         get() = _creationStatus
 
+    private val _isUserDataUploaded = MutableLiveData<Int>()
+    val isUserDataUploaded: LiveData<Int>
+        get() = _isUserDataUploaded
+
     private val _error = MutableLiveData<Throwable?>(null)
     val error: LiveData<Throwable?>
         get() = _error
@@ -63,6 +67,7 @@ class CreateAccountViewModel: ViewModel() {
 
 
     fun addUserFields(firstName: String, lastName: String, dateOfBirth: Long, location: String?, email: String, username: String) {
+        _isUserDataUploaded.value= Connection.LOADING
         val user = RemoteUser(
             userId = firebaseAuth.currentUser?.uid!!,
             firstName = firstName,
@@ -81,8 +86,12 @@ class CreateAccountViewModel: ViewModel() {
         )
 
         firebaseFirestore.collection(USERS).document(firebaseAuth.currentUser?.uid!!).set(user)
+            .addOnSuccessListener {
+                _isUserDataUploaded.value= Connection.SUCCESS
+            }
             .addOnFailureListener { exception ->
                 _error.value = exception
+                _isUserDataUploaded.value= Connection.FAILED
             }
     }
 

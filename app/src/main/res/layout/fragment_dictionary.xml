@@ -9,160 +9,163 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".view.dictionary.DictionaryFragment"
-            android:animateLayoutChanges="true">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        tools:context=".view.dictionary.DictionaryFragment">
 
 
-        <SearchView
+        <AutoCompleteTextView
             android:id="@+id/word_search_view"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/search_bg_drawable"
-            android:closeIcon="@color/transparentColor"
-            android:elevation="7dp"
-            android:iconifiedByDefault="false"
-            android:queryHint="Danfo"
+            android:completionThreshold="1"
+            android:drawableStart="@drawable/ic_search_white"
+            android:drawablePadding="24dp"
+            android:hint="@string/danfo"
+            android:padding="16dp"
+            android:textColor="@color/primaryWhiteColor"
+            android:textColorHint="@color/primaryWhiteColor"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:inputType="textShortMessage" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:animateLayoutChanges="true"
-                app:cardBackgroundColor="@color/primaryColorLight"
-                app:cardCornerRadius="6dp"
-                app:layout_constraintBottom_toTopOf="@+id/view_all_words"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/word_search_view"
-                tools:visibility="visible">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:animateLayoutChanges="true"
+            app:cardBackgroundColor="@color/primaryColorLight"
+            app:cardCornerRadius="6dp"
+            app:layout_constraintBottom_toTopOf="@+id/view_all_words"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/word_search_view"
+            tools:visibility="visible">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:animateLayoutChanges="true">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:animateLayoutChanges="true"
-                        app:cardBackgroundColor="@color/whiteBlackColor"
-                        app:cardCornerRadius="6dp"
-                        app:contentPadding="8dp"
-                        app:layout_constraintBottom_toTopOf="@+id/clear_all"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/recent_searches_dummy_text">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:animateLayoutChanges="true"
+                    app:cardBackgroundColor="@color/whiteBlackColor"
+                    app:cardCornerRadius="6dp"
+                    app:contentPaddingTop="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/clear_all"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recent_searches_dummy_text">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/no_search_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:visibility="gone">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/no_search_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone">
 
-                            <ImageView
-                                android:id="@+id/imageView7"
-                                android:layout_width="0dp"
-                                android:layout_height="150dp"
-                                android:layout_marginTop="32dp"
-                                app:layout_constraintBottom_toTopOf="@+id/textView14"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.5"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/no_searches" />
+                        <ImageView
+                            android:id="@+id/imageView7"
+                            android:layout_width="0dp"
+                            android:layout_height="150dp"
+                            android:layout_marginTop="32dp"
+                            app:layout_constraintBottom_toTopOf="@+id/textView14"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/no_searches" />
 
-                            <TextView
-                                android:id="@+id/textView14"
-                                android:layout_width="wrap_content"
-                                android:layout_height="0dp"
-                                android:layout_marginTop="8dp"
-                                android:text="@string/theres_nothing_here"
-                                android:textStyle="bold"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.5"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/theres_nothing_here"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recent_searches_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            app:wordList="@{dictionaryViewModel.recentSearches}"
-                            tools:listitem="@layout/search_history_item" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recent_searches_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:wordList="@{dictionaryViewModel.recentSearches}"
+                        tools:listitem="@layout/search_history_item" />
 
-                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                    <TextView
-                        android:id="@+id/recent_searches_dummy_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/recent_searches"
-                        android:textColor="@color/primaryWhiteColor"
-                        android:textSize="@dimen/header_text"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/recent_searches_dummy_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/recent_searches"
+                    android:textColor="@color/primaryWhiteColor"
+                    android:textSize="@dimen/header_text"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="52dp"
-                        android:layout_height="0dp"
-                        android:layout_marginEnd="16dp"
-                        android:tint="@color/primaryWhiteColor"
-                        app:layout_constraintBottom_toBottomOf="@+id/recent_searches_dummy_text"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:srcCompat="@drawable/search_history" />
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="52dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:tint="@color/primaryWhiteColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/recent_searches_dummy_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/search_history" />
 
-                    <Button
-                        android:id="@+id/clear_all"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:text="@string/clear_all"
-                        android:textColor="@color/primaryWhiteColor"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+                <Button
+                    android:id="@+id/clear_all"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/clear_all"
+                    android:textColor="@color/primaryWhiteColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/view_all_words"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="32dp"
-                android:padding="8dp"
-                android:text="@string/view_all_words"
-                android:textAllCaps="false"
-                android:textSize="@dimen/large_text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:strokeColor="@color/primaryColorLight" />
+        <Button
+            android:id="@+id/view_all_words"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:text="@string/view_all_words"
+            android:textAllCaps="false"
+            android:textSize="@dimen/large_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/primaryColorLight" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
