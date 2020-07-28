@@ -46,17 +46,17 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
-
-    @ExperimentalStdlibApi
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         sharedPreferences = requireActivity().getSharedPreferences(Pidgipedia.PREFERENCES, Context.MODE_PRIVATE)
         mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         wodViewModel = ViewModelProvider(this).get(WODViewModel::class.java)
         homeViewModel.loadUnapprovedWords()
         homeViewModel.loadEventstamps()
+    }
+
+    @ExperimentalStdlibApi
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         setHasOptionsMenu(true)
 
 
@@ -139,8 +139,8 @@ class HomeFragment : Fragment() {
 //                            HomeFragmentDirections.actionNavigationHomeToBadgesFragment2(eventstamp.humanEntityId!!))
                     }
                     (eventstamp.rankRewardType != null) -> {
-                        findNavController().navigate(
-                            HomeFragmentDirections.actionNavigationHomeToProfileFragment2(null, false))
+//                        findNavController().navigate(
+//                            HomeFragmentDirections.actionNavigationHomeToProfileFragment2(null, false))
                     }
                     else -> {
                         findNavController().navigate(

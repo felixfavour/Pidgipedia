@@ -96,8 +96,15 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
                             _bookmarked.value = true
                             loadWord(wordLocal.wordId)
                         }
+                } else {
+                    // Add Word Id to bookmarked Words
+                    firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
+                        .update("bookmarks", FieldValue.arrayRemove(wordLocal.wordId))
+                        .addOnSuccessListener {
+                            _bookmarked.value = false
+                            loadWord(wordLocal.wordId)
+                        }
                 }
-
             }
         }
     }
@@ -125,7 +132,8 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
                 .update(
                     mapOf(
                         "approved" to true,
-                        "approvedAuthorId" to firebaseAuth.uid!!
+                        "approvedAuthorId" to firebaseAuth.uid!!,
+                        "lastUpdated" to System.currentTimeMillis()
                     )
                 )
                 .addOnSuccessListener {
@@ -144,7 +152,8 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
                 .update(
                     mapOf(
                         "rejected" to true,
-                        "approvedAuthorId" to firebaseAuth.uid!!
+                        "approvedAuthorId" to firebaseAuth.uid!!,
+                        "lastUpdated" to System.currentTimeMillis()
                     )
                 )
                 .addOnSuccessListener {
@@ -157,13 +166,13 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
 
     private fun saveAudioLocal(url: String, fileName: String) {
         val context = getApplication<Application>().applicationContext
-        val file = File("${context.getExternalFilesDir(null)}/$AUDIO_REFERENCE", "$fileName.ts")
+        val file = File("${context.getExternalFilesDir(null)}/$AUDIO_REFERENCE", "$fileName.m4a")
 
         val downloadRequest = DownloadManager.Request(Uri.parse(url))
         downloadRequest.apply {
             setAllowedOverMetered(true)
-            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-            setDestinationInExternalFilesDir(context, null, "$AUDIO_REFERENCE/$fileName.ts")
+            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            setDestinationInExternalFilesDir(context, null, "$AUDIO_REFERENCE/$fileName.m4a")
         }
 
         if (!file.exists()) {

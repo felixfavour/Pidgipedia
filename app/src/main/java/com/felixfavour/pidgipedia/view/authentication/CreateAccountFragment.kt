@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentCreateAccountBinding
 import com.felixfavour.pidgipedia.util.Connection
+import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.Pidgipedia
 import com.felixfavour.pidgipedia.util.showWarningDialog
 import com.felixfavour.pidgipedia.util.snack
@@ -126,7 +127,12 @@ class CreateAccountFragment : Fragment() {
                 sharedPreferences.edit {
                     putBoolean(Pidgipedia.AUTHENTICATION_PREFERENCES, true)
                 }
-                findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToMainActivity())
+
+                viewModel.isUserDataUploaded.observe(viewLifecycleOwner, Observer { connectionStatus ->
+                    if (connectionStatus == SUCCESS) {
+                        findNavController().navigate(CreateAccountFragmentDirections.actionCreateAccountFragmentToMainActivity())
+                    }
+                })
             }
         })
 

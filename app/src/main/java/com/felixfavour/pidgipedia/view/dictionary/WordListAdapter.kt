@@ -12,14 +12,14 @@ import com.felixfavour.pidgipedia.view.OnWordClickListener
 
 class WordListAdapter(
     private val clickAction: OnWordClickListener
-): ListAdapter<Word, WordListAdapter.WordListViewHolder>(DiffCallback), SectionIndexer {
+): ListAdapter<Word, WordListAdapter.WordListViewHolder>(DiffCallback) {
     companion object DiffCallback : DiffUtil.ItemCallback<Word>() {
         override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {
-            return oldItem.wordId == newItem.wordId
+            return oldItem == newItem
         }
 
         override fun areItemsTheSame(oldItem: Word, newItem: Word): Boolean {
-            return oldItem.wordId === newItem.wordId
+            return oldItem === newItem
         }
     }
 
@@ -48,18 +48,6 @@ class WordListAdapter(
     override fun onBindViewHolder(holder: WordListViewHolder, position: Int) {
         val word = getItem(position)
         holder.bind(word, clickAction)
-    }
-
-    override fun getSections(): Array<Any> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getSectionForPosition(p0: Int): Int {
-        TODO("Not yet implemented")
-    }
-
-    override fun getPositionForSection(p0: Int): Int {
-        TODO("Not yet implemented")
     }
 
 }

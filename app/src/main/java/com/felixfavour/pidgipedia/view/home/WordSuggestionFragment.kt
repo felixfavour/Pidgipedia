@@ -214,6 +214,7 @@ class WordSuggestionFragment : Fragment() {
 
                 partOfSpeech = binding.partOfSpeech.selectedItem.toString(),
                 approved = false,
+                certified = false,
                 lastUpdated = System.currentTimeMillis(),
 
                 plural = binding.partOfSpeech.let {spinner ->
@@ -222,6 +223,11 @@ class WordSuggestionFragment : Fragment() {
                     return@let pluralForm
                 },
                 pronunciationReference = "",
+
+                derogatory = binding.derogatoryButtonGroup.checkedButtonId.let {checkedButton ->
+                    // If checkedButton is equal to the Yes Button ID, then it is true.
+                    checkedButton == R.id.derogatory_yes_selection
+                },
 
                 sentences = binding.sentencesChipGroup.let {
                     val sentences = mutableListOf<String>()

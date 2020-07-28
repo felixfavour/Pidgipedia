@@ -123,7 +123,13 @@ fun eventstampText(textView: TextView, eventstamp: Eventstamp?) {
                                             R.string.comment_response_placeholder2,
                                             primaryUser
                                         )
-                                    } else {
+                                    } else if (secondaryUser == "they") {
+                                        textView.text = textView.context.applicationContext.getString(
+                                            R.string.comment_response_placeholder3,
+                                            primaryUser
+                                        )
+                                    }
+                                    else {
                                         textView.text = textView.context.applicationContext.getString(
                                             R.string.comment_response_placeholder,
                                             primaryUser,
@@ -343,7 +349,7 @@ fun eventStampDate(textView: TextView, date: Long?) {
             // Condition if the two events occurred in the same month
             val dayDifference = dateNow.dayOfMonth - dateThen.dayOfMonth
             val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
-            if (dayDifference in 0..1) {
+            if (dayDifference == 0) {
                 // Conditon if the two events occured in the same day
                 if (hourDiffference == 0) {
                     // Conditon if the two events occured in the same hour
@@ -354,13 +360,6 @@ fun eventStampDate(textView: TextView, date: Long?) {
                     }
                     else if (minuteDifference in 2..59) {
                         textView.text = context.getString(R.string.minutes_ago, minuteDifference)
-                    }
-                    else if (minuteDifference < 0) {
-                        /**
-                         * To get the accurate [minuteDifference], 24 hours is added because the minutes are negative value
-                         * The minutes are negative because of the 24-hour time format.
-                         */
-                        textView.text = context.getString(R.string.minutes_ago, minuteDifference + 60)
                     }
 
                 }
@@ -538,11 +537,25 @@ fun greyOutInactiveBadges(constraintLayout: ConstraintLayout, badges: List<Strin
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("partOfSpeechText")
-fun getPartOfSpeechText(textView: TextView, string: String?) {
-    if (string.equals("noun", true)) {
-        textView.text = "$string (plural: ${string}s)"
+fun getPartOfSpeechText(textView: TextView, word: Word?) {
+    if (word != null) {
+        if (word.partOfSpeech.equals("Noun", true)) {
+            textView.text = "${word.partOfSpeech} (plural:  ${word.plural})"
+        } else {
+            textView.text = word.partOfSpeech
+        }
     }
-    else textView.text = "$string"
+}
+
+
+@BindingAdapter("certifiedWordCheck")
+fun getCertificationMarkVisibility(imageView: ImageView, certified: Boolean?) {
+    if (certified != null) {
+        if (certified) imageView.visibility = View.VISIBLE
+        else imageView.visibility = View.GONE
+    } else {
+        imageView.visibility = View.GONE
+    }
 }
 
 

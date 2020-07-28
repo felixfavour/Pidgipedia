@@ -32,13 +32,17 @@ class BookmarksFragment : Fragment() {
     private lateinit var binding: FragmentBookmarksBinding
     private lateinit var bookmarksViewModel: BookmarksViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        bookmarksViewModel = ViewModelProvider(this).get(BookmarksViewModel::class.java)
+        bookmarksViewModel.loadWords()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmarks, container, false)
-        bookmarksViewModel = ViewModelProvider(this).get(BookmarksViewModel::class.java)
-        bookmarksViewModel.loadWords()
 
 
         // SET LIFECYCLE OWNER
@@ -53,6 +57,8 @@ class BookmarksFragment : Fragment() {
         binding.bookmarksList.adapter = WordListAdapter(OnWordClickListener { word, it ->
             findNavController().navigate(BookmarksFragmentDirections.actionBookmarksFragmentToWordFragment(word.wordId))
         })
+
+        val adapter = binding.bookmarksList.adapter as WordListAdapter
 
 
         bookmarksViewModel.words.observe(viewLifecycleOwner, Observer {words ->

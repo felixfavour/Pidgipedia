@@ -114,6 +114,7 @@
     <string name="syllabic_division">Syllabic Division</string>
     <string name="comment_response_placeholder"><b>%1$s</b> replied <b>%2$s</b>\'s comment</string>
     <string name="comment_response_placeholder2"><b>%1$s</b> replied your comment</string>
+    <string name="comment_response_placeholder3"><b>%1$s</b> replied their comment</string>
     <string name="word_comment_placeholder"><b>%1$s</b> commented on a word <b>%2$s</b> suggested</string>
     <string name="word_approval_placeholder"><b>%1$s</b> approved the word <b>%2$s</b> suggested</string>
     <string name="word_suggestion_placeholder"><b>%1$s</b> suggested a Word</string>
@@ -137,12 +138,17 @@
     <string name="weeks_ago">%d weeks ago</string>
     <string name="approved_words_placeholder">%d words</string>
     <string name="badges_placeholder">%d badges</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="derogatory_warning">Is Word Explicit or Derogatory?</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_words">search words</string>
     <string name="author">Author</string>
     <string name="view_all_words">View all words</string>
+    <string name="loading">loading…</string>
+    <string name="ellipsis">…</string>
     <string name="theres_nothing_here">There\'s nothing here</string>
     <string name="download_app_for_more">Download the Pidgipedia mobile app for more today.</string>
     <string name="unaccomplished_badges_are_greyed_out">Unaccomplished Badges are greyed out.\nThe count on each badge represents the number of Approved Words</string>
@@ -163,7 +169,7 @@
     <string name="username_guidelines">username must be more than 6 characters and distint</string>
     <string name="password_guidelines">Password must contain Uppercase and Lowercase letters and digits</string>
     <string name="email_guideline">This email is owned by another account</string>
-    <string name="checking">Checking...</string>
+    <string name="checking">Checking…</string>
     <string name="username_taken">Username is already in use</string>
     <string name="invalid_email">Not a valid email address</string>
     <string name="email_taken">This email is already in use</string>
@@ -204,4 +210,5 @@
     <string name="hold_to_pronounce">Hold Button to Record Pronunciation</string>
     <string name="quiz_internet_error">Sorry. You cannot enjoy the quiz at this time, you would need to connect to the internet.</string>
     <string name="no_internet">No Internet</string>
+    <string name="new_high_score">New High Score!</string>
 </resources>

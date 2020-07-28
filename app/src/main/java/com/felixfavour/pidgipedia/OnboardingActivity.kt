@@ -146,18 +146,18 @@ class OnboardingActivity : AppCompatActivity() {
         when (circle) {
             circle1 -> {
                 circle1.setColorFilter(ContextCompat.getColor(applicationContext, R.color.primaryWhiteColor))
-                circle2.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
-                circle3.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
+                circle2.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColorConstant))
+                circle3.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColorConstant))
             }
             circle2 -> {
                 circle2.setColorFilter(ContextCompat.getColor(applicationContext, R.color.primaryWhiteColor))
-                circle1.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
-                circle3.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
+                circle1.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColorConstant))
+                circle3.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColorConstant))
             }
             circle3 -> {
                 circle3.setColorFilter(ContextCompat.getColor(applicationContext, R.color.primaryWhiteColor))
-                circle2.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
-                circle1.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColor))
+                circle2.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColorConstant))
+                circle1.setColorFilter(ContextCompat.getColor(applicationContext, R.color.secondaryGreyColorConstant))
             }
         }
     }

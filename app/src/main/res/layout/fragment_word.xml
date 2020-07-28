@@ -68,8 +68,8 @@
             <TextView
                 android:id="@+id/wordName"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="4dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="48dp"
                 android:fontFamily="@font/poppinsbold"
@@ -184,7 +184,7 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/word_image"
-                    app:partOfSpeechText="@{wordViewModel.word.partOfSpeech}"
+                    app:partOfSpeechText="@{wordViewModel.word}"
                     tools:text="Noun (Chizarams)" />
 
                 <ImageView
@@ -418,6 +418,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/wordName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/wordName"
+                app:certifiedWordCheck="@{wordViewModel.word.certified}"
                 app:srcCompat="@drawable/check_circle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.felixfavour.pidgipedia.entity
 
 import android.os.Parcelable
+import com.felixfavour.pidgipedia.util.Rank
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -10,7 +11,7 @@ data class RemoteUser(
     val lastName: String = "",
     val email: String = "",
     val dateOfBirth: Long = 0L,
-    val rank: Long = 0L,
+    val rank: Long = Rank.RANK_JJC,
     val location: String? = "",
     val bio: String = "***empty Bio***",
     val badges: List<String> = emptyList(),
@@ -28,7 +29,7 @@ data class RemoteUser(
     }
 
     override fun toString(): String {
-        return "$firstName $lastName"
+        return "$firstName $lastName".trim()
     }
 
 }

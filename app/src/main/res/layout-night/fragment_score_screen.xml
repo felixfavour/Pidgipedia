@@ -26,7 +26,7 @@
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/cardView3"
+            app:layout_constraintBottom_toTopOf="@id/more_to_ace_card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
                     app:srcCompat="@drawable/quiz_star" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/high_score_dummy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
@@ -79,7 +79,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/high_score_dummy"
                     tools:text="5" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -121,10 +121,11 @@
             tools:iconGravity="start" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView3"
+            android:id="@+id/more_to_ace_card"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_marginBottom="32dp"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/primaryColorLight"
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toTopOf="@+id/play_again"
@@ -155,6 +156,19 @@
                     tools:text="5 more left to ace" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/highScore_image"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/win_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

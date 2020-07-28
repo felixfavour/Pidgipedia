@@ -1,18 +1,15 @@
 package com.felixfavour.pidgipedia.viewmodel
 
-import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.entity.Quiz
-import com.felixfavour.pidgipedia.util.MockData
 import com.felixfavour.pidgipedia.util.Pidgipedia.QUIZZES
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
+import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.fragment_game.view.*
-import kotlin.random.Random
 
 class GameViewModel: ViewModel() {
 
@@ -56,13 +53,11 @@ class GameViewModel: ViewModel() {
 
     private val _highScore = MutableLiveData<Long>()
     val highScore: LiveData<Long>
-        get() = _highScore.apply {
-            _highScore.value = 5
-        }
+        get() = _highScore
 
-    private val _timePerQuestion = MutableLiveData<Int>(0)
-    val timePerQuestion: LiveData<Int>
-        get() = _timePerQuestion
+    private val _isHighScore = MutableLiveData<Boolean>()
+    val isHighScore: LiveData<Boolean>
+        get() = _isHighScore
 
     private val _countdownTimer = MutableLiveData<Int>(0)
     val countdownTimer: LiveData<Int>
@@ -109,6 +104,24 @@ class GameViewModel: ViewModel() {
 
     fun updateTimer(seconds: Long) {
         _countdownTimer.value = seconds.div(1000).toInt()
+    }
+
+    fun setHighScore(highScoreParam: Long) {
+        var highScoreLocal = 0L
+        firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
+            .get(SOURCE).addOnSuccessListener { documentSnapshot ->
+                _highScore.value = documentSnapshot["highestScore"] as Long
+                highScoreLocal = documentSnapshot["highestScore"] as Long
+
+                if (highScoreParam > highScoreLocal) {
+                    _isHighScore.value = true
+                    firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
+                        .update("highestScore", highScoreParam)
+                } else {
+                    _isHighScore.value = false
+                }
+            }
+
     }
 
 }

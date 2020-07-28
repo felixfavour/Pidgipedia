@@ -37,7 +37,8 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/animated_recording"
-            app:srcCompat="@drawable/stop" />
+            app:srcCompat="@drawable/stop"
+            tools:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -58,7 +59,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:color/black" />
+            app:srcCompat="@android:color/black"
+            tools:visibility="gone" />
 
         <ImageView
             android:id="@+id/animated_recording"
@@ -73,19 +75,60 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             app:srcCompat="@drawable/animated_recording"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            tools:layout_editor_absoluteX="-16dp"
+            tools:layout_editor_absoluteY="-16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/texts_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true">
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/derogatory_buttonGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    app:checkedButton="@id/derogatory_no_selection"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/derogatory_yes_selection"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/color_states_button_group"
+                        android:fontFamily="@font/poppinslight"
+                        android:text="@string/yes"
+                        android:textColor="@color/primaryColor"
+                        app:strokeColor="@color/primaryColorLight" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/derogatory_no_selection"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/color_states_button_group"
+                        android:fontFamily="@font/poppinslight"
+                        android:text="@string/no"
+                        android:textColor="@color/primaryColor"
+                        app:strokeColor="@color/primaryColorLight" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout_word_meaning"
@@ -413,7 +456,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_transcription">
+                    app:layout_constraintTop_toBottomOf="@+id/derogatory_buttonGroup">
 
                     <EditText
                         android:id="@+id/syllabic_division"
@@ -482,6 +525,20 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout_pronounce" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/derogatory_warning"
+                    android:textSize="@dimen/line_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout_transcription" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

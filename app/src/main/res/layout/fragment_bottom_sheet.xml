@@ -56,7 +56,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:profileImage="@{bottomSheetViewModel.humanEntity.userId}"
-                tools:src="@drawable/greta" />
+                android:src="@drawable/person" />
 
             <TextView
                 android:id="@+id/user_name"
