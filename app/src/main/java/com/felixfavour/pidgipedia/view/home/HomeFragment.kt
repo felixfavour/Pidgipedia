@@ -181,9 +181,11 @@ class HomeFragment : Fragment() {
         }
 
         if (requireActivity().intent.action == Pidgipedia.WORD_NAVIGATION) {
-            val word = requireActivity().intent.getParcelableExtra(Pidgipedia.WORD) as Word
-            findNavController().navigate(
-                HomeFragmentDirections.actionNavigationHomeToWordFragment(word.wordId))
+            val word = requireActivity().intent.getParcelableExtra<Word>(Pidgipedia.WORD)
+            word?.let {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionNavigationHomeToWordFragment(it.wordId))
+            }
             requireActivity().intent.action = ""
         }
 

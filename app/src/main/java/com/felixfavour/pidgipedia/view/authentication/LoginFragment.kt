@@ -170,6 +170,8 @@ class LoginFragment: Fragment() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
                 .addOnSuccessListener {googleSignInAccount ->
                     loginViewModel.authenticateUserGoogle(googleSignInAccount)
+                }.addOnFailureListener {
+                    it.localizedMessage
                 }
         }
     }

@@ -313,11 +313,17 @@ fun eventStampDate(textView: TextView, date: Long?) {
     val dateThen = DateTime(date).toLocalDateTime()
     val dateNow = DateTime(System.currentTimeMillis()).toLocalDateTime()
 
+    val yearDifference = dateNow.year - dateThen.year
+    var monthDifference = dateNow.monthOfYear - dateThen.monthOfYear
+    val dayDifference = dateNow.dayOfMonth - dateThen.dayOfMonth
+    val weeksInDay = (dayDifference / Calendar.DAY_OF_WEEK)
+    val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
+    val minuteDifference = dateNow.minuteOfHour - dateThen.minuteOfHour
+
     /*
     * Condition if the two events occurred in different years and in
     * a span of 12 months*/
     if ((dateNow.year != dateThen.year) && (dateNow.monthOfYear >= MONTHS_IN_A_YEAR)) {
-        val yearDifference = dateNow.year - dateThen.year
         if ((yearDifference) == 1) {
             textView.text = context.getString(R.string.a_year_ago)
         }
@@ -328,7 +334,6 @@ fun eventStampDate(textView: TextView, date: Long?) {
         // Condition if the two events occurred in the same year
 
         if (dateNow.monthOfYear != dateThen.monthOfYear) {
-            var monthDifference = dateNow.monthOfYear - dateThen.monthOfYear
 
             /*
             * Having considered a dreadful anomaly in Month difference; in the sense that,
@@ -347,13 +352,10 @@ fun eventStampDate(textView: TextView, date: Long?) {
             }
         } else {
             // Condition if the two events occurred in the same month
-            val dayDifference = dateNow.dayOfMonth - dateThen.dayOfMonth
-            val hourDiffference = dateNow.hourOfDay - dateThen.hourOfDay
             if (dayDifference == 0) {
                 // Conditon if the two events occured in the same day
                 if (hourDiffference == 0) {
                     // Conditon if the two events occured in the same hour
-                    val minuteDifference = dateNow.minuteOfHour - dateThen.minuteOfHour
                     if (minuteDifference in 0..1) {
                         // Conditon if the two events occured in the same minute
                         textView.text = context.getString(R.string.a_few_seconds_ago)
@@ -383,7 +385,6 @@ fun eventStampDate(textView: TextView, date: Long?) {
                 textView.text = context.getString(R.string.days_ago, dayDifference)
             }
             else {
-                val weeksInDay = (dayDifference / Calendar.DAY_OF_WEEK)
                 if (weeksInDay == 1) {
                     textView.text = context.getString(R.string.a_week_ago)
                 }

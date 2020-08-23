@@ -26,18 +26,8 @@ object Pidgipedia {
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
     var BOOKMARKS_VISIBILITY = true
-    var SOURCE = Source.CACHE
+    var SOURCE = Source.SERVER
     var HISTORY_LIMIT = HistorySize.FIFTY
-}
-
-object Notification {
-    const val WORD_SUGGESTION_CHANNEL_ID = "Channel-01"
-    const val WORD_OF_THE_DAY_CHANNEL_ID = "Channel-02"
-    const val WORD_REJECTION_CHANNEL_ID = "Channel-03"
-    const val WORD_APPROVAL_CHANNEL_ID = "Channel-04"
-    const val WORD_COMMENTS_CHANNEL_ID = "Channel-05"
-    const val REWARD_CHANNEL_ID = "Channel-06"
-    const val MISCELLANEOUS_NEWS_CHANNEL_ID = "Channel-07"
 }
 
 object Connection {
@@ -80,12 +70,20 @@ object Language {
     const val ENGLISH_US = "English US"
 }
 
-object Notifications {
-    const val RANK_PROMOTION = "RP"
-    const val COMMENT_RESPONSES = "CR"
-    const val WORD_OF_THE_DAY = "WOD"
-    const val WORDS_APPROVED = "WA"
-    const val MISCELLANEOUS = "MISC"
+object Notification {
+    const val USERS_UPDATES = "UserUpdates"
+    const val COMMENTS = "Comments"
+    const val WOD = "Wod"
+    const val WORDS_UPDATES = "WordUpdates"
+    const val MISCELLANEOUS = "Miscellaneous"
+}
+
+object NotificationsCode {
+    const val USERS_UPDATES = "UUP"
+    const val COMMENTS = "COM"
+    const val WOD = "WOD"
+    const val WORDS_UPDATES = "WUP"
+    const val MISCELLANEOUS = "MIS"
 }
 
 object HistorySize {

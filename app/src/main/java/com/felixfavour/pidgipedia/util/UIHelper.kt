@@ -139,42 +139,42 @@ fun resizeImage(image: Bitmap): Bitmap {
 
 fun checkInternetConnectivity(context: Context) {
 
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val request = NetworkRequest.Builder()
-        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-        .build()
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        connectivityManager.requestNetwork(request, object: ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                super.onAvailable(network)
-                Pidgipedia.SOURCE = Source.DEFAULT
-            }
-
-            override fun onUnavailable() {
-                super.onUnavailable()
-                Pidgipedia.SOURCE = Source.CACHE
-                toast(context.applicationContext, context.getString(R.string.no_internet_access))
-            }
-
-            override fun onLost(network: Network) {
-                super.onLost(network)
-                Pidgipedia.SOURCE = Source.CACHE
-                toast(context.applicationContext, context.getString(R.string.internet_unstable))
-            }
-        }, 1000)
-    } else {
-        connectivityManager.requestNetwork(request, object: ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                super.onAvailable(network)
-                Pidgipedia.SOURCE = Source.DEFAULT
-            }
-
-            override fun onLost(network: Network) {
-                super.onLost(network)
-                Pidgipedia.SOURCE = Source.CACHE
-                toast(context.applicationContext, context.getString(R.string.internet_unstable))
-            }
-        })
-    }
+//    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+//    val request = NetworkRequest.Builder()
+//        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+//        .build()
+//
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//        connectivityManager.requestNetwork(request, object: ConnectivityManager.NetworkCallback() {
+//            override fun onAvailable(network: Network) {
+//                super.onAvailable(network)
+//                Pidgipedia.SOURCE = Source.DEFAULT
+//            }
+//
+//            override fun onUnavailable() {
+//                super.onUnavailable()
+//                Pidgipedia.SOURCE = Source.CACHE
+//                toast(context.applicationContext, context.getString(R.string.no_internet_access))
+//            }
+//
+//            override fun onLost(network: Network) {
+//                super.onLost(network)
+//                Pidgipedia.SOURCE = Source.CACHE
+//                toast(context.applicationContext, context.getString(R.string.internet_unstable))
+//            }
+//        }, 1000)
+//    } else {
+//        connectivityManager.requestNetwork(request, object: ConnectivityManager.NetworkCallback() {
+//            override fun onAvailable(network: Network) {
+//                super.onAvailable(network)
+//                Pidgipedia.SOURCE = Source.DEFAULT
+//            }
+//
+//            override fun onLost(network: Network) {
+//                super.onLost(network)
+//                Pidgipedia.SOURCE = Source.CACHE
+//                toast(context.applicationContext, context.getString(R.string.internet_unstable))
+//            }
+//        })
+//    }
 }
