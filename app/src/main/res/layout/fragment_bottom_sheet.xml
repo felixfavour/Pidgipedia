@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/user_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
@@ -73,7 +73,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/author_image"
                 app:layout_constraintTop_toTopOf="@+id/author_image"
-                tools:text="Greta Thunberg" />
+                tools:text="Felix Favour Chinemerem (Best Guy in the World)" />
 
             <TextView
                 android:id="@+id/approved_Words"

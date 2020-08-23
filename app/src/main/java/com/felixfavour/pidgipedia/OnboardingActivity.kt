@@ -43,8 +43,8 @@ class OnboardingActivity : AppCompatActivity() {
 
         checkInternetConnectivity(applicationContext)
 
-        // The color code matches the primaryLightColor resource
         window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.primaryColorLightConstant)
+        window.navigationBarColor = ContextCompat.getColor(applicationContext, R.color.primaryColorLightConstant)
     }
 
     /*

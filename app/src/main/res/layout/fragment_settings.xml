@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +58,7 @@
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/dark"
                     android:textColor="@color/primaryColor"
+                    android:visibility="visible"
                     app:strokeColor="@color/primaryColorLight" />
 
                 <com.google.android.material.button.MaterialButton
@@ -68,6 +70,7 @@
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/default_theme"
                     android:textColor="@color/primaryColor"
+                    android:visibility="visible"
                     app:strokeColor="@color/primaryColorLight" />
 
                 <com.google.android.material.button.MaterialButton
@@ -79,6 +82,7 @@
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/light"
                     android:textColor="@color/primaryColor"
+                    android:visibility="visible"
                     app:strokeColor="@color/primaryColorLight" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -105,6 +109,7 @@
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/_50"
                     android:textColor="@color/primaryColor"
+                    android:visibility="visible"
                     app:strokeColor="@color/primaryColorLight" />
 
                 <com.google.android.material.button.MaterialButton
@@ -116,6 +121,7 @@
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/_100"
                     android:textColor="@color/primaryColor"
+                    android:visibility="visible"
                     app:strokeColor="@color/primaryColorLight" />
 
                 <com.google.android.material.button.MaterialButton
@@ -127,6 +133,7 @@
                     android:fontFamily="@font/poppinslight"
                     android:text="@string/_150"
                     android:textColor="@color/primaryColor"
+                    android:visibility="visible"
                     app:strokeColor="@color/primaryColorLight" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -136,6 +143,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/secondaryGreyColor"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -148,6 +156,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/secondaryGreyColor"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -173,6 +182,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/secondaryGreyColor"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -190,6 +200,7 @@
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/large_text"
                 android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -204,6 +215,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/app_theme"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -220,6 +232,7 @@
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/large_text"
                 android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -236,11 +249,11 @@
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/large_text"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider4"
-                android:visibility="gone" />
+                app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -253,6 +266,7 @@
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/large_text"
                 android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -284,6 +298,7 @@
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/large_text"
                 android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -297,6 +312,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="32dp"
                 android:text="@string/miscellanous_news_desc"
+                android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@+id/miscellaneous_news_notify"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/miscellaneous_news" />
@@ -311,10 +327,11 @@
                 android:text="@string/word_of_the_day_channel"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/comment_responses" />
+                app:layout_constraintTop_toBottomOf="@+id/comments" />
 
             <TextView
                 android:id="@+id/miscellaneous_news"
@@ -327,55 +344,56 @@
                 android:text="@string/miscellaneous_news"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/words_approved" />
+                app:layout_constraintTop_toBottomOf="@+id/word_updates" />
 
             <TextView
-                android:id="@+id/words_approved"
+                android:id="@+id/word_updates"
                 style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:padding="20dp"
-                android:text="@string/words_approved_channel"
+                android:text="Word Updates"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/word_of_the_day" />
 
             <TextView
-                android:id="@+id/comment_responses"
+                android:id="@+id/comments"
                 style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:padding="20dp"
-                android:text="@string/comment_responses"
+                android:text="Comments"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rank_promotion" />
+                app:layout_constraintTop_toBottomOf="@+id/user_updates" />
 
             <TextView
-                android:id="@+id/rank_promotion"
+                android:id="@+id/user_updates"
                 style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="start"
                 android:padding="20dp"
-                android:text="@string/rank_promotion"
+                android:text="User Updates"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -389,6 +407,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="16dp"
                 android:text="@{settingsViewModel.user.toString()}"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -405,6 +424,7 @@
                 android:text="@string/information"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -415,18 +435,34 @@
                 style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:gravity="start"
                 android:padding="20dp"
                 android:text="@string/share_this_app"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/change_language"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/go_to_information"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/contact_developer" />
+
+            <TextView
+                android:id="@+id/contact_developer"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:padding="20dp"
+                android:text="@string/contact"
+                android:textAllCaps="false"
+                android:textColor="@color/primaryTextColor"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/share_this_app"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/go_to_information" />
 
             <TextView
                 android:id="@+id/change_language"
@@ -489,6 +525,7 @@
                 android:text="@string/delete_account"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -505,6 +542,7 @@
                 android:text="@string/log_out"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -521,6 +559,7 @@
                 android:text="@string/my_profile"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -531,48 +570,55 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/miscellaneous_news"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/miscellaneous_news" />
 
             <Switch
-                android:id="@+id/words_approved_notify"
+                android:id="@+id/words_updates_notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/words_approved"
+                android:clickable="false"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/word_updates"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/words_approved" />
+                app:layout_constraintTop_toTopOf="@+id/word_updates" />
 
             <Switch
                 android:id="@+id/word_of_the_day_notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/word_of_the_day"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/word_of_the_day" />
 
             <Switch
-                android:id="@+id/comment_responses_notify"
+                android:id="@+id/comments_notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/comment_responses"
+                android:clickable="false"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/comments"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/comment_responses" />
+                app:layout_constraintTop_toTopOf="@+id/comments" />
 
             <Switch
-                android:id="@+id/rank_promotion_notify"
+                android:id="@+id/user_updates_notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/rank_promotion"
-                app:layout_constraintEnd_toEndOf="@+id/rank_promotion"
-                app:layout_constraintTop_toTopOf="@+id/rank_promotion" />
+                android:clickable="false"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/user_updates"
+                app:layout_constraintEnd_toEndOf="@+id/user_updates"
+                app:layout_constraintTop_toTopOf="@+id/user_updates" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
