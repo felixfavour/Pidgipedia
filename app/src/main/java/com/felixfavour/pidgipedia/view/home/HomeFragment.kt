@@ -144,7 +144,7 @@ class HomeFragment : Fragment() {
                     }
                     else -> {
                         findNavController().navigate(
-                            HomeFragmentDirections.actionNavigationHomeToEventstampFragment(eventstamp))
+                            HomeFragmentDirections.actionNavigationHomeToEventstampFragment(eventstamp, false))
                     }
                 }
             }
@@ -169,7 +169,14 @@ class HomeFragment : Fragment() {
 
         }
         )
-        var count = 0
+
+        binding.homeScrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            if (scrollY > 100) {
+                binding.divider.visibility = View.VISIBLE
+            } else {
+                binding.divider.visibility = View.GONE
+            }
+        }
 
 
         binding.appUpdatesList
@@ -177,7 +184,7 @@ class HomeFragment : Fragment() {
 
         // NAVIGATION
         binding.suggest.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordSuggestionFragment())
+            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordSuggestionFragment(null))
         }
 
         if (requireActivity().intent.action == Pidgipedia.WORD_NAVIGATION) {

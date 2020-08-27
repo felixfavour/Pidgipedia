@@ -1,27 +1,24 @@
 package com.felixfavour.pidgipedia.view.home
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import android.media.AudioAttributes
 import android.media.AudioManager
-import android.media.MediaDataSource
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.os.Environment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.net.toUri
+import androidx.core.view.forEach
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.bumptech.glide.Glide
@@ -32,20 +29,18 @@ import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentWordBinding
 import com.felixfavour.pidgipedia.util.Connection.FAILED
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
-import com.felixfavour.pidgipedia.util.Pidgipedia
-import com.felixfavour.pidgipedia.util.Pidgipedia.APP_NAME
 import com.felixfavour.pidgipedia.util.Pidgipedia.AUDIO_REFERENCE
 import com.felixfavour.pidgipedia.util.shareWord
 import com.felixfavour.pidgipedia.util.snack
+import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.viewmodel.WordViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.FileDescriptor
 import java.io.FileInputStream
-import java.net.URI
 
 /**
  * A simple [Fragment] subclass.
@@ -53,6 +48,7 @@ import java.net.URI
 class WordFragment : Fragment() {
     private lateinit var binding: FragmentWordBinding
     private lateinit var wordViewModel: WordViewModel
+    private val uid = FirebaseAuth.getInstance().uid
 
     @ExperimentalStdlibApi
     override fun onCreateView(
@@ -60,10 +56,17 @@ class WordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_word, container, false)
+        setHasOptionsMenu(true)
         wordViewModel = ViewModelProvider(this).get(WordViewModel::class.java)
         wordViewModel.loadUser()
         val openAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.search_translate_anim_down)
         val closeAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.search_translate_anim_up)
+        val activity = requireActivity() as AppCompatActivity
+        val toolbar = activity.supportActionBar
+
+
+        // SET TOOLBAR TITLE TO EMPTY STRING
+        toolbar?.title = ""
 
 
         // SET LIFECYCLE OWNER
@@ -187,9 +190,83 @@ class WordFragment : Fragment() {
         })
 
 
+        // RECYCLER VIEW SCROLL CHANGES
+        binding.wordScrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            var offset = 130
+            /*
+            * offset is the span from the top of the viewport to the wordName view.
+            * If a word is certified, the offset is shorter
+            * Because the [approve_word* dialog on top of the screen is hidden,
+            */
+            wordViewModel.word.value?.let {
+                if (it.approved || it.certified) {
+                    offset = 60
+                    if (scrollY > offset) {
+                        toolbar?.title = it.name
+                    } else if (scrollY <= offset) {
+                        toolbar?.title = ""
+                    }
+                } else {
+                    offset = 160
+                    if (scrollY > offset) {
+                        toolbar?.title = it.name
+                    } else if (scrollY <= offset) {
+                        toolbar?.title = ""
+                    }
+                }
+            }
+        }
+
+
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.word_menu, menu)
+
+        wordViewModel.word.observe(viewLifecycleOwner, Observer { word ->
+            if (word.certified) {
+                menu.removeItem(R.id.edit_word)
+                menu.removeItem(R.id.suggest_changes)
+            }
+            if (word.authorId == uid) {
+                menu.removeItem(R.id.suggest_changes)
+                menu.removeItem(R.id.see_author)
+            }
+            if (word.authorId != uid) {
+                menu.removeItem(R.id.edit_word)
+            }
+        })
+
+        menu.forEach { it ->
+            it.setOnMenuItemClickListener {menuItem ->
+                wordViewModel.word.value?.let {word ->
+
+                    when (menuItem.itemId) {
+                        R.id.search -> {
+                            findNavController().navigate(WordFragmentDirections.actionWordFragmentToNavigationDictionary())
+                        }
+                        R.id.edit_word -> {
+                            findNavController().navigate(WordFragmentDirections.actionWordFragmentToWordSuggestionFragment(word))
+                        }
+                        R.id.suggest_changes -> {
+                            wordViewModel.latestEventstamp.value?.let {latestEventstamp ->
+                                findNavController().navigate(WordFragmentDirections.actionWordFragmentToEventstampFragment(latestEventstamp, true))
+                            }
+                        }
+                        R.id.see_author -> {
+                            findNavController().navigate(WordFragmentDirections.actionWordFragmentToProfileFragment2(word.authorId, true))
+                        }
+                        else -> {
+                            // Do nothing
+                        }
+                    }
+                }
+                return@setOnMenuItemClickListener true
+            }
+        }
+    }
 
     /*
     * Method to expand and contract views in Word screen*/

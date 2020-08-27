@@ -10,6 +10,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.forEach
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -108,12 +110,21 @@ class DictionaryFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.search_menu, menu)
+        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
+        val isWordFragNav = DictionaryFragmentArgs.fromBundle(requireArguments()).isWordFragNav
+        if (isWordFragNav) {
+            val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.search_translate_anim_down)
+            menu.getItem(0).icon = requireContext().getDrawable(R.drawable.close_primary)
+            binding.wordSearchView.visibility = View.VISIBLE
+            binding.wordSearchView.startAnimation(animation)
+            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+            binding.wordSearchView.requestFocus()
+        }
 
-        val searchMenu = menu.findItem(R.id.search)
+        val searchMenu = menu.findItem(R.id.search_dictionary)
         searchMenu.setOnMenuItemClickListener {menuItem ->
             updateUI(menuItem)
-            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
             false
         }

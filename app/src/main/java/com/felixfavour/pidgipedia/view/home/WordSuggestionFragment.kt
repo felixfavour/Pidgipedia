@@ -43,6 +43,7 @@ import com.felixfavour.pidgipedia.util.snack
 import com.felixfavour.pidgipedia.viewmodel.WordSuggestionViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -64,10 +65,23 @@ class WordSuggestionFragment : Fragment() {
     private var isRecordingPermitted = false
     private var permissions: Array<String> = arrayOf(Manifest.permission.RECORD_AUDIO)
     private var imageByteArray: ByteArray? = null
-    private var file: File? = null
+    private var audioFile: File? = null
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_word_suggestion, container, false)
+        wordSuggestionViewModel = ViewModelProvider(this).get(WordSuggestionViewModel::class.java)
+
+
+        // CHECK IF IS WORD EDITING
+        val wordArgs = WordSuggestionFragmentArgs.fromBundle(requireArguments()).word
+        if (wordArgs != null) {
+            updateToWordEditingLayout(wordArgs)
+        } else {
+            // Submit Word to Database Servers
+            submitWord()
+        }
+
 
         // AUDIO PERMISSION
         ActivityCompat.requestPermissions( requireActivity(), permissions,
@@ -78,9 +92,6 @@ class WordSuggestionFragment : Fragment() {
         activity.supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(false)
         }
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_word_suggestion, container, false)
-        wordSuggestionViewModel = ViewModelProvider(this).get(WordSuggestionViewModel::class.java)
 
 
         // ACTION FOR: When Enter is clicked on keyboard for synonym input
@@ -178,9 +189,9 @@ class WordSuggestionFragment : Fragment() {
             mediaRecorder.stop()
 
             // Assign the recording to a file
-            file = File(path)
-            if (file != null) {
-                if (file!!.exists()) {
+            audioFile = File(path)
+            if (audioFile != null) {
+                if (audioFile!!.exists()) {
                     binding.wordPronounciationStatus.text = getString(R.string.audio_recorded)
                 }
             }
@@ -189,7 +200,29 @@ class WordSuggestionFragment : Fragment() {
         }
 
 
-        // Submit Word to Database Servers
+        // SET LIFECYCLE OWNER
+        binding.lifecycleOwner = this
+
+
+        // OBSERVE LIVE DATA
+        wordSuggestionViewModel.status.observe(viewLifecycleOwner, Observer { status->
+            if (status == SUCCESS) {
+                binding.progressBar.animation = null
+                binding.progressBar.visibility = View.GONE
+                showSuccessDialog(
+                    requireContext(),
+                    R.string.successful_suggestion_title,
+                    R.string.successful_suggestion_details,
+                    requireActivity())
+            } else if (status == LOADING) {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+        })
+
+        return binding.root
+    }
+
+    private fun submitWord() {
         binding.submit.setOnClickListener {
 
             val syllabicDivision = binding.syllabicDivision.text.toString()
@@ -217,21 +250,21 @@ class WordSuggestionFragment : Fragment() {
                 certified = false,
                 lastUpdated = System.currentTimeMillis(),
 
-                plural = binding.partOfSpeech.let {spinner ->
+                plural = binding.partOfSpeech.let { spinner ->
                     var pluralForm = binding.word.text.toString()
                     if (spinner.selectedItem.toString() == "Noun") pluralForm += "s"
                     return@let pluralForm
                 },
                 pronunciationReference = "",
 
-                derogatory = binding.derogatoryButtonGroup.checkedButtonId.let {checkedButton ->
+                derogatory = binding.derogatoryButtonGroup.checkedButtonId.let { checkedButton ->
                     // If checkedButton is equal to the Yes Button ID, then it is true.
                     checkedButton == R.id.derogatory_yes_selection
                 },
 
                 sentences = binding.sentencesChipGroup.let {
                     val sentences = mutableListOf<String>()
-                    binding.sentencesChipGroup.forEach {chip ->
+                    binding.sentencesChipGroup.forEach { chip ->
                         chip as Chip
                         sentences.add(chip.text.toString())
                     }
@@ -250,33 +283,20 @@ class WordSuggestionFragment : Fragment() {
                 rejected = false
             )
 
-            if (file != null) {
-                wordSuggestionViewModel.uploadSuggestedWord(suggestedWord, Uri.fromFile(file), imageByteArray!!)
+            if (audioFile != null) {
+                if (imageByteArray != null) {
+                    wordSuggestionViewModel.uploadSuggestedWord(
+                        suggestedWord,
+                        Uri.fromFile(audioFile),
+                        imageByteArray!!
+                    )
+                } else {
+                    snack(requireView(), getString(R.string.word_submittion_error))
+                }
             } else {
-                wordSuggestionViewModel.uploadSuggestedWord(suggestedWord, null, imageByteArray!!)
+                snack(requireView(), getString(R.string.word_submittion_error))
             }
         }
-
-
-        // SET LIFECYCLE OWNER
-        binding.lifecycleOwner = this
-
-
-        // OBSERVE LIVE DATA
-        wordSuggestionViewModel.status.observe(viewLifecycleOwner, Observer { status->
-            if (status == SUCCESS) {
-                binding.progressBar.animation = null
-                binding.progressBar.visibility = View.GONE
-                showSuccessDialog(
-                    requireContext(),
-                    R.string.successful_suggestion_title,
-                    R.string.successful_suggestion_details)
-            } else if (status == LOADING) {
-                binding.progressBar.visibility = View.VISIBLE
-            }
-        })
-
-        return binding.root
     }
 
 
@@ -330,6 +350,75 @@ class WordSuggestionFragment : Fragment() {
         binding.addPicture.requestLayout()
 
         binding.wordImage.setImageBitmap(bitmap)
+    }
+
+
+    private fun updateToWordEditingLayout(word: Word) {
+        binding.setWord(word)
+        binding.pictureContainer.visibility = View.GONE
+        binding.textInputLayoutPronounce.visibility = View.GONE
+        binding.submit.text = getString(R.string.save_changes)
+
+        binding.submit.setOnClickListener {
+
+            val syllabicDivision = binding.syllabicDivision.text.toString()
+
+            val editedWord = Word(
+                wordId = word.wordId,
+                name = binding.word.text.toString(),
+                meaning = binding.wordMeaning.text.toString(),
+                transcription = binding.wordTranscription.text.toString(),
+                etymology = binding.etymology.text.toString(),
+                syllabicDivision = syllabicDivision,
+
+                syllables = syllabicDivision.let {
+                    var count = 1L
+                    it.forEach { char ->
+                        if (char == '-') count++
+                    }
+                    return@let count
+                },
+                englishEquivalent = binding.englishEquivalent.text.toString(),
+
+                partOfSpeech = binding.partOfSpeech.selectedItem.toString(),
+                approved = false,
+                certified = false,
+                lastUpdated = System.currentTimeMillis(),
+
+                plural = binding.partOfSpeech.let { spinner ->
+                    var pluralForm = binding.word.text.toString()
+                    if (spinner.selectedItem.toString() == "Noun") pluralForm += "s"
+                    return@let pluralForm
+                },
+
+                derogatory = binding.derogatoryButtonGroup.checkedButtonId.let { checkedButton ->
+                    // If checkedButton is equal to the Yes Button ID, then it is true.
+                    checkedButton == R.id.derogatory_yes_selection
+                },
+
+                sentences = binding.sentencesChipGroup.let {
+                    val sentences = mutableListOf<String>()
+                    binding.sentencesChipGroup.forEach { chip ->
+                        chip as Chip
+                        sentences.add(chip.text.toString())
+                    }
+                    return@let sentences
+                },
+
+                synonyms = binding.synonymChipGroup.let {
+                    val synonyms = mutableListOf<String>()
+                    binding.synonymChipGroup.forEach { chip ->
+                        chip as Chip
+                        synonyms.add(chip.text.toString())
+                    }
+                    return@let synonyms
+                },
+                authorId = firebaseAuth.uid!!,
+                rejected = false
+            )
+
+            wordSuggestionViewModel.editWord(editedWord)
+        }
     }
 
 

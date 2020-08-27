@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="word"
+            type="com.felixfavour.pidgipedia.entity.Word" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
@@ -100,6 +106,7 @@
                     android:layout_marginEnd="16dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal"
+                    app:chooseWordExplicitStatus="@{word.derogatory}"
                     app:checkedButton="@id/derogatory_no_selection"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -154,6 +161,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/meaning"
+                        android:text="@{word.meaning}"
                         android:inputType="textMultiLine"
                         android:maxLength="250"
                         tools:layout_editor_absoluteX="16dp"
@@ -180,6 +188,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/word"
+                        android:text="@{word.name}"
                         android:inputType="textPersonName"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -230,6 +239,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/etymology"
+                        android:text="@{word.etymology}"
                         android:inputType="textMultiLine"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -255,6 +265,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/word_transcription"
+                        android:text="@{word.transcription}"
                         android:inputType="textPersonName"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -347,11 +358,12 @@
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/sentences_chipGroup"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        app:getChips="@{word.sentences}"
                         android:animateLayoutChanges="true"
                         app:singleLine="false">
 
@@ -408,6 +420,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/english_equivalent"
+                        android:text="@{word.englishEquivalent}"
                         android:inputType="textPersonName"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />
@@ -428,11 +441,12 @@
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/synonym_chipGroup"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
+                        app:getChips="@{word.synonyms}"
                         android:animateLayoutChanges="true"
                         android:singleLine="true">
 
@@ -464,6 +478,7 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="@string/syllabic_division"
+                        android:text="@{word.syllabicDivision}"
                         android:inputType="textPersonName"
                         tools:layout_editor_absoluteX="16dp"
                         tools:layout_editor_absoluteY="176dp" />

@@ -44,6 +44,9 @@ import com.felixfavour.pidgipedia.view.dictionary.WordListAdapter
 import com.felixfavour.pidgipedia.view.home.EventstampCommentsAdapter
 import com.felixfavour.pidgipedia.view.home.HomeRecyclerViewAdapter
 import com.felixfavour.pidgipedia.view.home.UnapprovedWordListAdapter
+import com.google.android.material.button.MaterialButtonToggleGroup
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -52,6 +55,7 @@ import org.joda.time.DateTime
 import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 const val MONTHS_IN_A_YEAR = 12
 const val MARGIN = 4
@@ -266,6 +270,14 @@ fun isWordBookmarked(imageButton: ImageButton, bookmarked: Boolean?) {
 }
 
 
+@BindingAdapter("synonymsText")
+fun getSynonymsText(textView: TextView, synonyms: String?) {
+    val regex = Pattern.compile("[\\[\\]]").toRegex()
+    val formattedSynonyms = synonyms?.replace(regex, "")
+    textView.text = formattedSynonyms
+}
+
+
 @BindingAdapter("comment")
 fun getCommentText(textView: TextView, commentId: String?) {
     if (commentId != null) {
@@ -275,6 +287,29 @@ fun getCommentText(textView: TextView, commentId: String?) {
                 val commentText = documentSnapshot["commentContent"].toString()
                 textView.text = "\" $commentText \""
             }
+    }
+}
+
+
+@BindingAdapter("getChips")
+fun getListChips(chipGroup: ChipGroup, sentences: List<String>?) {
+    sentences?.forEach { sentence ->
+        val chip = Chip(chipGroup.context).apply {
+            text = sentence
+            isCloseIconVisible = true
+            setOnCloseIconClickListener {
+                chipGroup.removeView(this)
+            }
+        }
+        chipGroup.addView(chip)
+    }
+}
+
+
+@BindingAdapter("chooseWordExplicitStatus")
+fun getWordExplicitStatus(materialButtonToggleGroup: MaterialButtonToggleGroup, derogatory: Boolean) {
+    if (derogatory) {
+        materialButtonToggleGroup.check(R.id.derogatory_yes_selection)
     }
 }
 

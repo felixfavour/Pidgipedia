@@ -37,8 +37,17 @@ class EventstampFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_eventstamp, container, false)
         eventstampViewModel = ViewModelProvider(this).get(EventstampViewModel::class.java)
+
+
         // EXTRACT SAFE ARG
         val eventStampArgument = EventstampFragmentArgs.fromBundle(requireArguments()).eventstamp
+        val isSuggestChanges = EventstampFragmentArgs.fromBundle(requireArguments()).isSuggestChanges
+
+        if (isSuggestChanges) {
+            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+            binding.commentInput.requestFocus()
+        }
 
 
         // SET LIFECYCLE OWNER

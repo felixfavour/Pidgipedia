@@ -5,12 +5,14 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.*
+import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.RemoteUser
 import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.entity.WordDatabase
 import com.felixfavour.pidgipedia.util.Connection.FAILED
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.Pidgipedia.AUDIO_REFERENCE
+import com.felixfavour.pidgipedia.util.Pidgipedia.EVENTSTAMPS
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
 import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
@@ -19,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.io.File
+import java.util.NoSuchElementException
 
 class WordViewModel(application: Application): AndroidViewModel(application) {
 
@@ -33,6 +36,10 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
     private val _bookmarked = MutableLiveData<Boolean>(false)
     val bookmarked: LiveData<Boolean>
         get() = _bookmarked
+
+    private val _latestEventstamp = MutableLiveData<Eventstamp>()
+    val latestEventstamp: LiveData<Eventstamp>
+        get() = _latestEventstamp
 
     private val _status = MutableLiveData<Int>()
     val status: LiveData<Int>
@@ -70,6 +77,7 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
                 }
                 _word.value = wordSnapshot
                 isWordBookmarked(wordSnapshot)
+                loadLatestEventstamp(wordSnapshot)
             }
     }
 
@@ -111,7 +119,6 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
 
 
     private fun isWordBookmarked(word: Word?) {
-
         if (word != null) {
             // Check If word Id is in bookmarks
             firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
@@ -121,7 +128,21 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
                     _bookmarked.value = bookmarks?.contains(word.wordId)
                 }
         }
+    }
 
+
+    private fun loadLatestEventstamp(word: Word?) {
+        word?.let {
+            firebaseFirestore.collection(EVENTSTAMPS)
+                .whereEqualTo("wordId", it.wordId)
+                .get()
+                .addOnSuccessListener { querySnapshot ->
+                    val eventstamps = querySnapshot.toObjects(Eventstamp::class.java)
+                    try {
+                        _latestEventstamp.value = eventstamps.last()
+                    } catch (ex: NoSuchElementException) {}
+                }
+        }
     }
 
 

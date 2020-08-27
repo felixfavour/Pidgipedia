@@ -211,4 +211,9 @@
     <string name="quiz_internet_error">Sorry. You cannot enjoy the quiz at this time, you would need to connect to the internet.</string>
     <string name="no_internet">No Internet</string>
     <string name="new_high_score">New High Score!</string>
+    <string name="edit_word">Edit Word</string>
+    <string name="see_author">See Author</string>
+    <string name="suggest_changes">Suggest Changes</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="word_submittion_error">Make sure that you have added an image and recorded your pronunciation before submitting.</string>
 </resources>

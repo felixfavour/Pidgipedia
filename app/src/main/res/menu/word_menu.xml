@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/suggest_changes"
+        android:title="@string/suggest_changes" />
+    <item
+        android:id="@+id/see_author"
+        android:title="@string/see_author" />
+    <item
+        android:id="@+id/edit_word"
+        android:icon="@drawable/edit"
+        android:title="@string/edit_word" />
+    <item
+        android:id="@+id/search"
+        android:title="@string/search_words"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_search_grey"/>
+</menu>

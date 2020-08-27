@@ -3,6 +3,7 @@ package com.felixfavour.pidgipedia.util
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
@@ -13,8 +14,10 @@ import android.net.NetworkRequest
 import android.os.Build
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.get
+import androidx.fragment.app.FragmentActivity
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.entity.Word
 import com.google.android.material.button.MaterialButton
@@ -61,12 +64,16 @@ fun showWarningDialog(context: Context, title: Int, message: Int) {
 }
 
 
-fun showSuccessDialog(context: Context, title: Int, message: Int) {
+fun showSuccessDialog(context: Context, title: Int, message: Int, activity: FragmentActivity? = null) {
     MaterialAlertDialogBuilder(context)
         .setIcon(R.drawable.check_circle)
         .setTitle(title)
         .setMessage(message)
-        .setPositiveButton(R.string.ok, null)
+        .setPositiveButton(R.string.ok, DialogInterface.OnClickListener { dialogInterface, i ->
+            activity?.apply {
+                onBackPressed()
+            }
+        })
         .show()
 }
 

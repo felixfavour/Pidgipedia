@@ -47,20 +47,15 @@ class HomeViewModel : ViewModel() {
 
 
     fun loadEventstamps() {
-        val eventstamps = mutableListOf<Eventstamp>()
         _status.value = LOADING
 
         firebaseFirestore.collection(EVENTSTAMPS)
-            .orderBy("eventTime", Query.Direction.DESCENDING)
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
                 _status.value = SUCCESS
                 // All Eventstamps Objects from this specific RemoteUser
-
-                querySnapshot?.documents?.forEach { eventstampField ->
-                    val eventstamp = eventstampField.toObject(Eventstamp::class.java)
-                    eventstamps.add(eventstamp!!)
-                }
+                val eventstamps = querySnapshot?.toObjects(Eventstamp::class.java)
+                eventstamps?.sortByDescending { it.eventTime }
                 _eventstamps.value = eventstamps
             }.addOnFailureListener {
                 _status.value = FAILED
@@ -68,15 +63,13 @@ class HomeViewModel : ViewModel() {
     }
 
     fun loadUnapprovedWords() {
-        val words = mutableListOf<Word>()
         firebaseFirestore.collection(SUGGESTED_WORDS)
             .orderBy("wordId", Query.Direction.DESCENDING)
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
-                querySnapshot.documents.forEach { document ->
-                    words.add(document.toObject(Word::class.java)!!)
-                    _unapprovedWords.value = words
-                }
+                val words = querySnapshot.toObjects(Word::class.java)
+                words.sortByDescending { it.dateCreated }
+                _unapprovedWords.value =  words
             }
     }
 

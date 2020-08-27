@@ -81,4 +81,29 @@ class WordSuggestionViewModel: ViewModel() {
             }
     }
 
+    fun editWord(word: Word) {
+        _status.value = LOADING
+
+        firestore.collection(SUGGESTED_WORDS).document(word.wordId)
+            .update(
+                mapOf(
+                    "name" to word.name,
+                    "meaning" to word.meaning,
+                    "etymology" to word.etymology,
+                    "plural" to word.plural,
+                    "partOfSpeech" to word.partOfSpeech,
+                    "syllables" to word.syllables,
+                    "syllabicDivision" to word.syllabicDivision,
+                    "englishEquivalent" to word.englishEquivalent,
+                    "transcription" to word.transcription,
+                    "synonyms" to word.synonyms,
+                    "sentences" to word.sentences,
+                    "lastUpdated" to word.lastUpdated,
+                    "derogatory" to word.derogatory
+                )
+            )
+            .addOnSuccessListener { _status.value = SUCCESS }
+            .addOnFailureListener { _status.value = FAILED }
+    }
+
 }

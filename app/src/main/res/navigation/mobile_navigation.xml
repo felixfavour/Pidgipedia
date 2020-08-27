@@ -17,7 +17,7 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"></action>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_dictionary_to_allWordsFragment"
             app:destination="@id/allWordsFragment"
@@ -25,6 +25,10 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="isWordFragNav"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <fragment
@@ -37,7 +41,7 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"></action>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_home_to_bookmarksFragment"
             app:destination="@id/bookmarksFragment"
@@ -111,7 +115,12 @@
         android:id="@+id/wordSuggestionFragment"
         android:name="com.felixfavour.pidgipedia.view.home.WordSuggestionFragment"
         android:label="@string/word_suggestion"
-        tools:layout="@layout/fragment_word_suggestion" />
+        tools:layout="@layout/fragment_word_suggestion" >
+        <argument
+            android:name="word"
+            app:argType="com.felixfavour.pidgipedia.entity.Word"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/bookmarksFragment"
         android:name="com.felixfavour.pidgipedia.view.home.BookmarksFragment"
@@ -128,11 +137,43 @@
     <fragment
         android:id="@+id/wordFragment"
         android:name="com.felixfavour.pidgipedia.view.home.WordFragment"
-        android:label="@string/word"
         tools:layout="@layout/fragment_word">
         <argument
             android:name="wordId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_wordFragment_to_navigation_dictionary"
+            app:destination="@id/navigation_dictionary"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="isWordFragNav"
+                app:argType="boolean"
+                android:defaultValue="true" />
+        </action>
+        <action
+            android:id="@+id/action_wordFragment_to_profileFragment2"
+            app:destination="@id/profileFragment2"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_wordFragment_to_eventstampFragment"
+            app:destination="@id/eventstampFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_wordFragment_to_wordSuggestionFragment"
+            app:destination="@id/wordSuggestionFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/eventstampFragment"
@@ -156,6 +197,9 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="isSuggestChanges"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/allWordsFragment"
