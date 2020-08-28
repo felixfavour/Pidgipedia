@@ -43,14 +43,14 @@
                     android:animateLayoutChanges="true"
                     tools:context=".view.home.HomeFragment">
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/word_of_the_day_Card"
                         android:layout_width="0dp"
                         android:layout_height="170dp"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="4dp"
-                        android:backgroundTint="@color/primaryColorLight"
+                        android:backgroundTint="@color/homeCardColor"
                         app:cardCornerRadius="6dp"
                         app:cardElevation="0dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -134,15 +134,16 @@
                                 app:rippleColor="@color/primaryWhiteColor"
                                 app:strokeColor="@color/primaryWhiteColor" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/suggest_word_card"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="4dp"
+                        android:backgroundTint="@color/homeCardColor"
                         app:cardCornerRadius="6dp"
                         app:cardElevation="0dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -152,8 +153,7 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/suggest_bg_drawable">
+                            android:layout_height="match_parent">
 
                             <TextView
                                 android:id="@+id/Suggest_word_static_text"
@@ -204,7 +204,7 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
 
                     <androidx.cardview.widget.CardView
@@ -237,7 +237,7 @@
                                 android:autoSizeTextType="uniform"
                                 android:fontFamily="@font/poppinsbold"
                                 android:text="@string/words_awaiting_approval"
-                                android:textColor="@color/primaryColorLight"
+                                android:textColor="@color/primaryColorLightConstant"
                                 android:textSize="@dimen/header_text"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.0"
@@ -293,9 +293,10 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/unapproved_words_card_container"
+                        app:layout_constraintVertical_bias="0.0"
                         tools:itemCount="3"
                         tools:listitem="@layout/word_approval_item" />
 

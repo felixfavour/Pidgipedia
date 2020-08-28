@@ -63,7 +63,7 @@ class ScoreScreen : Fragment() {
         return binding.root
     }
 
-    fun updateUIHighscore() {
+    private fun updateUIHighscore() {
         binding.highScoreImage.visibility = View.VISIBLE
         binding.moreToAceCard.visibility = View.GONE
         binding.highScoreDummy.text = getString(R.string.new_high_score)

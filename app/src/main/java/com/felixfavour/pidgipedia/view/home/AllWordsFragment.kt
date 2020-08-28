@@ -45,7 +45,9 @@ class AllWordsFragment : Fragment() {
 
         binding.allWordsList.adapter = WordListAdapter(OnWordClickListener {word, view ->
             findNavController().navigate(AllWordsFragmentDirections.actionAllWordsFragmentToWordFragment(word.wordId))
-        })
+        },
+        null
+        )
 
         return binding.root
     }

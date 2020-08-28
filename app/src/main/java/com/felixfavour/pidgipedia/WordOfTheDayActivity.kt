@@ -1,14 +1,18 @@
 package com.felixfavour.pidgipedia
 
 import android.animation.ObjectAnimator
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.ProgressBar
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.felixfavour.pidgipedia.util.toast
 import kotlin.math.abs
 
 class WordOfTheDayActivity : AppCompatActivity() {
@@ -51,8 +55,11 @@ class WordOfTheDayActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_word_of_the_day)
 
+        window.statusBarColor = ContextCompat.getColor(this, R.color.blueBlackColor)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.primaryColorDark)
+
         // SET ACTIVITY TO FULL SCREEN
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
     }
 
     override fun onStop() {

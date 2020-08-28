@@ -216,4 +216,6 @@
     <string name="suggest_changes">Suggest Changes</string>
     <string name="save_changes">Save Changes</string>
     <string name="word_submittion_error">Make sure that you have added an image and recorded your pronunciation before submitting.</string>
+    <string name="search_delete_prompt">Delete this word from searches?</string>
+    <string name="search_delete_all_prompt">Are you sure you want to clear all of your recent searches?</string>
 </resources>

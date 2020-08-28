@@ -24,6 +24,7 @@ import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.util.toast
 import com.felixfavour.pidgipedia.view.OnWordClickListener
 import com.felixfavour.pidgipedia.viewmodel.DictionaryViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -55,9 +56,23 @@ class DictionaryFragment : Fragment() {
 
 
         // RecyclerView
-        binding.recentSearchesList.adapter = WordListAdapter(OnWordClickListener { word, view ->
-            findNavController().navigate(DictionaryFragmentDirections.actionNavigationDictionaryToWordFragment(word.wordId))
-        })
+        binding.recentSearchesList.adapter = WordListAdapter(
+            OnWordClickListener { word, view ->
+                findNavController().navigate(DictionaryFragmentDirections.actionNavigationDictionaryToWordFragment(word.wordId))
+            },
+            object : OnWordLongClickListener() {
+                override fun onLongClick(view: View, word: Word) {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.search_delete_prompt)
+                        .setPositiveButton(R.string.yes) { _, _ ->
+                            dictionaryViewModel.deleteSearchedWord(word)
+                            dictionaryViewModel.loadRecentSearches()
+                        }
+                        .setNegativeButton(R.string.no, null)
+                        .show()
+                }
+
+            })
 
 
         //  WORD SEARCH VIEW
@@ -68,7 +83,7 @@ class DictionaryFragment : Fragment() {
                 words
             )
             binding.wordSearchView.setAdapter(suggestionsAdapter)
-            binding.wordSearchView.setOnItemClickListener { adapterView, view, i, l ->
+            binding.wordSearchView.setOnItemClickListener { adapterView, _, i, _ ->
                 val word = adapterView.getItemAtPosition(i) as Word
                 dictionaryViewModel.addSearchedWord(word)
                 dictionaryViewModel.loadRecentSearches()
@@ -94,8 +109,14 @@ class DictionaryFragment : Fragment() {
 
         // EVENT LISTENERS
         binding.clearAll.setOnClickListener {
-            dictionaryViewModel.deleteAllSearches()
-            dictionaryViewModel.loadRecentSearches()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.search_delete_all_prompt)
+                .setPositiveButton(R.string.yes) { _, _ ->
+                    dictionaryViewModel.deleteAllSearches()
+                    dictionaryViewModel.loadRecentSearches()
+                }
+                .setNegativeButton(R.string.no, null)
+                .show()
         }
 
 

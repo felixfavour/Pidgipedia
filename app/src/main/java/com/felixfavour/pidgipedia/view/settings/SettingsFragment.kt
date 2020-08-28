@@ -2,7 +2,9 @@ package com.felixfavour.pidgipedia.view.settings
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -58,6 +60,15 @@ class SettingsFragment : Fragment() {
 
         binding.goToInformation.setOnClickListener {
             findNavController().navigate(SettingsFragmentDirections.actionSettingsFragmentToInformationFragment())
+        }
+
+        binding.contactDeveloper.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_SENDTO,
+                Uri.fromParts("mailto", "crufftechnologies@gmail.com", null)
+            )
+
+            startActivity(Intent.createChooser(intent, null))
         }
 
         binding.logOut.setOnClickListener {

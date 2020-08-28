@@ -334,6 +334,18 @@ fun getBGImage(imageView: ImageView, url: String?) {
 }
 
 
+@BindingAdapter("gameScoreRemark")
+fun getGameScoreRemark(textView: TextView, score: Int?) {
+    val arrayOfRemarks = textView.context.resources.getStringArray(R.array.gameScoreRemarks)
+    score?.let {
+        textView.text = textView.context.getString(R.string.score_to_ace, score)
+        if (score == 10) {
+            textView.text = arrayOfRemarks.random()
+        }
+    }
+}
+
+
 @BindingAdapter("longDate")
 fun convertLongDate(textView: TextView, date: Long?) {
     val dateRef = Date(date!!)

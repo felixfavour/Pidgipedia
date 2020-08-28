@@ -10,9 +10,11 @@
     <color name="primaryWhiteColor">#FFFFFF</color>
     <color name="blackWhiteColor">#FFFFFF</color>
     <color name="whiteBlackColor">#151515</color>
+    <color name="blueBlackColor">#000000</color>
     <color name="primaryGreyColor">#7D7D7D</color>
     <color name="secondaryGreyColor">#7D7D7D</color>
     <color name="primaryGreen">#00B743</color>
     <color name="primaryRed">#7A0000</color>
+    <color name="homeCardColor">#000000</color>
 
 </resources>

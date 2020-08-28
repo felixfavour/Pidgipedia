@@ -36,6 +36,8 @@ data class Word(
     val certified: Boolean = false,
     val approvedAuthorId:String = "",
     val wordOfTheDay_date: Long = 0L,
+    val views: List<String> = emptyList(),
+    val likes: List<String> = emptyList(),
     val comments: List<String> = emptyList()
 ) : Parcelable {
 

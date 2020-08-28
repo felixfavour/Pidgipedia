@@ -21,4 +21,12 @@
         <item>English(UK)</item>
         <item>Pidgin(NG)</item>
     </string-array>
+    <string-array name="gameScoreRemarks">
+        <item>Impressive!</item>
+        <item>Outstanding!</item>
+        <item>Such a Genius!</item>
+        <item>Brilliant!</item>
+        <item>Einstein\'s got nothing on you!</item>
+        <item>Shakespeare\'s got nothing on you!</item>
+    </string-array>
 </resources>

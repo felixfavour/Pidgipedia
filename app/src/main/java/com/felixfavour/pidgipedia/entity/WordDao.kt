@@ -16,13 +16,10 @@ interface WordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertWordSearch(word: Word)
 
-    @Query("SELECT * FROM recentSearches WHERE wordRoomId = :wordId")
-    fun getWord(wordId: Long): Word
-
     @Query("DELETE FROM recentSearches")
     fun deleteRecentSearches()
 
     @Query("DELETE FROM recentSearches WHERE wordId = :wordId")
-    fun deleteRecentSearchById(wordId: Long)
+    fun deleteRecentSearchById(wordId: String)
 
 }

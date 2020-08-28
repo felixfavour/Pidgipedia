@@ -51,6 +51,12 @@ class DictionaryViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
+    fun deleteSearchedWord(word: Word) {
+         viewModelScope.launch {
+             deleteSearchById(word.wordId)
+         }
+    }
+
     fun deleteAllSearches() {
         viewModelScope.launch {
             deleteAllSearchesRoom()
@@ -76,7 +82,7 @@ class DictionaryViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    private suspend fun deleteSearchById(wordId: Long) {
+    private suspend fun deleteSearchById(wordId: String) {
         withContext(Dispatchers.IO) {
             wordDatabase?.deleteRecentSearchById(wordId)
         }

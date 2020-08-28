@@ -11,7 +11,8 @@ import com.felixfavour.pidgipedia.entity.Word
 import com.felixfavour.pidgipedia.view.OnWordClickListener
 
 class WordListAdapter(
-    private val clickAction: OnWordClickListener
+    private val clickAction: OnWordClickListener,
+    private val longClickAction: OnWordLongClickListener?
 ): ListAdapter<Word, WordListAdapter.WordListViewHolder>(DiffCallback) {
     companion object DiffCallback : DiffUtil.ItemCallback<Word>() {
         override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {
@@ -29,12 +30,19 @@ class WordListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(
             word: Word,
-            clickAction: OnWordClickListener
+            clickAction: OnWordClickListener,
+            longClickAction: OnWordLongClickListener?
         ) {
             val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             binding.root.layoutParams = layoutParams
             binding.root.setOnClickListener {
                 clickAction.onWordClick(word, it)
+            }
+            longClickAction?.let {
+                binding.root.setOnLongClickListener {
+                    longClickAction.onLongClick(it, word)
+                    true
+                }
             }
             binding.word = word
             binding.executePendingBindings()
@@ -47,7 +55,7 @@ class WordListAdapter(
 
     override fun onBindViewHolder(holder: WordListViewHolder, position: Int) {
         val word = getItem(position)
-        holder.bind(word, clickAction)
+        holder.bind(word, clickAction, longClickAction)
     }
 
 }

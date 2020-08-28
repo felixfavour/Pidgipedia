@@ -26,6 +26,7 @@
                 style="@style/QuizButton"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:paddingStart="32dp"
@@ -36,7 +37,9 @@
                 app:icon="@drawable/chevron_right_white"
                 app:iconGravity="end"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/answers_group"
+                app:layout_constraintVertical_bias="1.0" />
 
             <Button
                 android:id="@+id/question_countdown"
@@ -44,16 +47,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                tools:text="30"
                 android:text="@{gameViewModel.countdownTimer.toString()}"
                 android:textColor="@color/primaryWhiteColor"
                 app:cornerRadius="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:iconGravity="start" />
+                app:layout_constraintTop_toBottomOf="@+id/answers_group"
+                app:layout_constraintVertical_bias="1.0"
+                tools:iconGravity="start"
+                tools:text="30" />
 
             <TextView
                 android:id="@+id/question"

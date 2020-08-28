@@ -23,7 +23,7 @@ class WODViewModel: ViewModel() {
         }
 
     private fun loadWordOfTheDay() {
-       firebaseFirestore.collection(SUGGESTED_WORDS).document("word1")
+       firebaseFirestore.collection(SUGGESTED_WORDS).document("word10")
            .get(SOURCE)
            .addOnSuccessListener { documentSnapshot ->
                _word.value = documentSnapshot.toObject(Word::class.java)
