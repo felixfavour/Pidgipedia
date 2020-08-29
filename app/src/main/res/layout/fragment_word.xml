@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:tint="@color/primaryWhiteColor"
-                    app:layout_constraintEnd_toStartOf="@+id/share_word"
+                    app:layout_constraintEnd_toStartOf="@+id/word_views"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -145,7 +145,7 @@
                     android:tint="@color/primaryWhiteColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/bookmark_word"
+                    app:layout_constraintStart_toEndOf="@+id/word_views"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -181,7 +181,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/word_image"
+                    app:layout_constraintTop_toBottomOf="@+id/explicit_word"
                     app:partOfSpeechText="@{wordViewModel.word}"
                     tools:text="Noun (Chizarams)" />
 
@@ -406,6 +406,47 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/word_part_of_speech_and_plural"
                     tools:text="A privately owned bus mainly for transportation found in Lagos, NIgeria" />
+
+                <Button
+                    android:id="@+id/word_views"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/transparentColor"
+                    android:drawableEnd="@drawable/views"
+                    android:letterSpacing="0"
+                    android:text="@{String.valueOf(wordViewModel.word.views.size())}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primaryWhiteColor"
+                    app:layout_constraintEnd_toStartOf="@+id/share_word"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/bookmark_word"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:rippleColor="@color/primaryWhiteColor"
+                    app:strokeWidth="0dp"
+                    tools:text="56" />
+
+                <TextView
+                    android:id="@+id/explicit_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_corners"
+                    android:backgroundTint="@color/primaryWhiteColor"
+                    android:drawableEnd="@drawable/info"
+                    android:drawablePadding="16dp"
+                    android:padding="4dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    app:isWordExplicit="@{wordViewModel.word.derogatory}"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:text="@string/explicit_word_prompt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/word_image" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

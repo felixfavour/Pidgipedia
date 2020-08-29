@@ -270,6 +270,16 @@ fun isWordBookmarked(imageButton: ImageButton, bookmarked: Boolean?) {
 }
 
 
+@BindingAdapter("isWordExplicit")
+fun isWordExplicit(textView: TextView, derogatory: Boolean?) {
+    derogatory?.let { isExplicit ->
+        if (isExplicit) {
+            textView.visibility = View.VISIBLE
+        }
+    }
+}
+
+
 @BindingAdapter("synonymsText")
 fun getSynonymsText(textView: TextView, synonyms: String?) {
     val regex = Pattern.compile("[\\[\\]]").toRegex()

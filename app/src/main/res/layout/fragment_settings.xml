@@ -454,7 +454,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:padding="20dp"
-                android:text="@string/contact"
+                android:text="@string/contact_developer"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
                 android:visibility="visible"

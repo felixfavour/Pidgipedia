@@ -20,6 +20,7 @@ import com.felixfavour.pidgipedia.util.Rank
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 import java.io.File
 import java.util.NoSuchElementException
 
@@ -27,7 +28,11 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseFirestore = FirebaseFirestore.getInstance()
-    private val database = WordDatabase.getInstance(application.applicationContext)!!
+    private var localWordId = ""
+
+    /*
+    * To make changes reflect in UI in real time, without reloading more than it should.*/
+    private var wordReloadTries = 0
 
     private val _error = MutableLiveData<Throwable?>(null)
     val error: LiveData<Throwable?>
@@ -65,6 +70,7 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
 
 
     fun loadWord(wordId: String) {
+        localWordId = wordId
         firebaseFirestore.collection(SUGGESTED_WORDS).document(wordId)
             .get(SOURCE)
             .addOnSuccessListener { documentSnapshot ->
@@ -78,6 +84,7 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
                 _word.value = wordSnapshot
                 isWordBookmarked(wordSnapshot)
                 loadLatestEventstamp(wordSnapshot)
+                uploadWordView(wordSnapshot)
             }
     }
 
@@ -184,6 +191,23 @@ class WordViewModel(application: Application): AndroidViewModel(application) {
             _status.value = FAILED
         }
     }
+
+
+    private fun uploadWordView(word: Word?) {
+        val userId = firebaseAuth.uid
+        word?.let {
+            firebaseFirestore.collection(SUGGESTED_WORDS)
+                .document(it.wordId)
+                .update("views", FieldValue.arrayUnion(userId))
+                .addOnSuccessListener {
+                    if (wordReloadTries < 1) {
+                        loadWord(localWordId)
+                        wordReloadTries++
+                    }
+                }
+        }
+    }
+
 
     private fun saveAudioLocal(url: String, fileName: String) {
         val context = getApplication<Application>().applicationContext

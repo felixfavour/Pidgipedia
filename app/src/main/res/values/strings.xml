@@ -55,6 +55,7 @@
     <string name="graphics_and_images_credit">All illustrations and animations were designed by <b>Favour Felix</b> with elements from <b>freepik</b> and <b>pikisuperstar</b>.\nImages were gotten from Google Searches</string>
     <string name="data_population">Data Population</string>
     <string name="contact">Contact</string>
+    <string name="contact_developer">Contact Developer</string>
     <string name="contact_contents">- felixfavour0@gmail.com \n- felix.esther.c@gmail.com \n- GitHub.com/felixfavour \n- naijalingo.com</string>
     <string name="data_population_credits">Initial data was supplied by <b>naijalingo.com</b> and reconstructed by <b>Esther Felix</b> with joint effort from <b>Favour Felix</b>.</string>
     <string name="graphics_and_images">Graphics and Images</string>
@@ -218,4 +219,6 @@
     <string name="word_submittion_error">Make sure that you have added an image and recorded your pronunciation before submitting.</string>
     <string name="search_delete_prompt">Delete this word from searches?</string>
     <string name="search_delete_all_prompt">Are you sure you want to clear all of your recent searches?</string>
+    <string name="explicit_word_prompt">This word has been flagged explicit by author.</string>
+    <string name="views_placeholder">" unique users have seen this word"</string>
 </resources>

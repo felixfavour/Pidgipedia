@@ -179,9 +179,6 @@ class HomeFragment : Fragment() {
         }
 
 
-        binding.appUpdatesList
-
-
         // NAVIGATION
         binding.suggest.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToWordSuggestionFragment(null))

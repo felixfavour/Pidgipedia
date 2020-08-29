@@ -100,6 +100,17 @@ class WordFragment : Fragment() {
                 binding.wordScrollView.fullScroll(View.FOCUS_DOWN)
             }
         }
+        binding.wordViews.setOnClickListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                val numberOfViews = binding.wordViews.text.toString().toIntOrNull()
+                numberOfViews?.let {
+                    binding.wordViews.text = "$numberOfViews${getString(R.string.views_placeholder)}"
+                }
+                delay(1500)
+                binding.wordViews.text = numberOfViews.toString()
+            }
+
+        }
 
 
         // EVENT LISTENERS

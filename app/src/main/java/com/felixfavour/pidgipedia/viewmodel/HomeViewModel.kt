@@ -63,13 +63,20 @@ class HomeViewModel : ViewModel() {
     }
 
     fun loadUnapprovedWords() {
+        val localUnapprovedWords = mutableListOf<Word>()
         firebaseFirestore.collection(SUGGESTED_WORDS)
             .orderBy("wordId", Query.Direction.DESCENDING)
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
                 val words = querySnapshot.toObjects(Word::class.java)
                 words.sortByDescending { it.dateCreated }
-                _unapprovedWords.value =  words
+                words.forEach {
+                    if (it.certified || it.rejected || it.approved) {
+                    } else {
+                        localUnapprovedWords.add(it)
+                    }
+                }
+                _unapprovedWords.value =  localUnapprovedWords
             }
     }
 
