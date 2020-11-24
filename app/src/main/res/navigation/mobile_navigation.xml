@@ -65,7 +65,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_home_to_badgesFragment2"
-            app:destination="@id/badgesFragment2"
+            app:destination="@id/badgesFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
@@ -79,7 +79,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_home_to_profileFragment2"
-            app:destination="@id/profileFragment2"
+            app:destination="@id/profileFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
@@ -155,7 +155,7 @@
         </action>
         <action
             android:id="@+id/action_wordFragment_to_profileFragment2"
-            app:destination="@id/profileFragment2"
+            app:destination="@id/profileFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
@@ -185,7 +185,7 @@
             app:argType="com.felixfavour.pidgipedia.entity.Eventstamp" />
         <action
             android:id="@+id/action_eventstampFragment_to_profileFragment2"
-            app:destination="@id/profileFragment2"
+            app:destination="@id/profileFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
@@ -215,7 +215,7 @@
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/badgesFragment2"
+        android:id="@+id/badgesFragment"
         android:name="com.felixfavour.pidgipedia.view.profile.BadgesFragment"
         android:label="@string/badges"
         tools:layout="@layout/fragment_badges">
@@ -224,7 +224,7 @@
             app:argType="com.felixfavour.pidgipedia.entity.RemoteUser" />
     </fragment>
     <fragment
-        android:id="@+id/profileFragment2"
+        android:id="@+id/profileFragment"
         android:name="com.felixfavour.pidgipedia.view.profile.ProfileFragment"
         android:label="@string/author"
         tools:layout="@layout/fragment_profile">
@@ -235,6 +235,18 @@
         <argument
             android:name="isAuthor"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_profileFragment2_to_eventstampFragment"
+            app:destination="@id/eventstampFragment" />
+        <action
+            android:id="@+id/action_profileFragment2_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
+        <action
+            android:id="@+id/action_profileFragment2_to_badgesFragment2"
+            app:destination="@id/badgesFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment2"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetFragment"
@@ -246,6 +258,33 @@
             app:destination="@id/wordFragment" />
         <action
             android:id="@+id/action_bottomSheetFragment_to_profileFragment2"
-            app:destination="@id/profileFragment2" />
+            app:destination="@id/profileFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/profileDetailsFragment"
+        android:name="com.felixfavour.pidgipedia.view.profile.ProfileDetailsFragment"
+        android:label="ProfileDetailsFragment" >
+        <action
+            android:id="@+id/action_profileDetailsFragment_to_badgesFragment2"
+            app:destination="@id/badgesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileActivityFragment"
+        android:name="com.felixfavour.pidgipedia.view.profile.ProfileActivityFragment"
+        android:label="ProfileActivityFragment" >
+        <action
+            android:id="@+id/action_profileActivityFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
+        <action
+            android:id="@+id/action_profileActivityFragment_to_eventstampFragment"
+            app:destination="@id/eventstampFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.felixfavour.pidgipedia.view.profile.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <argument
+            android:name="user"
+            app:argType="com.felixfavour.pidgipedia.entity.RemoteUser" />
+    </fragment>
 </navigation>

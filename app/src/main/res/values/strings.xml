@@ -221,4 +221,6 @@
     <string name="search_delete_all_prompt">Are you sure you want to clear all of your recent searches?</string>
     <string name="explicit_word_prompt">This word has been flagged explicit by author.</string>
     <string name="views_placeholder">" unique users have seen this word"</string>
+    <string name="activity">Activity</string>
+    <string name="about">About</string>
 </resources>

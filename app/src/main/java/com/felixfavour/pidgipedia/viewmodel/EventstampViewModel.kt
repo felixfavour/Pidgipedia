@@ -93,7 +93,7 @@ class EventstampViewModel: ViewModel() {
 
     fun deleteComment(commentId: String) {
         firebaseFirestore.collection(COMMENTS).document(commentId)
-            .update("unlisted", true)
+            .delete()
             .addOnSuccessListener {
                 if (this@EventstampViewModel::wordId.isInitialized) {
                     loadComments(wordId)
@@ -148,7 +148,6 @@ class EventstampViewModel: ViewModel() {
         val remoteComments = mutableListOf<Comment>()
         firebaseFirestore.collection(COMMENTS)
             .whereEqualTo("wordId", wordIdParam)
-            .whereEqualTo("unlisted", false)
             .get(SOURCE)
             .addOnSuccessListener { querySnapshot ->
                 val documents = querySnapshot.documents

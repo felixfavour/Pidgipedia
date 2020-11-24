@@ -1,7 +1,6 @@
 package com.felixfavour.pidgipedia.view.profile
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -10,25 +9,25 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.felixfavour.pidgipedia.R
 import com.felixfavour.pidgipedia.databinding.FragmentProfileBinding
 import com.felixfavour.pidgipedia.entity.User
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.resizeImage
 import com.felixfavour.pidgipedia.util.snack
-import com.felixfavour.pidgipedia.util.toast
-import com.felixfavour.pidgipedia.view.home.WordSuggestionFragment.Companion.IMAGE_REQUEST_CODE
 import com.felixfavour.pidgipedia.viewmodel.ProfileViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
 import java.lang.IllegalArgumentException
-import java.lang.RuntimeException
 
 /**
  * A simple [Fragment] subclass.
@@ -43,6 +42,7 @@ class ProfileFragment : Fragment() {
     companion object {
         const val IMAGE_REQUEST_CODE = 1
         const val REQUEST_IMAGE_CAPTURE = 2
+        const val NUMBER_OF_PAGES = 2
     }
 
     override fun onCreateView(
@@ -53,10 +53,10 @@ class ProfileFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         bottomSheet = BottomSheetBehavior.from(binding.bottomsheet)
+        profileViewModel.loadUser()
 
 
         binding.profileViewModel = profileViewModel
-        profileViewModel.loadUser()
 
 
         // GET ARGUMENTS PASSED THROUGH NAVIGATION COMPONENTS
@@ -78,10 +78,31 @@ class ProfileFragment : Fragment() {
         })
 
 
-        // IF USER IS AN ARBITRARY AUTHOR AND NOT THE APP USER
-        if (isAuthor) {
-            hideUserProfileFields()
+        // PROFILE VIEW PAGER
+        binding.profileViewPager.adapter = object: FragmentStateAdapter(requireActivity()) {
+
+            override fun getItemCount(): Int {
+                return NUMBER_OF_PAGES
+            }
+
+            override fun createFragment(position: Int): Fragment {
+                return when (position) {
+                    0 -> {
+                        ProfileDetailsFragment()
+                    }
+                    else -> {
+                        ProfileActivityFragment()
+                    }
+                }
+            }
         }
+        binding.profileViewpagerTab.setupWithViewPager(binding.profileViewPager)
+
+
+        // IF USER IS AN ARBITRARY AUTHOR AND NOT THE APP USER
+//        if (isAuthor) {
+//            hideUserProfileFields()
+//        }
 
 
         // SET LIFECYCLE OWNER
@@ -97,12 +118,8 @@ class ProfileFragment : Fragment() {
         // NAVIGATION
         binding.editProfile.setOnClickListener {
             findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment(profileViewModel.user.value!!)
+                ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment2(profileViewModel.user.value!!)
             )
-        }
-        binding.goToBadges.setOnClickListener {
-            findNavController().navigate(
-                ProfileFragmentDirections.actionProfileFragmentToBadgesFragment(profileViewModel.user.value!!))
         }
 
 
@@ -127,6 +144,13 @@ class ProfileFragment : Fragment() {
 
 
         // OBSERVE LIVE DATA
+        profileViewModel.status.observe(viewLifecycleOwner, Observer { userRetrievalStatus ->
+            if (userRetrievalStatus == SUCCESS) {
+                binding.statusProgress.visibility = View.GONE
+                binding.bottomSheetShade.visibility = View.GONE
+            }
+        })
+
         profileViewModel.status.observe(viewLifecycleOwner, Observer { status ->
             if (status == SUCCESS) {
                 snack(requireView(), getString(R.string.profile_image_updation))
@@ -140,7 +164,6 @@ class ProfileFragment : Fragment() {
                 bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
             }
         })
-
 
         return binding.root
     }
@@ -192,6 +215,7 @@ class ProfileFragment : Fragment() {
 
         // Click listener to activate originally hidden bottom sheet
         binding.profileToolbar.setOnMenuItemClickListener {
+            binding.approvedWordsList.visibility = View.GONE
             bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
             false
         }
@@ -222,21 +246,13 @@ class ProfileFragment : Fragment() {
 
     }
 
+}
 
-    /**
-     * Method to hide fields that are not supposed to be seen by an unauthenticated [User]*/
-    private fun hideUserProfileFields() {
-        binding.profileEmail.visibility = View.GONE
-        binding.emailAddressDummy.visibility = View.GONE
-        binding.emailDivider.visibility = View.GONE
-        binding.emailIcon.visibility = View.GONE
-        binding.profileDob.visibility = View.GONE
-        binding.dobDummy.visibility = View.GONE
-        binding.dobDivider.visibility = View.GONE
-        binding.dobIcon.visibility = View.GONE
-        binding.goToBadges.visibility = View.GONE
-        binding.editProfile.visibility = View.GONE
-        binding.profileToolbar.menu.removeItem(R.id.profile_add_photo)
-    }
-
+private fun TabLayout.setupWithViewPager(profileViewPager: ViewPager2) {
+    TabLayoutMediator(this, profileViewPager, true, TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+        when (position) {
+            0 -> tab.text = context.getString(R.string.about)
+            1 -> tab.text = context.getString(R.string.activity)
+        }
+    }).attach()
 }

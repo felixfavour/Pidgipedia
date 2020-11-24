@@ -12,7 +12,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class AllWordsViewModel: ViewModel() {
 
-    private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseFirestore = FirebaseFirestore.getInstance()
 
     private val _words = MutableLiveData<List<Word>>()
@@ -21,7 +20,7 @@ class AllWordsViewModel: ViewModel() {
             if (this.value == null) loadWords()
         }
 
-    private fun loadWords() {
+    fun loadWords() {
         firebaseFirestore.collection(SUGGESTED_WORDS)
             .orderBy("name")
             .get(SOURCE)

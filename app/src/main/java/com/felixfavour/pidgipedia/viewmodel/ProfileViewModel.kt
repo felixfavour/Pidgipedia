@@ -5,9 +5,12 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.felixfavour.pidgipedia.entity.Eventstamp
 import com.felixfavour.pidgipedia.entity.RemoteUser
 import com.felixfavour.pidgipedia.util.Connection.FAILED
+import com.felixfavour.pidgipedia.util.Connection.LOADING
 import com.felixfavour.pidgipedia.util.Connection.SUCCESS
+import com.felixfavour.pidgipedia.util.Pidgipedia
 import com.felixfavour.pidgipedia.util.Pidgipedia.PROFILE_IMAGES_REFERENCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.USERS
@@ -30,22 +33,49 @@ class ProfileViewModel: ViewModel() {
     val status: LiveData<Int>
         get() = _status
 
+    private val _userRetrievalStatus = MutableLiveData<Int>()
+    val userRetrievalStatus: LiveData<Int>
+        get() = _userRetrievalStatus
+
     private val _error = MutableLiveData<Throwable?>(null)
     val error: LiveData<Throwable?>
         get() = _error
 
+    private val _activities = MutableLiveData<List<Eventstamp>>()
+    val activities: LiveData<List<Eventstamp>>
+        get() = _activities
+
 
     fun loadUser() {
+        _userRetrievalStatus.value = LOADING
         firebaseFirestore.collection(USERS).document(firebaseAuth.uid!!)
             .get(SOURCE)
             .addOnSuccessListener { documentSnapshot ->
                 val user = documentSnapshot.toObject(RemoteUser::class.java)
                 _user.value = user
+                _userRetrievalStatus.value = SUCCESS
             }
             .addOnFailureListener {exception ->
                 _error.value = exception
+                _userRetrievalStatus.value = FAILED
             }
     }
+
+    fun loadActivities() {
+        firebaseFirestore.collection(Pidgipedia.EVENTSTAMPS)
+            .whereEqualTo("humanEntityId", user.value?.userId)
+            .get(SOURCE)
+            .addOnSuccessListener { querySnapshot ->
+                _status.value = SUCCESS
+                // All Eventstamps Objects from this specific RemoteUser
+                val activitiesLocal = querySnapshot?.toObjects(Eventstamp::class.java)
+                activitiesLocal?.sortByDescending { it.eventTime }
+                _activities.value = activitiesLocal
+            }.addOnFailureListener {
+                _status.value = FAILED
+            }
+    }
+
 
     fun loadAuthor(authorId: String) {
         firebaseFirestore.collection(USERS).document(authorId)
@@ -121,5 +151,4 @@ class ProfileViewModel: ViewModel() {
                 _status.value = SUCCESS
             }
     }
-
 }

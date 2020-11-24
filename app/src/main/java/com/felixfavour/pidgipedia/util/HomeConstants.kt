@@ -26,7 +26,7 @@ object Pidgipedia {
     const val PROFILE_VISIBLE = "profile_visible"
     const val PROFILE_AUTHOR_VISIBLE = "profile_author_visible"
     var BOOKMARKS_VISIBILITY = true
-    var SOURCE = Source.DEFAULT
+    var SOURCE = Source.CACHE
     var HISTORY_LIMIT = HistorySize.FIFTY
 }
 

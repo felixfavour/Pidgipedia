@@ -31,6 +31,7 @@ import com.felixfavour.pidgipedia.util.Badges.BADGE_25
 import com.felixfavour.pidgipedia.util.Badges.BADGE_5
 import com.felixfavour.pidgipedia.util.Badges.BADGE_50
 import com.felixfavour.pidgipedia.util.Badges.BADGE_75
+import com.felixfavour.pidgipedia.util.Connection.SUCCESS
 import com.felixfavour.pidgipedia.util.Pidgipedia.COMMENTS
 import com.felixfavour.pidgipedia.util.Pidgipedia.SOURCE
 import com.felixfavour.pidgipedia.util.Pidgipedia.SUGGESTED_WORDS
@@ -330,6 +331,14 @@ fun hideUnnecessaryCommentActions(imageView: ImageView, comment: Comment?) {
         if (comment.authorId != firebaseAuth.uid) {
             imageView.visibility = View.GONE
         }
+    }
+}
+
+
+@BindingAdapter("userRetrievalStatus")
+fun getUserRetrievalStatus(progressBar: ProgressBar, status: Int) {
+    if (status == SUCCESS) {
+        progressBar.visibility == View.GONE
     }
 }
 
